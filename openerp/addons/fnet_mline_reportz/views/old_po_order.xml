@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="report_purchaseorder">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+			<t t-call="fnet_mline_reportz.header_wizards"/>
+                <div class="page">
+					<style>
+					tr {page-break-inside: avoid;}
+					.table { border: 1px solid black; }
+					.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { border: 1px solid black; }
+					
+					</style>
+                    
+                   <div align="right">
+                   <h3 style="text-align:center;background-color:#568eff;border: 1px solid #568eff;color:#ffffff;text-align:center;border-radius:5px"><right><strong>PURCHASE ORDER</strong></right></h3>
+                   </div>
+                        
+                      <h5><right><b>Ref: </b><span t-field="o.name"/></right></h5>
+                   <h5><left><b>Date: </b><span t-field="o.date_order" t-field-options="{&quot;format&quot;: &quot;dd.M.Y&quot;}"/></left></h5>
+			
+				  
+				  
+				  <table class="table table-bordered" style="width:100%;">
+					  <tr>
+						  <th width="50%">
+							  <h4><strong>Vendor address:</strong></h4>
+								<div t-field="o.partner_id" 
+									 t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}'/>
+								<p t-if="o.partner_id.vat">VAT: <span t-field="o.partner_id.vat"/></p>
+								
+						  </th>
+						  <td width="50%">
+							<h4><strong>Shipping address:</strong></h4>
+							<h4><span t-field="o.company_id.name"/></h4>
+							<span t-field="o.company_id.street"/>
+							<span t-field="o.company_id.street2"/><br/>
+							<span t-field="o.company_id.city"/><strong>--</strong><span t-field="o.company_id.zip"/><br/>
+							<span t-field="o.company_id.country_id.name"/><br/>
+							Phone: <span t-field="o.company_id.phone"/><br/>
+							Fax: <span t-field="o.company_id.fax"/><br/>
+							Email: <span t-field="o.company_id.email"/>
+						</td>
+					 </tr>
+					</table>
+					<br/>
+                     <table class="table table-bordered">
+                         <tr>
+                            <td style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;" width="20%"><strong>Reference</strong></td>
+                            <td width="30%"><span t-field="o.partner_ref"/></td>
+                            <td style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;" width="20%"><strong>Date</strong></td>
+                            <td width="30%"><span t-field="o.date_order" t-field-options='{"format": "d.M.Y"}'/></td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;" ><strong>Enquiry</strong></td>
+                            <td><span t-field="o.lead_id.seq_no"/></td>
+                            <td style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;"><strong>Payment Term</strong></td>
+                            <td><span t-field="o.payment_term_id"/></td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;"><strong>RFQ Request</strong></td>
+                            <td><span t-field="o.requisition_id.name"/></td>
+                            <td style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;" ><strong>Currency</strong></td>
+                            <td><span t-field="o.currency_id.name"/></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    
+                    <table class="table table-bordered">
+						<thead style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;">
+						<tr>
+							<th width="5%" class="text-center">S.No</th>
+							<th width="55%" class="text-center">Description</th>
+							<th width="10%" class="text-center">Quantity</th>
+							<th width="10%" class="text-center">UOM</th>
+							<th width="10%" class="text-center">Unit Price</th>
+							<th width="10%" class="text-center">Line Total</th>
+						</tr>
+						</thead>
+						<t t-set="counter" t-value="1"/>
+						<tr t-foreach="o.order_line" t-as="l" style="border-top:1px solid black !important">
+								<td width="5%" class="text-center">
+								   <span t-esc="counter"/>
+								   <t t-set="counter" t-value="counter+1"/>
+								</td>
+								<td width="55%" style="left-padding:3px">
+								   <span t-field="l.name"></span><br/>
+								   <span style="font-weight:bold;">Part No:</span>
+								   <span t-field="l.part_no"/><br/>
+								   <span style="font-weight:bold;">Make:</span>
+								   <span t-field="l.make_no"/>
+								</td>
+								<td width="10%" class="text-right"><span t-field="l.product_qty"/></td>
+								<td width="10%" class="text-right"><span t-field="l.product_uom"/></td>
+								<td width="10%" class="text-right"><span t-field="l.price_unit"/></td>
+								<td width="10%" class="text-right"><span t-field="l.price_subtotal"/></td>
+                            </tr>
+						    <tr>
+							    <td colspan="5" class="text-right" width="20%"><strong>Sub Total</strong></td>
+                                <td width="20%" class="text-right"><span t-field="o.amount_untaxed"/></td>
+                            </tr>
+						    <tr>
+							    <td colspan="5" class="text-right" width="20%"><strong>Total Amount</strong></td>
+                                <td width="20%" class="text-right"><span t-field="o.amount_total"/></td>
+                            </tr>
+					</table>
+				<br/>
+                 <h4><span style="background-color:#568eff;border: 1px solid #568eff;color:#ffffff;text-align:left;border-radius:5px"><b>Sales Terms  Conditions:</b></span></h4> 
+                 <span t-field="o.note_document"/><br/>
+                 <h4><span style="background-color:#568eff;border: 1px solid #568eff;color:#ffffff;text-align:left;border-radius:5px"><b>Payment : </b></span></h4><span t-field="o.payment_term_id.name"/>
+					
+			 <br/><br/>
+                   <table width="100%" style="border: none">
+					<tr>
+						<th width="15%" style="background-color:#568eff;border-radius:5px;color:#ffffff"> Authorized By </th>
+						<th width="30%" style="border: none"></th>
+						<th width="25%" style="border: none" ></th>
+						<th width="15%" style="border: none" ></th>
+						<th width="15%" style="background-color:#568eff;border-radius:5px;color:#ffffff"> Prepared By</th>
+					</tr>
+					</table>   
+                </div>
+                <t t-call="fnet_mline_reportz.footer_wizards"/>
+            </t>
+    </t>
+</template>
+</data>
+</openerp>

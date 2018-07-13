@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data> 
+	  
+      <template id="report_check_inherit" inherit_id="account_check_writing.report_check">
+		<xpath expr="//div/table[@class='table table-condensed']" position="replace">
+			<table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Due Date</th>
+                            <th>Description</th>
+                            <th>Original Amount</th>
+                            <th>Open Balance</th>
+                            <th>Discount</th>
+                            <th>Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+						<p t-if="o.partner_id.supplier == True">
+							<tr t-foreach="get_lines(o.line_dr_ids)" t-as="l">
+								<td>
+									<p t-if="l['date_due']">
+										<span t-esc="formatLang(l['date_due'], date=True)"/>
+									</p>
+								</td>
+								<td class="text-right"><span t-esc="l['name']"/></td>
+								<td class="text-right"><span t-esc="formatLang(l['amount_original'])"/></td>
+								<td class="text-right"><span t-esc="formatLang(l['amount_unreconciled'])"/></td>
+								<td class="text-right"></td>
+								<td class="text-right"><span t-esc="formatLang(l['amount'])"/></td>
+							</tr>
+						</p>
+						<p t-if="o.partner_id.customer == True">
+							<tr t-foreach="get_lines(o.line_cr_ids)" t-as="l">
+								<td>
+									<p t-if="l['date_due']">
+										<span t-esc="formatLang(l['date_due'], date=True)"/>
+									</p>
+								</td>
+								<td class="text-right"><span t-esc="l['name']"/></td>
+								<td class="text-right"><span t-esc="formatLang(l['amount_original'])"/></td>
+								<td class="text-right"><span t-esc="formatLang(l['amount_unreconciled'])"/></td>
+								<td class="text-right"></td>
+								<td class="text-right"><span t-esc="formatLang(l['amount'])"/></td>
+							</tr>
+						</p>
+                    </tbody>
+                </table>
+        </xpath>
+      </template> 
+
+
+  </data>          
+</openerp>
+
+

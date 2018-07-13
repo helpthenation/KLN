@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_date_cheque_user,account.date.cheque,model_account_date_cheque,account.group_account_invoice,1,1,1,0
+access_account_date_cheque_accountant,account.date.cheque,model_account_date_cheque,account.group_account_user,1,1,1,0
+access_account_date_cheque_manager,account.date.cheque,model_account_date_cheque,account.group_account_manager,1,1,1,1
+access_supplier_date_cheque_accountant,supplier.date.cheque,model_supplier_date_cheque,account.group_account_user,1,1,1,0
+access_supplier_date_cheque_manager,supplier.date.cheque,model_supplier_date_cheque,account.group_account_manager,1,1,1,1
+access_product_template_manager,product.template,product.model_product_template,account.group_account_manager,1,1,1,1
+
+access_delivery_method_accountant,delivery.method,model_delivery_method,account.group_account_user,1,1,1,0
+access_delivery_method_manager,delivery.method,model_delivery_method,account.group_account_manager,1,1,1,1

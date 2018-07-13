@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hr_config_settings_view" model="ir.ui.view">
+            <field name="name">account settings.add.roundings</field>
+            <field name="model">hr.config.settings</field>
+            <field name="inherit_id" ref="hr.view_human_resources_configuration"/>
+            <field name="arch" type="xml">
+                                
+                <xpath expr="//group[@name='contract_grp']" position="after">                  
+                         <group>
+                           <group col="4">  
+                           <div>
+							   <label for="number_of_days_vacation_leave"/>
+                                <field name="number_of_days_vacation_leave" class="oe_inline"/>
+                                
+                            </div>
+						</group>
+						</group>                            
+<!--
+                           <div attrs="{'invisible':[('group_product_discount', '=', False)]}">
+                               <group>
+                                 <group col="4">                             
+                                        <field name="product_discount_account_id"/>
+                                </group>
+                                </group>
+                            </div>
+                            <div>
+                                <field name="group_discount_global" class="oe_inline"/>
+                                <label for="group_discount_global"/>
+                            </div>
+                           <div attrs="{'invisible':[('group_discount_global', '=', False)]}">
+                               <group>
+                                 <group col="4">                                  
+                                               
+                                    <field name="discount_percentage"/>                     
+                                    <field name="discount_calculation_account_id"/>
+                                     <field name="discount_value" invisible="1"/>            
+                                </group>
+                                </group>
+                            </div>
+-->
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<!--
+    <record id="hr_holidays.property_rule_holidays_officer" model="ir.rule">
+        <field name="name">Holidays Officer</field>
+        <field name="model_id" ref="model_hr_holidays"/>
+        <field name="domain_force">['|','|',('employee_id.user_id','=',user.id),('employee_id.hod_id.user_id','=',user.id),('employee_id.parent_id.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4,ref('hr_holidays.group_hr_holidays_user'))]"/>
+    </record>
+	<record model='ir.rule' id='rule_show_IT'>
+		<field name="name">Manager Access Employee Leaves</field>
+		 <field name="category_id" ref="base.module_category_hr_holidays"/>
+		<field name="model_id" ref="hr_holidays.model_hr_holidays"/>
+		<field name="domain_force">[(1 ,'=', 1)]</field>
+		<field name="groups" eval="[(4, ref('hr_holidays.group_hr_holidays_manager'))]"/>
+	</record>
+    <record id="alternative_employee" model="ir.rule">
+        <field name="name">Employee need to see own alternate leaves</field>
+        <field name="model_id" ref="model_alternative_employee"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="domain_force">[('user_id','=',user.id)]</field>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+-->
+    
+<!--
+    <record id="rule_fnet_hr" model="ir.rule">
+            <field name="name">Employee belongs to User</field>
+            <field name="model_id" ref="resource.model_resource_resource"/>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('user_id','=',user.id)]</field>
+       </record>
+     <record id="rule_fnet_hr_manager" model="ir.rule">
+            <field name="name">Employee belongs to Manager</field>
+            <field name="model_id" ref="resource.model_resource_resource"/>
+            <field name="groups" eval="[(4, ref('hr.group_hr_user'))]"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+       </record>
+-->
+    
+    <record id="make_invisible" model="res.groups">
+		<field name="name">Invisible</field>
+	</record>
+<!--
+	<record model="ir.ui.menu" id="project_timesheet.menu_hr_timesheet_sign_in">
+		<field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+	</record>
+-->
+<!--
+	<record model="ir.ui.menu" id="hr_holidays.menu_open_department_leave_approve">
+		<field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+	</record>
+	<record model="ir.ui.menu" id="mail.mail_channel_menu_root_chat">
+		<field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+	</record>
+-->
+	
+
+</data>
+</openerp>
+

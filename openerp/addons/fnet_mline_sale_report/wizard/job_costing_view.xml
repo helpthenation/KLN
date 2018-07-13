@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_job_costing_form" model="ir.ui.view">
+            <field name="name">view.job.costing.form</field>
+            <field name="model">job.costing.report</field>
+            <field name="arch" type="xml">
+            <form string="Job Costing">
+                <p class="oe_grey">
+                        Define Job Costing...
+                    </p>
+                <notebook>
+                    <page string="Job Costing">
+						<group>
+						<group>
+                        <field name="job_id"/>
+                        </group>
+                        </group>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="wiz_print_report" string="Print" type="object" class="oe_highlight"/> or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_job_costing_report" model="ir.actions.act_window">
+            <field name="name">Job Costing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">job.costing.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+            
+        <menuitem
+            name="Job Costing"
+            parent="menu_sale_register"
+            action="action_job_costing_report"
+            id="menu_job_costing"
+            sequence="1"
+            icon="STOCK_PRINT"/>
+            
+       
+
+    </data>
+</openerp>

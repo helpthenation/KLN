@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>    
+      
+     <record id="view_hr_unmapped_attendance_form" model="ir.ui.view">
+            <field name="name">view.hr.unmapped.attendance.form</field>
+            <field name="model">hr.unmapped.attendance</field>
+            <field name="arch" type="xml">
+                <form string="Unmapped Attendence">
+                    <header>
+                   <button name="generate" type='object' string="Generate" class="oe_highlight"   states="draft"/>
+                   <button name="update" type='object' string="Update" class="oe_highlight"   states="progress" />  
+                   <button name="submit" type='object' string="Submit" class="oe_highlight"   states="progress" />  
+                   <button name="cancel" type='object' string="Cancel" class="oe_highlight"   states="progress"/>  
+                   <button name="reset_to_draft" type='object' string="Reset To Draft" class="oe_highlight"   states="done,cancel"/>  
+                   <field name="state" widget="statusbar" statusbar_visible="progress,cancel,draft,done" statusbar_colors='{"draft":"blue"}'/>
+                  </header>
+                        <group>                         
+                            <group col="4">
+                                <field name="from_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/> 
+                            </group>
+                            <group col="4">
+                                <field name="to_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/> 
+                            </group>
+                        </group>
+                        <notebook>
+                        <page name="employee_line_ids" string="Employee Lines">
+                          <field name="employee_line_ids" widget="one2many_list">
+                         <tree create="false" editable='bottom'>
+                             <field name="date" readonly="1"/> 
+                             <field name="employee_id" readonly="1"/> 
+                             <field name="emp_code" readonly="1"/> 
+                             <field name="branch_id" readonly="1"/> 
+                             <field name="account_id" readonly="1"/> 
+                          </tree>        
+                         </field>
+                        </page>  
+                       </notebook>        
+                 </form>
+           </field>
+       </record>
+
+      <record id="view_hr_unmapped_attendance_tree" model="ir.ui.view">
+            <field name="name">view.hr.unmapped.attendance.tree</field>
+            <field name="model">hr.unmapped.attendance</field>
+            <field name="arch" type="xml">
+                <tree string="Unmapped Attendence">                 
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="state"/>
+                 </tree>
+           </field>
+       </record>
+       
+       <record id="action_hr_unmapped_attendance" model="ir.actions.act_window">
+            <field name="name">Unmapped Attendence</field>
+            <field name="res_model">hr.unmapped.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a hr unmapped attendance Statement.
+                </p><p>
+                    Create unmapped attendance Statement.
+                </p>
+            </field>
+        </record>
+
+     <menuitem action="action_hr_unmapped_attendance"
+               id="menu_hr_unmapped_attendance"
+               name="Absent List Generate"
+               parent="hr_attendance.menu_hr_attendance"
+               sequence="50"/>  
+               
+                      
+      <record id="view_unmapped_employee_details_tree" model="ir.ui.view">
+            <field name="name">view.unmapped.employee.details.tree</field>
+            <field name="model">unmapped.employee.details</field>
+            <field name="arch" type="xml">
+                <tree string="Absent Details">  
+                     <field name="is_validated" invisible="1"/> 
+                     <field name="date" readonly="1"/> 
+                     <field name="employee_id" readonly="1"/> 
+                     <field name="emp_code" readonly="1"/> 
+                     <field name="branch_id" readonly="1"/> 
+                     <field name="account_id" readonly="1"/> 
+                 </tree>
+           </field>
+       </record>
+     
+        <record model="ir.ui.view" id="unmapped_employee_details_filter">
+            <field name="name">view_unmapped_employee_details</field>
+            <field name="model">unmapped.employee.details</field>
+            <field name="arch" type="xml">
+                <search string="Absents Detail Search">
+                    <field name="date"/>
+                    <field name="emp_code" string="Employee No"/>
+                    <field name="branch_id" string="Sponsor Company"/>
+                    <field name="account_id" string="Customer Contract"/>
+                    <field name="employee_id"/>
+                    <filter string="Today" name="today" domain="[('date','&gt;=',current_date),('date','&lt;=',current_date)]" />
+                    <filter string="Current Month" domain="[('date','&gt;=', datetime.datetime.now().strftime('%Y-%m-01'))]" />
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="employee_id" string="Employee" context="{'group_by':'employee_id'}"/>
+                        <filter name="branch_id" string="Sponsor Company" context="{'group_by':'branch_id'}"/>
+                        <filter name="account_id" string="Customer Contract" context="{'group_by':'account_id'}"/>
+                        <separator/>
+                        <filter name="groupby_name" string="Month" context="{'group_by':'date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_unmapped_employee_details" model="ir.actions.act_window">
+            <field name="name">Absent Details</field>
+            <field name="res_model">unmapped.employee.details</field>
+            <field name="action">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{"search_default_today":1}</field>
+            <field name="view_id" ref="unmapped_employee_details_filter"/>
+            <field name="help" type="html">
+                <p>Absent Details Of An Employee.</p>
+            </field>
+        </record>
+      <menuitem action="action_unmapped_employee_details"
+               id="menu_unmapped_employee_details"
+               name="Absent List"
+               parent="hr_attendance.menu_hr_attendance"
+               sequence="80"/>   
+  </data>
+</openerp>

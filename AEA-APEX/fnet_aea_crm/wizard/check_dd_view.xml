@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_check_dd_map" model="ir.ui.view">
+            <field name="name">view.check.dd.map</field>
+            <field name="model">check.dd.map</field>
+            <field name="arch" type="xml">
+                <form string="DD Maping Details">
+					<group>
+						<group>
+							<field name="partner_id"/>
+							<field name="cheque_id"/>
+						</group>
+						<group>
+							<field name="dd_date"/>
+							<field name="amount"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="DD Maping">
+							<field name="post_dd_line">
+								<tree string="DD Maping" editable="bottom">
+									<field name="type"/>
+									<field name="name"/>
+									<field name="bank_name"/>
+									<field name="branch_name"/>
+									<field name="issue_date"/>
+									<field name="amount"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+                    
+                    <footer>
+                        <button name="dd_maping" string="_Apply" type="object" class="oe_highlight"/>
+                        or
+                        <button string="_Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_check_dd_map" model="ir.actions.act_window">
+            <field name="name">Cheque DD Maping</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.dd.map</field>
+            <field name="view_id" ref="view_check_dd_map"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

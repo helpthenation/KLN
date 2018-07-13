@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <record id="paperformat_debit" model="report.paperformat">
+            <field name="name">European A4 Debit</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">30</field>
+            <field name="margin_left">20</field>
+            <field name="margin_right">20</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+        
+    <record id="fnet_aea_journal_report.report_debit_note" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="fnet_aea_journal_report.paperformat_debit"/>
+    </record>
+
+        
+        <template id="report_debit">
+           <t t-call="report.html_container">
+                 <t t-foreach="doc" t-as="o">
+                     <div class="page">
+                         <style type="text/css">
+                            #inner_table{height:270px;border-collapse: collapse;table-layout:fixed;}
+                         </style>
+                        <div class="oe_structure" />
+                        <table width="100%"  style="border-collapse: collapse;border: 1px solid black;font-size:14px;">
+                                                       <thead>
+                                <tr style="padding:5px;"  width='100%'>
+                                    <th style="vertical-align:top" class="text-left" width="10%"><img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="image"/> </th>
+                                    <th colspan='2' style="vertical-align:top;padding:5px;width:100%">
+                                    <div>
+                                    <span>
+                                        <h4 style="text-align:justify;text-transform: uppercase;word-spacing: 5px;padding-left:5px;font-weight:bold;"><t t-esc="docs.get_com(o)"/> - <span t-field='o.company_id.city'/></h4> </span></div>
+                                                        <span style="padding:5px;" t-if="o.company_id.street"  t-esc="o.company_id.street"/><br/>
+                                                        <span style="padding:5px;" t-if="o.company_id.street2"  t-esc="o.company_id.street2"/><br/>
+                                                        <span style="padding:5px;" t-if="o.company_id.city"  t-esc="o.company_id.city"/>
+                                                        <span style="padding:5px;" t-if="o.company_id.state_id.name" t-esc="o.company_id.state_id.name"/>
+                                                        <span style="padding:5px;" t-if="o.company_id.zip"  t-esc="o.company_id.zip"/><br/>
+                                                        <span style="padding:5px;">GSTIN No:</span><span t-if="o.company_id.tin_no"  t-esc="o.company_id.gst_number"/><br/>
+                                                        <span style="padding:5px;">Phone No:</span><span style="padding:5px" t-if="=o.company_id.phone"  t-esc="o.company_id.phone"/>
+                                    </th>
+                                    </tr>     <tr>                            
+                                    <th style="border-bottom:1 px solid black;" colspan='3'>  <div class="text-center">DEBIT NOTE</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr width='100%'>
+                                <td colspan='3'  style="padding:5px;"><span style="padding:15px;"  width='100%'>Debit Note No:</span><span t-field="o.name"/><span style="text-align:right;padding-left:350px;">Date : <span t-field="o.date"/></span></td></tr>
+                                
+                                <tr style="padding:15px;"  width='100%'>
+                                <td style="padding:5px;" width='100%' colspan='3'><br/>
+                                <span style="padding:15px;">To:</span><br/><br/>
+                                <span  style="padding:15px;" t-field='o.partner_id.name'/><br/>
+                                <span  style="padding:15px;" t-field='o.partner_id.street'/><br/>
+                                <span  style="padding:15px;" t-field='o.partner_id.city'/>-<span t-field='o.partner_id.zip'/><br/>                          
+                                <span  style="padding:15px;">GSTIN No:</span><span t-field='o.partner_id.gst_number'/><br/>                            
+                                </td>
+                                </tr>
+                        <tr>
+                            <td colspan='3' width='100%' style="padding:0;margin:0;">   
+                                <div style="height:270px;overflow:hidden;">
+                                <table id="inner_table" width='100%' cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td class="text-center" width='15%' style="border-left:1px solid black;border-bottom:1px solid black;height:15px;">SAC.No</td>
+                                            <td class="text-center" width='15%' style="border-left:1px solid black;border-bottom:1px solid black;height:15px;">Account No</td>
+                                            <td class="text-center" width='40%' style="border-left:1px solid black;border-bottom:1px solid black;height:15px;">Particulars</td>
+                                            <td class="text-center"  width='5%' style="border-left:1px solid black;border-bottom:1px solid black;height:15px;">Qnty</td>
+                                            <td class="text-center"  width='10%' style="border-left:1px solid black;border-bottom:1px solid black;height:15px;">Rate</td>
+                                            <td class="text-center"  width='15%' style="border-left:1px solid black;border-bottom:1px solid black;height:15px%;">Value</td>
+                                        </tr>
+                                        <t t-set="counter" t-value="1"/> 
+                                        <t t-set="pqty" t-value="[]"/>
+                                        <t t-foreach="o.move_ids" t-as="line">
+                                        <t t-if="line.credit &gt; 0.0">
+                                        <tr>
+                                            <td style="border-left:1px solid black;padding:5px;" width='10%'>
+												<span style="padding:5px;"/>
+												<t t-if="line.account_id.user_type.code != 'liability' ">
+												 <span t-field='o.sac_no'/>
+												</t>
+											</td>
+                                            <td style="border-left:1px solid black;padding:5px;" width='15%'><span style="padding:5px;" t-field='line.account_id.code'/></td>
+                                            <td style="border-left:1px solid black;padding:5px;" width='40%'> <span t-field='line.account_id.name'/></td>
+                                            <td style="border-left:1px solid black;padding:5px;" width='10%'></td>
+                                            <td style="border-left:1px solid black;padding:5px;" width='10%'></td>
+                                            <td style="border-left:1px solid black;text-align:right;padding:5px;" width='15%'><t t-set="pqty" t-value="pqty+[line.credit]"/> <span t-esc="'%.2f'% line.credit"/></td>
+                                        </tr>   
+
+                                        </t>
+                                        </t>                            
+                                        <tfoot>
+                                        <tr>
+                                        <td  colspan='5' style="border-top:1px solid black;padding:5px;border-right:1px solid black;" class='text-center'>Total Amount</td>
+                                        <td style="border-top:1px solid black;padding:5px;" class='text-right'><t t-esc="'{:,.2f}'.format(sum(pqty))"/></td>
+                                        </tr>
+                                        </tfoot>                
+                                    </table>
+                                    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr width='100%'>
+                        <td style="border-top:1px solid black; padding:5px;" colspan='3'><span style="padding:5px;"><b>Rupees</b></span><t t-esc="docs.numToWords(o,sum(pqty))"/></td>
+                         </tr>  
+                         <tr width='100%'>
+                        <td class="text-right" style="padding:10px;" colspan='3'><span style="padding:10px;">For <t t-esc="docs.get_com(o)"/> - <span style="padding:10px;" t-field='o.company_id.city'/></span></td>
+                         </tr>  
+                            <tr width='100%'>
+                            <td  width='30%' style="padding-top:70px;vertical-align:bottom;"><center>Prepared By</center></td>
+                            <td  width='40%' style="padding-top:70px;vertical-align:bottom;"><center>Checked By</center></td>
+                            <td  width='30%' style="padding-top:70px;vertical-align:bottom;"><center>Authorised Signature</center></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    </div>
+                </t>
+            </t>
+        </template> 
+</data>
+</openerp>

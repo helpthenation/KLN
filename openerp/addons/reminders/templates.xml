@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data noupdate="1">
+	  
+    <!--Email template-->
+<!--
+        <record id="template_passport_alert_msg" model="email.template">
+            <field name="name">Passport Reminderrr</field>
+            <field name="model_id" ref="reminders.model_hr_employee"/>
+            <field name="email_from">${(user.email)|safe}</field>
+            <field name="email_to">${(object.email)}</field>
+            <field name="lang">${object.lang}</field>
+            <field name="subject">Passport Expiry Alert</field>
+            <field name="body_html"><![CDATA[
+				
+									<div style="font-family: 'Lucica Grande'">
+					<p>Company name ${object.name}</p>
+					<p>
+					   Passport Reminder:
+					</p>
+					<p>
+						<table style="width:100%">
+						  <tr>
+							<td>Dear Manager,</td>
+						  </tr>
+						  <tr>
+							<td>Validity of a Passport has been expired for the follwing list of employees.</td>
+						  </tr>
+						  <tr>
+							 <td>${object.name}</td>
+							 <td>${object.emp_code}</td>
+						  </tr>
+						</table>
+					 
+					</p>
+					<p>Thank you!</p>
+					 
+					</div>			
+								]]></field>
+        </record>
+-->
+			
+<!--
+                <record model="mail.group" id="group_birthday">
+            <field name="name">Passport Reminder</field>
+            <field name="group_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="description">Passport Reminder Alert</field>
+        </record>
+-->
+
+<!--
+			<record model="ir.values" id="default_value_event_mail_confirmations">
+            <field name="name">default_email_event</field>
+            <field name="key">default</field>
+            <field name="key2"></field>
+            <field eval="ref('template_passport_alert_msg')" name="value_unpickle"/>
+            <field name="model">hr.employee</field>
+        </record>
+-->
+
+			<record model="ir.cron" id="ir_cron_cust_passport_reminderrr">
+            <field name="name">Passport Reminder Alert Msg</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.employee'"/>
+            <field name="function" eval="'send_reminder_email'"/>
+            
+        </record>
+        
+        <record model="ir.cron" id="ir_cron_cust_visa_reminderrr">
+            <field name="name">Visa Reminder Alert Msg</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.employee'"/>
+            <field name="function" eval="'send_visa_reminder_email'"/>
+            
+        </record>
+        
+        <record model="ir.cron" id="ir_cron_cust_insurance_reminderrr">
+            <field name="name">Insurance Reminder Alert Msg</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.employee'"/>
+            <field name="function" eval="'send_insurance_reminder_email'"/>
+            
+        </record>
+        
+         <record model="ir.cron" id="ir_cron_cust_cnia_reminderrr">
+            <field name="name">CNIA Reminder Alert Msg</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.employee'"/>
+            <field name="function" eval="'send_cnia_reminder_email'"/>
+            
+        </record>
+  
+  </data>
+</openerp>

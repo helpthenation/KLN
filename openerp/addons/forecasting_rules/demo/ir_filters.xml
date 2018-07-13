@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="filter_demo_01" model="ir.filters">
+            <field name="name" eval="'(FRD01) 2015 Partners Credit Limit Forecast order by id (integer) until 2015-09-29'"/>
+            <field name="model_id">res.partner</field>
+            <field name="context">{'forecast_order': 'id', 'forecast_value': 'credit_limit'}</field>
+            <field name="domain" eval="[
+                ('credit_limit', '>', 0.0),
+                ('date', '&gt;=', '2015-01-01'),
+                ('date', '&lt;=', '2015-09-29'),
+                ]"/>
+            <field name="user_id" eval="False"/>
+        </record>
+
+        <record id="filter_demo_02" model="ir.filters">
+            <field name="name" eval="'(FRD02) 2015 Partners Credit Limit Forecast order by message_last_post (datetime) until 2015-09-29'"/>
+            <field name="model_id">res.partner</field>
+            <field name="context">{'forecast_order': 'message_last_post', 'forecast_value': 'credit_limit', 'group_by': ['message_last_post:day']}</field>
+            <field name="domain" eval="[
+                ('credit_limit', '>', 0.0),
+                ('date', '&gt;=', '2015-01-01'),
+                ('date', '&lt;=', '2015-09-29'),
+                ]"/>
+            <field name="user_id" eval="False"/>
+        </record>
+
+        <record id="filter_demo_03" model="ir.filters">
+            <field name="name" eval="'(FRD03) 2015 Partners Credit Limit Forecast order by date until 2015-09-29'"/>
+            <field name="model_id">res.partner</field>
+            <field name="context">{'forecast_value': 'credit_limit', 'forecast_order': 'date'}</field>
+            <field name="domain" eval="[
+                ('credit_limit', '>', 0.0),
+                ('date', '&gt;=', '2015-01-01'),
+                ('date', '&lt;=', '2015-09-29'),
+                ]"/>
+            <field name="user_id" eval="False"/>
+        </record>
+
+        <record id="filter_demo_04" model="ir.filters">
+            <field name="name" eval="'(FRD04) 2015 Partners Credit Limit Forecast order by date (group by day) until 2015-09-29'"/>
+            <field name="model_id">res.partner</field>
+            <field name="context">{'forecast_order': 'date', 'forecast_value': 'credit_limit', 'group_by': ['date:day']}</field>
+            <field name="domain" eval="[
+                ('credit_limit', '>', 0.0),
+                ('date', '&gt;=', '2015-01-01'),
+                ('date', '&lt;=', '2015-09-29'),
+                ]"/>
+            <field name="user_id" eval="False"/>
+        </record>
+
+        <record id="filter_demo_05" model="ir.filters">
+            <field name="name" eval="'(FRD05) 2015 Partners Credit Limit Forecast order by date (group by day - all days) until 2015-09-29'"/>
+            <field name="model_id">res.partner</field>
+            <field name="context">{'forecast_order': 'date', 'forecast_value': 'credit_limit', 'group_by': ['date:day'], 'forecast_step': 'day'}</field>
+            <field name="domain" eval="[
+                ('credit_limit', '>', 0.0),
+                ('date', '&gt;=', '2015-01-01'),
+                ('date', '&lt;=', '2015-09-29'),
+                ]"/>
+            <field name="user_id" eval="False"/>
+        </record>
+
+        <record id="filter_demo_06" model="ir.filters">
+            <field name="name" eval="'(FRD06) 2015 Partners Credit Limit Forecast order by date (group by month) until 2015-09-29'"/>
+            <field name="model_id">res.partner</field>
+            <field name="context">{'forecast_order': 'date', 'forecast_value': 'credit_limit', 'forecast_step': 'month', 'group_by': ['date:month']}</field>
+            <field name="domain" eval="[
+                ('credit_limit', '>', 0.0),
+                ('date', '&gt;=', '2015-01-01'),
+                ('date', '&lt;=', '2015-09-29'),
+                ]"/>
+            <field name="user_id" eval="False"/>
+        </record>
+
+        <record id="filter_demo_07" model="ir.filters">
+            <field name="name" eval="'(FRD07) Last 6 years Partners Credit Limit Forecast order by date (group by year)'"/>
+            <field name="model_id">res.partner</field>
+            <field name="context">{'forecast_order': 'date', 'forecast_value': 'credit_limit', 'forecast_step': 'month', 'group_by': ['date:year']}</field>
+            <field name="domain" eval="[
+                ('credit_limit', '>', 0.0),
+                ('date', '&gt;=', '2010-01-01'),
+                ('date', '&lt;=', '2015-09-29'),
+                ]"/>
+            <field name="user_id" eval="False"/>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,187 @@
+<openerp>
+	<data>
+    <report
+            id="report_brs_unreconcile"
+            model="brs.statement"
+            string="BRS-Unreconcile Report"
+            report_type="qweb-pdf"
+            file="fnet_brs_unreconcile_report.report_brs_template"
+            name="fnet_brs_unreconcile_report.report_brs_template"
+        />
+    <template id="report_brs_template">
+        <t t-call="report.html_container">
+			
+            <t t-foreach="docs" t-as="o">
+			    <div class="page">
+			        <div class="container">
+
+				    <h4 style = "text-align:center;padding-top:10px;"><b>BRS-UNRECONCILE REPORT</b></h4>
+					<table width="100%" class="table" style="border:1px solid black;font-family:courier-new;font-size: 12px;padding-left:10px;">
+						<tr>
+							<td width="20%" style="border-top:1px solid black;border-left:1px solid black;padding-left:8px;margin-top:2px;!important;">
+							  <b style="font-family:courier-new;font-size: 12px;">BRS Journal</b>
+							  <div>
+							   <b style="font-family:courier-new;font-size: 12px;"> From Date</b>
+							  
+							  </div>
+							  <div>
+							   <b style="font-family:courier-new;font-size: 12px;"> To Date </b>
+							  
+							  </div>
+							  <div>
+							   <b style="font-family:courier-new;font-size: 12px;"> Bank Statement Balance </b>
+							  
+							  </div>
+							  <div>
+							   <b style="font-family:courier-new;font-size: 12px;"> Opening Balance</b>
+							  
+							  </div>
+						    </td>
+							<td width="10%" style="border-top:1px solid black;border-left:0px solid black;border-right:1px solid blackpadding-left:8px;margin-top:2px;!important;">
+							  <b style="font-family:courier-new;font-size: 12px;">:</b>
+							  <div>
+							   <b style="border:0px ;font-family:courier-new;font-size: 12px;">:</b>
+							  
+							  </div>
+							  <div>
+							   <b style="border:0px;font-family:courier-new;font-size: 12px;">:</b>
+							  
+							  </div>
+							  <div>
+							   <b style="border:0px;font-family:courier-new;font-size: 12px;">:</b>
+							  
+							  </div>
+							  <div>
+							   <b style="border:0px;font-family:courier-new;font-size: 12px;">:</b>
+							  
+							  </div>
+						    </td>
+							<td width="20%" style="border-top:1px solid black;padding-left:8px;margin-top:2px;!important;">
+							  <t style="font-family:courier-new;font-size: 12px;padding-left:10px;" t-esc="o.brs_id.name"/>
+							   <div>
+							  <t style="font-family:courier-new;font-size: 12px;padding-left:10px;"/>
+							  <span t-field="o.from_date" t-field-options='{"format": "dd-MM-y"}'/>
+							  
+							  </div>
+							   <div>
+							  <t style="font-family:courier-new;font-size: 12px;padding-left:10px;"/>
+							  <span t-field="o.to_date" t-field-options='{"format": "dd-MM-y"}'/>
+							  
+							  </div>
+							   <div>
+							  <t style="font-family:courier-new;font-size: 12px;padding-left:10px;" t-esc="o.bank_balance "/>
+							  
+							  </div>
+							   <div>
+							  <t style="font-family:courier-new;font-size: 12px;padding-left:10px;" t-esc="o.opening_balance  "/>
+							  
+							  </div>
+						    </td>
+							<td width="20%" style="border-top:1px solid black;padding-left:8px;"><b>Reconcile Balance</b>
+							<div>
+							   <b style="font-family:courier-new;font-size: 12px;">Debit</b>
+							  
+							  </div>
+							<div>
+							   <b style="font-family:courier-new;font-size: 12px;">Credit</b>
+							  
+							  </div>
+							<div>
+							   <b style="font-family:courier-new;font-size: 12px;"> Unreconcile Debit </b>
+							  
+							  </div>
+							<div>
+							   <b style="font-family:courier-new;font-size: 12px;"> Unreconcile Credit </b>
+							  
+							  </div>
+							</td>
+							<td width="10%" style="border-top:1px solid black;padding-left:8px;"><b>:</b>
+							<div>
+							   <b style="font-family:courier-new;font-size: 12px;">:</b>
+							  
+							  </div>  
+							<div>
+							   <b style="font-family:courier-new;font-size: 12px;">:</b>
+							  
+							  </div>  
+							<div>
+							   <b style="font-family:courier-new;font-size: 12px;">:</b>
+							  
+							  </div>  
+							<div>
+							   <b style="font-family:courier-new;font-size: 12px;">:</b>
+							  
+							  </div>  
+
+							</td>
+							<td width="20%" style="border-top:1px solid black;border-right:1px solid black;padding-left:8px;">INR 
+								  <span t-field="o.unreconcile_balance"/>
+							<div style="font-family:courier-new;font-size: 12px;" t-esc="o.debit">
+							  </div>  
+							<div style="font-family:courier-new;font-size: 12px;" t-esc="o.credit">
+							  </div>  
+							<div style="font-family:courier-new;font-size: 12px;" t-esc="o.unreconcile_debit ">
+							  </div>  
+							<div style="font-family:courier-new;font-size: 12px;" t-esc="o.unreconcile_credit ">
+							  </div>  
+
+							</td>
+							
+						  </tr>
+						  
+						<table width="100%" class="table" style="border:1px solid black;margin-top:-20px;!important;font-family:courier-new;font-size: 12px;padding-left:10px;">
+						
+							<thead>
+									<tr>
+									   <th width="10%" style="border:1px solid black;text-align:center;font-family:courier-new;font-size: 12px;padding:5px;"><b>SNO</b></th>
+									   <th width="10%" style="border:1px solid black;text-align:center;font-family:courier-new;font-size: 12px;padding:5px;"><b>Branch</b></th>
+									   <th width="10%" style="border:1px solid black;text-align:center;font-family:courier-new;font-size: 12px;padding:5px;"><b>Value Date</b></th>
+									   <th width="20%" style="border:1px solid black;text-align:center;font-family:courier-new;font-size: 12px;padding:5px;"><b>Cheque No</b></th>
+									   <th width="20%" style="border:1px solid black;text-align:center;font-family:courier-new;font-size: 12px;padding:5px;"><b>Customer Name</b></th>
+									   <th width="10%" style="border:1px solid black;text-align:center;font-family:courier-new;font-size: 12px;padding:5px;"><b>Customer ID</b></th>
+<!--
+									   <th style="border:1px solid black;text-align:center;font-family:courier-new;font-size: 12px;padding:5px;"><b>Description</b></th>
+-->
+									   <th width="10%" style="border:1px solid black;text-align:center;font-family:courier-new;font-size: 12px;padding:5px;"><b>Debit</b></th>
+									   <th width="10%" style="border:1px solid black;text-align:center;font-family:courier-new;font-size: 12px;padding:5px;"><b>Credit</b></th>
+<!--
+									   <th style="border:1px solid black;text-align:center;font-family:courier-new;font-size: 12px;padding:5px;"><b>Transaction Date</b></th>
+-->
+									</tr>
+								</thead>
+							  <t t-set="counter" t-value="1"/>
+								<t t-foreach="o.statement_line" t-as="doc">
+								<t t-if="doc.reconcile == 0"> 
+									<tr style="font-family:courier-new;font-size: 12px;page-break-inside:avoid;">
+											<td style="border:1px solid black;text-align:center"><t t-esc="counter"/><t t-set="counter" t-value="counter+1"/></td>
+											<td style="border:1px solid black;text-align:left;padding:5px;">
+												<t t-esc="doc.company_id.name"/>
+											</td>
+											
+											<td style="border:1px solid black;text-align:left;padding:5px;"> 
+										  <span t-field="doc.date" t-field-options='{"format": "dd-MM-y"}'/>
+												</td>
+											<td style="border:1px solid black;text-align:left;padding:5px;"> <t t-esc="doc.cheque"/></td>
+											<td style="border:1px solid black;text-align:left;padding:5px;"> <t t-esc="doc.partner_id.name"/></td>
+											<td style="border:1px solid black;text-align:left;padding:5px;"> <t t-esc="doc.partner_code"/></td>
+<!--
+											<td style="border:1px solid black;text-align:left;padding:5px;"> <t t-esc="doc.description"/></td>
+-->
+											<td style="border:1px solid black;text-align:left;padding:5px;"> <t t-esc="'%.2f'%(doc.balance)"/></td>
+											<td style="border:1px solid black;text-align:left;padding:5px;"> <t t-esc="'%.2f'%(doc.credit)"/></td>
+<!--
+											<td style="border:1px solid black;text-align:left;padding:5px;"> <t t-esc="doc.reconsile_date"/></td>
+-->
+									</tr>
+								</t>
+							</t>
+
+						</table>
+					</table>
+				</div>
+			</div>
+			</t>	
+        </t>
+    </template>
+</data>
+</openerp>

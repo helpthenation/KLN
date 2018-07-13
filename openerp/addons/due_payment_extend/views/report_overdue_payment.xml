@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+
+		<template id="report_overdue_document_inherit" inherit_id="account.report_overdue_document">
+			<xpath expr="//thead/tr/th[last()]" position='replace'>
+			</xpath>
+			<xpath expr="//tr[@t-foreach='getLines(o)']/td[last()]" position='replace'>
+			</xpath>
+		</template>
+	</data>
+</openerp>

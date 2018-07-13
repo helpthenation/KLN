@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+        
+        <record id="account_invce" model="ir.ui.view">
+            <field name="name">account.invoices</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="bank_det" widget="selection" domain="[('partner_id','=',1)]"/>
+                    <field name="test" domain="[('company_id','=',1)]"/>
+                </xpath>
+                </data>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+		 <record model="ir.ui.view" id="view_res_partner_inherit">
+            <field name="name">view.res.partner.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//form/sheet/notebook/page/group/group/field[@name='customer']" position="before">
+					<field name="employee"/>
+				</xpath>
+		    </field>
+      </record>
+      
+      <record id="view_res_employee_filter" model="ir.ui.view">
+            <field name="name">res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Search Partner">
+                   <field name="name"
+                       filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+                   <filter help="My Partners" icon="terp-personal+" domain="[('user_id','=',uid)]"/>
+                   <separator/>
+                   <filter string="Persons" name="type_person" domain="[('is_company','=',0)]"/>
+                   <filter string="Companies" name="type_company" domain="[('is_company','=',1)]"/>
+                   <separator/>
+                   <filter string="Customers" name="customer" domain="[('customer','=',1)]" help="Customer Partners"/>
+                   <filter string="Suppliers" name="supplier" domain="[('supplier','=',1)]" help="Supplier Partners"/>
+                   <filter string="Employee" name="employee" domain="[('employee','=',1)]" help="Employee Partners"/>
+                   <separator/>
+                   <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
+                   <field name="user_id"/>
+                   <field name="parent_id" domain="[('is_company','=',1)]" operator="child_of"/>
+                   <group expand="0" string="Group By">
+                       <filter string="Salesperson" icon="terp-personal" domain="[]" context="{'group_by' : 'user_id'}" />
+                       <filter string="Company" context="{'group_by': 'parent_id'}"/>
+                       <filter string="Country" context="{'group_by': 'country_id'}"/>
+                   </group>
+               </search>
+            </field>
+        </record>
+      
+      	   
+     <record id="action_employee_form" model="ir.actions.act_window">
+            <field name="name">Employee</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('employee', '=', True)]</field>
+            <field name="context">{"search_default_employee":1}</field>
+            <field name="search_view_id" ref="view_res_employee_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a contact in your address book.
+              </p><p>
+                Odoo helps you easily track all activities related to
+                a customer; discussions, history of business opportunities,
+                documents, etc.
+              </p>
+            </field>
+        </record>
+        
+        	
+        
+        	
+     
+		
+
+    </data>
+</openerp>
+

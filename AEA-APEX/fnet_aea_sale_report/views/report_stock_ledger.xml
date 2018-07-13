@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	
+	
+	
+	<template id="report_stock_ledger">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+				<t t-call="fnet_aea_sale_report.report_stock_ledger2"/>
+            </t>
+        </t>
+    </template>
+    
+
+
+ <template id="report_stock_ledger2">
+    <t t-call="report.html_container">
+        
+        <t t-foreach="docs" t-as="o">
+<!--
+            <t t-call="report.external_layout">
+-->
+                
+                <div class="page">
+					<t t-set="tsv_opening" t-value="[]"/>
+					<t t-set="tsv_purchase_quant" t-value="[]"/>
+					<t t-set="tsv_sale_quant" t-value="[]"/>
+					<t t-set="tsv_sale_ret" t-value="[]"/>
+					<t t-set="tsv_branch_in" t-value="[]"/>
+					<t t-set="tsv_branch_out" t-value="[]"/>
+					<t t-set="tsv_pur_ret" t-value="[]"/>
+					<t t-set="tsv_onhand_quant" t-value="[]"/>
+					<t t-set="tsv_qty_value" t-value="[]"/>
+                    <style type="text/css">
+                        #table_chk{font-size:8px;border:1px solid silver;border-top:0px;font-family:Liberation Serif}   
+                        #table_chk tr td {padding:0px;margin:0px;display:inline-table}
+                        #table_chk tr td table tr td {padding:5px;text-align:center}
+                        #table_chk tr td table tr.header {border:1px solid silver;border-right:0px;border-left:0px}
+                        #table_chk tr td table tr.header td {border-right:1px solid silver;font-weight:bold}
+                        #table_chk tr td table tr.body {border:1px solid white;border-right:0px;border-left:0px}
+                        #table_chk tr td table tr.body td {border-right:1px solid white;}
+                        .parent-border {width:300px;border-bottom:2px dotted silver;}
+                        .child-border {width:300px;border-bottom:2px dotted silver;margin-bottom:2px}   
+                        .interest-type {height:30px;line-height:30px;padding:0px 10px}
+                        td {padding-left:1px;padding-right:1px;padding-top:2px;padding-bottom:2px;page-break-inside:avoid;border:1px solid black;}
+<!--
+                        width:auto; white-space:nowrap;
+-->
+                    </style>
+                    <div class="row">
+                    <table style="width:100%;font-size:13px;font-family:Liberation Serif;" cellpadding="0" cellspacing="0">
+                        <tr style="page-break-inside:avoid;">
+							<td colspan="3" class="text-center" style="font-weight:bold;border:0; important;">
+								<span t-esc="get_com(o.company_id.id)"/>,<span t-field="o.company_id.state_id.name"/>
+							</td>
+                        </tr>
+						<t t-if="o.company_id.id!=1">
+							<tr style="page-break-inside:avoid;">
+								<td colspan="3" class="text-center" style="font-weight:bold;border:0; important;">
+									<span t-field="o.company_id.city"/> <span>Branch</span>
+								</td>
+							</tr>
+						</t>
+                        <tr style="page-break-inside:avoid;">
+                            <td style="text-align:left;width:20%;border:0; important;"></td>
+                            <td style="text-align:center;width:60%;font-weight:bold;border:0; important;">STOCK &amp; LEDGER SUMMARY</td>
+                            <td style="text-align:right;width:20%;border:0; important;"><span style="text-align:right;"> Run.dt:<span t-esc="time.strftime('%d-%m-%Y %H:%M:%S')"/></span></td>
+                        </tr>
+                        <tr>
+							<td colspan="3" class="text-center" style="font-weight:bold;border:0; important;"><span>for: <span t-field="o.from_date"/> to <span t-field="o.to_date"/></span></td>
+                        </tr>
+                    </table>
+                    </div>
+                    
+                    <div class="row">
+                    <table style="width:100%;font-size:11px;border-left:1px solid black;border-right:1px solid black;font-family:Liberation Serif;" cellpadding="0" cellspacing="0">
+                       <thead>
+							<tr class="header" style="border:1px solid black;page-break-inside:avoid;height:4px;">
+								<th width="3%" class="text-center">S.No</th>
+								<th width="5%" class="text-center" style="border-right:1px solid black;border-left:1px solid black;">Pr.Code</th>
+								<th width="22%" class="text-center" style="border-right:1px solid black;">Product</th>
+								<th width="5%" class="text-center" style="border-right:1px solid black;">UOM</th>
+								<th width="7%" class="text-center" style="border-right:1px solid black;">Opn.QTY</th>
+								<th width="7%" class="text-center" style="border-right:1px solid black;">Pur QTY</th>
+								<th width="5%" class="text-center" style="border-right:1px solid black;">Branch Tfr IN</th>
+								<th width="7%" class="text-center" style="border-right:1px solid black;">Sales Rtn. QTY</th>
+								<th width="7%" class="text-center" style="border-right:1px solid black;">Sales QTY</th>
+								<th width="5%" class="text-center" style="border-right:1px solid black;">Branch Tfr OUT</th>
+								<th width="5%" class="text-center" style="border-right:1px solid black;">Pur Rtn. QTY</th>
+								<th width="5%" class="text-center" style="border-right:1px solid black;">On Hand</th>
+								<th width="7%" class="text-center">Value</th>
+							</tr>
+                        </thead>
+                        <tbody>
+                        
+                        <t t-foreach="get_product_category(data,o.company_id.id)" t-as="category">
+							<t t-set="opening" t-value="[]"/>
+							<t t-set="purchase_quant" t-value="[]"/>
+							<t t-set="sale_quant" t-value="[]"/>
+							<t t-set="sale_ret" t-value="[]"/>
+							<t t-set="branch_in" t-value="[]"/>
+							<t t-set="branch_out" t-value="[]"/>
+							<t t-set="pur_ret" t-value="[]"/>
+							<t t-set="onhand_quant" t-value="[]"/>
+							<t t-set="qty_value" t-value="[]"/>
+							<t t-if="o.company_id.id == 1">
+								<t t-set="categ" t-value="category['name']"/>
+							</t>
+							<t t-if="o.company_id.id != 1">
+								<t t-set="categ" t-value="category['categ_id']"/>
+							</t>
+							<t t-if="get_product(data,categ)!=[]">
+								<tr class="body" style="page-break-inside:avoid;">
+									<td width="100%" colspan="13" style="text-align:left;">
+										<div class="parent-border">
+											<div class="child-border"><b><span t-esc="category['name']"/></b></div>
+										</div>
+									</td>
+								</tr>
+							
+							
+							
+							<t t-set="counter" t-value="1"/>
+
+							<tr style="page-break-inside:avoid;" class="body" t-foreach="get_product(data,categ)" t-as="prod">
+								<td width="3%"><span t-esc="counter"/>
+									<t t-set="counter" t-value="counter+1"/></td>
+								<td width="5%" style="text-align:left"><span t-esc="prod['code']"/></td>
+								<td width="22%" style="text-align:left"><span t-esc="prod['product_name']"/></td>
+								<td width="5%">PCS</td>
+								<td width="7%" style="text-align:right">
+									<span t-esc="int(prod['opening_qty'])"/>
+									<t t-set="opening" t-value="opening+[prod['opening_qty']]"/>								
+								</td>
+								<td width="7%" style="text-align:right">									
+									<span t-esc="int(prod['purchase_qty'])"/>
+									<t t-set="purchase_quant" t-value="purchase_quant+[prod['purchase_qty']]"/>							
+								</td>
+								<td width="5%" style="text-align:right">
+									<span t-esc="int(prod['branch_purchase'])"/>
+									<t t-set="branch_in" t-value="branch_in+[prod['branch_purchase']]"/>
+								</td>
+								<td width="7%" style="text-align:right">
+									<span t-esc="int(prod['sale_return'])"/>
+									<t t-set="sale_ret" t-value="sale_ret+[prod['sale_return']]"/>
+								</td>
+								<td width="7%" style="text-align:right">
+									<span t-esc="-int(prod['sale_qty'])"/>
+									<t t-set="sale_quant" t-value="sale_quant+[prod['sale_qty']]"/>
+								</td>
+								<td width="5%" style="text-align:right">
+									<span t-esc="-int(prod['branch_sale'])"/>
+									<t t-set="branch_out" t-value="branch_out+[prod['branch_sale']]"/>
+								</td>
+								<td width="5%" style="text-align:right">
+									<span t-esc="-int(prod['purchase_return'])"/>
+									<t t-set="pur_ret" t-value="pur_ret+[prod['purchase_return']]"/>
+								</td>
+								<td width="5%" style="text-align:right">
+									
+									<t t-if="prod['on_hand']!=None">
+										<span t-esc="int(prod['on_hand'])"/>
+										<t t-set="onhand_quant" t-value="onhand_quant+[prod['on_hand']]"/>
+									</t>
+								</td>
+								<td width="7%" style="text-align:right">
+									<t t-if="prod['on_hand']!=0">
+										<span t-esc="'{0:,.2f}'.format(prod['value'])"/>
+										<t t-set="qty_value" t-value="qty_value+[prod['value']]"/>
+									</t>
+									<t t-if="prod['on_hand']==0">
+										<span>0.00</span>
+									</t>
+								</td>
+							</tr>
+							<tr style="page-break-inside:avoid;border:1px solid black;" class="body" >
+								<td width="3%"></td>
+								<td width="5%" style="font-weight:bold;">***</td>
+								<td width="22%" style="text-align:left;font-weight:bold;">** TOTAL for the Product Group **</td>
+								<td width="5%"></td>
+								<td width="7%" style="text-align:right;font-weight:bold;border-left:1px solid black;border-right:1px solid black;">
+									<span t-esc="int(sum(opening))"/>
+									<t t-set="tsv_opening" t-value="tsv_opening+[sum(opening)]"/>
+									</td>
+								<td width="7%" style="text-align:right;font-weight:bold;border-right:1px solid black;">
+									<span t-esc="int(sum(purchase_quant))"/>
+									<t t-set="tsv_purchase_quant" t-value="tsv_purchase_quant+[sum(purchase_quant)]"/>
+								</td>
+								<td width="5%" style="text-align:right;font-weight:bold;border-right:1px solid black;">
+									<span t-esc="int(sum(branch_in))"/>
+									<t t-set="tsv_branch_in" t-value="tsv_branch_in+[sum(branch_in)]"/>
+								</td>
+								<td width="7%" style="text-align:right;font-weight:bold;border-right:1px solid black;">
+									<span t-esc="int(sum(sale_ret))"/>
+									<t t-set="tsv_sale_ret" t-value="tsv_sale_ret+[sum(sale_ret)]"/>
+								</td>
+								<td width="7%" style="text-align:right;font-weight:bold;border-right:1px solid black;">
+									<span t-esc="-int(sum(sale_quant))"/>
+									<t t-set="tsv_sale_quant" t-value="tsv_sale_quant+[sum(sale_quant)]"/>
+								</td>
+								<td width="5%" style="text-align:right;font-weight:bold;border-right:1px solid black;">
+									<span t-esc="-int(sum(branch_out))"/>
+									<t t-set="tsv_branch_out" t-value="tsv_branch_out+[sum(branch_out)]"/>
+								</td>
+								<td width="5%" style="text-align:right;font-weight:bold;border-right:1px solid black;">
+									<span t-esc="-int(sum(pur_ret))"/>
+									<t t-set="tsv_pur_ret" t-value="tsv_pur_ret+[sum(pur_ret)]"/>
+								</td>
+								<td width="5%" style="text-align:right;font-weight:bold;border-right:1px solid black;">
+									<span t-esc="int(sum(onhand_quant))"/>
+									<t t-set="tsv_onhand_quant" t-value="tsv_onhand_quant+[sum(onhand_quant)]"/>
+								</td>
+								<td width="7%" style="text-align:right;font-weight:bold;">
+									<span t-esc="'{0:,.2f}'.format(sum(qty_value))"/>
+									<t t-set="tsv_qty_value" t-value="tsv_qty_value+[sum(qty_value)]"/>
+								</td>
+							</tr>
+							</t>
+                        </t>
+						<tr style="page-break-inside:avoid;border:1px solid black;" class="body" >
+							<td width="3%"></td>
+							<td width="5%" style="font-weight:bold;">***</td>
+							<td width="22%" style="text-align:left;font-weight:bold;">** Total Stock Value for the Unit **</td>
+							<td width="5%"></td>
+							<td width="7%" style="text-align:right;font-weight:bold;border-left:1px solid black;border-right:1px solid black;"><span t-esc="int(sum(tsv_opening))"/></td>
+							<td width="7%" style="text-align:right;font-weight:bold;border-right:1px solid black;"><span t-esc="int(sum(tsv_purchase_quant))"/></td>
+							<td width="5%" style="text-align:right;font-weight:bold;border-right:1px solid black;"><span t-esc="int(sum(tsv_branch_in))"/></td>
+							<td width="7%" style="text-align:right;font-weight:bold;border-right:1px solid black;"><span t-esc="int(sum(tsv_sale_ret))"/></td>
+							<td width="7%" style="text-align:right;font-weight:bold;border-right:1px solid black;"><span t-esc="-int(sum(tsv_sale_quant))"/></td>
+							<td width="5%" style="text-align:right;font-weight:bold;border-right:1px solid black;"><span t-esc="-int(sum(tsv_branch_out))"/></td>
+							<td width="5%" style="text-align:right;font-weight:bold;border-right:1px solid black;"><span t-esc="-int(sum(tsv_pur_ret))"/></td>
+							<td width="5%" style="text-align:right;font-weight:bold;border-right:1px solid black;"><span t-esc="int(sum(tsv_onhand_quant))"/></td>
+							<td width="7%" style="text-align:right;font-weight:bold;"><span t-esc="'{0:,.2f}'.format(sum(tsv_qty_value))"/></td>
+						</tr>
+                        </tbody>
+                  </table>
+                  </div>
+                 
+                </div>
+           <div class="footer">
+				<t t-if ="o and 'company_id' in o" >
+					<t t-set="company" t-value="o.company_id"/>
+				</t>
+				<div style="border-top: 1px solid black;">
+					<p style="text-align:center;font-size:13px;font-family:Liberation Serif;padding-top:3px;">Page:<span class="page"/>/<span class="topage"/></p>
+				</div>
+			</div>
+        </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

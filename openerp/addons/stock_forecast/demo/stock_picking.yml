@@ -1,0 +1,29 @@
+-
+  Make inventory available. Confirm the first initial receipts.
+-
+  !python {model: stock.picking, id: false}: |
+    pickings = [
+        ref('picking_demo_001'),
+        ref('picking_demo_002'),
+        ref('picking_demo_003'),
+        ref('picking_demo_004'),
+        ref('picking_demo_005'),
+        ref('picking_demo_006'),
+        ref('picking_demo_007'),
+        ref('picking_demo_008'),
+        ref('picking_demo_009'),
+        ref('picking_demo_010'),
+    ]
+    pickings = self.search([('id', 'in', pickings)], order='date')
+    pickings.with_context({'allow_past_date_quants': True}).action_confirm()
+    pickings.with_context({'allow_past_date_quants': True}).do_transfer()
+    assert set(pickings.mapped('state')) == set(['done']), 'initial pickings are not complete done'
+-
+  Confirm/transfer all the rest operations.
+-
+  !python {model: stock.picking, id: False}: |
+    pickings = self.search([
+        ('origin', 'like', 'Forecast Demo')], order='date')
+    pickings.with_context({'allow_past_date_quants': True}).action_confirm()
+    pickings.with_context({'allow_past_date_quants': True}).do_transfer()
+    assert set(pickings.mapped('state')) == set(['done']), 'all forecast demo pickings are not complete done'

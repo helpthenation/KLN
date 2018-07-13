@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+	  
+	   <record model="ir.ui.view" id="invoice_inherit_lead">
+            <field name="name">invoice.inherit.lead</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+				
+				<field name="currency_id" position='after'>
+				   <field name="lead_id"/>
+				</field>
+	        </field>
+	   </record>
+
+  </data>          
+</openerp>

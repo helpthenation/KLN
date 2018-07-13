@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	
+<template id="report_techquote">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="fnet_mline_reportz.header_wizard_buluff_tech_quote"/>
+                <div class="page">
+
+                   <style>
+					tr {page-break-inside: avoid;}
+					.table { border: 1px solid black; }
+					.new_table { border: 0px; }
+					.new_table tr td { border: 0px; }
+					.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { border: 1px solid black; }
+					</style>
+               
+                   
+                   <div align="right">
+                   <h3 style="text-align:center"><right><strong>TECHINICAL QUOTE</strong></right></h3>
+                   </div>
+                   <h5 style="font-family:courier-new;font-size: 12px;"><left><b>Date: <span style="font-family:courier-new;font-size: 12px;" t-field="o.date_order" t-field-options='{"format": "dd.M.Y"}'/></b></left></h5>
+                    <h5 style="font-family:courier-new;font-size: 12px;"><left><b>Enquiry Ref: <span style="font-family:courier-new;font-size: 12px;" t-field="o.lead_id.seq_no"/></b></left></h5>
+                   <h5 style="font-family:courier-new;font-size: 12px;"><left><b>Customer Ref # <span style="text-align:left;font-family:courier-new;font-size: 12px;" t-field='o.client_order_ref'/></b></left></h5>     
+                   <br/>
+                   <table class="table table-bordered">
+					  <thead style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;">
+						 <tr style="border: 1px solid black;">
+							<th class="text-center" style="font-family:courier-new;font-size: 12px;" width="4%">S.No</th>
+							<th class="text-center" style="font-family:courier-new;font-size: 12px;" width="65%">Description</th>
+							<th class="text-center" style="font-family:courier-new;font-size: 12px;" width="5%">Quantity</th>
+							<th class="text-center" style="font-family:courier-new;font-size: 12px;" width="9%">Status</th>
+						 </tr>
+					  </thead>
+					  <tbody>
+						  <t t-set="counter" t-value="1"/>
+                          <tr t-foreach="o.order_line" t-as="l">
+							  <t t-if="o.offer_id.id == l.offer_id.id">
+									<td class="text-center">
+										<span t-esc="counter"/>
+										<t t-set="counter" t-value="counter+1"/>
+									</td>
+									<td>
+									   <span style="font-family:courier-new;font-size: 12px;" class="oblique" t-field="l.product_id.name"/>
+									   <span style="font-family:courier-new;font-size: 12px;" t-field="l.product_id.description"></span><br/>
+									   <span style="font-weight:bold;font-family:courier-new;font-size: 12px;">Part No:</span>
+									   <span style="font-family:courier-new;font-size: 12px;" t-field="l.part_no"/><br/>
+									   <span style="font-weight:bold;font-family:courier-new;font-size: 12px;">Make:</span>
+									   <span style="font-family:courier-new;font-size: 12px;" t-field="l.make_no"/><br/>
+									</td>
+									<td class="text-right">
+									   <span style="font-family:courier-new;font-size: 12px;" t-field="l.product_uom_qty"/>
+									</td>
+									<t t-if="l.price_unit == 0.00">
+										<td class="text-right" style="font-family:courier-new;font-size: 12px;">
+											<p>Regret</p>
+										</td>
+									</t>
+									<t t-if="l.price_unit != 0.00">
+										<td class="text-right" style="font-family:courier-new;font-size: 12px;">
+											<p>Quoted</p>
+										</td>
+									</t>
+								</t>
+							  <t t-if="o.offer_id.id is NULL">
+									<td class="text-center">
+										<span t-esc="counter"/>
+										<t t-set="counter" t-value="counter+1"/>
+									</td>
+									<td>
+									   <span style="font-family:courier-new;font-size: 12px;" class="oblique" t-field="l.product_id.name"/>
+									   <span style="font-family:courier-new;font-size: 12px;" t-field="l.product_id.description"></span><br/>
+									   <span style="font-weight:bold;font-family:courier-new;font-size: 12px;">Part No:</span>
+									   <span style="font-family:courier-new;font-size: 12px;" t-field="l.part_no"/><br/>
+									   <span style="font-weight:bold;font-family:courier-new;font-size: 12px;">Make:</span>
+									   <span style="font-family:courier-new;font-size: 12px;" t-field="l.make_no"/><br/>
+									</td>
+									<td class="text-right">
+									   <span style="font-family:courier-new;font-size: 12px;" t-field="l.product_uom_qty"/>
+									</td>
+									<t t-if="l.price_unit == 0.00">
+										<td style="font-family:courier-new;font-size: 12px;" class="text-right">
+											<p>Regret</p>
+										</td>
+									</t>
+									<t t-if="l.price_unit != 0.00">
+										<td style="font-family:courier-new;font-size: 12px;" class="text-right">
+											<p>Quoted</p>
+										</td>
+									</t>
+								</t>
+                           </tr>
+                       </tbody>
+				  </table>
+				  <br/>
+				                   <h4 style="font-family:courier-new;font-size: 12px;" ><span style="font-weight:bold;font-family:courier-new;font-size: 14px;"><b>Sales Terms  Conditions:</b></span></h4> 
+                 <span style="font-family:courier-new;font-size: 12px;" t-field="o.remark"/><br/>
+                 <h4 style="font-family:courier-new;font-size: 12px;" ><span style="font-weight:bold;font-family:courier-new;font-size: 14px;"><b>Payment : </b></span></h4><span style="font-family:courier-new;font-size: 12px;" t-field="o.payment_term"/>
+                  <br/>
+                  <h6 style="text-align:left;font-family:courier-new;font-size: 12px;color:red;"><b>NOTE: PARTIAL ORDER TO PRIOR CONFIRMATION</b></h6> 
+                   <br/><br/><br/><br/>
+                   <table width="100%" style="border: none">
+					<tr>
+						<span style="font-family:courier-new;font-size: 12px;" t-field="o.signature"/><br/>
+					</tr>
+					</table>   
+                </div>
+                <t t-call="fnet_mline_reportz.footer_wizards"/>
+               
+            </t>
+    </t>
+</template>
+</data>
+</openerp>

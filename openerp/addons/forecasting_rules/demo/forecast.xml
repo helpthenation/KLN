@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+
+    <data noupdate="1">
+
+        <!-- Update Forecast Smoothing Techniques -->
+
+        <record id="forecasting_smoothing_techniques.fst_demo_01" model="forecast">
+            <field name="manual_data" eval="True"/>
+        </record>
+
+        <record id="forecasting_smoothing_techniques.fst_demo_02" model="forecast">
+            <field name="manual_data" eval="True"/>
+        </record>
+
+        <record id="forecasting_smoothing_techniques.fst_demo_03" model="forecast">
+            <field name="manual_data" eval="True"/>
+        </record>
+
+        <record id="forecasting_smoothing_techniques.fst_demo_04" model="forecast">
+            <field name="manual_data" eval="True"/>
+        </record>
+
+        <record id="forecasting_smoothing_techniques.fst_demo_05" model="forecast">
+            <field name="manual_data" eval="True"/>
+        </record>
+
+        <record id="forecasting_smoothing_techniques.fst_demo_06" model="forecast">
+            <field name="manual_data" eval="True"/>
+        </record>
+
+        <!-- New forecast demo -->
+
+        <record id="forecast_demo_01" model="forecast">
+            <field name="name" eval="obj(ref('forecast_rule_demo_01')).name" model="forecasting.rule"/>
+            <field name="rule_id" ref="forecast_rule_demo_01"/>
+        </record>
+
+        <record id="forecast_demo_02" model="forecast">
+            <field name="name" eval="obj(ref('forecast_rule_demo_02')).name" model="forecasting.rule"/>
+            <field name="rule_id" ref="forecast_rule_demo_02"/>
+        </record>
+
+        <record id="forecast_demo_03" model="forecast">
+            <field name="name" eval="obj(ref('forecast_rule_demo_03')).name" model="forecasting.rule"/>
+            <field name="rule_id" ref="forecast_rule_demo_03"/>
+        </record>
+
+        <record id="forecast_demo_04" model="forecast">
+            <field name="name" eval="obj(ref('forecast_rule_demo_04')).name" model="forecasting.rule"/>
+            <field name="rule_id" ref="forecast_rule_demo_04"/>
+        </record>
+
+        <record id="forecast_demo_05" model="forecast">
+            <field name="name" eval="obj(ref('forecast_rule_demo_05')).name" model="forecasting.rule"/>
+            <field name="rule_id" ref="forecast_rule_demo_05"/>
+        </record>
+
+        <record id="forecast_demo_06" model="forecast">
+            <field name="name" eval="obj(ref('forecast_rule_demo_06')).name" model="forecasting.rule"/>
+            <field name="rule_id" ref="forecast_rule_demo_06"/>
+        </record>
+
+        <record id="forecast_demo_07" model="forecast">
+            <field name="name" eval="obj(ref('forecast_rule_demo_07')).name" model="forecasting.rule"/>
+            <field name="rule_id" ref="forecast_rule_demo_07"/>
+        </record>
+
+        <function model="forecast" name="fill_value_ids" eval="[ref('forecast_demo_01')]"/>
+        <function model="forecast" name="fill_value_ids" eval="[ref('forecast_demo_02')]"/>
+        <function model="forecast" name="fill_value_ids" eval="[ref('forecast_demo_03')]"/>
+        <function model="forecast" name="fill_value_ids" eval="[ref('forecast_demo_04')]"/>
+        <function model="forecast" name="fill_value_ids" eval="[ref('forecast_demo_05')]"/>
+        <function model="forecast" name="fill_value_ids" eval="[ref('forecast_demo_06')]"/>
+        <function model="forecast" name="fill_value_ids" eval="[ref('forecast_demo_07')]"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>            
+         <report
+            id="account_bank_voucher"
+            model="account.move"
+            string="Bank Payment Voucher"
+            report_type="qweb-pdf"
+            name="fnet_manpower_report.report_bank_voucher" 
+            file="fnet_manpower_report.report_bank_voucher"
+            menu="True"/>
+            
+         <report
+            id="account_bank_voucher_customer"
+            model="account.voucher"
+            string="Bank Payment Voucher"
+            report_type="qweb-pdf"
+            name="fnet_manpower_report.report_bank_voucher_reciept" 
+            file="fnet_manpower_report.report_bank_voucher_reciept"
+            menu="True"/>
+            
+         <report
+            id="account_cheque"
+            model="account.move"
+            string="Cheque"
+            report_type="qweb-pdf"
+            name="fnet_manpower_report.check_writing" 
+            file="fnet_manpower_report.check_writing"
+            menu="True"/>
+            
+         <report
+            id="account_reciept_voucher"
+            model="account.voucher"
+            string="Reciept Voucher"
+            report_type="qweb-pdf"
+            name="fnet_manpower_report.report_reciept_voucher" 
+            file="fnet_manpower_report.report_reciept_voucher"
+            menu="True"/>                                        
+
+    </data>
+</openerp>

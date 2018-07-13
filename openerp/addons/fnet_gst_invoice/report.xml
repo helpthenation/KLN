@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+            <report
+                id="gst_invoices_report"
+                model="account.invoice"
+                string="AEA GST Invoice"
+                report_type="qweb-pdf"
+                name="fnet_gst_invoice.report_invoice" 
+                file="fnet_gst_invoice.report_invoice"
+                menu="True"/>
+    </data>
+</openerp>

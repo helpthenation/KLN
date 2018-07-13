@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data> 
+      
+     <record id="view_mline_payroll_rule_form" model="ir.ui.view">
+            <field name="name">view.mline.payroll.rule.form</field>
+            <field name="model">mline.payroll.rule</field>
+            <field name="arch" type="xml">
+                <form string="Salary Rule">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="type"/>
+                            </group>
+                            <group>
+                                <field name="debit_account_id" attrs="{'required': [('type', '=', 'add')], 'invisible': [('type', '=', 'remove')]}"/>
+                                <field name="credit_account_id" attrs="{'required': [('type', '=', 'remove')], 'invisible': [('type', '=', 'add')]}"/>
+                            </group>
+                        </group>
+                     </sheet>
+                 </form>
+           </field>
+       </record>
+       
+      <record id="view_mline_payroll_rule_tree" model="ir.ui.view">
+            <field name="name">view.mline.payroll.rule.tree</field>
+            <field name="model">mline.payroll.rule</field>
+            <field name="arch" type="xml">
+                <tree string="Salary Rule">
+                    <field name="name"/>
+                    <field name="code"/>
+                 </tree>
+           </field>
+       </record>
+      
+        
+       
+       <record id="action_mline_payroll_rule" model="ir.actions.act_window">
+            <field name="name">Salary Rule</field>
+            <field name="res_model">mline.payroll.rule</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_mline_payroll_rule_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Salary Rule.
+                </p><p>
+                    Create Salary Rule
+                </p>
+            </field>
+        </record> 
+     
+     
+    
+     <menuitem action="action_mline_payroll_rule"
+               id="menu_mline_payroll_rule" 
+               name="Salary Rule"
+               parent="fnet_mline_manpower.multiline_master_menu" 
+               sequence="2"/> 
+               
+     <record id="view_mline_payroll_form" model="ir.ui.view">
+            <field name="name">view.mline.payroll.form</field>
+            <field name="model">mline.payroll</field>
+            <field name="arch" type="xml">
+                <form string="Payroll">
+                    <header>
+                        <button string="Worked Days" name="worked_days" type="object" states="draft"/>
+                        <button string="Compute Sheet" name="compute_sheet" type="object" states="compute"/>
+                        <button string="Confirm" name="confirm" type="object" states="compute" class="oe_highlight"/>
+                        <button string="Cancel" name="cancel" type="object" states="compute,done" class="oe_highlight"/>
+                        <button string="Set to Draft" name="set_dtaft" type="object" states="cancel" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
+                    </header>
+                    <sheet>
+						<div class="oe_title">
+                             <label for="employee_id" class="oe_edit_only"/>
+                             <h1><field name="employee_id"  attrs="{'readonly':[('state','!=','draft')]}" on_change="onchange_employee_id(date_from, date_to, employee_id, contract_id,payslip_type)"/></h1>
+							 <label for="payslip_type" class="oe_edit_only"/>
+                             <h4><field name="payslip_type" on_change="onchange_payslip_type(payslip_type,employee_id)" attrs="{'readonly':[('state','!=','draft')]}"/></h4>
+                        </div>
+<!--
+                        <br/><br/><br/><br/>
+                        <div class="oe_title">
+                             <label for="payslip_type" class="oe_edit_only"/>
+                             <h4><field name="payslip_type" on_change="onchange_payslip_type(payslip_type,employee_id)" attrs="{'readonly':[('state','!=','draft')]}"/></h4>
+                        </div>                       
+-->
+
+                        <group col="4">
+                        <label for="date_from" string="Period"/>
+                        <div>
+                            <field name="date_from"  on_change="onchange_date_from(date_to,date_from,employee_id,payslip_type)" attrs="{'readonly':[('state','!=','draft')]}" class="oe_inline"/> - <field name="date_to" on_change="onchange_date_to(date_to, date_from,employee_id,payslip_type)"  attrs="{'readonly':[('state','!=','draft')]}" class="oe_inline"/>
+                        </div>
+                        <field name="contract_id"  attrs="{'readonly':[('state','!=','draft')]}" domain="[('employee_id','=',employee_id)" context="{'default_employee_id': employee_id}"/>
+                        <field name="job_id"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="emp_id"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="branch_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    </group>
+                    <notebook>
+                        <page string="Worked Days &amp; Inputs">
+                            <field name="working_line">
+                                <tree string="Working" editable="bottom" limit="1">
+                                    <field name="ot_hours"/>
+                                    <field name="holiday_hours"/>
+                                    <field name="present_days"/>
+                                    <field name="stay_days"/>
+                                    <field name="leave_days"/>
+                                </tree>
+                            </field>
+                          <separator string="Other Inputs"/>
+                            <field name="input_line_ids" colspan="4" nolabel="1">
+                                <tree string="Input Data" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="amount"/>
+                                    <field name="contract_id"/>
+                                    <field name="sequence" invisible="True"/>
+                                    <field name="loan_id" invisible="True"/>
+                                </tree>
+                                <form string="Payslip Line">
+                                    <group col="4">
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="payslip_id"/>
+                                        <field name="sequence"/>
+                                        <field name="amount"/>
+                                        <field name="contract_id"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Salary Computation">
+                            <field name="salary_line">
+                                <tree string="Salary" editable="bottom">
+                                    <field name="rule_id"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Other Information">
+                            <group>
+                                <group>
+                                    <field name="move_id"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                     </sheet>
+                 </form>
+           </field>
+       </record>
+       
+      <record id="view_mline_payroll_tree" model="ir.ui.view">
+            <field name="name">view.mline.payroll.tree</field>
+            <field name="model">mline.payroll</field>
+            <field name="arch" type="xml">
+                <tree string="Payroll">
+                    <field name="name"/>
+                    <field name="payslip_type"/>
+                    <field name="employee_id"/>
+                    <field name="branch_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="state"/>
+                 </tree>
+           </field>
+       </record>
+       
+      <record id="view_mline_payroll_filter" model="ir.ui.view">
+            <field name="name">view.mline.payroll.filter</field>
+            <field name="model">mline.payroll</field>
+            <field name="arch" type="xml">
+                <search string="Payroll">
+                    <field name="emp_id" string="Employee Code" filter_domain="[('emp_id','ilike',self)]"/>
+                    <field name="employee_id" operator="child_of"/>
+                    <field name="branch_id" operator="child_of"/>
+                    <separator/>
+                    <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                    <filter string="Done" name="done" domain="[('state','=','done')]"/>
+                    <filter string="Cancel" name="cancel" domain="[('state','=','cancel')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Employee" domain="[]" context="{'group_by':'employee_id'}"/>
+                        <filter string="Designation" domain="[]" context="{'group_by':'job_id'}"/>
+                        <filter string="Company" domain="[]" context="{'group_by':'branch_id'}"/>
+                        <filter string="Payslip Type" domain="[]" context="{'group_by':'payslip_type'}"/>
+                    </group>
+                 </search>
+           </field>
+       </record>
+      
+        
+       
+       <record id="action_mline_payroll" model="ir.actions.act_window">
+            <field name="name">Employee Payslip</field>
+            <field name="res_model">mline.payroll</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_mline_payroll_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Salary Payroll.
+                </p><p>
+                    Create Salary Payroll
+                </p>
+            </field>
+        </record>
+        
+      
+        
+        <menuitem id="menu_mline_payroll_menu" 
+               name="Payroll"
+               parent="hr.menu_hr_root" 
+               sequence="20"/>
+                
+     <menuitem action="action_mline_payroll"
+               id="menu_mline_payslip" 
+               name="Employee Payslip"
+               parent="menu_mline_payroll_menu" 
+               sequence="2"/>
+               
+               
+        <!-- payslip runs -->
+
+        <record id="mline_payroll_run_filter" model="ir.ui.view">
+            <field name="name">mline.payroll.run.search</field>
+            <field name="model">mline.payroll.run</field>
+            <field name="arch" type="xml">
+                <search string="Search Payslip Batches">
+                    <field name="name" string="Payslip Batches"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <filter icon="terp-document-new" string="Draft" domain="[('state','=','draft')]" help="Draft Payslip Batches"/>
+                    <filter name="done_filter" icon="terp-camera_test" string="Done" domain="[('state','=','close')]" help="Done Payslip Batches"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="mline_payroll_run_tree" model="ir.ui.view">
+            <field name="name">mline.payroll.run.tree</field>
+            <field name="model">mline.payroll.run</field>
+            <field name="arch" type="xml">
+                <tree string="Payslips Batches">
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="credit_note"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="mline_payroll_run_form" model="ir.ui.view">
+            <field name="name">mline.payroll.run.form</field>
+            <field name="model">mline.payroll.run</field>
+            <field name="arch" type="xml">
+                <form string="Payslips Batches">
+                <header>
+                    <button name="close_payslip_run" type="object" string="Close" states="draft" class="oe_highlight"/>
+                    <button name="%(action_mline_payslip_by_employees)d" type="action" states="draft" string="Generate Payslips" class="oe_highlight"/>
+                    <button string="Set to Draft" name="draft_payslip_run" type="object" states="close" />
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group col="4">
+                        <label for="date_start" string="Period"/>
+                         <div>
+                               <field name="date_start" class="oe_inline"/> - <field name="date_end" class="oe_inline"/>
+                         </div>
+                        <field name="credit_note"/>
+                    </group>
+                    <separator string="Payslips"/>
+                    <field name="slip_ids"/>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_mline_payroll_run_tree" model="ir.actions.act_window">
+            <field name="name">Employee Payslips Batches</field>
+            <field name="res_model">mline.payroll.run</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="mline_payroll_run_tree"/>
+            <field name="search_view_id" ref="mline_payroll_run_filter"/>
+        </record>
+        <menuitem action="action_mline_payroll_run_tree" id="menu_mline_payroll_run" parent="menu_mline_payroll_menu"/>               
+  
+  </data>          
+</openerp>
+
+

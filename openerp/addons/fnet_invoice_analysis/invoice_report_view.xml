@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="view_account_invoice_report_search_inheritss">
+			<field name="name">account.invoice.report.search</field>
+			<field name="model">account.invoice.report</field>
+			<field name="inherit_id" ref="account.view_account_invoice_report_search" />
+			<field name="arch" type="xml">
+
+				<filter name="user" position="after">
+					<filter string="Date" domain="[]"
+						context="{'group_by':'days'}" />
+	                <filter string="Territory" domain="[]"
+						context="{'group_by':'district_id'}" />
+				</filter>					
+				<filter name="user" position="before">
+					<filter string="Without Round Off" domain="[('product_id.product_tmpl_id.name','not like','%ROUND%')]"/>
+				</filter>
+			</field>
+		</record>
+
+	</data>
+</openerp>

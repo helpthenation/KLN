@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    <template id="report_party_wise_sale_summary">
+    <t t-call="report.html_container">
+        
+        <t t-foreach="docs" t-as="o">
+                
+                <div class="page">
+					<style type="text/css">
+						#table_chk{font-size:13px;border:1px solid silver;border-top:0px;font-family:Inconsolata}	
+						#table_chk tr td {padding:0px;margin:0px;display:inline-table}
+						#table_chk tr td table tr td {padding:5px;text-align:center}
+						#table_chk tr td table tr.header {border:1px solid silver;border-right:0px;border-left:0px}
+						#table_chk tr td table tr.header td {border-right:1px solid silver;font-weight:bold}
+						#table_chk tr td table tr.body {border:1px solid white;border-right:0px;border-left:0px}
+						#table_chk tr td table tr.body td {border-right:1px dashed silver;vertical-align:middle}
+						#table_chk tr td table tr.body td:last-child {border-right:0px;}
+						.parent-border {width:200px;border-bottom:2px dotted silver;}
+						.child-border {width:200px;border-bottom:2px dotted silver;margin-bottom:2px}	
+						.border-right {text-align:right !important;border-right:1px dashed silver !important}
+					</style>
+					<table style="width:100%;font-size:13px;font-family:Inconsolata" cellpadding="0" cellspacing="0">
+						<tr>
+							<td width="33%" style="text-align:left">
+								<div style="display:block"><span>ASSOCIATED ELECTRICAL AGENCIES</span>, <span t-esc="o.company_id.state_id.name"/></div>
+							</td>
+							<td width="33%" style="text-align:center">
+								<div style="display:block">Party-Wise Sales Summary</div>
+								<div style="display:block">[ INL : Battery &amp; T.L ]</div>
+							</td>
+							<td width="34%" style="text-align:right">
+								<span style="padding-right:20px">from:<span t-esc="get_date(data)[0]['from_date'][0]"/> to <span t-esc="get_date(data)[0]['to_date'][0]"/></span>
+							</td>
+						</tr>
+					</table><br/><br/>
+                    <table id="table_chk" style="width:100%;" cellpadding="0" cellspacing="0">
+						<tr>
+							<td> 
+								<table style="width:100%;" cellpadding="0" cellspacing="0">
+									<tr class="header">
+										<td width="5%" rowspan="2" style="text-align:center">S. No</td>
+										<td width="25%" rowspan="2" style="text-align:center">Party Name</td>
+										<td width="70%" colspan="13" style="text-align:center">MONTH WISE BREAKUP OFF NET TOTAL</td>
+									</tr>
+									<tr class="header">
+										<td width="5%" style="text-align:center">APR</td>
+										<td width="5%" style="text-align:center">MAY</td>
+										<td width="5%" style="text-align:center">JUN</td>
+										<td width="5%" style="text-align:center">JUL</td>
+										<td width="5%" style="text-align:center">AUG</td>
+										<td width="5%" style="text-align:center">SEP</td>
+										<td width="5%" style="text-align:center">OCT</td>
+										<td width="5%" style="text-align:center">NOV</td>
+										<td width="5%" style="text-align:center">DEC</td>
+										<td width="5%" style="text-align:center">JAN</td>
+										<td width="5%" style="text-align:center">FEB</td>
+										<td width="5%" style="text-align:center">MAR</td>
+										<td width="10%" style="text-align:center">TOTAL</td>
+									</tr>
+									<t t-set="counter" t-value="1"/>
+									<tr class="body" t-foreach="get_invoice_details(data)" t-as="invoice">
+										<td width="5%" style="text-align:center"><span t-esc="counter"/>
+                                            <t t-set="counter" t-value="counter+1"/></td>
+										<td width="5%" style="text-align:left"><span t-esc="get_invoice_details(data)[invoice][0][0]"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_april(data,get_invoice_details(data)[invoice][0][3],get_invoice_details(data)[invoice][0][1])[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_may(data,get_invoice_details(data)[invoice][0][3],get_invoice_details(data)[invoice][0][1])[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_june(data,get_invoice_details(data)[invoice][0][3],get_invoice_details(data)[invoice][0][1])[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_july(data,get_invoice_details(data)[invoice][0][3],get_invoice_details(data)[invoice][0][1])[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_august(data,get_invoice_details(data)[invoice][0][3],get_invoice_details(data)[invoice][0][1])[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_september(data,get_invoice_details(data)[invoice][0][3],get_invoice_details(data)[invoice][0][1])[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_october(data,get_invoice_details(data)[invoice][0][3],get_invoice_details(data)[invoice][0][1])[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_november(data,get_invoice_details(data)[invoice][0][3],get_invoice_details(data)[invoice][0][1])[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_dec(data,get_invoice_details(data)[invoice][0][3],get_invoice_details(data)[invoice][0][1])[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_jan(data,get_invoice_details(data)[invoice][0][3],get_invoice_details(data)[invoice][0][1])[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_feb(data,get_invoice_details(data)[invoice][0][3],get_invoice_details(data)[invoice][0][1])[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_march(data,get_invoice_details(data)[invoice][0][3],get_invoice_details(data)[invoice][0][1])[0]['amount']"/></td>
+										<td width="10%" style="text-align:right"><span t-esc="get_invoice_details(data)[invoice][0][2]"/></td>
+									</tr>
+									<tr class="body" style="border-top:2px dotted silver;border-bottom:2px dotted silver">
+										<td width="5%" style="text-align:center"></td>
+										<td width="5%" style="text-align:left">** ALL PARTY TOTAL **</td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_april_total(data)[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_may_total(data)[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_june_total(data)[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_july_total(data)[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_august_total(data)[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_september_total(data)[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_october_total(data)[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_november_total(data)[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_dec_total(data)[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_jan_total(data)[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_feb_total(data)[0]['amount']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_invoice_march_total(data)[0]['amount']"/></td>
+										<td width="10%" style="text-align:right"><span t-esc="get_invoice_total(data)[0]['amount']"/></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						
+					</table>
+                </div>
+        </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

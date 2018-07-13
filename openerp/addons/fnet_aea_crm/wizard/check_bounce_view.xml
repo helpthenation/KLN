@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_check_bounce_details" model="ir.ui.view">
+            <field name="name">view.check.bounce.details</field>
+            <field name="model">check.bounce.details</field>
+            <field name="arch" type="xml">
+                <form string="Check Bounce Details">
+					<group>
+						<group>
+							<field name="partner_id"/>
+							<field name="cheque_id"/>
+						</group>
+						<group>
+							<field name="bounce_date"/>
+							<field name="amount"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Remarks">
+							<field name="description" placeholder="Cheque Bounce Remarks"/>
+						</page>
+					</notebook>
+                    
+                    <footer>
+                        <button name="bounce_transfer" string="_Apply" type="object" class="oe_highlight"/>
+                        or
+                        <button string="_Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_check_bounce_details" model="ir.actions.act_window">
+            <field name="name">Check Bounce Details</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.bounce.details</field>
+            <field name="view_id" ref="view_check_bounce_details"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

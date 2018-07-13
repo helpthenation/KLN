@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+	<template id="report_stock_summary">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-if="o.company_id.id == 1 ">
+                    <t t-call="fnet_aea_sale_report.report_stock_ledger1"/>
+                </t>
+            </t>
+        </t>
+    </template>
+    
+ <template id="report_stock_ledger1">
+    <t t-call="report.html_container">
+        
+        <t t-foreach="docs" t-as="o">
+            <t t-call="report.external_layout">
+                
+                <div class="page">
+                    <style type="text/css">
+                        #table_chk{font-size:13px;border:1px solid silver;border-top:0px;font-family:Inconsolata}   
+                        #table_chk tr td {padding:0px;margin:0px;display:inline-table}
+                        #table_chk tr td table tr td {padding:5px;text-align:center}
+                        #table_chk tr td table tr.header {border:1px solid silver;border-right:0px;border-left:0px}
+                        #table_chk tr td table tr.header td {border-right:1px solid silver;font-weight:bold}
+                        #table_chk tr td table tr.body {border:1px solid white;border-right:0px;border-left:0px}
+                        #table_chk tr td table tr.body td {border-right:1px solid white;}
+                        .parent-border {width:300px;border-bottom:2px dotted silver;}
+                        .child-border {width:300px;border-bottom:2px dotted silver;margin-bottom:2px}   
+                        .interest-type {height:30px;line-height:30px;padding:0px 10px}
+                    </style>
+                    <table style="width:100%;font-size:13px;font-family:Inconsolata" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="33%" style="text-align:left"><span t-esc="get_com(o.company_id.id)"/>,<span t-field="o.company_id.state_id.name"/></td>
+                            <td width="33%" style="text-align:center">CONSOLIDATED STOCK SUMMARY</td>
+                            <td width="34%" style="text-align:right"><span style="padding-right:20px">ON<span t-esc="get_date(data)[0]['from_date'][0]"/></span> <span style="padding-right:20px">Run.dt:<span t-esc="get_date(data)[0]['now']"/></span></td>
+                        </tr>
+                    </table><br/><br/>
+                    <table id="table_chk" style="width:100%;" cellpadding="0" cellspacing="0">
+                        <tr style="border-bottom:1px solid silver">
+                            <td> 
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr class="header">
+                                        <td width="3%">S.No</td>
+                                        <td width="7%">Pr.Code</td>
+                                        <td width="20%">Product Description</td>
+                                        <td width="5%">MADRAS (QTY)</td>
+                                        <td width="5%">MADRAS (VALUE)</td>
+                                        <td width="5%">BANGALORE (QTY)</td>
+                                        <td width="10%">BANGALORE (VALUE)</td>
+                                        <td width="5%">COCHIN (QTY)</td>
+                                        <td width="10%">COCHIN (VALUE)</td>
+                                        <td width="10%">CONSOLIDATED (QTY)</td>
+                                        <td width="10%">CONSOLIDATED (VALUE)</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> 
+                                <table style="width:100%;" cellpadding="0" cellspacing="0" t-foreach="get_product_category(data)" t-as="category">
+                                    <tr class="body">
+                                        <td width="100%" colspan="15" style="text-align:left;">
+                                            <div class="parent-border">
+                                                <div class="child-border"><span t-esc="category['name']"/></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <t t-set="counter" t-value="1"/>
+                                    <tr class="body" t-foreach="get_product(data,category['name'])" t-as="prod">
+                                        <td width="3%"><span t-esc="counter"/>
+                                            <t t-set="counter" t-value="counter+1"/></td>
+                                        <td width="7%" style="text-align:left"><span t-esc="prod['code']"/></td>
+                                        <td width="20%" style="text-align:left"><span t-esc="prod['prod']"/></td>
+                                        <td width="5%"><span t-esc="get_open_qty(data,prod['code'],[3])"/></td>
+                                        <td width="5%" style="text-align:right"><span t-esc="get_open_value(data,prod['code'],[3])"/></td>
+                                        <td width="5%" style="text-align:right"><span t-esc="get_open_qty(data,prod['code'],[4])"/></td>
+                                        <td width="10%"><span t-esc="get_open_value(data,prod['code'],[4])"/></td>
+                                        <td width="5%" style="text-align:right"><span t-esc="get_open_qty(data,prod['code'],[5])"/></td>
+                                        <td width="10%" style="text-align:right"><span t-esc="get_open_value(data,prod['code'],[5])"/></td>
+                                        <td width="10%"><span t-esc="get_open_qty(data,prod['code'],[3,4,5])"/></td>
+                                        <td width="10%" style="text-align:right"><span t-esc="get_open_value(data,prod['code'],[3,4,5])"/></td>
+                                       
+                                    </tr>
+                                    <tr class="body" >
+                                        <td width="3%"></td>
+                                        <td width="7%">***</td>
+                                        <td width="20%" style="text-align:left">** TOTAL for the Product Group **</td>
+                                        <td width="5%"><span t-esc="get_tot_open_qty(data,category['name'],[3])"/></td>
+                                        <td width="5%" style="text-align:right"><span t-esc="get_tot_open_value(data,category['name'],[3])"/></td>
+                                        <td width="5%" style="text-align:right"><span t-esc="get_tot_open_qty(data,category['name'],[4])"/></td>
+                                        <td width="10%"><span t-esc="get_tot_open_value(data,category['name'],[4])"/></td>
+                                        <td width="5%" style="text-align:right"><span t-esc="get_tot_open_qty(data,category['name'],[5])"/></td>
+                                        <td width="10%" style="text-align:right"><span t-esc="get_tot_open_value(data,category['name'],[5])"/></td>
+                                        <td width="10%"><span t-esc="get_tot_open_qty(data,category['name'],[3,4,5])"/></td>
+                                        <td width="10%" style="text-align:right"><span t-esc="get_tot_open_value(data,category['name'],[3,4,5])"/></td>
+                                       
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr class="body">
+                                        <td width="3%"></td>
+                                        <td width="7%">***</td>
+                                        <td width="20%" style="text-align:left">** Total Stock Value for the Unit</td>
+                                        <td width="5%"><span t-esc="get_grand_open_qty(data,[3])"/></td>
+                                        <td width="5%" style="text-align:right"><span t-esc="get_grand_open_value(data,[3])"/></td>
+                                        <td width="5%" style="text-align:right"><span t-esc="get_grand_open_qty(data,[4])"/></td>
+                                        <td width="10%"><span t-esc="get_grand_open_value(data,[4])"/></td>
+                                        <td width="5%" style="text-align:right"><span t-esc="get_grand_open_qty(data,[5])"/></td>
+                                        <td width="10%" style="text-align:right"><span t-esc="get_grand_open_value(data,[5])"/></td>
+                                        <td width="10%"><span t-esc="get_grand_open_qty(data,[3,4,5])"/></td>
+                                        <td width="10%" style="text-align:right"><span t-esc="get_grand_open_value(data,[3,4,5])"/></td>
+                                        
+                                    </tr>
+                                </table>    
+                            </td>
+                        </tr>
+                  </table>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

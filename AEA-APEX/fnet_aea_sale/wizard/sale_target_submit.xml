@@ -1,0 +1,27 @@
+<openerp>
+    <data>
+
+        <record id="sale_target_submit_view" model="ir.ui.view">
+            <field name="name">sale.target.submit.form</field>
+            <field name="model">sale.target.submit</field>
+            <field name="arch" type="xml">
+                <form string="Confirm Draft Invoices">
+                    <p>
+                        Selected Sale Target are Submitted!!!
+                    </p>
+                    <footer>
+                        <button string="Submit Sale Target" name="invoice_confirm" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_sale_target_submit_confirm"
+            multi="True"
+            key2="client_action_multi" name="Submit Sale Target"
+            res_model="sale.target.submit" src_model="sale.target"
+            view_mode="form" target="new" view_type="form" />
+    </data>
+</openerp>

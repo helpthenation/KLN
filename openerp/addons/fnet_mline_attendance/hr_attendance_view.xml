@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="holiday_status_form_inherit">
+            <field name="name">hr.holidays.status.form</field>
+            <field name="model">hr.holidays.status</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>            
+            <field name="arch" type="xml">
+            <field name="categ_id" position="before">
+                <field name="code"/>    
+            </field>    
+            </field>
+        </record>
+       
+ 
+        
+<!--
+not_mentioned_holidays        
+-->
+     <record id="attendance_validation_form_view" model="ir.ui.view">
+            <field name="name">Attendance To Validate Form View</field>
+            <field name="model">attendance.validation</field>
+            <field name="arch" type="xml">
+                <form name="Attendance To Validate">
+                <header>
+                    <button name="button_confirm" states="draft" string="Submit" type="object" class="oe_highlight"/>
+                    <button name="approve" states="confirm" string="Approve" type="object" groups="base.group_hr_user" class="oe_highlight"/>
+                    <button name="action_set_to_draft" states="done,cancel" string="Set to Draft" type="object" />
+                    <button name="cancel" states="confirm" string="Refuse" type="object" groups="base.group_hr_user" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done,cancel"/>
+                </header>                    
+                    <sheet>
+                     <div class="oe_title">
+                        <label for="branch_id" class="oe_edit_only"/>
+                        <h1><field name="branch_id" attrs="{'readonly': [('state', '!=', 'draft')]}" class="oe_inline"/></h1>
+                     </div>
+                    <group>
+                        <group>
+                            <label for="date_from" string="Attendance Period"/>
+                            <div><field name="date_from" attrs="{'readonly': [('state', '!=', 'draft')]}" class="oe_inline"/> to <field name="date_to"  attrs="{'readonly': [('state', '!=', 'draft')]}" class="oe_inline"/></div>
+                       </group>
+                       </group>
+                       <notebook>
+                         <page string="Attendances" groups="base.group_hr_attendance">
+                                        <group>
+                                            <field name="attendances_ids" nolabel="1">
+                                                <tree string="Attendances" editable="bottom">
+                                                    <field name="date"/>
+                                                    <field name="employee_id"/>
+                                                    <field name="emp_code"/>
+                                                    <field name="branch_id"/>
+                                                    <field name="account_id"/>
+                                                    <field name="sign_in"/>
+                                                    <field name="sign_out"/>
+                                                    <field name="worked_hours"/>
+                                                    <field invisible="1" name="employee_id"/>
+                                                </tree>
+                                            </field>
+                                            </group>
+                            
+                        </page>
+                    </notebook>             
+                    </sheet>
+                </form>
+            </field>
+        </record>      
+     <record id="attendance_validation_tree_view" model="ir.ui.view">
+        <field name="name">Attendance To Validate Tree View</field>
+        <field name="model">attendance.validation</field>
+        <field name="arch" type="xml">
+        <tree>
+            <field name="branch_id"/>
+            <field name="date_from"/>
+            <field name="date_to"/>
+            <field name="state"/>
+        </tree>
+        </field>
+        </record>
+        <record id="act_attendance_validation_formss" model="ir.actions.act_window">
+            <field name="name">Attendances to Validate</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">attendance.validation</field>
+            <field name="view_type">form</field>
+            <field name="view_id" eval="False"/>
+<!--
+            <field name="context">{'search_default_to_approve':1}</field>
+            <field name="search_view_id" ref="attendance_validation_form_view"/>
+-->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                New Attendance to approve.
+              </p>
+
+            </field>
+        </record>
+               
+     <menuitem name="Attendances To Validate" action="act_attendance_validation_formss" id="menu_attendance_validate_new" parent="hr_attendance.menu_hr_attendance" sequence="20" />  
+     <record id="hr_attendance_new_form_viewss" model="ir.ui.view">
+            <field name="name">Hr Attendance Form View</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_form"/>
+            <field name="arch" type="xml">
+                <field name="action" position="attributes">
+                    <attribute name="required">False</attribute>
+                </field>
+                <field name="name" position="attributes">
+                    <attribute name="required">False</attribute>
+                </field>
+                <field name="action" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+                <field name="action_desc" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>        
+                <field name="employee_id" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>        
+                <field name="sheet_id" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>        
+<!--
+                 <xpath expr="//form" position="after">
+                   <header>
+                   <field name="state" widget="statusbar" statusbar_visible="draft,validated" statusbar_colors='{"draft":"blue"}'/>
+                  </header>
+                 </xpath>
+-->
+                <field name="name" position="replace">
+                <group>
+                    <group>
+                    <field name="employee_id" on_change="on_change_to_get_employee_no(employee_id)"/>
+                    <field name="emp_code"/>
+                    <field name="branch_id"/>
+                    <field name="account_id"/>
+                    <field name="user_id" invisible="1"/>           
+                    <field name="is_vacation_counted" invisible="1"/>           
+                    <field name="active" invisible="1"/>           
+                </group>
+                <group>
+                    <field name="date"/>
+                    <field name="sign_in" widget="float_time" />
+                    <field name="sign_out" widget="float_time"/>                                
+                    <field name="worked_hours"/>                    
+                </group>
+                    <group><field name="remark"/></group>
+                </group>
+                </field>
+                           
+            </field>
+        </record>
+
+        <record id="hr_attendance_new_tree_view" model="ir.ui.view">
+            <field name="name">Hr Attendance Tree View</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">               
+
+					<xpath expr="//tree[@string='Employee attendances']" position="attributes">
+						<attribute name="colors">
+							red:active == False
+						</attribute>
+					</xpath>     
+                    
+                    <field name="name" position="replace">
+                    <field name="active" invisible="1"/>
+                    <field name="employee_id"/>
+                    <field name="emp_code"/>
+                    <field name="date"/>                    
+                    <field name="no_of_days"/>                    
+                    <field name="worked_hours"/>
+                    </field>
+                    <field name="action" position="replace">
+                    <field name="sign_in"/>
+                    <field name="sign_out"/>
+                    </field>              
+
+            </field>
+        </record>
+        
+        <record id="hr_attendance_new_who_view" model="ir.ui.view">
+            <field name="name">Hr Attendance Tree View</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_who"/>
+            <field name="arch" type="xml">
+				
+					<xpath expr="//tree[@string='Employee attendances']" position="attributes">
+						<attribute name="colors">
+							red:active == False
+						</attribute>
+					</xpath> 
+                    <field name="name" position="replace">
+                    <field name="active" invisible="1"/>
+                    <field name="employee_id"/>
+                    <field name="emp_code"/>
+                    <field name="date"/>
+                    <field name="no_of_days"/>
+                    <field name="worked_hours"/>
+                    </field>
+                    <field name="action" position="replace">
+                    <field name="sign_in"/>
+                    <field name="sign_out"/>
+                    </field>              
+
+            </field>
+        </record>        
+        <record model="ir.ui.view" id="hr_attendance.view_hr_attendance_filter">
+            <field name="name">view_hr_attendance_filter</field>
+            <field name="model">hr.attendance</field>
+            <field name="arch" type="xml">
+                <search string="Hr Attendance Search">
+                    <field name="date" string="Attendance"/>
+                    <filter string="Today" name="today" domain="[('date','&gt;=',current_date),('date','&lt;=',current_date)]" />
+                    <filter string="Current Month" domain="[('date','&gt;=', datetime.datetime.now().strftime('%Y-%m-01'))]" />
+                    <separator/>
+                    <filter string="My Attendance" domain="[('employee_id.user_id.id', '=', uid)]" />
+                    <field name="employee_id"/>
+                    <field name="branch_id"/>
+                    <field name="emp_code"/>
+                    <field name="account_id"/>
+                    <group expand="0" string="Group By">
+                        <filter name="employee" string="Employee" context="{'group_by':'employee_id'}"/>
+                        <separator/>
+                        <filter name="branch_id" string="Sponosor" context="{'group_by':'branch_id'}"/>
+                        <separator/>
+                        <filter name="account_id" string="Customer Contract" context="{'group_by':'account_id'}"/>
+                        <separator/>
+                        <filter name="groupby_name" string="Month" context="{'group_by':'date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>           
+
+<!--
+        Calendar View
+-->
+         <record model="ir.ui.view" id="hr_attendance_calendarsssssssss">
+                <field name="name">Employee Calendar</field>
+                <field name="model">hr.attendance</field>
+                <field name="priority" eval="1"/>
+                <field name="arch" type="xml">
+                    <calendar string="Attendance" color="employee_id"
+                                  date_start="date"
+                                  quick_add="False" avatar_model="hr.attendance">                     
+                        <field name="employee_id"/>                                    
+                       
+                    </calendar>
+                </field>
+        </record>
+        
+        <record id="hr_attendance.open_view_attendance" model="ir.actions.act_window">
+            <field name="name">Attendances</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="context">{"search_default_today":1}</field>
+            <field name="search_view_id" ref="hr_attendance.view_hr_attendance_filter" />
+            <field name="help">The Time Tracking functionality aims to manage employee attendances from Sign in/Sign out actions. You can also link this feature to an attendance device using Odoo's web service features.</field>
+        </record>        
+        
+        <record id="hr_attendance_new_action" model="ir.actions.act_window">
+            <field name="name">Attendance</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="action">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="context">{"search_default_today":1}</field>
+            <field name="view_id" ref="hr_attendance.view_hr_attendance_filter"/>
+            <field name="help" type="html">
+                <p>The Time Tracking functionality aims to manage employee attendances from Sign in/Sign out actions. You can also link this feature to an attendance device using Odoo's web service features.</p>
+            </field>
+        </record>
+
+
+    
+    </data>
+</openerp>

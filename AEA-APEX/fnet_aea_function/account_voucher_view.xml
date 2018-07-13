@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data> 
+      
+      
+       <!--
+            DD option in journal
+        -->
+        
+        
+
+        <record id="view_account_journal_dd_form" model="ir.ui.view">
+            <field name="name">account.journal.dd.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form" />
+            <field name="arch" type="xml">
+                <field name="entry_posted" position="after">
+                    <field name="allow_dd_writing" attrs="{'readonly':[('type','!=','bank')]}" />
+                    <field name="allow_neft_writing" attrs="{'readonly':[('type','!=','bank')]}" />
+                    <field name="allow_rd_writing" attrs="{'readonly':[('type','!=','bank')]}" />
+                    <field name="reciept_journal" attrs="{'readonly':[('type','!=','bank')]}" />
+                </field>
+            </field>
+        </record>
+
+      
+     <record id="view_vendor_receipt_form_inh" model="ir.ui.view">
+            <field name="name">view.vendor.receipt.form.inh</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_form"/>
+            <field name="arch" type="xml">
+                
+                 <xpath expr='//form/sheet/group/group/field[@name="partner_id"]' position="replace">
+                   <field name="partner_id" domain="[('customer','=',True)]" required="1" on_change="onchange_partner_id(partner_id, journal_id, amount, currency_id, type, date, payment_term, context)" string="Customer" context="{'search_default_customer': 1}"/>
+                </xpath>
+                
+                 <xpath expr='//form/sheet/group/group/field[@name="amount"]' position="replace">
+                    <field name="amount" class="oe_inline"
+                        string="Paid Amount"
+                        widget="monetary" options="{'currency_field': 'currency_id'}"
+                        on_change="onchange_amount(amount, payment_rate, partner_id, journal_id, currency_id, type, date, payment_rate_currency_id, company_id, payment_term, context)"/>
+                </xpath>
+                 
+                 <xpath expr='//form/sheet/group/group/field[@name="journal_id"]' position="replace">
+                   <field name="journal_id"
+                                domain="[('type','in',['bank', 'cash'])]"
+                                widget="selection"
+                                on_change="onchange_journal(journal_id, line_cr_ids, False, partner_id, date, amount, type, company_id, payment_term, context)"
+                                string="Payment Method"/>
+                </xpath>
+                
+                <field name="reference" position="after">
+                    <field name="dd_amount"/>
+                    <field name="credit_note" invisible='1'/>
+                </field>
+                 
+                 <xpath expr='//form/sheet/group/group/field[@name="journal_id"]' position="after">
+<!--
+                     <field name="payment_term"/>
+-->
+                    <field name="payment_term" on_change="onchange_payment_term(journal_id, line_cr_ids, False, partner_id, date, amount, type, company_id, payment_term, context)"
+                        attrs="{'required':[('type','!=','receipt')]}"/>
+                </xpath>
+
+                
+               <xpath expr='//form/sheet/notebook/page[@string="Payment Information"]' position="before">
+                   <page string="Cheque/DD Line">
+                       <field name="account_cheque_line" context="{'credit_note':credit_note}" attrs="{'readonly': [('state','in',('cancel','posted'))]}">
+                            <tree string="Cheque/DD Line" editable="bottom">
+                               <field name="select" attrs="{'required':[('credit_note','=',True)]}"/>
+                               <field name="type" attrs="{'required':[('credit_note','=',True)]}"/>
+                               <field name="cheque_id" on_change="onchange_cheque_id(cheque_id)" attrs="{'required':[('credit_note','=',True)]}"/>
+                               <field name="issue_date"/>
+                               <field name="bank_name"/>
+                               <field name="branch_name"/>
+                               <field name="amount"/>
+                               <field name="credit_note" invisible='1'/>
+                            </tree>
+                        </field>
+                    </page>
+               </xpath>
+               
+               <xpath expr='//form/sheet/notebook/page/field/tree/field[@name="amount_unreconciled"]' position="replace">
+                   <field name="amount_unreconciled" sum="Total" readonly="1" groups="account.group_account_user"/>
+               </xpath>
+               
+            </field>
+    </record>
+    
+     <record id="view_vendor_payment_form_inh" model="ir.ui.view">
+            <field name="name">view.vendor.payment.form1.inh</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_payment_form"/>
+            <field name="arch" type="xml">
+                
+                <xpath expr='//form/sheet/group/group/field[@name="partner_id"]' position="replace">
+                    <field name="partner_id" 
+                            required="1" 
+                            domain = "[('supplier', '=', True)]"
+                            invisible="context.get('line_type', False)" 
+                            on_change="onchange_partner_id(partner_id, journal_id, amount, currency_id, type, date, payment_term, context)" 
+                            context="{'invoice_currency':currency_id, 'default_customer': 0, 'search_default_supplier': 1, 'default_supplier': 1}"  string="Supplier"/>
+                </xpath>
+                
+                <xpath expr='//form/sheet/group/group/field[@name="amount"]' position="replace">
+                    <field name="amount" 
+                            invisible="context.get('line_type', False)" 
+                            on_change="onchange_amount(amount, payment_rate, partner_id, journal_id, currency_id, type, date, payment_rate_currency_id, company_id, payment_term, context)" 
+                            class="oe_inline" widget='monetary' options='{"currency_field": "currency_id"}'/>
+                </xpath>
+                
+                <xpath expr='//form/sheet/group/group/field[@name="journal_id"]' position="replace">
+                    <field name="journal_id"
+                                domain="[('type','in',['bank', 'cash'])]"
+                                invisible="context.get('line_type', False)"
+                                widget="selection"
+                                on_change="onchange_journal(journal_id, line_dr_ids, False, partner_id, date, amount, type, company_id, payment_term, context)"
+                                string="Payment Method"/>
+                </xpath>
+                
+                <xpath expr='//form/sheet/group/group/field[@name="journal_id"]' position="after">
+                    <field name="payment_term" invisible="1"/>
+                </xpath>
+                
+                <xpath expr='//form/sheet/notebook/page[@string="Payment Information"]' position="after">
+                   <page string="Cheque/DD Line">
+                       <field name="supplier_cheque_line" attrs="{'readonly': [('state','in',('cancel','posted'))]}">
+                            <tree string="Cheque/DD Line" editable="bottom">
+                               <field name="select"/>
+                               <field name="type"/>
+                               <field name="cheque_no"/>
+                               <field name="issue_date"/>
+                               <field name="bank_name"/>
+                               <field name="branch_name"/>
+                            </tree>
+                        </field>
+                    </page>
+               </xpath>
+               
+               <xpath expr='//form/sheet/notebook/page/field/tree/field[@name="amount_unreconciled"]' position="replace">
+                   <field name="amount_unreconciled" sum="Total" readonly="1" groups="account.group_account_user"/>
+               </xpath>
+                
+            </field>
+    </record>
+    
+    <record id="view_vendor_receipt_dialog_inh" model="ir.ui.view">
+            <field name="name">view.vendor.receipt.dialog.inh</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_dialog_form"/>
+            <field name="arch" type="xml">
+                
+                <xpath expr='//form/group/group/field[@name="partner_id"]' position="replace">
+                    <field name="partner_id" required="1" on_change="onchange_partner_id(partner_id, journal_id, amount, currency_id, type, date, payment_term, context)" string="Customer" context="{'search_default_customer': 1}"/>
+                </xpath>
+                
+                <xpath expr='//form/group/group/field[@name="amount"]' position="replace">
+                    <field name="amount" class="oe_inline"
+                        string="Paid Amount"
+                        widget='monetary' options='{"currency_field": "currency_id"}'
+                        invisible="context.get('line_type', False)"
+                    on_change="onchange_amount(amount, payment_rate, partner_id, journal_id, currency_id, type, date, payment_rate_currency_id, company_id, payment_term, context)"/>
+                </xpath>
+                
+                <xpath expr='//form/group/group/field[@name="journal_id"]' position="replace">
+                    <field name="journal_id"
+                        domain="[('type','in',['bank', 'cash'])]"
+                        invisible="context.get('line_type', False)"
+                        widget="selection"
+                        on_change="onchange_journal(journal_id, line_cr_ids, False, partner_id, date, amount, type, company_id, payment_term, context)"
+                        string="Payment Method"/>
+                </xpath>
+                
+                <xpath expr='//form/group/group/field[@name="journal_id"]' position="after">
+                    <field name="payment_term" invisible="1"/>
+                </xpath>
+                
+            </field>
+    </record>
+    
+
+     <menuitem name="Customer Receipt" action="account_voucher.action_vendor_receipt" icon="STOCK_JUSTIFY_FILL" sequence="12"
+            id="account_voucher.menu_action_vendor_receipt"  parent="account.menu_finance_receivables"/>
+            
+     <menuitem name="Supplier Receipt" action="account_voucher.action_vendor_payment" icon="STOCK_JUSTIFY_FILL" sequence="12"
+            id="account_voucher.menu_action_vendor_payment"  parent="account.menu_finance_payables"/>
+    
+    <record model="ir.ui.menu" id="account.menu_aged_trial_balance">
+            <field name="name">Debtors Age Analysis of Invoices</field>
+        </record>
+        
+    <menuitem icon="STOCK_PRINT"
+            name="Debtors Schedule"
+            action="account.action_account_partner_balance"
+            id="menu_account_partner_balance_report"
+            parent="account.next_id_22"/>
+<!--
+    <menuitem icon="STOCK_PRINT"
+            name="Debtors Age Analysis of Invoice"
+            action="account.action_account_aged_balance_view"
+            id="menu_aged_trial_balance"
+            parent="account.next_id_22"/>
+-->
+
+  </data>          
+</openerp>
+
+

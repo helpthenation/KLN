@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="account_invoice_form_inherit" model="ir.ui.view">
+                <field name="name">account.invoice.inherit</field>
+                <field name="model">account.invoice</field>
+                <field name="inherit_id" ref="account.invoice_form"/>
+                <field name="arch" type="xml">
+                   <xpath expr="//field[@name='amount_untaxed']" position="before">
+                        <field name="gross_amount_total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="product_discount_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    </xpath>
+                    <xpath expr="//field[@name='amount_untaxed']" position="after">
+                        <field name="discounted_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="untaxed_dis_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>      
+                    </xpath>
+                    <xpath expr="//field[@name='amount_tax']" position="after">   
+                        <field name="disc_value" invisible="1"/>      
+                    </xpath>
+                </field>
+                
+        </record>   
+
+    </data>
+</openerp>          

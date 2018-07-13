@@ -1,0 +1,11 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_attendance_validation_employee","attendance.validation.employee","model_attendance_validation","base.group_user",0,0,0,0
+"access_attendance_validation_officer","attendance.validation.officer","model_attendance_validation","base.group_hr_user",1,1,1,1
+"access_attendance_validation_manager","attendance.validation.manager","model_attendance_validation","base.group_hr_manager",1,1,1,1
+"access_hr_unmapped_attendance_employee","hr.unmapped.attendance.employee","model_hr_unmapped_attendance","base.group_user",0,0,0,0
+"access_hr_unmapped_attendance_officer","hr.unmapped.attendance.officer","model_hr_unmapped_attendance","base.group_hr_user",1,1,1,1
+"access_hr_unmapped_attendance_manager","hr.unmapped.attendance.manager","model_hr_unmapped_attendance","base.group_hr_manager",1,1,1,1
+"access_unmapped_employee_details_employee","unmapped.employee.details.employee","model_unmapped_employee_details","base.group_user",0,0,0,0
+"access_unmapped_employee_details_officer","unmapped.employee.details.officer","model_unmapped_employee_details","base.group_hr_user",1,1,1,1
+"access_unmapped_employee_details_manager","unmapped.employee.details.manager","model_unmapped_employee_details","base.group_hr_manager",1,1,1,1
+"access_hr_attendance_employees","hr.attendance.employees","model_hr_attendance","base.group_user",1,0,0,0

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+<!--
+		  <report 
+            id="delivery_note_id"
+            string="Delivery Note"
+            model="stock.picking" 
+            report_type="qweb-pdf"
+            file="fnet_mline_reportz.delivery_note" 
+            name="fnet_mline_reportz.delivery_note" 
+            attachment_use="False"/>
+-->
+            
+		<report 
+            id="grn_id"
+            string="GRN"
+            model="stock.picking" 
+            report_type="qweb-pdf"
+            file="fnet_mline_reportz.grn" 
+            name="fnet_mline_reportz.grn" 
+            attachment_use="False"/>
+    	
+    	<record id="sale_quote_report" model="ir.actions.report.xml">
+        	<field name="paperformat_id" ref="report.paperformat_euro"/>
+    	</record>
+    	<record id="sale_tech_report" model="ir.actions.report.xml">
+        	<field name="paperformat_id" ref="report.paperformat_euro"/>
+    	</record>
+    	<record id="purchase_quote_report" model="ir.actions.report.xml">
+        	<field name="paperformat_id" ref="report.paperformat_euro"/>
+    	</record>
+    	<record id="purchase_order_report" model="ir.actions.report.xml">
+        	<field name="paperformat_id" ref="report.paperformat_euro"/>
+    	</record>
+    	<record id="covering_letter_report" model="ir.actions.report.xml">
+        	<field name="paperformat_id" ref="report.paperformat_euro"/>
+    	</record>
+    	<record id="purchase_order_report_buluff" model="ir.actions.report.xml">
+        	<field name="paperformat_id" ref="report.paperformat_euro"/>
+    	</record>
+    	<record id="purchase_quote_report_buluff" model="ir.actions.report.xml">
+        	<field name="paperformat_id" ref="report.paperformat_euro"/>
+    	</record>
+    	<record id="costing_report" model="ir.actions.report.xml">
+        	<field name="paperformat_id" ref="report.paperformat_euro"/>
+    	</record>
+    	<record id="sale_quote_report_buluff" model="ir.actions.report.xml">
+        	<field name="paperformat_id" ref="report.paperformat_euro"/>
+    	</record>
+            
+	</data>
+</openerp>

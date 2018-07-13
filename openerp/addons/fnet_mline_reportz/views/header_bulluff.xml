@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <template id="header_wizards_buluff">
+		<div class="header">
+        <t t-if ="o and 'company_id' in o" >
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+        <div>
+			<img t-if="o.company_id.logo" width="170px" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="float:left;"/>
+			
+			<img src="/fnet_mline_reportz/static/src/img/logo.png" style="float:right;width:180px;height:50px;"/>
+		
+		</div>
+	<br/><br/><br/><br/>
+		<hr style="height:1px;border:none;color:#333;background-color:#333;"/>
+ 
+         </div>
+    </template>
+    
+    <template id="header_wizard_buluff">
+		<div class="header">
+        <t t-if ="o and 'company_id' in o" >
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+        <div>
+			<img t-if="o.company_id.logo" width="170px" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="float:left;"/>
+			
+		</div>
+	<br/><br/><br/><br/>
+		<hr style="height:1px;border:none;color:#333;background-color:#333;"/>
+ <br/>
+	
+         </div>
+       
+    </template>
+    
+    <template id="header_wizardss_buluff">
+		
+				<div class="header">
+			
+					<t t-if ="o and 'company_id' in o" >
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+        <div>
+			<img t-if="o.company_id.logo" width="170px" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="float:left;"/>
+		</div>
+		<br/><br/>
+			<hr style="height:1px;border:none;color:#333;background-color:#333;"/>
+
+        
+         <t t-if="o._table=='purchase_order'">
+				<div class="not-first-page">
+                   <table width="50%" style="position:absolute;top:70px;z-index:1;">
+									<tr>
+																				  <td style="border-top:1px solid black;border-left:1px solid black;border-right:1px solid black;font-weight:bold;font-family:courier-new;font-size: 12px;padding-left:5px;">
+
+											Date :
+											<span style="font-weight:bold;font-family:courier-new;font-size: 12px;" t-field="o.date_order" t-field-options='{"format": "d.M.Y"}'/> 
+									  </td>
+									</tr>	
+									<tr>
+									  <td style="border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;font-weight:bold;font-family:courier-new;font-size: 12px;padding-left:5px;line-height:30px">
+										Purchase Order #:   						
+											<span style="text-align:left;font-weight:bold;font-family:courier-new;font-size: 12px;" t-field='o.name'/>
+										</td></tr>
+						
+			</table> <br/>
+			</div></t>
+		 </div>
+    </template>
+    
+    <template id="header_wizard_buluff_so">
+		
+				<div class="header">
+			
+					<t t-if ="o and 'company_id' in o" >
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+        <div>
+			<img t-if="o.company_id.logo" width="170px" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="float:left;"/>
+		</div>
+		<br/><br/>
+			<hr style="height:1px;border:none;color:#333;background-color:#333;"/>
+
+        
+         <t t-if="o._table=='sale_order'">
+				<div class="not-first-page">
+                   <table width="30%" style="position:absolute;top:70px;z-index:1;">
+										
+									<tr>
+									  <td style="border-top:1px solid black;border-left:1px solid black;border-right:1px solid black;font-weight:bold;font-family:courier-new;font-size: 12px;padding-left:5px;">
+										Date:						
+											<span style="text-align:left;font-weight:bold;font-family:courier-new;font-size: 12px;" t-field='o.date_order' t-field-options='{"format": "d.M.Y"}'/>
+										</td></tr>
+									<tr>
+									  <td style="border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;font-weight:bold;font-family:courier-new;font-size: 12px;padding-left:5px;line-height:30px">
+											Ref #: 
+											<span style="font-weight:bold;font-family:courier-new;font-size: 12px;" t-field="o.name" /> 
+									  </td>
+									</tr>	
+						
+			</table> <br/>
+			</div></t>
+		 </div>
+    </template>
+    
+        <template id="header_wizard_buluff_po">
+		
+				<div class="header">
+			
+					<t t-if ="o and 'company_id' in o" >
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+        <div>
+			<img t-if="o.company_id.logo" width="170px" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="float:left;"/>
+		</div>
+		<br/><br/>
+			<hr style="height:1px;border:none;color:#333;background-color:#333;"/>
+
+        
+         <t t-if="o._table=='purchase_order'">
+				<div class="not-first-page">
+                   <table width="30%" style="position:absolute;top:70px;z-index:1;">
+										
+									<tr>
+																				  <td style="border-top:1px solid black;border-left:1px solid black;border-right:1px solid black;font-weight:bold;font-family:courier-new;font-size: 12px;padding-left:5px;">
+										Date:						
+											<span style="text-align:left;font-weight:bold;font-family:courier-new;font-size: 12px;" t-field='o.date_order' t-field-options='{"format": "d.M.Y"}'/>
+										</td></tr>
+										<tr>
+									  <td style="border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;font-weight:bold;font-family:courier-new;font-size: 12px;padding-left:5px;line-height:30px">
+											Ref #: 
+											<span style="font-weight:bold;font-family:courier-new;font-size: 12px;" t-field="o.name" /> 
+									  </td>
+									</tr>
+						
+			</table> <br/>
+			</div></t>
+		 </div>
+    </template>
+    
+    
+</data>
+</openerp>

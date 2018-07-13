@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+<template id="proforma_invoice">
+    <t t-name="fnet_mline_reportz.proforma_invoice">
+	
+	<div class="oe_structure">     
+		<t t-foreach="doc_ids" t-as="o">
+        <t t-call="report.html_container">
+	    <t t-call="fnet_mline_reportz.header_wizards_buluff"/>
+        <div class="page">
+			<style>
+					tr {page-break-inside: avoid;}
+					.table { border: 1px solid black; }
+					.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { border: 1px solid black; }
+					</style>	
+
+		  <div class="container">
+			   <h3 style="text-align:center;background-color:#568eff;border: 1px solid #568eff;color:#ffffff;text-align:center;border-radius:5px"><right><strong>PROFORMA INVOICE</strong></right></h3>  
+			  <p><b>Date: </b><t t-esc="o.date_invoice"/></p>
+			  <!--<p><b>PI: </b><t t-esc="doc_id.lp_no"/></p>-->
+			  <p><b><t t-esc="o.partner_id.name"/></b></p>
+			  <p><b><t t-esc="o.partner_id.street"/></b></p>
+			  <p><b><t t-esc="o.partner_id.street2"/></b></p>
+			  <p><b><t t-esc="o.partner_id.city"/>,<t t-esc="o.partner_id.country_id.name"/></b></p>  
+			  <p><b><t t-esc="o.partner_id.phone"/></b></p>
+			  <br/><br/><br/>
+			  <table class="table table-bordered" style="margin-left:5px;">
+					  <thead style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;">
+				  <tr>
+					<th colspan='1'>Delivery Point</th>
+					<th colspan='2'>Purchase Order No</th>
+					<th colspan='1'>Currency</th>
+					<th colspan='1'>Delivery Period</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr>
+					<td colspan='1'><t t-esc="docs.incoterm(o)"/></td>
+					<td colspan='2'><t t-esc="docs.po_no(o)"/></td>
+					<td colspan='1'><t t-esc="o.currency_id.name"/></td>
+					<td colspan='1'><t t-esc="docs.delivery_period(o)"/></td>
+				  </tr>
+				</tbody>
+			  </table>
+			  <br/>
+			  <table class="table table-bordered" style="margin-left:5px;">
+					  <thead style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;">
+				  <tr style="border: 1px solid black;">
+					<th colspan='1'>Item</th>
+					<th colspan='1'>Qty</th>
+					<th colspan='1'>Description</th>
+					<th colspan='1'>Unit price</th>
+					<th colspan='1'>Line Total</th>
+				  </tr>
+				</thead>
+				<tbody>
+					<t t-foreach="o.invoice_line" t-as="line">
+				  <tr style="border: 1px solid black;page-break-inside: avoid;">
+					<td><b><t t-esc="line_index + 1"/></b></td>
+					<td><t t-esc="line.quantity"/></td>
+					<td>
+					   <span class="oblique" t-field="line.product_id.name"/>
+					   <span t-field="line.name"></span><br/>
+					   <span style="font-weight:bold;">Order Code:</span>
+					   <span t-esc="docs.order_code(line,o)"/><br/>					   
+					   <span style="font-weight:bold;">Part No:</span>
+					   <span t-field="line.product_id.part_no"/><br/>
+					   <span style="font-weight:bold;">Make:</span>
+					   <span t-field="line.product_id.make_no"/>
+					</td>
+					<td><t t-esc="line.price_unit"/></td>
+					<td><t t-esc="line.price_subtotal"/></td>
+				  </tr>
+				  </t>
+				  <tr>
+				  <td colspan='4' style="text-align:right;">Duty 5%</td>
+				  <td colspan='1'><t t-esc="docs.duty_calculation(o)"/></td>
+				  </tr>
+				  <tr>
+				  <td colspan='4' style="text-align:right;">Freight Charges To your Store</td>
+				  <td colspan='1' ><t t-esc="docs.freight_calculation(o)"/></td>
+				  </tr>
+				  <tr>
+				  <td colspan='4' style="text-align:right;"><b>Total</b></td>
+				  <td colspan='1' ><b><t t-esc="o.amount_total"/></b></td>
+				  </tr>				  
+				</tbody>
+			  </table>
+			<h4><b>Bank Details</b></h4>
+			<table class="table table-bordered" width="100%">
+				  <tr>
+					<td width="50%" colspan='3'><b>Benificiary Name</b></td>
+					<td width="50%" colspan='2'><b>MULTILINE TECHNICAL CO LLC</b></td>
+				  </tr>
+				  <tr>
+					<td width="50%" colspan='3'><b>BANK NAME</b></td>
+					<td width="50%" colspan='2'><b>NATIONAL BANK OF FUJAIRAH PSC, ABU DHABI BRANCH, ABU DHABI</b></td>
+				  </tr>
+				  <tr>
+					<td width="50%" colspan='3'><b>ACCOUNT NUMBER</b></td>
+					<td width="50%" colspan='2'><b>012000446163</b></td>
+				  </tr>
+				  <tr>
+					<td width="50%" colspan='3'><b>IBAN</b></td>
+					<td width="50%" colspan='2'><b>AE570380000012000446163</b></td>
+				  </tr>
+				  <tr>
+					<td width="50%" colspan='3'><b>SWIFT CODE</b></td>
+					<td width="50%" colspan='2'><b>NBFUAEAF</b></td>
+				  </tr>
+			</table>
+			  <br/><br/><br/>			
+			<h5 style="text-align:left;"><b>NOTE: ALL THE BANK DETAILS CHARGES TO YOUR ACCOUNT</b></h5>
+			</div>
+ 		
+ 		</div>
+ 		<t t-call="fnet_mline_reportz.footer_wizards"/>
+ 		</t>
+ 		</t>
+ 		</div>
+ 		
+	</t>
+</template>
+</data>
+</openerp>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    <template id="report_bank_details">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="report.external_layout">
+                
+                <div class="page">
+                  <style type="text/css">
+                    .table_chk, th{
+                       border: 1px solid silver;
+                       font-size: 14px;
+                       text-align: center;
+                       border-top: 1px solid silver;
+					   border-bottom: 1px solid silver;
+					   padding-top: 0.2cm;
+					   padding-bottom: 0.2cm;
+                     }
+                    .table_chk, td{
+                       border: 1px solid silver;
+                       font-size: 14px;
+                       border-top: 1px solid silver;
+					   border-bottom: 1px solid silver;
+					   padding-top: 0.2cm;
+					   padding-bottom: 0.2cm;
+                     }
+                     .table_chk {
+                       width: 100%;
+                     }
+                     .table_bank {
+                       width: 100%;
+                       border:0px;
+                     }
+                     .top-header {text-align:center;font-size:10px}
+                     .image {width:100px;height:50px;vertical-align:middle;border:0px solid white;}
+                   </style>
+                   <tr>
+					   <td>
+                   <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="10%" style="vertical-align:middle;">
+                                            <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="image"/>
+                                        </td>
+                                        <td width="80%" class="top-header">
+											<div style="font-size:14px"><b><span t-esc="get_com1(data)"/></b></div>
+                                            <div style="font-size:12px"><span t-field='o.company_id.street'/>,<span t-field='o.company_id.street2'/></div>
+                                            <div style="font-size:12px"><span t-field='o.company_id.city'/>, <span t-field='o.company_id.state_id.name'/>- <span t-field='o.company_id.zip'/>,Phone :<span t-field='o.company_id.phone'/></div>
+                                            <div style="font-size:12px">TIN : <span t-field='o.company_id.tin_no'/> CST No : <span t-field='o.company_id.cst_no'/><t t-if="o.company_id.name == 'AEA(TN)'"><span>/ 27-07-1968</span></t><t t-if="o.company_id.name == 'AEA(KL)'"><span>/ 27-07-1968</span></t><t t-if="o.company_id.name == 'AEA(KA)'"><span>/ 27-07-1968</span></t></div>
+                                        </td>
+                                        <td width="10%" style="text-align:right;vertical-align:middle;" valign="middle">
+                                            <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="image"/>
+                                        </td>
+                                    </tr>
+                    </table>
+						</td>
+                    </tr> 
+                    <tr>
+                    <td>
+                    <table class ="table_bank">
+						<tr>
+							<t t-foreach="o.company_id.bank_ids" t-as="bank">
+								<td class="text-right">
+									<b>Bank Name:</b><span t-field='bank.bank_name'/><br/>
+									<b>Account Number:</b><span t-field='bank.acc_number'/>
+								</td>
+							</t>
+						</tr>
+                    </table>
+                    </td>
+                    </tr>   
+                  
+                   <h4><center><strong>Cheque Details</strong></center></h4>
+                  
+                   <table class="table_chk">
+                      <thead>
+                         <tr>
+                            <th>S.No</th>
+                            <th>Type</th>
+                            <th>Check No</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Customer</th>
+                            
+                         </tr>
+                      </thead>
+                      <tbody>
+                          <t t-set="counter" t-value="1"/>
+                          <t t-set="grand" t-value="[]"/>
+                          <t t-set="tot" t-value="[]"/>
+                          <tr t-foreach="get_check_details(data)" t-as="partner">
+                            <td class="text-center">
+                                <span t-esc="counter"/>
+                                <t t-set="counter" t-value="counter+1"/>
+                            </td>
+							<td>
+                               <span t-esc="partner['type']"/>
+                            </td>
+                            <td class="text-center">
+                               <span t-esc="partner['chk_no']"/>
+                            </td>
+                            <td>
+                               <span t-esc="partner['date']"/>
+                            </td>
+                            <td class="text-right" style="line-height:200%;">
+                                <span t-esc="'{:20,.2f}'.format(partner['amount'])"/>
+                                <t t-set="grand" t-value="(partner['amount'])"/>
+                                <t t-set="tot" t-value="tot+[float(grand)]"/>
+                            </td>
+                            <td class="text-left" style="padding-left:10px">
+                               <span t-esc="partner['display_name']"/>
+                            </td>
+                                                      
+                           
+                           </tr>
+                           <tr>
+								<td colspan="4">
+									<b>GRAND TOTAL</b>
+								</td>												
+								<td style="text-align:right;">
+									<t t-esc="'{:20,.2f}'.format(sum(tot))"/>
+								</td>
+								<td>
+								</td>
+						</tr>
+						<tr>
+							<td colspan="4"><b>Total in Words</b></td>
+						<td colspan="2"><span t-esc="Number2_Words((sum(tot)))"/></td>
+						</tr>
+<!--
+						<tr>
+						<td>
+							<t t-esc="set_to_comma1(sum(tot))"/>
+						</td>
+						</tr>
+-->
+                       </tbody>
+                  </table>
+                 </div>
+               
+            </t>
+        </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

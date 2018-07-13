@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>        
+        <record id="view_brs_form" model="ir.ui.view">
+            <field name="name">view.brs.form</field>
+            <field name="model">bank.reconsile</field>
+            <field name="arch" type="xml">
+                <form string="BRS">
+                        <group>
+                            <group col="4">
+                                <field name="name"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        <notebook>
+                        <page name="brs_line" string="Journal">
+                          <field name="brs_line" widget="one2many_list">
+                          <tree editable='bottom'>
+                             <field name="line_id" invisible='1'/> 
+                             <field name="journal_id" domain="[('type','=','bank')]" on_change="onchange_journal_id(journal_id)"/>
+                             <field name="company_id"/>
+                          </tree>
+                         <form string="Tool Details">
+                          <group col='4'>
+                             <field name="line_id" invisible='1'/> 
+                             <field name="journal_id" domain="[('type','=','bank')]"/>
+                             <field name="company_id"/>
+                          </group>
+                         </form>
+                         </field>
+                        </page>  
+                       </notebook>        
+                 </form>
+           </field>
+       </record>
+
+      <record id="view_brs_tree" model="ir.ui.view">
+            <field name="name">view.brs.tree</field>
+            <field name="model">bank.reconsile</field>
+            <field name="arch" type="xml">
+                <tree string="BRS">
+                    <field name="name"/>
+                    <field name="active"/>
+                 </tree>
+           </field>
+       </record>
+
+     
+
+       <record id="action_brs" model="ir.actions.act_window">
+            <field name="name">BRS</field>
+            <field name="res_model">bank.reconsile</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a BRS.
+                </p><p>
+                    Create BRS
+                </p>
+            </field>
+        </record>
+
+     <menuitem action="action_brs"
+               id="menu_brs"
+               name="BRS Journal"
+               parent="account.menu_journals"
+               sequence="1"/>
+             
+     <record id="view_brs_statement_form" model="ir.ui.view">
+            <field name="name">view.brs.statement.form</field>
+            <field name="model">brs.statement</field>
+            <field name="arch" type="xml">
+                <form string="BRS">
+                    <header>
+                   <button name="generate" type='object' string="Generate" class="oe_highlight"   states="draft"/>
+                   <button name="validate" type='object' string="Submit" class="oe_highlight"   states="progress" />  
+                   <button name="cancel" type='object' string="Cancel" class="oe_highlight"   states="progress"/>  
+                   <button name="unreconcile" type='object' string="Unreconcile" class="oe_highlight"   states="done"/>  
+                   <button name="reset_to_draft" type='object' string="Reset To Draft" class="oe_highlight"   states="cancel"/>  
+                   <field name="state" widget="statusbar" statusbar_visible="progress,cancel,draft,done" statusbar_colors='{"draft":"blue"}'/>
+                  </header>
+                        <group>                         
+                            <group col="4">
+                                <field name="brs_id" attrs="{'readonly': [('state','=','done')]}"/>                                
+                                <field name="unreconcile_balance" attrs="{'readonly': [('state','=','done')]}"/>
+                                <field name="from_date" attrs="{'readonly': [('state','=','done')]}"/>
+                                <field name="debit" attrs="{'readonly': [('state','=','done')]}"/>
+                                <field name="to_date" attrs="{'readonly': [('state','=','done')]}"/> 
+                                <field name="credit" attrs="{'readonly': [('state','=','done')]}"/>                    
+                                <field name="bank_balance" attrs="{'readonly': [('state','=','done')]}" invisible='0'/>
+                                <field name="unreconcile_debit" attrs="{'readonly': [('state','=','done')]}" invisible='0'/>                                
+                                <field name="opening_balance" attrs="{'readonly': [('state','=','done')]}" invisible='0'/>
+                                <field name="unreconcile_credit" attrs="{'readonly': [('state','=','done')]}" invisible='0'/>
+                                <button name="select_all" type='object' icon="fa-check" class ="oe_inline oe_stat_button" string="Select All" states="progress"/>
+                            </group>
+                        </group>
+                        <notebook>
+                        <page name="statement_line" string="Account Entry">
+                          <field name="statement_line" widget="one2many_list">
+<!--
+                              colors="red:company_id == 3;blue:company_id == 4;black:company_id == 5" 
+-->
+                         <tree create="false" editable='bottom'>
+                             <field name="sequence" widget="handle"/>
+                             <field name="deselect"/>
+                             <field name="company_id"/> 
+                             <field name="brs_id" invisible='1'/>                            
+                             <field name="state" invisible='1'/>                            
+                             <field name="move_id" invisible='1'/> 
+                             <field name="date" readonly="1"/>                           
+                             <field name="cheque" readonly="1"/>
+                             <field name="partner_id" readonly="1"/>
+                             <field name="partner_code" readonly="1"/>
+                             <field name="description" readonly="1"/>
+                             <field name="balance" readonly="1"/>
+                             <field name="credit" readonly="1"/>
+                             <field name="reconcile" on_change="onchange_reconcile(reconcile,reconsile_date)" attrs="{'readonly': [('state','=','done')]}"/>
+                             <field name="reconsile_date" on_change="onchange_reconcile_date(reconsile_date,date)" attrs="{'required': [('reconcile','=',True)],'readonly': [('state','=','done')]}"/>
+                          </tree>
+                         <form string="Tool Details">
+                          <group col='4'>
+                             <field name="cheque"/>
+                             <field name="date"/>
+                             <field name="balance"/>
+                             <field name="credit"/>
+                          </group>
+                         </form>
+                         </field>
+                        </page>  
+                       </notebook>        
+                 </form>
+           </field>
+       </record>
+
+      <record id="view_brs_statement_tree" model="ir.ui.view">
+            <field name="name">view.brs.statement.tree</field>
+            <field name="model">brs.statement</field>
+            <field name="arch" type="xml">
+                <tree string="BRS">
+                    <field name="brs_id"/>
+                    <field name="to_date"/>
+                    <field name="unreconcile_balance"/>
+                    <field name="bank_balance"/>
+                    <field name="opening_balance"/>
+                    <field name="debit"/>
+                    <field name="credit"/>
+                    <field name="state"/>
+                 </tree>
+           </field>
+       </record>
+
+     
+
+       <record id="action_brs_statement" model="ir.actions.act_window">
+            <field name="name">BRS</field>
+            <field name="res_model">brs.statement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a BRS Statement.
+                </p><p>
+                    Create BRS Statement
+                </p>
+            </field>
+        </record>
+
+     <menuitem action="action_brs_statement"
+               id="menu_brs_statement"
+               name="BRS Statement"
+               parent="account.menu_finance_bank_and_cash"
+               sequence="1"/>
+         
+    
+    
+    <record id="view_inherit_account_moves" model="ir.ui.view">
+            <field name="name">view.account.move</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml"> 
+                <xpath expr='//field[@name="to_check"]' position="after">
+                    <field name="reconcile" readonly="1"/>
+                    <field name="bank_date" attrs="{'readonly': [('reconcile','=',True)]}"/>
+                </xpath>
+                <xpath expr='//field[@name="period_id"]' position="after">
+                    <field name="is_consolidated" attrs="{'readonly': [('state','=','posted')]}"/>
+                    <field name="consolidate_cheque_no" attrs="{'invisible': [('is_consolidated','=',False)],'required':[('is_consolidated','=',True)],'readonly': [('state','=','posted')]}"/>
+               </xpath>
+            </field>
+    </record>
+
+  </data>
+</openerp>
+
+

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    <template id="report_cheque_bounce">
+    <t t-call="report.html_container">
+		
+        <t t-foreach="docs" t-as="o">
+            <t t-call="report.external_layout">
+                
+                <div class="page">
+                  <style type="text/css">
+                    .table_chk, th{
+                       border: 0.5px solid silver;
+                       font-size: 10px;
+                       font-style: bold;
+                       text-align: center;
+                       border-top: 1px solid silver;
+					   border-bottom: 1px solid silver;
+					   padding-top: 0.2cm;
+					   padding-bottom: 0.2cm;
+                     }
+                    .table_chk, td{
+                       border: 0.5px solid silver;
+                       font-size: 10px;
+                       border-top: 1px solid silver;
+					   border-bottom: 1px solid silver;
+					   padding-top: 0.2cm;
+					   padding-bottom: 0.2cm;
+                     }
+                     .table_chk {
+                       width: 100%;
+                     }
+                   </style>
+                   <h4><center><strong>Cheque Bounce Details</strong></center></h4>
+                   <br/>
+                   <table class="table_chk">
+                      <thead>
+                         <tr>
+                            <th>S.No</th>
+                            <th>Name of the Stokiest</th>
+                            <th>Town</th>
+                            <th>Voucher No</th>
+                            <th>Date</th>
+                            <th>Day of the Month</th>
+                            <th>Amount</th>
+                            <th>Chq.No</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Bank</th>
+                            <th>Branch</th>
+                            <th>Presented Dt</th>
+                            <th>Bounce Dt</th>
+                         </tr>
+                      </thead>
+                      <tbody>
+                          <t t-set="counter" t-value="1"/>
+                          <tr t-foreach="get_check_details(data)" t-as="partner">
+                            <td class="text-center">
+                                <span t-esc="counter"/>
+                                <t t-set="counter" t-value="counter+1"/>
+                            </td>
+                            
+                            <td>
+                               <span t-esc="partner['stokiest']"/>
+                            </td>
+                            <td>
+                               <span t-esc="partner['town']"/>
+                            </td>
+                            <td>
+                               <span t-esc="partner['vou_no']"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['vou_date']"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['day']"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="formatLang(partner['vou_amount'])"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['chk_no']"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['ch_date']"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="formatLang(partner['chk_amount'])"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['bank_name']"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['branch_name']"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['pren_date']"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['bounce_date']"/>
+                            </td>
+                           </tr>
+                       </tbody>
+                       <tfoot>
+						<tr>
+						  <td>Total</td>
+						  <td class="text-right" colspan="6">
+                              <span t-esc="formatLang(get_check_vou_total(data))"/>
+                          </td>
+						  <td class="text-right" colspan="3">
+                              <span t-esc="formatLang(get_check_chk_total(data))"/>
+                          </td>
+						  <td class="text-right" colspan="4">
+                              <strong></strong>
+                          </td>
+						</tr>
+					  </tfoot>
+                  </table>
+                 </div>
+               
+            </t>
+        </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

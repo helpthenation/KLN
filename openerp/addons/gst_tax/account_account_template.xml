@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+        <record model="account.account" id="121615">
+            <field name="name">CGST Receivable</field>
+            <field name="code">121615</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="account.account_account_200"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account" id="1216151">
+            <field name="name">CGST 0% Receivable</field>
+            <field name="code">1216151</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="121615"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account" id="1216152">
+            <field name="name">CGST 2.5% Receivable</field>
+            <field name="code">1216152</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="121615"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+                <record model="account.account" id="1216153">
+            <field name="name">CGST 6% Receivable</field>
+            <field name="code">1216153</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="121615"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+                <record model="account.account" id="1216154">
+            <field name="name">CGST 9% Receivable</field>
+            <field name="code">1216154</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="121615"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account" id="1216155">
+            <field name="name">CGST 14% Receivable</field>
+            <field name="code">1216155</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="121615"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+<!--
+        SGST RECEIVABLE ACCOUNTS
+-->
+                <record model="account.account" id="c121616">
+            <field name="name">SGST Receivable</field>
+            <field name="code">121616</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="200"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account" id="1216161">
+            <field name="name">SGST 0% Receivable</field>
+            <field name="code">1216161</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="121616"/>
+        </record>
+        <record model="account.account" id="1216162">
+            <field name="name">SGST 2.5% Receivable</field>
+            <field name="code">1216162</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="121616"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+                <record model="account.account" id="1216163">
+            <field name="name">SGST 6% Receivable</field>
+            <field name="code">1216163</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="121616"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+                <record model="account.account" id="1216164">
+            <field name="name">SGST 9% Receivable</field>
+            <field name="code">1216164</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="121616"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account" id="1216165">
+            <field name="name">SGST 14% Receivable</field>
+            <field name="code">1216165</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="121616"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        
+        
+<!--
+     IGST REVEIVABLE ACCOUNTTTTTTTTTTTTTTTTTTTT
+-->
+
+         <record model="account.account" id="121617">
+            <field name="name">IGST Receivable</field>
+            <field name="code">121617</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="200"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account" id="1216171">
+            <field name="name">IGST 0% Receivable</field>
+            <field name="code">1216171</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="121617"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account" id="1216172">
+            <field name="name">IGST 5% Receivable</field>
+            <field name="code">1216172</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="121617"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+                <record model="account.account" id="1216173">
+            <field name="name">IGST 12% Receivable</field>
+            <field name="code">1216173</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="121617"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+                <record model="account.account" id="1216174">
+            <field name="name">IGST 18% Receivable</field>
+            <field name="code">1216174</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="121617"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account" id="1216175">
+            <field name="name">IGST 28% Receivable</field>
+            <field name="code">1216175</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="121617"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        
+<!--
+        PAYABLE ACCOUNTS
+-->
+        <record model="account.account" id="c114215">
+            <field name="name">CGST Payable</field>
+            <field name="code">114215</field>
+            <field name="type">view</field>
+            <field name="user_type" ref="account.account_type_liability_view1"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="72"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account" id="1142151">
+            <field name="name">CGST 0% Payable</field>
+            <field name="code">1142151</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="114215"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+       <record model="account.account" id="1142152">
+            <field name="name">CGST 2.5% Payable</field>
+            <field name="code">1142152</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="114215"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record> 
+              <record model="account.account" id="1142153">
+            <field name="name">CGST 6% Payable</field>
+            <field name="code">1142153</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="114215"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account" id="1142154">
+            <field name="name">CGST 9% Payable</field>
+            <field name="code">1142154</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="114215"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account" id="1142155">
+            <field name="name">CGST 14% Payable</field>
+            <field name="code">1142155</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="114215"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>        
+        
+<!--
+        SGST PAYABALE
+-->
+        <record model="account.account" id="c114216">
+            <field name="name">SGST Payable</field>
+            <field name="code">114216</field>
+            <field name="type">view</field>
+            <field name="user_type" ref="account.account_type_liability_view1"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="72"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account" id="1142161">
+            <field name="name">SGST 0% Payable</field>
+            <field name="code">1142161</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="114216"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+       <record model="account.account" id="1142162">
+            <field name="name">SGST 2.5% Payable</field>
+            <field name="code">1142162</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="114216"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record> 
+              <record model="account.account" id="1142163">
+            <field name="name">SGST 6% Payable</field>
+            <field name="code">1142163</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="114216"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account" id="1142164">
+            <field name="name">SGST 9% Payable</field>
+            <field name="code">1142164</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="114216"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account" id="1142165">
+            <field name="name">SGST 14% Payable</field>
+            <field name="code">1142165</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="114216"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>   
+<!--
+        IGST PAYABLE
+-->
+
+
+        <record model="account.account" id="c114217">
+            <field name="name">IGST Payable</field>
+            <field name="code">114217</field>
+            <field name="type">view</field>
+            <field name="user_type" ref="account.account_type_liability_view1"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="72"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account" id="1142171">
+            <field name="name">IGST 0% Payable</field>
+            <field name="code">1142171</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="114217"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+       <record model="account.account" id="1142172">
+            <field name="name">IGST 5% Payable</field>
+            <field name="code">1142172</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="114217"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record> 
+        <record model="account.account" id="1142173">
+            <field name="name">IGST 12% Payable</field>
+            <field name="code">1142173</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="114217"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account" id="1142174">
+            <field name="name">IGST 18% Payable</field>
+            <field name="code">1142174</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="114217"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>
+        <record model="account.account." id="1142175">
+            <field name="name">IGST 28% Payable</field>
+            <field name="code">1142175</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="114217"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_schedule6"/>
+        </record>  
+
+           </data>
+</openerp>

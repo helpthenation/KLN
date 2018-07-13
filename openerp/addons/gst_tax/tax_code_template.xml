@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+   
+    <record model="account.tax.code.template" id="cgst_code">
+            <field name="name">CGST</field>
+            <field name="parent_id" ref="l10n_in.vat_code_Tax_to_pay"/>
+            <field name="code"> II - F </field>
+    </record>
+    <record model="account.tax.code.template" id="0cgst_code">
+            <field name="name">CGST 0%</field>
+            <field name="parent_id" ref="cgst_code"/>
+            <field name="code"> II - Fa </field>
+    </record>
+    <record model="account.tax.code.template" id="0cgst_on_sale">
+            <field name="name">CGST 0% Collected on Sale</field>
+            <field name="parent_id" ref="0cgst_code"/>
+            <field name="code"> II - FaA </field>
+    </record>
+
+    <record model="account.tax.code.template" id="0cgst_on_purchase">
+            <field name="name">CGST 0% Paid on Purchase</field>
+            <field name="parent_id" ref="0cgst_code"/>
+            <field name="code"> II - FaB </field>
+    </record>
+    
+    
+<!--
+2.5% CGST
+-->
+    <record model="account.tax.code.template" id="25cgst_code">
+            <field name="name">CGST 2.5%</field>
+            <field name="parent_id" ref="cgst_code"/>
+            <field name="code"> II - Fb </field>
+    </record>
+    <record model="account.tax.code.template" id="25cgst_on_sale">
+            <field name="name">CGST 2.5% Collected on Sale</field>
+            <field name="parent_id" ref="25cgst_code"/>
+            <field name="code"> II - FbA </field>
+    </record>
+
+    <record model="account.tax.code.template" id="25cgst_on_purchase">
+            <field name="name">CGST 2.5% Paid on Purchase</field>
+            <field name="parent_id" ref="25cgst_code"/>
+            <field name="code"> II - FbB </field>
+    </record>
+<!--
+    6% OF CGST 
+-->
+    <record model="account.tax.code.template" id="6cgst_code">
+            <field name="name">CGST 6%</field>
+            <field name="parent_id" ref="cgst_code"/>
+            <field name="code"> II - Fc </field>
+    </record>
+    <record model="account.tax.code.template" id="6cgst_on_sale">
+            <field name="name">CGST 6% Collected on Sale</field>
+            <field name="parent_id" ref="6cgst_code"/>
+            <field name="code"> II - FcA </field>
+    </record>
+
+    <record model="account.tax.code.template" id="6cgst_on_purchase">
+            <field name="name">CGST 6% Paid on Purchase</field>
+            <field name="parent_id" ref="6cgst_code"/>
+            <field name="code"> II - FcB </field>
+    </record>
+<!--
+9% OF CGST
+-->
+    <record model="account.tax.code.template" id="9cgst_code">
+            <field name="name">CGST 9%</field>
+            <field name="parent_id" ref="cgst_code"/>
+            <field name="code"> II - Fd </field>
+    </record>
+    <record model="account.tax.code.template" id="9cgst_on_sale">
+            <field name="name">CGST 9% Collected on Sale</field>
+            <field name="parent_id" ref="9cgst_code"/>
+            <field name="code"> II - FdA </field>
+    </record>
+
+    <record model="account.tax.code.template" id="9cgst_on_purchase">
+            <field name="name">CGST 9% Paid on Purchase</field>
+            <field name="parent_id" ref="9cgst_code"/>
+            <field name="code"> II - FdB </field>
+    </record>
+<!--
+    14% OF CGST
+-->
+    <record model="account.tax.code.template" id="14cgst_code">
+            <field name="name">CGST 14%</field>
+            <field name="parent_id" ref="cgst_code"/>
+            <field name="code"> II - Fe </field>
+    </record>
+    <record model="account.tax.code.template" id="14cgst_on_sale">
+            <field name="name">CGST 14% Collected on Sale</field>
+            <field name="parent_id" ref="14cgst_code"/>
+            <field name="code"> II - FeA </field>
+    </record>
+
+    <record model="account.tax.code.template" id="14cgst_on_purchase">
+            <field name="name">CGST 14% Paid on Purchase</field>
+            <field name="parent_id" ref="14cgst_code"/>
+            <field name="code"> II - FeB </field>
+    </record>
+<!--
+   %%%%%%%%%%%%%%%%%%%SGST CONFIGURATION 
+-->
+       <record model="account.tax.code.template" id="sgst_code">
+            <field name="name">SGST</field>
+            <field name="parent_id" ref="l10n_in.vat_code_Tax_to_pay"/>
+            <field name="code"> II - G </field>
+    </record>
+    <record model="account.tax.code.template" id="0sgst_code">
+            <field name="name">SGST 0%</field>
+            <field name="parent_id" ref="sgst_code"/>
+            <field name="code"> II - Ga </field>
+    </record>
+    <record model="account.tax.code.template" id="0sgst_on_sale">
+            <field name="name">SGST 0% Collected on Sale</field>
+            <field name="parent_id" ref="0sgst_code"/>
+            <field name="code"> II - GaA </field>
+    </record>
+
+    <record model="account.tax.code.template" id="0sgst_on_purchase">
+            <field name="name">SGST 0% Paid on Purchase</field>
+            <field name="parent_id" ref="0sgst_code"/>
+            <field name="code"> II - GaB </field>
+    </record>
+    
+    
+<!--
+2.5% GGST
+-->
+    <record model="account.tax.code.template" id="25sgst_code">
+            <field name="name">SGST 2.5%</field>
+            <field name="parent_id" ref="sgst_code"/>
+            <field name="code"> II - Gb </field>
+    </record>
+    <record model="account.tax.code.template" id="25sgst_on_sale">
+            <field name="name">SGST 2.5% Collected on Sale</field>
+            <field name="parent_id" ref="25sgst_code"/>
+            <field name="code"> II - GbA </field>
+    </record>
+
+    <record model="account.tax.code.template" id="25sgst_on_purchase">
+            <field name="name">SGST 2.5% Paid on Purchase</field>
+            <field name="parent_id" ref="25sgst_code"/>
+            <field name="code"> II - GbB </field>
+    </record>
+<!--
+    6% OF SGST 
+-->
+    <record model="account.tax.code.template" id="6sgst_code">
+            <field name="name">SGST 6%</field>
+            <field name="parent_id" ref="sgst_code"/>
+            <field name="code"> II - Gc </field>
+    </record>
+    <record model="account.tax.code.template" id="6sgst_on_sale">
+            <field name="name">SGST 6% Collected on Sale</field>
+            <field name="parent_id" ref="6sgst_code"/>
+            <field name="code"> II - GcA </field>
+    </record>
+
+    <record model="account.tax.code.template" id="6sgst_on_purchase">
+            <field name="name">CGST 6% Paid on Purchase</field>
+            <field name="parent_id" ref="6sgst_code"/>
+            <field name="code"> II - GcB </field>
+    </record>
+<!--
+9% OF SGST
+-->
+    <record model="account.tax.code.template" id="9sgst_code">
+            <field name="name">SGST 9%</field>
+            <field name="parent_id" ref="sgst_code"/>
+            <field name="code"> II - Gd </field>
+    </record>
+    <record model="account.tax.code.template" id="9sgst_on_sale">
+            <field name="name">CGST 9% Collected on Sale</field>
+            <field name="parent_id" ref="9sgst_code"/>
+            <field name="code"> II - GdA </field>
+    </record>
+
+    <record model="account.tax.code.template" id="9sgst_on_purchase">
+            <field name="name">CGST 9% Paid on Purchase</field>
+            <field name="parent_id" ref="9sgst_code"/>
+            <field name="code"> II - GdB </field>
+    </record>
+<!--
+    14% OF SGST
+-->
+    <record model="account.tax.code.template" id="14sgst_code">
+            <field name="name">SGST 14%</field>
+            <field name="parent_id" ref="sgst_code"/>
+            <field name="code"> II - Ge </field>
+    </record>
+    <record model="account.tax.code.template" id="14sgst_on_sale">
+            <field name="name">SGST 14% Collected on Sale</field>
+            <field name="parent_id" ref="14sgst_code"/>
+            <field name="code"> II - GeA </field>
+    </record>
+
+    <record model="account.tax.code.template" id="14sgst_on_purchase">
+            <field name="name">SGST 14% Paid on Purchase</field>
+            <field name="parent_id" ref="14sgst_code"/>
+            <field name="code"> II - GeB </field>
+    </record>
+    
+<!--
+    IGST CONFIG
+-->
+   <record model="account.tax.code.template" id="igst_code">
+            <field name="name">IGST</field>
+            <field name="parent_id" ref="l10n_in.vat_code_Tax_to_pay"/>
+            <field name="code"> II - H </field>
+    </record>
+    <record model="account.tax.code.template" id="0igst_code">
+            <field name="name">IGST 0%</field>
+            <field name="parent_id" ref="igst_code"/>
+            <field name="code"> II - Ha </field>
+    </record>
+    <record model="account.tax.code.template" id="0igst_on_sale">
+            <field name="name">IGST 0% Collected on Sale</field>
+            <field name="parent_id" ref="0igst_code"/>
+            <field name="code"> II - HaA </field>
+    </record>
+
+    <record model="account.tax.code.template" id="0igst_on_purchase">
+            <field name="name">IGST 0% Paid on Purchase</field>
+            <field name="parent_id" ref="0igst_code"/>
+            <field name="code"> II - HaB </field>
+    </record>
+    
+    
+<!--
+2.5% GGST
+-->
+    <record model="account.tax.code.template" id="5igst_code">
+            <field name="name">IGST 5%</field>
+            <field name="parent_id" ref="igst_code"/>
+            <field name="code"> II - Hb </field>
+    </record>
+    <record model="account.tax.code.template" id="5igst_on_sale">
+            <field name="name">IGST 5% Collected on Sale</field>
+            <field name="parent_id" ref="5igst_code"/>
+            <field name="code"> II - HbA </field>
+    </record>
+
+    <record model="account.tax.code.template" id="5igst_on_purchase">
+            <field name="name">IGST 5% Paid on Purchase</field>
+            <field name="parent_id" ref="5igst_code"/>
+            <field name="code"> II - HbB </field>
+    </record>
+<!--
+    12% OF SGST 
+-->
+    <record model="account.tax.code.template" id="12igst_code">
+            <field name="name">IGST 12%</field>
+            <field name="parent_id" ref="igst_code"/>
+            <field name="code"> II - Hc </field>
+    </record>
+    <record model="account.tax.code.template" id="12igst_on_sale">
+            <field name="name">IGST 12% Collected on Sale</field>
+            <field name="parent_id" ref="12igst_code"/>
+            <field name="code"> II - HcA </field>
+    </record>
+
+    <record model="account.tax.code.template" id="12igst_on_purchase">
+            <field name="name">IGST 12% Paid on Purchase</field>
+            <field name="parent_id" ref="12igst_code"/>
+            <field name="code"> II - HcB </field>
+    </record>
+<!--
+18% OF SGST
+-->
+    <record model="account.tax.code.template" id="18igst_code">
+            <field name="name">IGST 18%</field>
+            <field name="parent_id" ref="igst_code"/>
+            <field name="code"> II - Hd </field>
+    </record>
+    <record model="account.tax.code.template" id="18igst_on_sale">
+            <field name="name">IGST 18% Collected on Sale</field>
+            <field name="parent_id" ref="18igst_code"/>
+            <field name="code"> II - HdA </field>
+    </record>
+
+    <record model="account.tax.code.template" id="18igst_on_purchase">
+            <field name="name">IGST 18% Paid on Purchase</field>
+            <field name="parent_id" ref="18igst_code"/>
+            <field name="code"> II - HdB </field>
+    </record>
+<!--
+    28% OF IGST
+-->
+    <record model="account.tax.code.template" id="28igst_code">
+            <field name="name">IGST 28%</field>
+            <field name="parent_id" ref="igst_code"/>
+            <field name="code"> II - He </field>
+    </record>
+    <record model="account.tax.code.template" id="28igst_on_sale">
+            <field name="name">IGST 28% Collected on Sale</field>
+            <field name="parent_id" ref="28igst_code"/>
+            <field name="code"> II - HeA </field>
+    </record>
+
+    <record model="account.tax.code.template" id="28igst_on_purchase">
+            <field name="name">IGST 28% Paid on Purchase</field>
+            <field name="parent_id" ref="28igst_code"/>
+            <field name="code"> II - HeB </field>
+    </record>
+    
+    
+    
+<!--
+    BASE CREATION FOR CGST
+-->
+ <record model="account.tax.code.template" id="bases_cgst_code">
+            <field name="name">Base CGST</field>
+            <field name="parent_id" ref="l10n_in.vat_code_Tax_Bases"/>
+            <field name="code"> III - F </field>
+        </record>
+
+        <record model="account.tax.code.template" id="0bases_cgst_code">
+            <field name="name">Base CGST 0%</field>
+            <field name="parent_id" ref="bases_cgst_code"/>
+            <field name="code"> III - Fa </field>
+        </record>
+
+        <record model="account.tax.code.template" id="0bases_cgst_on_sale">
+            <field name="name">Base CGST 0%  of Sale</field>
+            <field name="parent_id" ref="0bases_cgst_code"/>
+            <field name="code"> III - FaA </field>
+        </record>
+
+        <record model="account.tax.code.template" id="0bases_cgst_on_purchase">
+            <field name="name">Base CGST 0% of  Purchase</field>
+            <field name="parent_id" ref="0bases_cgst_code"/>
+            <field name="code"> III - FaB </field>
+        </record>
+
+        <record model="account.tax.code.template" id="25bases_cgst_code">
+            <field name="name">Base CGST 2.5%</field>
+            <field name="parent_id" ref="bases_cgst_code"/>
+            <field name="code"> III - Fb </field>
+        </record>
+
+        <record model="account.tax.code.template" id="25bases_cgst_on_sale">
+            <field name="name">Base CGST 2.5% of Sale</field>
+            <field name="parent_id" ref="25bases_cgst_code"/>
+            <field name="code"> III - FbA </field>
+        </record>
+
+        <record model="account.tax.code.template" id="25bases_cgst_on_purchase">
+            <field name="name">Base CGST 2.5% of  Purchase</field>
+            <field name="parent_id" ref="25bases_cgst_code"/>
+            <field name="code"> III - FbB </field>
+        </record>
+
+        <record model="account.tax.code.template" id="6bases_cgst_code">
+            <field name="name">Base CGST 6%</field>
+            <field name="parent_id" ref="bases_cgst_code"/>
+            <field name="code"> III - Fc </field>
+        </record>
+
+        <record model="account.tax.code.template" id="6bases_cgst_on_sale">
+            <field name="name">Base CGST 6% of Sale</field>
+            <field name="parent_id" ref="6bases_cgst_code"/>
+            <field name="code"> III - FcA </field>
+        </record>
+
+        <record model="account.tax.code.template" id="6bases_cgst_on_purchase">
+            <field name="name">Base CGST 6% of  Purchase</field>
+            <field name="parent_id" ref="6bases_cgst_code"/>
+            <field name="code"> III - FcB </field>
+        </record>
+
+        <record model="account.tax.code.template" id="9bases_cgst_code">
+            <field name="name">Base CGST 9%</field>
+            <field name="parent_id" ref="bases_cgst_code"/>
+            <field name="code"> III - Fd </field>
+        </record>
+
+        <record model="account.tax.code.template" id="9bases_cgst_on_sale">
+            <field name="name">Base CGST 9% of Sale</field>
+            <field name="parent_id" ref="9bases_cgst_code"/>
+            <field name="code"> III - FdA </field>
+        </record>
+
+        <record model="account.tax.code.template" id="9bases_cgst_on_purchase">
+            <field name="name">Base CGST 9% of  Purchase</field>
+            <field name="parent_id" ref="9bases_cgst_code"/>
+            <field name="code"> III - FdB </field>
+        </record>
+
+        <record model="account.tax.code.template" id="14bases_cgst_code">
+            <field name="name">Base CGST 14%</field>
+            <field name="parent_id" ref="bases_cgst_code"/>
+            <field name="code"> III - Fe </field>
+        </record>
+
+        <record model="account.tax.code.template" id="14bases_cgst_on_sale">
+            <field name="name">Base  CGST 14% of Sale</field>
+            <field name="parent_id" ref="14bases_cgst_code"/>
+            <field name="code"> III - FeA </field>
+        </record>
+
+        <record model="account.tax.code.template" id="14bases_cgst_on_purchase">
+            <field name="name">Base CGST 14% of  Purchase</field>
+            <field name="parent_id" ref="14bases_cgst_code"/>
+            <field name="code"> III - FeB </field>
+        </record>
+
+     <!--
+    BASE CREATION FOR SGST
+-->
+ <record model="account.tax.code.template" id="bases_sgst_code">
+            <field name="name">Base SGST</field>
+            <field name="parent_id" ref="l10n_in.vat_code_Tax_Bases"/>
+            <field name="code"> III - G </field>
+        </record>
+
+        <record model="account.tax.code.template" id="0bases_sgst_code">
+            <field name="name">Base SGST 0%</field>
+            <field name="parent_id" ref="bases_sgst_code"/>
+            <field name="code"> III - Ga </field>
+        </record>
+
+        <record model="account.tax.code.template" id="0bases_sgst_on_sale">
+            <field name="name">Base SGST 0%  of Sale</field>
+            <field name="parent_id" ref="0bases_sgst_code"/>
+            <field name="code"> III - GaA </field>
+        </record>
+
+        <record model="account.tax.code.template" id="0bases_sgst_on_purchase">
+            <field name="name">Base SGST 0% of  Purchase</field>
+            <field name="parent_id" ref="0bases_sgst_code"/>
+            <field name="code"> III - GaB </field>
+        </record>
+
+        <record model="account.tax.code.template" id="25bases_sgst_code">
+            <field name="name">Base SGST 2.5%</field>
+            <field name="parent_id" ref="bases_sgst_code"/>
+            <field name="code"> III - Gb </field>
+        </record>
+
+        <record model="account.tax.code.template" id="25bases_sgst_on_sale">
+            <field name="name">Base SGST 2.5% of Sale</field>
+            <field name="parent_id" ref="25bases_sgst_code"/>
+            <field name="code"> III - GbA </field>
+        </record>
+
+        <record model="account.tax.code.template" id="25bases_sgst_on_purchase">
+            <field name="name">Base SGST 2.5% of  Purchase</field>
+            <field name="parent_id" ref="25bases_sgst_code"/>
+            <field name="code"> III - GbB </field>
+        </record>
+
+        <record model="account.tax.code.template" id="6bases_sgst_code">
+            <field name="name">Base SGST 6%</field>
+            <field name="parent_id" ref="bases_sgst_code"/>
+            <field name="code"> III - Gc </field>
+        </record>
+
+        <record model="account.tax.code.template" id="6bases_sgst_on_sale">
+            <field name="name">Base SGST 6% of Sale</field>
+            <field name="parent_id" ref="6bases_sgst_code"/>
+            <field name="code"> III - GcA </field>
+        </record>
+
+        <record model="account.tax.code.template" id="6bases_sgst_on_purchase">
+            <field name="name">Base SGST 6% of  Purchase</field>
+            <field name="parent_id" ref="6bases_sgst_code"/>
+            <field name="code"> III - GcB </field>
+        </record>
+
+        <record model="account.tax.code.template" id="9bases_sgst_code">
+            <field name="name">Base SGST 9%</field>
+            <field name="parent_id" ref="bases_sgst_code"/>
+            <field name="code"> III - Gd </field>
+        </record>
+
+        <record model="account.tax.code.template" id="9bases_sgst_on_sale">
+            <field name="name">Base SGST 9% of Sale</field>
+            <field name="parent_id" ref="9bases_sgst_code"/>
+            <field name="code"> III - GdA </field>
+        </record>
+
+        <record model="account.tax.code.template" id="9bases_sgst_on_purchase">
+            <field name="name">Base SGST 9% of  Purchase</field>
+            <field name="parent_id" ref="9bases_sgst_code"/>
+            <field name="code"> III - GdB </field>
+        </record>
+
+        <record model="account.tax.code.template" id="14bases_sgst_code">
+            <field name="name">Base SGST 14%</field>
+            <field name="parent_id" ref="bases_sgst_code"/>
+            <field name="code"> III - Ge </field>
+        </record>
+
+        <record model="account.tax.code.template" id="14bases_sgst_on_sale">
+            <field name="name">Base  SGST 14% of Sale</field>
+            <field name="parent_id" ref="14bases_sgst_code"/>
+            <field name="code"> III - GeA </field>
+        </record>
+
+        <record model="account.tax.code.template" id="14bases_sgst_on_purchase">
+            <field name="name">Base SGST 14% of  Purchase</field>
+            <field name="parent_id" ref="14bases_sgst_code"/>
+            <field name="code"> III - GeB </field>
+        </record>  
+        
+        
+<!--
+    BASE CREATION FOR IGST
+-->
+ <record model="account.tax.code.template" id="bases_igst_code">
+            <field name="name">Base IGST</field>
+            <field name="parent_id" ref="l10n_in.vat_code_Tax_Bases"/>
+            <field name="code"> III - H </field>
+        </record>
+
+        <record model="account.tax.code.template" id="0bases_igst_code">
+            <field name="name">Base IGST 0%</field>
+            <field name="parent_id" ref="bases_igst_code"/>
+            <field name="code"> III - Ha </field>
+        </record>
+
+        <record model="account.tax.code.template" id="0bases_igst_on_sale">
+            <field name="name">Base IGST 0%  of Sale</field>
+            <field name="parent_id" ref="0bases_igst_code"/>
+            <field name="code"> III - HaA </field>
+        </record>
+
+        <record model="account.tax.code.template" id="0bases_igst_on_purchase">
+            <field name="name">Base IGST 0% of Purchase</field>
+            <field name="parent_id" ref="0bases_sgst_code"/>
+            <field name="code"> III - HaB </field>
+        </record>
+
+        <record model="account.tax.code.template" id="5bases_igst_code">
+            <field name="name">Base IGST 5%</field>
+            <field name="parent_id" ref="bases_igst_code"/>
+            <field name="code"> III - Hb </field>
+        </record>
+
+        <record model="account.tax.code.template" id="5bases_igst_on_sale">
+            <field name="name">Base IGST 5% of Sale</field>
+            <field name="parent_id" ref="5bases_igst_code"/>
+            <field name="code"> III - HbA </field>
+        </record>
+
+        <record model="account.tax.code.template" id="5bases_igst_on_purchase">
+            <field name="name">Base IGST 5% of  Purchase</field>
+            <field name="parent_id" ref="5bases_igst_code"/>
+            <field name="code"> III - HbB </field>
+        </record>
+
+        <record model="account.tax.code.template" id="12bases_igst_code">
+            <field name="name">Base IGST 12%</field>
+            <field name="parent_id" ref="bases_igst_code"/>
+            <field name="code"> III - Hc </field>
+        </record>
+
+        <record model="account.tax.code.template" id="12bases_igst_on_sale">
+            <field name="name">Base IGST 12% of Sale</field>
+            <field name="parent_id" ref="12bases_igst_code"/>
+            <field name="code"> III - HcA </field>
+        </record>
+
+        <record model="account.tax.code.template" id="12bases_igst_on_purchase">
+            <field name="name">Base IGST 12% of  Purchase</field>
+            <field name="parent_id" ref="12bases_igst_code"/>
+            <field name="code"> III - HcB </field>
+        </record>
+
+        <record model="account.tax.code.template" id="18bases_igst_code">
+            <field name="name">Base IGST 18%</field>
+            <field name="parent_id" ref="bases_igst_code"/>
+            <field name="code"> III - Hd </field>
+        </record>
+
+        <record model="account.tax.code.template" id="18bases_igst_on_sale">
+            <field name="name">Base IGST 18% of Sale</field>
+            <field name="parent_id" ref="18bases_igst_code"/>
+            <field name="code"> III - HdA </field>
+        </record>
+
+        <record model="account.tax.code.template" id="18bases_igst_on_purchase">
+            <field name="name">Base IGST 18% of  Purchase</field>
+            <field name="parent_id" ref="18bases_igst_code"/>
+            <field name="code"> III - HdB </field>
+        </record>
+
+        <record model="account.tax.code.template" id="28bases_igst_code">
+            <field name="name">Base IGST 28%</field>
+            <field name="parent_id" ref="bases_igst_code"/>
+            <field name="code"> III - He </field>
+        </record>
+
+        <record model="account.tax.code.template" id="28bases_igst_on_sale">
+            <field name="name">Base  IGST 28% of Sale</field>
+            <field name="parent_id" ref="28bases_igst_code"/>
+            <field name="code"> III - HeA </field>
+        </record>
+
+        <record model="account.tax.code.template" id="28bases_igst_on_purchase">
+            <field name="name">Base IGST 28% of  Purchase</field>
+            <field name="parent_id" ref="28bases_igst_code"/>
+            <field name="code"> III - HeB </field>
+        </record>  
+        
+    </data>
+</openerp>

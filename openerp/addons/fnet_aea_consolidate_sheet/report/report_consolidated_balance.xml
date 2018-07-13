@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="fnet_aea_consolidated_balance_report"
+            model="consolidated.balance.report"
+            string="AEA Consolidate Balance Sheet"
+            report_type="qweb-pdf"
+            name="fnet_aea_consolidate_sheet.report_consolidated_balance" 
+            file="fnet_aea_consolidate_sheet.report_consolidated_balance"
+            />   
+        
+        
+    <template id="report_consolidated_balance">
+        <t t-call="report.html_container">
+            <t t-call="report.internal_layout">
+                <div class="page">
+                    <h2><span t-esc="res_company.name"/>: Consolidated Trial Balance</h2>
+                    <h2><span t-esc="get_query_data(data)"/>: Consolidated Trial Balance</h2>
+                 
+                </div>
+            </t>
+        </t>
+    </template>
+    
+    </data>
+</openerp>

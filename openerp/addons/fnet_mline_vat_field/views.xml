@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+<!--
+	  RES COMPANY vat_number
+-->
+    <record id="view_company_form_gst" model="ir.ui.view">
+            <field name="name">view.company.form.gst</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">  
+                <field name="company_registry" position="after">
+                    <field name="vat_number"/>                    
+                </field>                
+            </field>
+    </record>
+
+        
+<!--
+   partner vat_number
+-->
+    <record id="view_partner_form_gst" model="ir.ui.view">
+            <field name="name">view.partner.form.gst</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+			 <field name="title" position="after">
+                    <field name="vat_number"/>
+               </field>
+             </field>
+    </record>
+  </data>          
+</openerp>

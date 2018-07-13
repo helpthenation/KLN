@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- ADD FORECAST DEMAND DEMO DATA -->
+
+            <record id="irfilter_01" model="ir.filters">
+                <field name="name" eval="'(SFD01) 2015 Demand for iMac with Retina 5K display Product in WH/Stock until 2015-09-29'"/>
+                <field name="model_id">stock.history</field>
+                <field name="context">{'forecast_value': 'quantity_force_positive', 'forecast_order': 'date'}</field>
+                 <field name="domain" eval="[
+                    ('quantity', '&lt;', 0.0),
+                    ('date', '&gt;=', '2015-01-01'),
+                    ('date', '&lt;=', '2015-09-29'),
+                    ('location_id', '=', ref('stock.stock_location_stock')),
+                    ('product_id', '=', ref('stock_forecast.product_product_1')),
+                 ]"/>
+                <field name="user_id" eval="False"/>
+            </record>
+
+            <record id="irfilter_02" model="ir.filters">
+                <field name="name" eval="'(SFD02) 2015 Demand for iPad Mini 4 in WH/Stock until 2015-09-29 (Group by Month)'"/>
+                <field name="model_id">stock.history</field>
+                <field name="context">{'forecast_value': 'quantity_force_positive', 'forecast_order': 'date', 'forecast_step': 'month', 'group_by': ['date:month']}</field>
+                 <field name="domain" eval="[
+                    ('quantity', '&lt;', 0.0),
+                    ('date', '&gt;=', '2015-01-01'),
+                    ('date', '&lt;=', '2015-09-29'),
+                    ('location_id', '=', ref('stock.stock_location_stock')),
+                    ('product_id', '=', ref('stock_forecast.product_product_3')),
+                 ]"/>
+                <field name="user_id" eval="False"/>
+            </record>
+
+            <record id="irfilter_03" model="ir.filters">
+                <field name="name" eval="'(SFD03) 2015 Demand for New Product S76 Kudu Pro in WH/Stock until 2015-09-29'"/>
+                <field name="model_id">stock.history</field>
+                <field name="context">{'forecast_value': 'quantity_force_positive', 'forecast_order': 'date'}</field>
+                 <field name="domain" eval="[
+                    ('quantity', '&lt;', 0.0),
+                    ('date', '&gt;=', '2015-01-01'),
+                    ('date', '&lt;=', '2015-09-29'),
+                    ('location_id', '=', ref('stock.stock_location_stock')),
+                    ('product_id', '=', ref('stock_forecast.product_product_2')),
+                 ]"/>
+                <field name="user_id" eval="False"/>
+            </record>
+
+            <record id="irfilter_04" model="ir.filters">
+                <field name="name" eval="'(SFD04) Last 2 months Demand for Gazelle Pro in WH/Stock at date 2015-09-29 (Group by Week)'"/>
+                <field name="model_id">stock.history</field>
+                <field name="context">{'forecast_value': 'quantity_force_positive', 'forecast_order': 'date', 'forecast_step': 'week', 'group_by': ['date:week']}</field>
+                 <field name="domain" eval="[
+                    ('quantity', '&lt;', 0.0),
+                    ('date', '&gt;=', '2015-07-01'),
+                    ('date', '&lt;=', '2015-08-31'),
+                    ('location_id', '=', ref('stock.stock_location_stock')),
+                    ('product_id', '=', ref('stock_forecast.product_product_4')),
+                 ]"/>
+                <field name="user_id" eval="False"/>
+            </record>
+
+            <record id="irfilter_05" model="ir.filters">
+                <field name="name" eval="'(SFD05) Last month Demand for iPod Touch in WH/Stock at date 2015-09-29 (Group by day)'"/>
+                <field name="model_id">stock.history</field>
+                <field name="context">{'forecast_value': 'quantity_force_positive', 'forecast_order': 'date', 'forecast_step': 'day', 'group_by': ['date:day']}</field>
+                 <field name="domain" eval="[
+                    ('quantity', '&lt;', 0.0),
+                    ('date', '&gt;=', '2015-08-01'),
+                    ('date', '&lt;=', '2015-08-31'),
+                    ('location_id', '=', ref('stock.stock_location_stock')),
+                    ('product_id', '=', ref('stock_forecast.product_product_5')),
+                 ]"/>
+                <field name="user_id" eval="False"/>
+            </record>
+
+            <record id="irfilter_06" model="ir.filters">
+                <field name="name" eval="'(SFD06) 2015 Computers Category Demand in WH/Stock until 2015-09-29 (Group by Month)'"/>
+                <field name="model_id">stock.history</field>
+                <field name="context">{'forecast_value': 'quantity_force_positive', 'forecast_order': 'date', 'forecast_step': 'month', 'group_by': ['date:month']}</field>
+                <field name="domain" eval="[
+                    ('quantity', '&lt;', 0.0),
+                    ('date', '&gt;=', '2015-01-01'),
+                    ('date', '&lt;=', '2015-09-29'),
+                    ('product_categ_id', 'ilike', 'Computers'),
+                    ('location_id', '=', ref('stock.stock_location_stock'))
+                ]"/>
+                <field name="user_id" eval="False"/>
+            </record>
+
+            <record id="irfilter_07" model="ir.filters">
+                <field name="name" eval="'(SFD07) Last 14 days Demand for iPod Touch Product in WH/Stock at date 2015-09-29 (Group by day)'"/>
+                <field name="model_id">stock.history</field>
+                <field name="context">{'forecast_value': 'quantity_force_positive', 'forecast_order': 'date', 'forecast_step': 'day', 'group_by': ['date:day']}</field>
+                <field name="domain" eval="[
+                    ('quantity', '&lt;', 0.0),
+                    ('date', '&gt;=', '2015-09-16'),
+                    ('date', '&lt;=', '2015-09-29'),
+                    ('location_id', '=', ref('stock.stock_location_stock')),
+                    ('product_id', '=', ref('stock_forecast.product_product_5')),
+                ]"/>
+                <field name="user_id" eval="False"/>
+            </record>
+    </data>
+</openerp>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_sale_summary_month_wise_form" model="ir.ui.view">
+            <field name="name">sale.summary.month.wise</field>
+            <field name="model">sale.summary.month.wise</field>
+            <field name="arch" type="xml">
+            <form string="Sale Summary">
+                <p class="oe_grey">
+                        Define Sale Summary Month Wise
+                    </p>
+                <notebook>
+                    <page string="Dates">
+                        <group>
+                            <field name="period_id"/>
+                        </group>
+                    </page>
+                    <page string="Customer">
+                        <field name="partner_ids" domain="[('customer', '=', True)]"/>
+                    </page>                    
+                    <page string="Company">
+                        <field name="company_ids"/>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="wiz_print_report" string="Print" type="object" class="oe_highlight"/> or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_sale_summary_month_wise" model="ir.actions.act_window">
+            <field name="name">Sale Summary Month Wise</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.summary.month.wise</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+            
+        <menuitem
+            name="Sales Summary Month Wise"
+            parent="menu_sale_register"
+            action="action_sale_summary_month_wise"
+            id="menu_sale_summary_month_wise"
+            sequence="1"
+            icon="STOCK_PRINT"/>
+            
+       
+
+    </data>
+</openerp>

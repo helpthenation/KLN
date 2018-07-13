@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="brs_seq_code_type" model="ir.sequence.type">
+            <field name="name">Day Wise BRS Sequence</field>
+            <field name="code">brs.seq.code</field>
+        </record>
+        <record id="brs_seq_code" model="ir.sequence">
+            <field name="name">Day Wise BRS Sequence</field>
+            <field name="code">brs.seq.code</field>
+            <field name="prefix">BRS/17-18/</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="consolidate_journal_entry" model="ir.sequence.type">
+            <field name="name">Consolidated Journal Sequence</field>
+            <field name="code">consolidate.seq.code</field>
+        </record>
+        <record id="brs_seq_code" model="ir.sequence">
+            <field name="name">Day Wise BRS Sequence</field>
+            <field name="code">consolidate.seq.code</field>
+            <field name="prefix">CJ/%(year)s/</field>
+            <field name="padding">5</field>
+        </record>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,330 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+  <data noupdate="1">
+    <record id="base.partner_root" model="res.partner">
+      <field name="date" eval="time.strftime('2015-05-03')"/>
+      <field name="credit_limit">7868.2280688644</field>
+      <field name="message_last_post">2015-01-01 01:49:51</field>
+    </record>
+    <record id="base.res_partner_2" model="res.partner">
+      <field name="date" eval="time.strftime('2015-05-05')"/>
+      <field name="credit_limit">1049.6071405909</field>
+      <field name="message_last_post">2015-01-01 08:56:28</field>
+    </record>
+    <record id="base.res_partner_address_4" model="res.partner">
+      <field name="date" eval="time.strftime('2015-05-07')"/>
+      <field name="credit_limit">2100.6640425784</field>
+      <field name="message_last_post">2015-01-01 14:46:57</field>
+    </record>
+    <record id="base.res_partner_address_3" model="res.partner">
+      <field name="date" eval="time.strftime('2015-06-05')"/>
+      <field name="credit_limit">394.7230317356</field>
+      <field name="message_last_post">2015-01-01 05:01:49</field>
+    </record>
+    <record id="base.res_partner_1" model="res.partner">
+      <field name="date" eval="time.strftime('2015-05-31')"/>
+      <field name="credit_limit">5151.3226048857</field>
+      <field name="message_last_post">2015-01-01 13:43:01</field>
+    </record>
+    <record id="base.res_partner_address_2" model="res.partner">
+      <field name="date" eval="time.strftime('2015-01-30')"/>
+      <field name="credit_limit">5913.6286086802</field>
+      <field name="message_last_post">2015-01-09 08:01:25</field>
+    </record>
+    <record id="base.res_partner_address_1" model="res.partner">
+      <field name="date" eval="time.strftime('2015-01-07')"/>
+      <field name="credit_limit">6011.8131161105</field>
+      <field name="message_last_post">2015-04-12 23:10:27</field>
+    </record>
+    <record id="base.res_partner_13" model="res.partner">
+      <field name="date" eval="time.strftime('2015-08-13')"/>
+      <field name="credit_limit">4439.5874274986</field>
+      <field name="message_last_post">2015-09-23 21:39:10</field>
+    </record>
+    <record id="base.res_partner_address_22" model="res.partner">
+      <field name="date" eval="time.strftime('2015-01-29')"/>
+      <field name="credit_limit">2771.3336816551</field>
+      <field name="message_last_post">2015-01-11 19:34:09</field>
+    </record>
+    <record id="base.res_partner_7" model="res.partner">
+      <field name="date" eval="time.strftime('2015-05-04')"/>
+      <field name="credit_limit">2984.1241576955</field>
+      <field name="message_last_post">2015-01-22 08:19:06</field>
+    </record>
+    <record id="base.res_partner_address_13" model="res.partner">
+      <field name="date" eval="time.strftime('2015-02-01')"/>
+      <field name="credit_limit">3592.0685158855</field>
+      <field name="message_last_post">2015-04-06 07:56:00</field>
+    </record>
+    <record id="base.res_partner_address_14" model="res.partner">
+      <field name="date" eval="time.strftime('2015-08-25')"/>
+      <field name="credit_limit">1754.2758077564</field>
+      <field name="message_last_post">2015-05-09 23:05:09</field>
+    </record>
+    <record id="base.res_partner_9" model="res.partner">
+      <field name="date" eval="time.strftime('2015-05-03')"/>
+      <field name="credit_limit">2436.2873395666</field>
+      <field name="message_last_post">2015-05-25 04:46:11</field>
+    </record>
+    <record id="base.res_partner_address_16" model="res.partner">
+      <field name="date" eval="time.strftime('2015-08-14')"/>
+      <field name="credit_limit">2914.0039967561</field>
+      <field name="message_last_post">2015-05-25 12:10:10</field>
+    </record>
+    <record id="base.res_partner_12" model="res.partner">
+      <field name="date" eval="time.strftime('2015-04-01')"/>
+      <field name="credit_limit">6269.2603097177</field>
+      <field name="message_last_post">2015-05-30 13:42:39</field>
+    </record>
+    <record id="base.res_partner_address_21" model="res.partner">
+      <field name="date" eval="time.strftime('2015-06-22')"/>
+      <field name="credit_limit">9446.2219045562</field>
+      <field name="message_last_post">2015-06-15 03:51:57</field>
+    </record>
+    <record id="base.res_partner_14" model="res.partner">
+      <field name="date" eval="time.strftime('2015-01-30')"/>
+      <field name="credit_limit">15000</field>
+      <field name="message_last_post">2015-07-21 15:49:27</field>
+    </record>
+    <record id="base.res_partner_address_23" model="res.partner">
+      <field name="date" eval="time.strftime('2015-09-07')"/>
+      <field name="credit_limit">15000</field>
+      <field name="message_last_post">2015-08-31 18:43:48</field>
+    </record>
+    <record id="base.res_partner_address_24" model="res.partner">
+      <field name="date" eval="time.strftime('2015-06-04')"/>
+      <field name="credit_limit">15000</field>
+      <field name="message_last_post">2015-01-04 12:40:04</field>
+    </record>
+    <record id="base.res_partner_3" model="res.partner">
+      <field name="date" eval="time.strftime('2015-07-08')"/>
+      <field name="credit_limit">2028.5545624456</field>
+      <field name="message_last_post">2015-03-18 20:36:54</field>
+    </record>
+    <record id="base.res_partner_address_5" model="res.partner">
+      <field name="date" eval="time.strftime('2015-05-05')"/>
+      <field name="credit_limit">798.0368297827</field>
+      <field name="message_last_post">2015-06-21 21:16:45</field>
+    </record>
+    <record id="base.res_partner_address_6" model="res.partner">
+      <field name="date" eval="time.strftime('2015-06-05')"/>
+      <field name="credit_limit">7522.3433413799</field>
+      <field name="message_last_post">2015-05-02 20:13:08</field>
+    </record>
+    <record id="base.res_partner_4" model="res.partner">
+      <field name="date" eval="time.strftime('2015-04-20')"/>
+      <field name="credit_limit">808.1887099097</field>
+      <field name="message_last_post">2015-08-21 14:43:56</field>
+    </record>
+    <record id="base.res_partner_address_9" model="res.partner">
+      <field name="date" eval="time.strftime('2015-07-04')"/>
+      <field name="credit_limit">6388.5228394442</field>
+      <field name="message_last_post">2015-04-07 18:52:38</field>
+    </record>
+    <record id="base.res_partner_address_8" model="res.partner">
+      <field name="date" eval="time.strftime('2015-01-28')"/>
+      <field name="credit_limit">6457.4594274766</field>
+      <field name="message_last_post">2015-02-22 05:48:48</field>
+    </record>
+    <record id="base.res_partner_address_7" model="res.partner">
+      <field name="date" eval="time.strftime('2015-06-20')"/>
+      <field name="credit_limit">5874.395010024</field>
+      <field name="message_last_post">2015-06-03 08:08:03</field>
+    </record>
+    <record id="base.partner_demo" model="res.partner">
+      <field name="date" eval="time.strftime('2015-08-03')"/>
+      <field name="credit_limit">8750.5501363375</field>
+      <field name="message_last_post">2015-07-20 12:01:33</field>
+    </record>
+    <record id="base.res_partner_5" model="res.partner">
+      <field name="date" eval="time.strftime('2015-04-13')"/>
+      <field name="credit_limit">3267.9542897912</field>
+      <field name="message_last_post">2015-01-31 22:29:14</field>
+    </record>
+    <record id="base.res_partner_address_10" model="res.partner">
+      <field name="date" eval="time.strftime('2015-07-18')"/>
+      <field name="credit_limit">245.7121281216</field>
+      <field name="message_last_post">2015-03-28 20:54:17</field>
+    </record>
+    <record id="base.res_partner_address_11" model="res.partner">
+      <field name="date" eval="time.strftime('2015-02-14')"/>
+      <field name="credit_limit">5527.1589076541</field>
+      <field name="message_last_post">2015-08-11 07:43:29</field>
+    </record>
+    <record id="base.res_partner_26" model="res.partner">
+      <field name="date" eval="time.strftime('2015-06-27')"/>
+      <field name="credit_limit">929.0155530517</field>
+      <field name="message_last_post">2015-07-19 15:26:00</field>
+    </record>
+    <record id="base.res_partner_21" model="res.partner">
+      <field name="date" eval="time.strftime('2015-08-09')"/>
+      <field name="credit_limit">3512.8928369438</field>
+      <field name="message_last_post">2015-02-04 13:43:17</field>
+    </record>
+    <record id="base.res_partner_address_34" model="res.partner">
+      <field name="date" eval="time.strftime('2015-02-17')"/>
+      <field name="credit_limit">3348.8325250022</field>
+      <field name="message_last_post">2015-04-28 18:36:32</field>
+    </record>
+    <record id="base.res_partner_address_33" model="res.partner">
+      <field name="date" eval="time.strftime('2015-02-05')"/>
+      <field name="credit_limit">7040.7711389264</field>
+      <field name="message_last_post">2015-02-11 20:32:27</field>
+    </record>
+    <record id="base.res_partner_address_32" model="res.partner">
+      <field name="date" eval="time.strftime('2015-07-04')"/>
+      <field name="credit_limit">975.1741309762</field>
+      <field name="message_last_post">2015-05-11 00:33:44</field>
+    </record>
+    <record id="base.res_partner_11" model="res.partner">
+      <field name="date" eval="time.strftime('2015-09-12')"/>
+      <field name="credit_limit">5154.0314815552</field>
+      <field name="message_last_post">2015-03-04 18:24:21</field>
+    </record>
+    <record id="base.res_partner_address_20" model="res.partner">
+      <field name="date" eval="time.strftime('2015-04-28')"/>
+      <field name="credit_limit">3094.0280888699</field>
+      <field name="message_last_post">2015-06-01 05:38:18</field>
+    </record>
+    <record id="base.res_partner_address_19" model="res.partner">
+      <field name="date" eval="time.strftime('2015-08-22')"/>
+      <field name="credit_limit">2658.5405471812</field>
+      <field name="message_last_post">2015-03-06 20:35:27</field>
+    </record>
+    <record id="base.res_partner_8" model="res.partner">
+      <field name="date" eval="time.strftime('2015-04-10')"/>
+      <field name="credit_limit">4398.8924087031</field>
+      <field name="message_last_post">2015-02-01 17:19:03</field>
+    </record>
+    <record id="base.res_partner_address_15" model="res.partner">
+      <field name="date" eval="time.strftime('2015-09-28')"/>
+      <field name="credit_limit">2830.7876230251</field>
+      <field name="message_last_post">2015-02-06 13:55:46</field>
+    </record>
+    <record id="base.res_partner_15" model="res.partner">
+      <field name="date" eval="time.strftime('2015-04-19')"/>
+      <field name="credit_limit">1500</field>
+      <field name="message_last_post">2015-04-21 08:53:05</field>
+    </record>
+    <record id="base.res_partner_25" model="res.partner">
+      <field name="date" eval="time.strftime('2015-05-25')"/>
+      <field name="credit_limit">1171.2923332614</field>
+      <field name="message_last_post">2015-04-24 15:04:57</field>
+    </record>
+    <record id="base.res_partner_17" model="res.partner">
+      <field name="date" eval="time.strftime('2015-04-11')"/>
+      <field name="credit_limit">6407.9937769992</field>
+      <field name="message_last_post">2015-09-03 00:26:27</field>
+    </record>
+    <record id="base.res_partner_address_28" model="res.partner">
+      <field name="date" eval="time.strftime('2015-08-04')"/>
+      <field name="credit_limit">1403.2609094949</field>
+      <field name="message_last_post">2015-08-24 07:53:52</field>
+    </record>
+    <record id="base.res_partner_24" model="res.partner">
+      <field name="date" eval="time.strftime('2015-02-05')"/>
+      <field name="credit_limit">6265.0532331611</field>
+      <field name="message_last_post">2015-03-15 01:53:42</field>
+    </record>
+    <record id="base.res_partner_6" model="res.partner">
+      <field name="date" eval="time.strftime('2015-02-02')"/>
+      <field name="credit_limit">7917.7298743481</field>
+      <field name="message_last_post">2015-07-05 16:05:26</field>
+    </record>
+    <record id="base.res_partner_address_12" model="res.partner">
+      <field name="date" eval="time.strftime('2015-04-22')"/>
+      <field name="credit_limit">394.7784609129</field>
+      <field name="message_last_post">2015-04-21 07:55:38</field>
+    </record>
+    <record id="base.res_partner_19" model="res.partner">
+      <field name="date" eval="time.strftime('2015-08-31')"/>
+      <field name="credit_limit">4489.509355165</field>
+      <field name="message_last_post">2015-04-21 11:42:01</field>
+    </record>
+    <record id="base.res_partner_address_31" model="res.partner">
+      <field name="date" eval="time.strftime('2015-01-11')"/>
+      <field name="credit_limit">7840.0270408733</field>
+      <field name="message_last_post">2015-04-14 16:31:18</field>
+    </record>
+    <record id="base.res_partner_16" model="res.partner">
+      <field name="date" eval="time.strftime('2015-09-15')"/>
+      <field name="credit_limit">7610.6827641005</field>
+      <field name="message_last_post">2015-03-16 10:18:58</field>
+    </record>
+    <record id="base.res_partner_address_27" model="res.partner">
+      <field name="date" eval="time.strftime('2015-01-06')"/>
+      <field name="credit_limit">9253.0234622642</field>
+      <field name="message_last_post">2015-03-02 11:44:53</field>
+    </record>
+    <record id="base.res_partner_address_26" model="res.partner">
+      <field name="date" eval="time.strftime('2015-05-12')"/>
+      <field name="credit_limit">9820.6856329801</field>
+      <field name="message_last_post">2015-05-21 08:21:45</field>
+    </record>
+    <record id="base.res_partner_10" model="res.partner">
+      <field name="date" eval="time.strftime('2015-04-07')"/>
+      <field name="credit_limit">4199.649573549</field>
+      <field name="message_last_post">2015-04-21 21:42:00</field>
+    </record>
+    <record id="base.res_partner_address_17" model="res.partner">
+      <field name="date" eval="time.strftime('2015-07-31')"/>
+      <field name="credit_limit">8761.167049564</field>
+      <field name="message_last_post">2015-09-26 08:04:47</field>
+    </record>
+    <record id="base.res_partner_address_18" model="res.partner">
+      <field name="date" eval="time.strftime('2015-02-12')"/>
+      <field name="credit_limit">3923.7350178286</field>
+      <field name="message_last_post">2015-09-07 04:28:24</field>
+    </record>
+    <record id="base.res_partner_18" model="res.partner">
+      <field name="date" eval="time.strftime('2015-08-30')"/>
+      <field name="credit_limit">6240.1850922368</field>
+      <field name="message_last_post">2015-07-12 23:58:38</field>
+    </record>
+    <record id="base.res_partner_address_29" model="res.partner">
+      <field name="date" eval="time.strftime('2015-07-12')"/>
+      <field name="credit_limit">1469.8485163233</field>
+      <field name="message_last_post">2015-04-07 09:05:51</field>
+    </record>
+    <record id="base.res_partner_address_30" model="res.partner">
+      <field name="date" eval="time.strftime('2015-05-07')"/>
+      <field name="credit_limit">4640.2363601011</field>
+      <field name="message_last_post">2015-09-14 06:10:05</field>
+    </record>
+    <record id="base.res_partner_23" model="res.partner">
+      <field name="date" eval="time.strftime('2015-05-04')"/>
+      <field name="credit_limit">8185.9107144432</field>
+      <field name="message_last_post">2015-09-25 20:19:37</field>
+    </record>
+    <record id="base.res_partner_address_36" model="res.partner">
+      <field name="date" eval="time.strftime('2015-09-17')"/>
+      <field name="credit_limit">9139.5033878828</field>
+      <field name="message_last_post">2015-05-17 02:27:50</field>
+    </record>
+    <record id="base.res_partner_22" model="res.partner">
+      <field name="date" eval="time.strftime('2015-06-17')"/>
+      <field name="credit_limit">9260.7661061158</field>
+      <field name="message_last_post">2015-04-23 21:43:55</field>
+    </record>
+    <record id="base.res_partner_address_35" model="res.partner">
+      <field name="date" eval="time.strftime('2015-04-11')"/>
+      <field name="credit_limit">2906.3228652751</field>
+      <field name="message_last_post">2015-03-20 09:26:09</field>
+    </record>
+    <record id="base.main_partner" model="res.partner">
+      <field name="date" eval="time.strftime('2015-02-14')"/>
+      <field name="credit_limit">3763.8534178759</field>
+      <field name="message_last_post">2015-08-11 11:33:18</field>
+    </record>
+    <record id="base.res_partner_main1" model="res.partner">
+      <field name="date" eval="time.strftime('2015-05-15')"/>
+      <field name="credit_limit">1484.7871179023</field>
+      <field name="message_last_post">2015-05-16 15:46:13</field>
+    </record>
+    <record id="base.res_partner_main2" model="res.partner">
+      <field name="date" eval="time.strftime('2015-02-26')"/>
+      <field name="credit_limit">7069.2449560551</field>
+      <field name="message_last_post">2015-03-27 04:50:49</field>
+    </record>
+  </data>
+</openerp>

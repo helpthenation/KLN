@@ -1,0 +1,14 @@
+
+<openerp>
+    <data>
+		<report 
+            id="action_report_forms"
+            model="account.invoice"
+            string="Customized Invoice"
+            report_type="qweb-pdf"
+            file="report_sample.report_model"
+            name="report_sample.report_model"
+            
+        />
+       </data>
+</openerp>

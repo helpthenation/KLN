@@ -1,0 +1,20 @@
+<openerp>
+<data>
+<record id="sample_partner_form_2" model="ir.ui.view">
+            <field name="name">res.partner.sample.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+            <xpath expr="//field[@name='fax']" position="after">                                                                                                                                                                                                                                                                                                                                                                                                                                 				
+				
+				<field name="company_title"/>
+			
+				
+     </xpath>
+            
+ </field> 
+</record>
+
+
+</data>
+</openerp>

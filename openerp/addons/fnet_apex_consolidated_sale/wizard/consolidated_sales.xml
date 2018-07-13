@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_consolidated_sales_apex_form" model="ir.ui.view">
+            <field name="name">consolidated.sales.apex</field>
+            <field name="model">consolidated.sales.apex</field>
+            <field name="arch" type="xml">
+            <form string="Consolidated Sale All products">
+                <p class="oe_grey">
+                        Define Consolidated Sale All products
+                    </p>
+                <notebook>
+                    <page string="Dates">
+                        <group>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                        </group>
+                    </page>                   
+                    <page string="Company">
+                        <field name="company_ids"/>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="wiz_print_report" string="Print" type="object" class="oe_highlight"/> or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_consolidated_sales_apex" model="ir.actions.act_window">
+            <field name="name">Consolidated Sales</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">consolidated.sales.apex</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+            
+        <menuitem
+            name="Consildated Sales"
+            parent="fnet_aea_sale_report.menu_sale_register"
+            action="action_consolidated_sales_apex"
+            id="menu_consolidated_sales_apex"
+            sequence="1"
+            icon="STOCK_PRINT"/>
+            
+       
+
+    </data>
+</openerp>

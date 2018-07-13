@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+<!--
+	  RES COMPANY GST
+-->
+    <record id="view_company_form_gst" model="ir.ui.view">
+            <field name="name">view.company.form.gst</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">  
+                <field name="company_registry" position="after">
+                    <field name="gst_number" placeholder="GST NO..."/>                    
+                    <field name="location_code" placeholder="OS,OB,TN.."/>                    
+                </field>                
+            </field>
+    </record>
+    <!-- product category-->
+    
+    <record model="ir.ui.view" id="view_product_category_hsn">
+           <field name="name">view.product.category.form</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+             <field name="arch" type="xml">                
+                 <field name="type" position="after">
+						<field name="hsn_code"/>
+                 </field>
+             </field>
+        </record>
+        
+<!--
+   partner gst
+-->
+    <record id="view_partner_form_gst" model="ir.ui.view">
+            <field name="name">view.partner.form.gst</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+			 <field name="title" position="after">
+                    <field name="gst_number"/>
+               </field>
+             </field>
+    </record>
+    
+<!--
+   ACCOUNT MOVE SAC NO IN JOURNAL
+-->
+    
+     <record id="view_inherit_account_moves_sac_no" model="ir.ui.view">
+            <field name="name">view.account.move</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml"> 
+                <xpath expr='//field[@name="period_id"]' position="after">
+                    <field name="sac_no"/>
+                </xpath>
+            </field>
+    </record>
+  </data>          
+</openerp>

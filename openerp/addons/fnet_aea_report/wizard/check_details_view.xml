@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_check_details_rep_form" model="ir.ui.view">
+            <field name="name">view.check.details.rep.form</field>
+            <field name="model">check.details.rep</field>
+            <field name="arch" type="xml">
+            <form string="Cheque Details For Bank">
+				<p class="oe_grey">
+                        Draft mode Cheque Details collection for Bank
+                        Confirmation.
+                    </p>
+                    
+                 <notebook>
+                    <page string="Dates">
+                        <group>
+                            <field name="from_date"/>
+                            <field name="chk_type"/>
+                            <field name="state"/>
+                        </group>
+                    </page>
+                 </notebook>
+                <footer>
+                    <button name="wiz_print_report" string="Print" type="object" class="oe_highlight"/> or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_view_check_details_rep" model="ir.actions.act_window">
+            <field name="name">Cheque Details For Bank</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.details.rep</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+            name="Cheque Details"
+            parent="account.menu_finance_reports"
+            id="menu_check_details_rep"
+            icon="STOCK_PRINT"/>
+            
+        <menuitem
+            name="Cheque Details For Bank"
+            parent="menu_check_details_rep"
+            action="action_view_check_details_rep"
+            id="menu_check_details_rep_bank"
+            icon="STOCK_PRINT"/>
+
+    </data>
+</openerp>

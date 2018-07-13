@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+             <record id="view_account_invoice_filter_loading" model="ir.ui.view">
+                <field name="name">account.invoice.select.loading</field>
+                <field name="model">account.invoice</field>
+                <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+                <field name="arch" type="xml">
+                    
+                    <xpath expr = "//group" position="inside">
+                          <filter string="Delivery Method" context="{'group_by':'del_method'}"/>
+                          <filter string=" TPT.Co. Name " context="{'group_by':'tpt_name'}"/>                   
+                    </xpath>
+                    
+                </field>
+            </record>
+            
+            
+    </data>
+</openerp>

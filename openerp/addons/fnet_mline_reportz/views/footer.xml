@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <template id="footer_wizards">
+		 <div class="footer">
+		<t t-if ="o and 'company_id' in o" >
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+        <div class="text-left" style="border-top: 1px solid black;">
+            <ul class="list-inline">
+				<li t-if="company.partner_id.name"><span style="font-size: 10px;" t-field="company.partner_id.name"/></li>
+				<li t-if="company.street"><span style="font-size: 10px;" t-field="company.street"/></li>
+				<li t-if="company.street2"><span style="font-size: 10px;" t-field="company.street2"/></li>
+				<li t-if="company.city"><span style="font-size: 10px;" t-field="company.city"/></li>
+				<li t-if="company.country_id.name"><span style="font-size: 10px;" t-field="company.country_id.name"/></li>
+                <li t-if="company.phone"><span style="font-size: 10px;">Phone:</span><span style="font-size: 10px;" t-field="company.phone"/></li>
+                <li t-if="company.fax"><span style="font-size: 10px;">Fax:</span><span style="font-size: 10px;" t-field="company.fax"/></li>
+                <li t-if="company.email"><span style="font-size: 10px;" t-field="company.email"/></li>
+                <li t-if="company.website"><span style="font-size: 10px;" t-field="company.website"/></li>
+            </ul>
+		 </div>
+		 <div class="text-center">
+            <ul class="list-inline">
+                <li>Page:</li>
+                <li><span class="page"/></li>
+                <li>/</li>
+                <li><span class="topage"/></li>
+            </ul>
+       </div>
+    </div>  
+    </template>
+    
+    
+
+
+</data>
+</openerp>

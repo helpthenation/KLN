@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+        <record model="ir.ui.view" id="resumption_details_formss">
+            <field name="name">Re-Joining Request</field>
+            <field name="model">resumption.details</field>
+            <field name="arch" type="xml">
+                <form string="Re-Joining Details">
+                    <header>
+                        <button string="Submit" name="button_validate" states="draft" type="object" class="oe_highlight"/>
+                        <button string="Approve" name="button_approve" type="object" states="hr_approval"  class="oe_highlight" groups="base.group_hr_officer,base.group_hr_manager"/>
+                        <button string="Approve" name="button_done" states="manager_approval" class="oe_highlight"  type="object" groups="base.group_hr_manager"/>
+                        <button string="Refuse" name="button_cancel" states="hr_approval,manager_approval" type="object" groups="base.group_hr_manager"/>
+                        <button name="action_set_to_draft" states="done,cancel" string="Set to Draft" type="object" />
+                        <field name="state" widget="statusbar"/>
+                   </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id" on_change="onchange_employee_id(employee_id)"/>
+                                <field name="holiday_status_id" />
+                                 <field name="doj" on_change="onchange_date_of_rejoining(doj,employee_id,holiday_status_id)"/>
+                            </group>
+                            <group>
+                                <field name="code"/>
+                                <field name="sponsor_id"/>
+                             </group>
+                        </group>
+                       <field name="discription" colspan="4"/>
+                                
+                            
+                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="resumption_details_tree">
+            <field name="name">Re-Joining Request</field>
+            <field name="model">resumption.details</field>
+            <field name="arch" type="xml">
+                <tree string="Resumption Details">
+                                <field name="employee_id"/>
+                                <field name="code"/>
+                                <field name="sponsor_id"/>
+                                <field name="doj"/>
+                                <field name="discription"/>
+                                <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_rejoining_request_filter" model="ir.ui.view">
+            <field name="name">resumption.details.filter</field>
+            <field name="model">resumption.details</field>
+            <field name="arch" type="xml">
+                <search string="Search Leave">
+                    <separator/>
+                    <filter domain="[('state','=','draft')]" string="To Confirm"/>
+                    <filter domain="[('state','in',('hr_approval','manager_approval'))]" string="To Approve" name="approve" />
+                    <filter domain="[('state','=','done')]" string="Validated" name="validated"/>
+                    <separator/>
+                
+                    <separator/>
+                    <filter string="My Requests" name="my_leaves" domain="[('employee_id.user_id', '=', uid)]" help="My Leave Requests"/>
+                    <separator/>
+<!--
+                    <filter string="My Department Leaves" name="my_department_leaves" domain="[('department_id.manager_id.user_id', '=', uid)]"/>
+-->
+                    <field name="employee_id"/>
+                    <field name="sponsor_id"/>
+                    <field name="holiday_status_id"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_employee" string="Employee" context="{'group_by':'employee_id'}"/>
+                        <filter name="group_category" string="Leave Type" context="{'group_by':'holiday_status_id'}"/>
+                        <filter string="Sponsor Company" context="{'group_by':'sponsor_id'}"/>
+                        <filter name="group_type" string="Type" context="{'group_by':'holiday_status_id'}"/>
+                        <separator/>
+                        <filter name="group_date_from" string="Month" context="{'group_by':'doj:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>        
+        
+        <record id="resumption_details_action" model="ir.actions.act_window">
+            <field name="name">Re-Joining Request to Approve</field>
+            <field name="res_model">resumption.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_approve':1}</field>
+            <field name="search_view_id" ref="view_rejoining_request_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a new leave request.
+              </p><p>
+                Once you have recorded your leave request, it will be sent
+                to a manager for validation. Be sure to set the right leave
+                type (recuperation, legal holidays, sickness) and the exact
+                number of open days related to your leave.
+              </p>
+            </field>
+        </record> 
+        
+        <record model="ir.actions.act_window" id="request_approved_holidaaaays">
+            <field name="name">Re-Joining Requests </field>
+            <field name="res_model">resumption.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>            
+            <field name="search_view_id" ref="view_rejoining_request_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a new rejoin request.
+              </p><p>
+                Once you have recorded your leave request, it will be sent
+                to a manager for validation. Be sure to set the right leave
+                type (recuperation, legal holidays, sickness) and the exact
+                number of open days related to your leave.
+              </p>
+            </field>
+        </record> 
+                       
+        <menuitem name="Re-Joining Request" action="request_approved_holidaaaays" id="resumption_details" parent="hr_holidays.menu_open_ask_holidays" sequence="10" /> 
+        <menuitem name="Re-Joining Requests to Approve" parent="hr_holidays.menu_open_ask_holidays" id="menu_rejoin_request_approve" action="resumption_details_action" groups="base.group_hr_user"/>
+        
+
+    
+</data>
+</openerp>      
+        
+     

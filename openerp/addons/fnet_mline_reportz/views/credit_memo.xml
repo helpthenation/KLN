@@ -1,0 +1,112 @@
+<openerp>
+	<data>
+		<report 
+            id="action_credit_report"
+            model="account.invoice"
+            string="Credit Memo"
+            report_type="qweb-pdf"
+            file="fnet_mline_reportz.report_credit"
+            name="fnet_mline_reportz.report_credit"
+        />     
+        
+<template id="report_credit">
+        <t t-foreach="doc_ids" t-as="o">
+			<t t-call="report.html_container">
+			<t t-call="fnet_mline_reportz.header_wizards"/>
+                <div class="page">
+                    <style>
+						  tr {page-break-inside: avoid;}
+					.table { border: 1px solid black; }
+					.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { border: 1px solid black; }
+					.table-borderless tr td,
+					.table-borderless tr {
+						border: 0;
+					}
+					</style>
+									   
+					   <div align="right">
+					   <h3 style="text-align:center;background-color:#568eff;border: 1px solid #568eff;color:#ffffff;text-align:center;border-radius:5px"><right><strong> Credit Memo</strong></right></h3>
+					   </div>
+							<table width="100%">
+								<tr>
+									<td colspan="2" width="40%">
+										<div>Credit Memo Number :<t t-esc="o.lp_no"/></div>
+										<div>Credit Date : <t t-esc="o.date_invoice"/></div>
+									</td>
+								</tr>
+							</table>
+							<br/>
+							<br/>
+							<br/>
+							<table class="table table-bordered" width="100%">
+								<thead >
+									<tr >
+										<td width="60%" style="border:0px solid black;background-color:#ccc;"><b>Credit To : </b></td>
+									</tr>
+								</thead>
+									<tr>
+										<td style="border:0px solid black" width="60%">
+											<t t-esc="o.partner_id.name"/>
+										</td>
+									</tr>
+							</table>
+							<br/>
+							<table class="table table-bordered" width="100%">
+								<thead style="background-color:#ccc;">
+									<tr>
+									   <td style="text-align:center;border:0px solid black"><b>Custromer ID:</b></td>
+									   <td style="text-align:center;border:0px solid black"><b>Custromer PO</b></td>
+									   <td style="text-align:center;border:0px solid black"><b>Sales Rep ID</b></td>
+									</tr>
+								</thead>
+									<tr>
+										<td style="border:0px solid black"><t t-esc="o.name"/></td>		
+										<td style="border:0px solid black"><t t-esc="o.customer_po"/></td>
+										<td style="border:0px solid black"></td>
+									</tr>
+							</table>
+							<table class="table table-bordered" width="100%">
+								<thead style="background-color:#ccc;">
+									<tr>
+									   <th  id="parent" style="text-align:center"><b>Quantity</b></th>
+									   <th id="parent" style="text-align:center"><b>Item</b></th>
+									   <th id="parent" style="text-align:center"><b>Description</b></th>
+									   <th id="parent" style="text-align:center"><b> Unit Price</b></th>
+									   <th id="parent" style="text-align:center"><b>Amount</b></th>    
+									</tr>
+								</thead>
+									<t t-foreach="o.invoice_line" t-as="doc">
+										<tr >
+											<td id="parent" style = "text-align:center"> <t t-esc="doc.quantity"/></td>
+											<td id="parent" style = "text-align:center"> <t t-esc="doc.product_id.name"/></td>
+											<td id="parent" style="text-align:center"> <t t-esc="doc.name"/> </td>
+											<td id="parent" style="text-align:center"> <t t-esc="doc.price_unit"/> </td>
+											<td id="parent" style="text-align:center"> <t t-esc="doc.price_subtotal"/> </td>
+										</tr>
+									</t>
+										<tr >
+											<td colspan = '4' style = "text-align:right" id="parent" > <b>Subtotal</b></td>
+											<td id = "parent"  style = "text-align:right"> <t t-esc="o.amount_untaxed"/></td>
+										</tr>
+										<tr >
+											<td colspan = '4' style = "text-align:right" id="parent" > <b>Sales Tax</b></td>
+											<td id = "parent" style = "text-align:right"> <t t-esc="o.amount_tax"/> </td>
+										</tr>
+										<tr>
+											<td colspan = '4' style = "text-align:right" id="parent" > <b>Freight</b></td>
+											<td id="parent" style = "text-align:right"></td>
+										</tr>
+										<tr>
+											<td colspan = '4' id="parent" style="background-color:#ccc;"> <b>Total</b></td>
+											<td id="parent" style = "text-align:right;background-color:#ccc;"> <t t-esc="o.amount_total"/></td>
+										</tr>
+							</table>    
+								<p> <b>Invoice No : </b><t t-esc="o.number"/></p>
+				</div>
+
+                <t t-call="fnet_mline_reportz.footer_wizards"/>
+    </t>
+    </t>
+</template>
+	</data>
+</openerp>

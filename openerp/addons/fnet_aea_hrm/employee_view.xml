@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data> 
+      
+    <record id="view_hr_contract_inherit_compontetsssss" model="ir.ui.view">
+            <field name="name">hr.contract</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+            <xpath expr="/form/*" position="before">
+                <header>
+                    <button type="action" name="%(action_salary_revision)d" string="Salary Revision"  class="btn-primary"/>
+                </header>
+            </xpath>            
+
+                <xpath expr="//field[@name='wage']" position="before">
+                       <field name="effective_date"/>
+                        <field name="is_arrear"/>
+                        <field name="salary_arrear"/>
+                </xpath>
+                <xpath expr='//form/sheet/notebook/page[@string="Work Permit"]' position="after">
+                    <page string="Allowances &amp; Deductions">
+                        <group>
+                            
+                            <group string="Allowance">
+                                <field name="basic"/>
+                                <field name="gross"/>
+                                <field name="tds"/>
+                                <field name="is_esi" readonly="1"/>
+                                <field name="hra"/>
+                                <field name="special_allowance"/>
+                                <field name="conveyance"/>
+                                <field name="leave_allowance"/>
+                                <field name="medical_allowance"/>
+                            </group>    
+                            <group string="Deduction">
+                                <field name="advance_amount"/>
+                                <field name="loan_date"/>
+                                <field name="monthly_deduction"/>
+                                <field name="payment_term"/>
+                                <field name="loan_detect"/>                             
+                                <field name="lunch_expense"/>
+                                <field name="tax_deuduction"/>
+                                <field name="other_deduction_1"/>
+                                <field name="other_deduction_2"/>
+                            </group>
+                        </group>
+                    </page>
+                     <page string="Salary History">
+                       <field name="history_line"  widget="one2many_list">
+                            <tree editable="bottom">
+                                <field name="contract_id" invisible="1"/>
+                                <field name="old_basic"/>
+                                <field name="old_wage"/>
+                                <field name="old_stucture_id"/>
+                            </tree>
+                        </field>
+                    </page>                    
+                </xpath>
+                </field>
+<!--
+                <xpath expr='//form/sheet/notebook/page[@name="information"]/group/group//field[@name="wage"]' position="after">
+
+                </xpath>
+-->
+<!--
+            </field>
+-->
+    </record>
+    
+    <record id="view_hr_payslip_inherit_view" model="ir.ui.view">
+            <field name="name">hr.payslip</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//form/sheet/notebook/page[@string="Accounting Information"]/group/group/field[@name="payslip_run_id"]' position="after">
+                    <field name="lop"/>
+                    <field name="no_of_days"/>
+                </xpath>
+            </field>
+    </record>
+    
+    <record id="view_hr_employee_inherit_view" model="ir.ui.view">
+            <field name="name">hr.employee</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//form/sheet/notebook/page[@string="Personal Information"]/group/group[@string="Contact Information"]' position="after">
+                    <group>
+                    <group string="Info">
+                        <group>
+                        <field name="emp_code"/>
+                        <field name="tkn_no"/>
+                        <field name="pf_no"/>
+                        <field name="esi_no"/>
+                        <field name="uan_no"/>
+                        <field name="aadhar_no"/>
+                        <field name="pan_no"/>
+                        </group>
+                    </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="date_of_joining"/>
+                </xpath>
+                <xpath expr='//form/sheet/notebook/page[@string="Personal Information"]/group/group[@string="Contact Information"]/field[@name="address_home_id"]' position="after">
+                    <field name='father_name'/>
+                                   <label for="off_street" string="Address"/>
+                                    <div>
+                                        <field name="emp_street"/>
+                                        <field name="emp_street1"/>
+                                        <div>
+                                            <field name="emp_city" style="width: 40%%"/>
+                                            <field name="emp_state" style="width: 24%%"/>
+                                            <field name="emp_zip" style="width: 34%%"/>
+                                        </div>
+                                        <field name="emp_country"/>                                       
+                                    </div>                      
+                </xpath>
+            </field>
+    </record>    
+       
+   <record id="view_hr_payslip_run_inherit_view" model="ir.ui.view">
+    <field name="name">hr.payslip.run</field>
+    <field name="model">hr.payslip.run</field>
+    <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+    <field name="arch" type="xml">
+        <xpath expr='//field[@name="credit_note"]' position="after">
+            <field name="company_id" invisible="1"/>
+        </xpath>
+    </field>
+    </record>
+    
+          
+  </data>          
+</openerp>

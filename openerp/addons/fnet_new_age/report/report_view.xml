@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_fnetagedpartnerbalance">
+    <t t-call="report.html_container">
+        <t t-call="report.internal_layout">
+            <div class="page">
+                <h2>Open Invoice Aged  Partner Balance Analysis</h2>
+
+                <div class="row mt32">
+                    <div class="col-xs-3">
+                        <strong>Chart of Accounts:</strong>
+                        <p t-esc="get_account(data)"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Fiscal Year:</strong>
+                        <p t-esc="get_fiscalyear(data)"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Start Date:</strong>
+                        <p t-esc="formatLang(data['form']['date_from'], date=True)"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Period Length (days)</strong>
+                        <p t-esc="data['form']['period_length']"/>
+                    </div>
+                </div>
+                <div class="row mb32">
+                    <div class="col-xs-3">
+                        <strong>Partner's:</strong>
+                        <p>
+                            <span t-if="data['form']['result_selection'] == 'customer'">Receivable Accounts</span>
+                            <span t-if="data['form']['result_selection'] == 'supplier'">Payable Accounts</span>
+                            <span t-if="data['form']['result_selection'] == 'customer_supplier'">Receivable and Payable Accounts</span>
+                        </p>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Analysis Direction:</strong>
+                        <p t-esc="data['form']['direction_selection']"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Target Moves:</strong>
+                        <p t-esc="get_target_move(data)"/>
+                    </div>
+                </div>
+                <table class="table table-condensed" style="margin-bottom: 0px !important;">
+                    <thead>
+                        <tr>
+                            <th>Partners</th>
+                            <th class="text-center" >Date</th>
+                            <th >Age</th>
+                            <th ><span t-esc="data['form']['5']['name']"/></th> 
+                            <th ><span t-esc="data['form']['4']['name']"/></th>
+                            <th ><span t-esc="data['form']['3']['name']"/></th>
+                            <th ><span t-esc="data['form']['2']['name']"/></th>
+                            <th ><span t-esc="data['form']['1']['name']"/></th>
+                            <th ><span t-esc="data['form']['0']['name']"/></th>
+                            <th>Total</th>
+                        </tr>
+                       
+
+                    
+                    </thead>
+                    <tbody>
+                       <t t-foreach="get_total(data['form'])" t-as="lines">
+                        <div class="first-page">
+                        <tr>
+                            <td><b>Account Total</b></td>
+                            <td></td>
+                            <td></td>                            
+                            <td class="text-right;font-size:12px;width:100%;"><b><span t-esc="formatLang(lines['five'], currency_obj=res_company.currency_id)"/></b></td>
+                            <td class="text-right;font-size:12px;width:100%;"><b><span t-esc="formatLang(lines['four'], currency_obj=res_company.currency_id)"/></b></td>
+                            <td class="text-right;font-size:12px;width:100%;"><b><span t-esc="formatLang(lines['three'] , currency_obj=res_company.currency_id)"/></b></td>
+                            <td class="text-right;font-size:12px;width:100%;"><b><span t-esc="formatLang(lines['two'], currency_obj=res_company.currency_id)"/></b></td>
+                            <td class="text-right;font-size:12px;width:100%;"><b><span t-esc="formatLang(lines['one'], currency_obj=res_company.currency_id)"/></b></td>
+                            <td class="text-right;font-size:12px;width:100%;"><b><span t-esc="formatLang(lines['zero'],  currency_obj=res_company.currency_id)"/></b></td>                            
+                            <td class="text-right;font-size:12px;width:100%;">
+								<b><span t-esc="formatLang(lines['total'], currency_obj=res_company.currency_id)"/></b>
+<!--
+                                <t t-set="linetotal" t-value="lines['total']"/>
+                                <b><t t-esc="'{:,.2f}'.format(linetotal)"/></b>
+-->
+                        </td>
+                        </tr>
+                        </div>
+                        </t>
+                        <t t-if="data['form']['selection'] == 'all' or data['form']['selection'] == 'executive' ">
+                        <t t-foreach="get_lines(data['form'])" t-as="partner">
+                            <tr>
+                                <td colspan='9'> <b><span style="padding:5px" t-esc="partner['name']"/>-<span style="padding:5px" t-esc="partner['city']"/></b></td> 
+                                    <t t-set="tot" t-value="partner['total']" />                              
+                                <td><b><t t-esc="'{:,.2f}'.format(tot)"/></b></td> 
+                            </tr>
+                            
+                            <t t-foreach="partner['details']" t-as="part">
+                            <t t-set="pqty" t-value="[]"/>
+                            <tr>
+                            <td class="text-right"><span t-esc="part['journal']"/></td>
+                            <td class="text-center"><span t-esc="part['dates']" /></td>
+                            <td><span t-esc="part['age']"/></td>
+                            <td class="text-center"><span t-esc="'{:,.2f}'.format(part['5'])"/></td>
+                            <t t-set="pqty" t-value="pqty+[part['5']]"/>
+                            <td><span t-esc="'{:,.2f}'.format(part['4'])"/></td>
+                             <t t-set="pqty" t-value="pqty+[part['4']]"/>
+                            <td><span t-esc="'{:,.2f}'.format(part['3'])"/></td>
+                             <t t-set="pqty" t-value="pqty+[part['3']]"/>
+                            <td><span t-esc="'{:,.2f}'.format(part['2'])"/></td>
+                             <t t-set="pqty" t-value="pqty+[part['2']]"/>
+                            <td><span t-esc="'{:,.2f}'.format(part['1'])"/></td>
+                             <t t-set="pqty" t-value="pqty+[part['1']]"/>
+                            <td><span t-esc="'{:,.2f}'.format(part['0'])"/></td>
+                             <t t-set="pqty" t-value="pqty+[part['0']]"/>
+                                <t t-set="aaa" t-value="(sum(pqty))" />                                 
+                             <td><t t-esc="'{:,.2f}'.format(aaa)"/></td>
+                            </tr>
+                            </t>
+                            </t>
+                    </t>
+                    <t t-if="data['form']['selection'] == 'sales' or data['form']['selection'] == 'team' ">
+                        <t t-foreach="get_lines(data['form'])" t-as="partner">
+                            <tr>
+                                   <td colspan='9' width='100%' > <b><span t-esc="partner['person']"/></b></td>                                   
+                            </tr>
+                            <t t-foreach="partner['customer']" t-as="par">
+                            <tr>
+                                <td colspan='9'> <b><span style="padding:5px" t-esc="par['name']"/>-<span style="padding:5px" t-esc="par['city']"/></b></td> 
+                                    <t t-set="tot" t-value="par['total']" />
+                                <td><b><t t-esc="'{:,.2f}'.format(tot)"/></b></td> 
+                            </tr>
+                            
+                            <t t-foreach="par['details']" t-as="part">
+                            <t t-set="pqty" t-value="[]"/>
+                            <tr>
+                            <td class="text-right"><span t-esc="part['journal']"/></td>
+                            <td class="text-center"><span t-esc="part['dates']"/></td>
+                            <td><span t-esc="part['age']"/></td>
+                            <td class="text-center"><span t-esc="'{:,.2f}'.format(part['5'])"/></td>
+                            <t t-set="pqty" t-value="pqty+[part['5']]"/>
+                            <td><span t-esc="'{:,.2f}'.format(part['4'])"/></td>
+                             <t t-set="pqty" t-value="pqty+[part['4']]"/>
+                            <td><span t-esc="'{:,.2f}'.format(part['3'])"/></td>
+                             <t t-set="pqty" t-value="pqty+[part['3']]"/>
+                            <td><span t-esc="'{:,.2f}'.format(part['2'])"/></td>
+                             <t t-set="pqty" t-value="pqty+[part['2']]"/>
+                            <td><span t-esc="'{:,.2f}'.format(part['1'])"/></td>
+                             <t t-set="pqty" t-value="pqty+[part['1']]"/>
+                            <td><span t-esc="'{:,.2f}'.format(part['0'])"/></td>
+                             <t t-set="pqty" t-value="pqty+[part['0']]"/>
+                                <t t-set="aaa" t-value="(sum(pqty))" />                                 
+                             <td><t t-esc="'{:,.2f}'.format(aaa)"/></td>
+                            </tr>
+                            </t>
+                            </t>
+                            </t>                         
+                    </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

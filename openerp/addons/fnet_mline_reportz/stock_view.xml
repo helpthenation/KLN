@@ -1,0 +1,35 @@
+<openerp>
+<data>
+   <record model="ir.ui.view" id="view_stockmove_tree_inherits">
+		<field name="name">view.stockmove.tree.inheritss</field>
+		<field name="model">stock.move</field>
+		<field name="inherit_id" ref="stock.view_move_picking_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr="//tree" position="attributes">
+                <attribute name="editable">bottom</attribute>
+            </xpath>
+			 <field name="product_uom" position='after'>
+					<field name="uom"/>
+			</field>		
+			 <field name="product_id" position='before'>
+					<field name="item_no"/>
+			</field>			
+		</field>		
+	</record>
+
+	
+	   <record model="ir.ui.view" id="view_stockmove_form_inherits">
+		<field name="name">view.stockmove.from.inheritss</field>
+		<field name="model">stock.move</field>
+		<field name="inherit_id" ref="stock.view_move_picking_form"/>
+		<field name="arch" type="xml">
+			 <field name="name" position='before'>
+					<field name="uom"/>
+			</field>		
+			 <field name="product_id" position='before'>
+					<field name="item_no"/>
+			</field>		
+		</field>		
+	</record>
+  </data>          
+</openerp>

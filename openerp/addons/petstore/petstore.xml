@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="petstore_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/petstore/static/src/css/petstore.css"/>
+                <script type="text/javascript" src="/petstore/static/src/js/petstore.js"/>
+            </xpath>
+        </template>
+
+
+        
+        <record id="action_home_page" model="ir.actions.act_window">
+            <field name="name">Pet Store Home</field>
+            <field name="res_model">petstore.homepage</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_home_form_page" model="ir.ui.view">
+            <field name="name">Pet Store Home</field>
+            <field name="model">petstore.homepage</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <sheet>
+                <group>
+                     <field name="name" widget="test"/>
+                </group>
+                </sheet>
+            </field>
+        </record>
+        
+        <menuitem id="main_petstore_menu" name="Pet Store" />
+
+        <menuitem id="petstore_menu" name="Pet Store"
+            parent="main_petstore_menu" />
+        <menuitem id="home_page_petstore_menu" name="Home Page" parent="petstore_menu"
+            action="action_home_page"/>
+        
+
+    </data>
+</openerp>

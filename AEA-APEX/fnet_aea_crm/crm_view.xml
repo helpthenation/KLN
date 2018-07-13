@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data> 
+      
+    <record id="view_sale_team_inh" model="ir.ui.view">
+            <field name="name">view.sale.team.inh</field>
+            <field name="model">crm.case.section</field>
+            <field name="inherit_id" ref="sales_team.crm_case_section_view_form"/>
+            <field name="arch" type="xml">
+				<field name="user_id" position="after">
+					<field name="company_id" groups="base.group_multi_company" widget="selection"/>
+				</field>
+     
+            </field>
+    </record>
+        
+      
+  </data>          
+</openerp>
+
+

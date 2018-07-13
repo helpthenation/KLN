@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+
+        <!-- PJC Target Entry -->
+
+        <record id="view_pjc_target_form" model="ir.ui.view">
+            <field name="name">view.pjc.target.form</field>
+            <field name="model">pjc.target</field>
+            <field name="arch" type="xml">
+                <form string="PJC Target">
+                    <header>
+                        <button name="submit" string="Submit" type="object" states="draft" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="open,draft,done" statusbar_colors='{"draft":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="period_id" on_change="onchange_period_id(period_id,company_id)"/>
+                                 <field name="total_days"/>
+                                 <field name="balance"/>
+                            </group>
+                            <group>
+                                <field name="manager_id" domain="[('sale_manager', '=', True)]" on_change="onchange_manager_id(manager_id,company_id)"/>
+                                <field name="sr_id" domain="[('sale_manager', '=', False)]"/>
+                                <field name="partner_id" domain="[('user_id', '=', sr_id)]"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="mandays_alloted"/>
+                                <field name="route_local"/>
+                                <field name="local_ws"/>
+                                <field name="local_retail"/>
+                                <field name="no_of_call"/>
+                            </group>
+                            <group>
+                                <field name="route_val"/>
+                                <field name="van_ws"/>
+                                <field name="van_retail"/>
+                            </group>
+                        </group>
+                    </sheet>
+                 </form>
+           </field>
+       </record>
+
+      <record id="view_pjc_target_tree" model="ir.ui.view">
+            <field name="name">view.pjc.target.tree</field>
+            <field name="model">pjc.target</field>
+            <field name="arch" type="xml">
+                <tree string="PJC Target">
+                    <field name="period_id"/>
+                    <field name="manager_id"/>
+                    <field name="sr_id"/>
+                    <field name="state"/>
+                 </tree>
+           </field>
+       </record>
+
+      <record id="view_pjc_target_search" model="ir.ui.view">
+            <field name="name">view.pjc.target.search</field>
+            <field name="model">pjc.target</field>
+            <field name="arch" type="xml">
+                <search string="PJC Target">
+                    <separator/>
+                    <filter string="Submit" name="draft" domain="[('state','=','draft')]"/>
+                    <filter string="Submitted" domain="[('state','=','done')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="manager" string="Sales Manager" domain="[]" context="{'group_by':'manager_id'}"/>
+                        <filter name="sr" string="Sales Represantative" domain="[]" context="{'group_by':'sr_id'}"/>
+                        <filter name="year" string="Year" domain="[]" context="{'group_by':'from_period'}"/>
+                    </group>
+                 </search>
+           </field>
+       </record>
+
+       <record id="action_view_pjc_target" model="ir.actions.act_window">
+            <field name="name">PJC Target Days</field>
+            <field name="res_model">pjc.target</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pjc_target_search"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Enter PJC Target.
+                </p><p>
+                    Create Daily Sale
+                </p>
+            </field>
+        </record>
+
+     <menuitem action="action_view_pjc_target"
+               id="menu_pjc_target"
+               name="PJC Target Days"
+               groups="base.group_sale_manager"
+               parent="menu_pjc"
+               sequence="1"/>
+             
+             
+         <!-- PJC items -->
+         
+      <record id="view_pjc_items_form" model="ir.ui.view">
+            <field name="name">view.pjc.items.form</field>
+            <field name="model">pjc.items</field>
+            <field name="arch" type="xml">
+                <form string="PJC Items">
+                    <header>
+                        <button name="submit" string="Submit" type="object" states="draft" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="open,draft,done" statusbar_colors='{"draft":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="manager_id" domain="[('sale_manager', '=', True)]" on_change="onchange_manager_id(manager_id,company_id)"/>
+                                <field name="sr_id" domain="[('sale_manager', '=', False)]"/>
+                                <field name="partner_id" domain="[('user_id', '=', sr_id)]"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="prod_categ_id" domain="[('visible','=',True)]" on_change="onchange_prod_categ_id(prod_categ_id,company_id,period_id)"/>
+                            </group>
+                            <group>
+                                <field name="period_id"/>
+                                <field name="target_id"/>
+                            </group>
+                        </group>
+                            <notebook>
+                                <page string="Target">
+                                    <field name="pjc_target_line">
+                                        <tree string="PJC Item Line" editable="bottom">
+                                            <field name="product_id"/>
+                                            <field name="value"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                     </sheet>
+                 </form>
+           </field>
+       </record>
+
+      <record id="view_pjc_items_tree" model="ir.ui.view">
+            <field name="name">view.pjc.items.tree</field>
+            <field name="model">pjc.items</field>
+            <field name="arch" type="xml">
+                <tree string="PJC Items">
+                    <field name="period_id"/>
+                    <field name="manager_id"/>
+                    <field name="sr_id"/>
+                    <field name="state"/>
+                 </tree>
+           </field>
+       </record>
+
+      <record id="view_pjc_items_search" model="ir.ui.view">
+            <field name="name">view.pjc.items.search</field>
+            <field name="model">pjc.items</field>
+            <field name="arch" type="xml">
+                <search string="PJC Items">
+                    <separator/>
+                    <filter string="Submit" name="draft" domain="[('state','=','draft')]"/>
+                    <filter string="Submitted" domain="[('state','=','done')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="manager" string="Sales Manager" domain="[]" context="{'group_by':'manager_id'}"/>
+                        <filter name="sr" string="Sales Represantative" domain="[]" context="{'group_by':'sr_id'}"/>
+                        <filter name="year" string="Year" domain="[]" context="{'group_by':'from_period'}"/>
+                    </group>
+                 </search>
+           </field>
+       </record>
+
+       <record id="action_view_pjc_items" model="ir.actions.act_window">
+            <field name="name">PJC Target Product</field>
+            <field name="res_model">pjc.items</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pjc_items_search"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Enter PJC Target Items.
+                </p><p>
+                    Create Target Items
+                </p>
+            </field>
+        </record>
+
+     <menuitem action="action_view_pjc_items"
+               id="menu_pjc_target_product"
+               name="PJC Target Product"
+               groups="base.group_sale_manager"
+               parent="menu_pjc"
+               sequence="2"/>
+               
+         <!-- PJc Daily Entry -->
+         
+
+         <record id="view_pjc_entry_form" model="ir.ui.view">
+            <field name="name">view.pjc.entry.form</field>
+            <field name="model">pjc.entry</field>
+            <field name="arch" type="xml">
+                <form string="PJC Entry">
+                    <header>
+                        <button name="generate" string="Generate" type="object" states="draft" class="oe_highlight"/>
+                        <button name="generate_entry" string="Generate Entry" type="object" states="progress" class="oe_highlight"/>
+                        <button name="%(action_target_product)d" string="Product Update" type="action" states="product" class="oe_highlight"/>
+                        <button name="submit" string="submit" type="object" states="product" class="oe_highlight"/>
+                        <button name="done" string="Appproved" type="object" states="submit" class="oe_highlight" groups="base.group_sale_manager"/>
+                        <button name="cancel" string="Refuse" type="object" states="submit" class="oe_highlight" groups="base.group_sale_manager"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done" statusbar_colors='{"draft":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="sr_id" domain="[('sale_manager', '=', False)]"/>
+                                <field name="partner_id" domain="[('user_id', '=', sr_id)]" on_change="onchange_partner_id(partner_id,from_date,sr_id)"/>
+                                <field name="city"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="from_date"/>
+                                <field name="period_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Actual">
+                                <group  string="Actual">
+                                    <group>
+                                        <field name="act_mandays_alloted"/>
+                                        <field name="act_route_local"/>
+                                        <field name="act_local_ws"/>
+                                        <field name="act_local_retail"/>
+                                        <field name="no_of_call"/>
+                                    </group>
+                                    <group>
+                                        <field name="act_route_val"/>
+                                        <field name="act_van_ws"/>
+                                        <field name="act_van_retail"/>
+                                    </group>
+                                </group>
+                                <group  string="Balance">
+                                    <group>
+                                        <field name="bal_mandays_alloted"/>
+                                        <field name="bal_route_local"/>
+                                        <field name="bal_local_ws"/>
+                                        <field name="bal_local_retail"/>
+                                    </group>
+                                    <group>
+                                        <field name="bal_route_val"/>
+                                        <field name="bal_van_ws"/>
+                                        <field name="bal_van_retail"/>
+                                    </group>
+                                </group>
+                                 <group string="Today Entry">
+                                    <group>
+                                        <field name="tdt_manday_type"/>
+                                        <field name="tdt_route_type" on_change="onchange_tdt_route_type(tdt_route_type)"/>
+                                        <field name="tdt_of_call"/>
+                                    </group> 
+                                    <group>
+                                        <field name="tdt_local_ws" attrs="{'invisible': [('tdt_route_type', '=', 'van')]}" on_change="onchange_tdt_local_ws(tdt_local_ws)"/>
+                                        <field name="tdt_local_retail" attrs="{'invisible': [('tdt_route_type', '=', 'van')]}" on_change="onchange_tdt_local_retail(tdt_local_retail)"/>
+                                        <field name="tdt_van_ws" attrs="{'invisible': [('tdt_route_type', '=', 'local')]}" on_change="onchange_tdt_van_ws(tdt_van_ws)"/>
+                                        <field name="tdt_van_retail" attrs="{'invisible': [('tdt_route_type', '=', 'local')]}" on_change="onchange_tdt_van_retail(tdt_van_retail)"/>
+                                    </group> 
+                                </group>
+                             </page>
+                              <page string="Daily" invisible="True">
+                                  <group string="Daily">
+                                    <group>
+                                        <field name="dal_mandays_alloted"/>
+                                        <field name="dal_route_local"/>
+                                        <field name="dal_local_ws"/>
+                                        <field name="dal_local_retail"/>
+                                        <field name="dal_of_call"/>
+                                    </group>
+                                    <group>
+                                        <field name="dal_route_val"/>
+                                        <field name="dal_van_ws"/>
+                                        <field name="dal_van_retail"/>
+                                    </group>
+                                </group>
+                              </page>
+                              <page string="Product">
+                                  <field name="pjc_product_line">
+                                      <tree string="Product">
+                                          <field name="prod_categ_id"/>
+                                          <field name="product_id"/>
+                                          <field name="quantity"/>
+                                      </tree>
+                                      <form string="Product">
+										  <group>
+											  <group>
+												  <field name="prod_categ_id" readonly="1"/>
+												  <field name="product_id" readonly="1"/>
+												  <field name="quantity" />
+												  <field name="company_id" invisible="1"/>
+												  <field name="pjc_prod_id" invisible="1"/>
+												</group>
+                                          </group>
+                                      </form>
+                                  </field>
+                              </page>
+                        </notebook>
+                     </sheet>
+                 </form>
+           </field>
+       </record>
+       
+        <record id="view_pjc_entry_tree" model="ir.ui.view">
+            <field name="name">view.pjc.entry.tree</field>
+            <field name="model">pjc.entry</field>
+            <field name="arch" type="xml">
+                <tree string="PJC Entry">
+                    <field name="from_date"/>
+                    <field name="sr_id"/>
+                    <field name="partner_id"/>
+                    <field name="state"/>
+                 </tree>
+           </field>
+       </record>
+       
+       
+       <record id="view_pjc_entry_search" model="ir.ui.view">
+            <field name="name">view.pjc.entry.search</field>
+            <field name="model">pjc.entry</field>
+            <field name="arch" type="xml">
+                <search string="PJC Target">
+                    <separator/>
+                    <filter string="Submit" name="draft" domain="[('state','=','draft')]"/>
+                    <filter string="Submitted" domain="[('state','=','done')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="sr" string="Sales Represantative" domain="[]" context="{'group_by':'sr_id'}"/>
+                        <filter name="month" string="Month" domain="[]" context="{'group_by':'from_date'}"/>
+                    </group>
+                 </search>
+           </field>
+       </record>
+
+       <record id="action_view_pjc_entry" model="ir.actions.act_window">
+            <field name="name">PJC Entry</field>
+            <field name="res_model">pjc.entry</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pjc_target_search"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Enter PJC Entry.
+                </p><p>
+                    Create Daily Sale
+                </p>
+            </field>
+        </record>
+
+     <menuitem action="action_view_pjc_entry"
+               id="menu_pjc_entry"
+               name="PJC Entry"
+               parent="menu_pjc"
+               sequence="3"/>
+
+
+       <!-- PJC Entry Total -->
+       
+<!--
+       <record id="view_pjc_entry_total_form" model="ir.ui.view">
+            <field name="name">view.pjc.target.form</field>
+            <field name="model">pjc.entry.total</field>
+            <field name="arch" type="xml">
+                <form string="PJC Entry Total">
+                    <header>
+                        <button name="submit" string="Submit" type="object" states="draft" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="open,draft,done" statusbar_colors='{"draft":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="sr_id" domain="[('sale_manager', '=', False)]"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="from_date"/>
+                            </group>
+                        </group>
+-->
+<!--
+                        <notebook>
+                            <page string="Stokiest Details">
+                             <field name="pjc_target_line">
+                                 <tree string="Stokiest Details" editable="bottom">
+                                     <field name="partner_id" domain="[('user_id','=',parent.sr_id)]"/>
+                                 </tree>
+                             </field>
+                            </page>
+                        </notebook>
+-->
+<!--
+                     </sheet>
+                 </form>
+           </field>
+       </record>
+
+      <record id="view_pjc_entry_total_tree" model="ir.ui.view">
+            <field name="name">view.pjc.entry.total.tree</field>
+            <field name="model">pjc.entry.total</field>
+            <field name="arch" type="xml">
+                <tree string="PJC Entry Total">
+                    <field name="from_date"/>
+                    <field name="sr_id"/>
+                    <field name="state"/>
+                 </tree>
+           </field>
+       </record>
+
+      <record id="view_pjc_entry_total_search" model="ir.ui.view">
+            <field name="name">view.pjc.target.search</field>
+            <field name="model">pjc.entry.total</field>
+            <field name="arch" type="xml">
+                <search string="PJC Enry Total">
+                    <separator/>
+                    <filter string="Submit" name="draft" domain="[('state','=','draft')]"/>
+                    <filter string="Submitted" domain="[('state','=','done')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="sr" string="Sales Represantative" domain="[]" context="{'group_by':'sr_id'}"/>
+                        <filter name="month" string="Month" domain="[]" context="{'group_by':'from_date'}"/>
+                    </group>
+                 </search>
+           </field>
+       </record>
+
+       <record id="action_view_pjc_entry_total" model="ir.actions.act_window">
+            <field name="name">PJC Entry Total</field>
+            <field name="res_model">pjc.entry.total</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pjc_entry_total_search"/>
+            <field name="context">{'search_default_sr':1,'search_default_month':1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Enter PJC Target.
+                </p><p>
+                    Create Daily Sale
+                </p>
+            </field>
+        </record>
+
+     <menuitem action="action_view_pjc_entry_total"
+               id="menu_pjc_target_total"
+               name="PJC Entry Total"
+               parent="menu_pjc"
+               sequence="3"/>
+-->
+
+<record id="view_travel_expense_form" model="ir.ui.view">
+            <field name="name">view.travel.expense.form</field>
+            <field name="model">travel.expense</field>
+            <field name="arch" type="xml">
+                <form string="Travel Expense">
+                    <header>
+                        <button name="generate_travel_expense" string="Generate Travel Expense" type="object" states="draft" class="oe_highlight"/>
+                        <button name="submit" string="Submit" type="object" states="waiting" class="oe_highlight"/>
+                        <button name="manager_approval" string="Approve" type="object"  groups="base.group_sale_manager" states="approve" class="oe_highlight"/>
+                        <button name="reject" string="Decline" type="object" groups="base.group_sale_manager" states="approve" class="oe_highlight"/>
+                        <button name="set_to_draft" string="Reset To Draft" type="object" groups="base.group_sale_manager" states="refuse" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done,waiting,approve,refuse" statusbar_colors='{"draft":"blue"}'/>
+                    </header>					
+                        <group>
+                            <group>
+                                <field name="sr_id" domain="[('sale_manager', '=', False)]"/>
+                                <field name="designation"/>
+                                <field name="head_quaters" />
+                                <field name="from_date"/>
+                                <field name="to_date"/>
+                                <field name="company_id" invisible='1'/>
+                            </group>
+                        </group>
+                            <notebook>
+                                <page string="Travel Expense Line">
+									<field name="travel_expense_line_ids">
+                                        <tree string="Travel Expense Line" create="false" editable="bottom">
+                                            <field name="start_place"/>
+                                            <field name="destination_place"/>
+                                            <field name="departure_date"/>
+                                            <field name="arrival_date"/>
+                                            <field name="mode_of_travel"/>
+                                            <field name="expense_amount"/>
+                                            <field name="allowance"/>
+                                            <field name="postage"/>
+                                            <field name="price_subtotal"/>
+                                            <field name="company_id" invisible='1'/>
+                                        </tree>
+                                    </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="expense_total">
+									<field name="fare_total"  widget='monetary'/>
+									<field name="allowance_total"  widget='monetary'/>
+									<div class="oe_subtotal_footer_separator oe_inline">
+										<label for="amount_total" />
+									</div>
+									<field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+								</group>                                    
+                                </page>
+                            </notebook>
+                 </form>
+           </field>
+       </record>
+
+      <record id="view_travel_expense_tree" model="ir.ui.view">
+            <field name="name">view.travel.expense.tree</field>
+            <field name="model">travel.expense</field>
+            <field name="arch" type="xml">
+                <tree string="Travel Expense">
+					<field name="sr_id" domain="[('sale_manager', '=', False)]"/>
+					<field name="designation"/>
+					<field name="head_quaters" />
+					<field name="from_date"/>
+					<field name="to_date"/>
+                 </tree>
+           </field>
+       </record>
+
+       <record id="action_view_travel_expense" model="ir.actions.act_window">
+            <field name="name">Travel Expense</field>
+            <field name="res_model">travel.expense</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define Travel Expense..
+                </p><p>
+                    Create Travel Expense
+                </p>
+            </field>
+        </record>
+
+     <menuitem action="action_view_travel_expense"
+               id="menu_pjc_travel_expense"
+               name="Travel Expense"
+               groups="base.group_sale_manager"
+               parent="menu_pjc"
+               sequence="2"/>
+
+  </data>
+</openerp>
+
+

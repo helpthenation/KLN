@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+<!--
+    <template id="report_invoice">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-if="o.company_id.state_id.name != 'Kerala' ">
+                    <t t-call="fnet_aea_report.report_invoice1"/>
+                </t>
+                <t t-if="o.company_id.state_id.name == 'Kerala' ">
+                    <t t-call="fnet_aea_report.report_invoice2"/>
+                </t>
+            </t>
+        </t>
+    </template>
+-->
+    
+    <template id="report_stock_invoice">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+           
+                <div class="page">
+                    <style type="text/css">
+                    #table_chk{font-size:11px;border:1px solid silver;font-family:Inconsolata;width:100%;}  
+                    #table_chk tr td {padding:0px;margin:0px;display:inline-table}
+                    #table_chk tr td table tr td {padding:5px;text-align:center}
+                    #table_chk tr td table tr.header {border:1px solid silver;border-right:0px;border-left:0px;background-color:#BDBDBD;}
+                    #table_chk tr td table tr.header td {border-right:1px solid white;font-weight:bold}
+                    #table_chk tr td table tr.header td:last-child {border-right:1px solid silver;font-weight:bold}
+                    #table_chk tr td table tr.body {border:1px solid white;border-right:0px;border-left:0px;}
+                    #table_chk tr td table tr.body td {border-right:1px solid silver;}
+                    #table_chk tr td table tr.body td:last-child {border-right:1px solid white;}
+                    .top-header {text-align:center;font-size:10px}
+                    .top-header div {display:block;font-size:10px}
+                    .image {width:100px;height:50px;vertical-align:middle;border:0px solid white;}
+                    .dealer {width:60%;height:100px;text-align:left}
+                    .dealer-head div {display:block;text-align:left}
+                    .invoice div{text-align:left}
+                    .invoice p { display:block;height:35px;line-height:35px;text-align:left}
+                    </style>
+                    <table id="table_chk" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="10%" style="vertical-align:middle;">
+                                            <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="image"/>
+                                        </td>
+                                        <td width="80%" class="top-header">
+                                            <div style="font-size:15px"><b>TAX INVOICE CUM DELIVERY CHALLAN</b></div>
+                                            <div style="font-size:14px"><b><span t-esc="get_com()"/></b></div>
+                                            <div style="font-size:12px"><span t-field='o.company_id.street'/>,<span t-field='o.company_id.street2'/></div>
+                                            <div style="font-size:12px"><span t-field='o.company_id.city'/>, <span t-field='o.company_id.state_id.name'/>- <span t-field='o.company_id.zip'/>,Phone :<span t-field='o.company_id.phone'/></div>
+                                            <div style="font-size:12px">TIN : <span t-field='o.company_id.tin_no'/> CST No : <span t-field='o.company_id.cst_no'/></div>
+                                        </td>
+                                        <td width="10%" style="text-align:right;vertical-align:middle;" valign="middle">
+                                            <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="image"/>
+                                        </td>
+                                    </tr>
+                                </table>    
+                            </td>
+                        </tr>   
+                        <tr style="border-top:1px solid silver">
+                            <td>
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="50%" class="dealer-head">
+                                            <div class="dealer">
+                                                <div style="font-size:12px"><b>Party's Name &amp; Address</b></div>
+                                                <div style="font-size:12px"><strong><span t-field='o.partner_id.name'/></strong></div>
+                                                <div><span t-field='o.partner_id.street'/></div>
+                                                <div><span t-field='o.partner_id.street2'/></div>
+                                                <div><span t-field='o.partner_id.city'/>,<span t-field='o.partner_id.district_id.name'/></div>
+                                                <div><span t-field='o.partner_id.state_id.name'/>-<span t-field='o.partner_id.zip'/></div>
+                                                <div>TIN: <span t-field='o.partner_id.tin_vat_no'/></div>
+                                            </div>
+                                        </td>
+                                        <td width="50%" class="invoice">
+                                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td width="42%" height="30" style="text-align:left"><b>Invoice No &amp; Date</b></td>
+                                                    <td width="1%">:</td>
+                                                    <td width="37%" style="text-align:left"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="42%" height="30" style="text-align:left">D.C. No &amp; Date</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="37%" style="text-align:left"><span t-esc="o.name"/> &amp; <span t-esc="o.date"/></td>
+                                                </tr>
+                                            </table>    
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr style="border-top:1px solid silver">
+                            <td>
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="45%" class="invoice">
+                                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td width="35%" style="text-align:left;font-size:12px">Despatch Through</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="64%" style="text-align:left;font-size:12px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%" style="text-align:left;font-size:12px">TPT.Co.Name</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="64%" style="text-align:left;font-size:12px"></td>
+                                                </tr>
+                                            </table>    
+                                        </td>
+                                        <td width="35%" class="invoice">
+                                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td width="30%" style="text-align:left;font-size:12px">Destination</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="69%" style="text-align:left;font-size:12px"><span t-field='o.partner_id.city'/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="33%" style="text-align:left;font-size:12px">L.R. No</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="69%" style="text-align:left;font-size:12px"></td>
+                                                </tr>
+                                            </table>    
+                                        </td>
+                                        <td width="20%" class="invoice">
+                                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td width="33%" style="text-align:left;font-size:12px">Date</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="46%" style="text-align:left;font-size:12px"><span t-esc="o.min_date"/></td>
+                                                </tr>
+                                            </table>    
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr class="header">
+                                        <td width="5%">Sl.No.</td>
+                                        <td width="40%">PRODUCT DESCRIPTION</td>
+                                        <td width="5%">SALE QTY.</td>
+                                        <td width="10%">UOM</td>
+                                        <td width="10%">RATE</td>
+                                        <td width="10%">NO OF CASE</td>
+                                        <td width="10%">MRP PER PIECE</td>
+                                        <td width="10%">VALUE</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8" style="padding:0;margin:0;">
+                                            <div style="height:440px;overflow:hidden;">
+                                                <table style="width:100%;height:440px" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>
+                                                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                                                <t t-set="counter" t-value="1"/>
+                                                                <tr t-foreach="get_invoice_tn_obj()" t-as="inv_line" >
+                                                                    <td width="5%" height="30">
+                                                                        <span t-esc="counter"/>
+                                                                        <t t-set="counter" t-value="counter+1"/>
+                                                                    </td>
+                                                                    <td width="40%" style="text-align:left">
+                                                                        <span t-esc="inv_line['prod']"/>
+                                                                    </td>
+                                                                    <td width="5%">
+                                                                        <span t-esc="formatLang(inv_line['qty'])"/>
+                                                                    </td>
+                                                                    <td width="10%" style="text-align:right">
+                                                                        <span t-esc="inv_line['uom']"/>
+                                                                    </td>
+                                                                    <td width="10%" style="text-align:right">
+                                                                        <span t-esc="formatLang(inv_line['rate'])"/>
+                                                                    </td>
+                                                                    <td width="10%" style="text-align:right">
+                                                                        <span t-esc="formatLang(inv_line['case_qty'])"/>
+                                                                    </td>
+                                                                    <td width="10%" style="text-align:right">
+                                                                         <span t-esc="formatLang(inv_line['mrp'])"/>
+                                                                    </td>
+                                                                    <td width="10%" style="text-align:right">
+                                                                        <span t-esc="formatLang(inv_line['value'])"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>  
+                                        </td>
+                                    </tr>
+                                    <tr class="body">
+                                        <td colspan="6" rowspan="1" width="80%" style="text-align:left;border-top:1px solid silver;vertical-align:bottom">
+                                            <div style="width:40%;float:left;">Payment due date for this Invoice</div>
+                                            <div style="width:30%;float:left;"><span t-esc='get_payment_term()'/></div><br/>
+                                        </td>
+                                        <td width="10%" height="10" style="text-align:right;border-top:1px solid silver;font-size:12px">Gross Amount</td>
+                                        <td width="10%" style="text-align:right;border-top:1px solid silver;font-size:12px"><span t-esc="formatLang(get_gro_amd())"/></td>
+                                    </tr>
+                                    <tr class="body">
+                                        <td colspan="6" rowspan="1" width="80%" style="text-align:left;border-top:0px solid silver;vertical-align:bottom">
+                                            <div style="width:20%;float:left">Wt : <span t-esc="get_weight()"/> Kgs.</div>
+                                            <div style="width:20%;float:left">Total Qty : <span t-esc="get_qty()"/></div>
+                                            <div style="width:20%;float:left">Total Case : <span t-esc="get_csh()"/></div>
+                                        </td>
+                                        <td width="10%" height="10" style="text-align:right;border-top:0px solid silver;font-size:12px"></td>
+                                        <td width="10%" style="text-align:right;border-top:0px solid silver;font-size:12px"></td>
+                                    </tr>
+                                    <tr class="body">
+                                        <td colspan="6" rowspan="2" width="80%" style="text-align:left;border-top:0px solid silver;vertical-align:bottom">
+                                            <div style="width:30%;float:left;">E. &amp; O.E. </div>
+                                            <div style="width:70%;float:left;font-size:12px">
+                                                <span t-esc="get_amd2text()"/>
+                                            </div>
+                                        </td>
+                                        <td width="10%" height="40" style="text-align:right;border-top:0px solid silver;font-size:12px">Rount off</td>
+                                        <td width="10%" style="text-align:right;border-top:0px solid silver;font-size:12px"><span t-esc="formatLang(get_round())"/></td>
+                                    </tr>
+                                    <tr class="body">
+                                        <td width="10%" height="40" style="text-align:right;font-size:12px">Net Amount</td>
+                                        <td width="10%" style="text-align:right;border-top:1px solid silver;font-size:12px">
+                                            <span t-esc="get_amd_tot()"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="body">
+										<td colspan="8" width="100%" style="text-align:center;border-top:1px solid silver">
+											<span>BRANCH TRANSFER: NO SALES IS INVOLVED</span>
+										</td>
+                                      </tr>
+                                </table>
+                            </td>
+                        </tr>   
+                        <tr style="border-top:1px solid silver">
+                            <td>
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr class="body">
+                                        <td width="70%">
+                                            <div style="text-align:center"><b>DECLARATION</b></div>
+                                            <div style="text-align:justify;font-size:10px">Certified that all the particulars show in the above Tax Invoice are true and correct in all respects and the goods on which that tax charged and collected are in accordance with the provisions of the TNVAT Act 2006 and the rules made thereunder. It is also certified that our Registration under TNVAT Act 2003 is not subject to any suspension / cancellation and it is valid as on the date of this Bill.</div>
+                                        </td>
+                                        <td width="30%">
+                                            <div style="font-size:12px">For <span t-esc="get_com()"/></div>
+                                            <div style="padding-top:40px;font-size:12px">Authorised Signatory</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>   
+                        <tr style="border-top:1px solid silver">
+                            <td>
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr class="body">
+                                        <td width="100%">
+                                            <div style="text-align:center;display:block"><b>H.O &amp; Administrative Office : </b> <span>LAKSHMI BHAWAN</span>,<span>4th Floor, No.609</span>,<span>Mount Road</span>,<span>Chennai - 600 006</span>.<span>Phone : +91 - 44 - 2829 3830, 2829 4030</span></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>       
+                    </table>
+                </div>
+            
+        </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

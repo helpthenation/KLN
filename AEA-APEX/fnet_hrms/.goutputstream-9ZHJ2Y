@@ -1,0 +1,158 @@
+from odoo import api, fields, models, tools, _
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools.safe_eval import safe_eval
+import datetime
+from odoo.addons import decimal_precision as dp
+
+
+
+        
+class Employee(models.Model):
+    _name = 'emp.allowance'
+    
+    #~ @api.model
+    #~ def _get_default_monthyear(self):
+        #~ res = []
+        #~ mymonth = datetime.datetime.now()
+        #~ currentMonth = mymonth.strftime("%B")
+        #~ res.append(currentMonth)
+        #~ currentYear = datetime.datetime.now().year
+        #~ res.append(currentYear)
+        #~ strmonth = str(res[0]) 
+        #~ stryear = str(res[1])
+        #~ monthyear = strmonth + '-' + stryear
+        #~ return monthyear
+    
+    month_select = fields.Selection([
+        ('jan', 'January'),
+        ('feb', 'February'),
+        ('mar', 'March'),
+        ('apr', 'April'),
+        ('may', 'May'),
+        ('june', 'June'),
+        ('july', 'July'),
+        ('aug', 'August'),
+        ('sep', 'September'),
+        ('oct', 'October'),
+        ('nov', 'November'),
+        ('dec', 'December'),
+        
+    ], string='Month', index=True)
+    emp_company_id = fields.Many2one('res.company', string='Company')
+    check = fields.Boolean(string='Check the box before updating',help='set the field to True after submit button is clicked')
+    emp_company_ids = fields.One2many('emp.details', 'emp_id', string='Employees Details')
+    
+    
+    @api.depends('emp_company_ids')
+    def get_fetching(self,emp_company_id):
+        b = self.env['emp.details']
+        self.env.cr.execute("""select hr.name_related from hr_employee as hr
+                               join resource_resource as rr on hr.resource_id = rr.id
+                               join res_company as rc on rr.company_id = rc.id
+                               where rc.id = %d and rr.active=true"""%(self.emp_company_id))
+        z =self.env.cr.fetchall()
+        #~ self.env.cr.execute('''truncate table emp_details''')
+        val={}
+        v=[]
+        for i in range(len(z)):
+            val={
+                'emp_id' : self.id,
+                'employee_name': z[i][0],
+                'mbl_ded' : 0.00,
+                'ot_all' : 0.00,
+                'tds' : 0.00,
+                'other_ded' : 0.00,
+                'arrears' : 0.00,
+                }
+            print val
+            v=b.create(val)
+        self.write({'check':True})
+   
+    def get_update(self):
+        self.env.cr.execute("""select hr_employee.id,e.mbl_ded, e.tds,e.arrears,e.ot_all,e.other_ded,e.pt from emp_details as e 
+                           join hr_employee on e.employee_name = hr_employee.name_related
+                           join emp_allowance on e.emp_id = emp_allowance.id
+                           where emp_allowance.id =%d"""%(self.id))
+        s = self.env.cr.fetchall()
+        for i in s:
+            self.env.cr.execute(""" update hr_contract
+                                    set mobile_deduction = %f,
+                                    overtime_allowance = %f,
+                                    tedious_deduction = %f,
+                                    other_deduction = %f,
+                                    arrears = %f
+                                    pt = %f
+                                    where employee_id = %d"""%(i[1],i[4],i[2],i[5],i[3],i[6],i[0]))
+                                    
+    @api.multi
+    def unlink(self):
+        if self.check == True:
+            raise UserError(_('You cannot delete a Data'))
+        return super(Employee, self).unlink()
+
+class employee_details(models.Model):
+    _name='emp.details'
+    
+    emp_id = fields.Many2one('hr.employee',string="Emp Id")
+    employee_name = fields.Char(String="Employee Name")
+    mbl_ded = fields.Float(string="mobile Deduction", digits=(16, 5))
+    ot_all = fields.Float(string="OT Allowance", digits=(16, 5))
+    tds = fields.Float(string="TDS", digits=(16, 5))
+    other_ded = fields.Float(string="Other Deduction", digits=(16, 5))
+    arrears = fields.Float(string="Arrears", digits=(16, 5))
+    pt = fields.Float(string="PT", digits=(16, 5))
+    
+class salary_arrears(models.Model):
+    _name = 'salary.arrear'
+   
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('arrear_cal', 'Arrear Calculation'),
+        ('done', 'Done'),
+        
+    ], default='draft')
+    company_id = fields.Many2one('res.company', string='Company',default=lambda self:self.env.user.company_id.id)
+    date = fields.Date('Arrear Calculation date')
+    check = fields.Boolean(string='Check the box before updating',help='set the field to True after submit button is clicked')
+    employee_line_ids = fields.One2many('employee.line', 'arrear_id', string='Employees Details')
+    
+    @api.depends('employee_line_ids')
+    def get_fetching(self,company_id):
+        employee_line = self.env['employee.line']
+        self.env.cr.execute("""select hr.id from hr_employee as hr
+                               join resource_resource as rr on hr.resource_id = rr.id
+                               join res_company as rc on rr.company_id = rc.id
+                               where rc.id = %d and rr.active=true"""%(self.company_id))
+        employee =self.env.cr.fetchall()
+        #~ self.env.cr.execute('''truncate table emp_details''')
+        val={}
+        v=[]
+        for i in range(len(employee)):
+            val={
+                'arrear_id' : self.id,
+                'employee_id': employee[i][0],
+                'arrears' : 0.00,
+                
+                }
+            v=employee_line.create(val)
+        self.write({'state':'arrear_cal'})
+   
+    #~ def get_arrear(self):
+        #~ for line in self.employee_line_ids:
+			
+                                    
+    @api.multi
+    def unlink(self):
+        if self.state != 'draft':
+            raise UserError(_('You cannot delete a Data'))
+        return super(Employee, self).unlink()
+
+class employee_details(models.Model):
+    _name='employee.line'
+    
+    arrear_id = fields.Many2one('salary.arrear',string="Emp Id")
+    employee_id = fields.Many2one('hr.employee','Employee')
+    arrears = fields.Float(string="Arrears", digits=(16, 5),readonly=True)
+
+    
+    

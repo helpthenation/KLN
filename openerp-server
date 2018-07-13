@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+import openerp
+
+if __name__ == "__main__":
+    openerp.cli.main()
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+[options]
+
+db_host =False
+db_port =False
+db_user = iswasu-8
+db_password = admin
+addons_path = openerp/addons
+xmlrpc_port = 8069

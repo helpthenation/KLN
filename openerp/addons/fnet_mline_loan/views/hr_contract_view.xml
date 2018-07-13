@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+    <record id="view_hr_contract_inherit_view" model="ir.ui.view">
+            <field name="name">hr.contract</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+				<xpath expr='//form/sheet/notebook/page[@name="information"]/group/group//field[@name="wage"]' position="before">
+					<field name="max_percent"/>
+				</xpath>	
+				<xpath expr='//field[@name="advantages"]' position="replace">
+							<group string="Loan Details" attrs="{'invisible':[('is_loan_completed','=',False)]}">
+								<field name="loan_amount"/>
+								<field name="balance_amount"/>
+								<field name="total_paid_amount"/>
+								<field name="no_month"/>
+								<field name="is_loan_completed" invisible="1"/>
+							</group>		
+                </xpath>
+                <xpath expr='//form/sheet/notebook/page[@string="Work Permit"]' position="after">
+                    <page string="End Of Service Benefit">
+						<group>
+							<group string="End Of Service Benefit">
+								<group>
+								<field name="as_on_date"/>
+								<field name="doj"/>
+								</group>
+								<group>
+								<field name="prev_service_days" invisible="1"/>
+								<field name="service_days"/>
+								<field name="total_working_days"/>																
+								</group>
+								<group>								
+									<field name="avail_eos"/>
+									<button type="object" name="compute_eos_days" string="Compute EOS" icon="terp-stock_format-scientific" />
+								</group>
+							</group>
+						</group>
+                    </page>
+                </xpath>
+            </field>
+    </record>
+	</data>
+</openerp>

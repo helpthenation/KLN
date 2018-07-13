@@ -1,0 +1,57 @@
+<openerp>
+<data>
+<record id="sample_partner_forms" model="ir.ui.view">
+            <field name="name">res.partner.sample.inh</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='vat']" position="after">                                                                                                                                                                                                                                                                                                                                                                                                                                 				
+				<field name="tin_number"/>
+				<field name="cst_number"/>
+				
+     </xpath>
+            <xpath expr="//page[1]" position="after">
+				 
+					<page string="Factory Address">
+						<form>
+						<group>
+							<group>
+			<label for="off_street" string="Address"/>
+                                    <div>
+                                        <field name="off_street"/>
+                                        <field name="off_street1"/>
+                                        <div>
+                                            <field name="off_city" style="width: 40%%"/>
+                                            <field name="off_state" style="width: 24%%"/>
+                                            <field name="off_zip" style="width: 34%%"/>
+                                        </div>
+                                        <field name="off_country"/>
+                                       
+                                    </div>	
+				
+				</group>
+				</group>
+				</form>
+				</page>
+				
+				</xpath>
+				
+ </field> 
+</record>
+
+<record id="product_catrgory_view_form" model="ir.ui.view">
+            <field name="name">product.category.type</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml" >
+            
+            <xpath expr="//field[@name='type']" position="after">                                                                                                                                                                                                                                                                                                                                                                                                                                 				
+				<field name="code" groups="account.group_account_manager" options="{'no_edit':False}"/>				
+			</xpath>
+			</field>
+			</record>
+
+</data>
+</openerp>
+

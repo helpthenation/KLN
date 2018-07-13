@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data> 
+      
+     <record id="view_account_invoice_line_inh" model="ir.ui.view">
+            <field name="name">view.account.invoice.line.inh</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                
+                <button name="invoice_pay_customer" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </button>
+                
+                <xpath expr='//form/sheet/notebook/page/field/tree/field[@name="product_id"]' position="replace">
+                     <field name="product_id"
+                            on_change="product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.currency_id, parent.company_id, context)"/>
+                </xpath>
+                <xpath expr='//form/sheet/notebook/page/field/tree/field[@name="price_unit"]' position="after">
+						<field name="mrp_price" invisible="1"/>
+					</xpath>
+                <field name="user_id" position="after">
+					<field name="dispatch"/>
+				</field>
+                
+                <field name="fiscal_position" position="after">
+                    <field name="category_id"
+                         domain="[('visible', '=', True)]" 
+                         attrs="{'required': [('type','!=','in_invoice')]}"/>
+                  <!--  <field name="payment_term" options="{'no_create': True}" on_change="onchange_payment_term_date_invoice(payment_term, date_invoice)"/> -->
+                </field>
+                <field name="number" position="replace">
+                    <field name="number" readonly="1" class="oe_inline" style="width: 40%%"/>
+                </field>
+                
+                <field name="number" position="after">
+                    <label string="Draft Category" attrs="{'invisible': ['|',('state','&lt;&gt;','draft'), ('type','&lt;&gt;','out_invoice')]}"/>
+                    <label string="Category" attrs="{'invisible': ['|',('state', '=', 'draft'), ('type','&lt;&gt;','out_invoice')]}"/>
+                   <!-- <label string="payment_term" attrs="{'invisible': [('type','&lt;&gt;','in_invoice')]}"/> -->
+                    <field name="categ_number" attrs="{'invisible': [('state','in',('draft','cancel'))]}" style="width: 40%%"/>
+                </field>
+               
+               <field name="account_id" position="after">
+                   <field name="del_method" attrs="{'required': [('type','!=','in_invoice')]}"/>
+                   <field name="tpt_name"/>
+               </field>
+               <!--
+                <xpath expr='//form/sheet/notebook/page/group/field[@name="payment_term"]' position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                -->
+               
+            </field>
+    </record>
+    
+    <record id="view_account_invoice_line_supplier" model="ir.ui.view">
+            <field name="name">view.account.invoice.line.supplier</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                
+                <button name="invoice_pay_customer" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </button>
+            </field>
+       </record>
+  
+  </data>          
+</openerp>
+
+

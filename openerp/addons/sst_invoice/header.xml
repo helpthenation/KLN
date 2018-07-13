@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <template id="header_company" >
+				<div style="line-height:200px">
+					<t t-if ="doc_id and 'company_id' in doc_id" >
+            <t t-set="company" t-value="doc_id.company_id"/>
+        </t>
+       
+		 </div>
+    </template>
+    
+    <template id="footer_company">
+				<div class="footer">
+					<t t-if ="doc_id and 'company_id' in doc_id" >
+            <t t-set="company" t-value="doc_id.company_id"/>
+        </t>
+        <div class="text-center">
+            <ul class="list-inline">
+                <li>Page:</li>
+                <li><span class="page"/></li>
+                <li>/</li>
+                <li><span class="topage"/></li>
+            </ul>
+       </div>
+		
+		 </div>
+    </template>
+    
+        
+    
+    
+</data>
+</openerp>

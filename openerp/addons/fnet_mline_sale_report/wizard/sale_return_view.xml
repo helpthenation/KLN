@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_sale_return_summary_form" model="ir.ui.view">
+            <field name="name">view.sale.return.summary.form</field>
+            <field name="model">sale.return.summary</field>
+            <field name="arch" type="xml">
+            <form string="Sales Return Register">
+                <p class="oe_grey">
+                        Difine Sales Summary Register
+                    </p>
+                <notebook>
+                    <page string="Dates">
+                        <group>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                        </group>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="wiz_print_report" string="Print" type="object" class="oe_highlight"/> or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_sale_return_summary" model="ir.actions.act_window">
+            <field name="name">Sales Return Summary</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.return.summary</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        
+       
+        <menuitem
+            name="Sales Return"
+            parent="menu_sale_register"
+            action="action_sale_return_summary"
+            id="menu_sale_return_summary"
+            sequence="2"
+            icon="STOCK_PRINT"/>
+            
+       
+
+    </data>
+</openerp>

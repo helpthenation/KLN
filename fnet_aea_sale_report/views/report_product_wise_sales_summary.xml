@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    <record id="fnet_aea_sale_report.sale_register_report_wiz" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="fnet_aea_sale_report.paperformat_wizard"/>
+    </record>
+    
+   <template id="report_product_wise_sales">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <style type="text/css">
+                        #table_chk{font-size:13px;border:1px solid silver;border-top:0px;font-family:Inconsolata}   
+                        #table_chk tr td {padding:0px;margin:0px;display:inline-table}
+                        #table_chk tr td table tr td {padding:5px;text-align:center}
+                        #table_chk tr td table tr.header {border:1px solid silver;border-right:0px;border-left:0px}
+                        #table_chk tr td table tr.header td {border-right:1px solid silver;font-weight:bold}
+                        #table_chk tr td table tr.body {border:1px solid white;border-right:0px;border-left:0px}
+                        #table_chk tr td table tr.body td {border-right:1px solid white;}
+                        .parent-border {width:200px;border-bottom:2px dotted silver;}
+                        .child-border {width:200px;border-bottom:2px dotted silver;margin-bottom:2px}   
+                        .interest-type {height:30px;line-height:30px;padding:0px 10px}
+                    </style>
+                    <table style="width:100%;font-size:13px;font-family:Inconsolata" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="33%" style="text-align:left"><span t-esc="get_com(o.company_id.id)"/>,<span t-field="o.company_id.state_id.name"/></td>
+                            <td width="33%" style="text-align:center">*** PRODUCT WISE SALES SUMMARY ***</td>
+                             <td width="65%" style="text-align:right">
+								<span style="padding-right:20px">
+									from:<span t-esc="get_date(data)[0]['from_date'][0]"/> 
+									to <span t-esc="get_date(data)[0]['to_date'][0]"/>
+								</span> 
+								<span style="padding-right:20px">
+									Run.dt:<span t-esc="get_date(data)[0]['now']"/>
+								</span>
+							</td>
+                        </tr>
+                    </table><br/><br/>
+                    <table id="table_chk" style="width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td> 
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr class="header">
+                                        <td width="10%" style="text-align:center">S.No</td>
+                                        <td width="90%" colspan="9" style="text-align:left">Product Category</td>
+                                    </tr>
+                                    <tr class="header">
+                                        <td width="10%" colspan="2" style="border-right:0px"></td>
+                                        <td width="10%">S.No</td>
+                                        <td width="15%">Prod. Code</td>
+                                        <td width="20%">Product Description</td>
+                                        <td width="10%">Sales Qty</td>
+                                        <td width="10%">Prod.Value</td>
+                                        <td width="10%">Qty</td>
+                                        <td width="10%">MRP</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> <t t-set="count" t-value="1"/>
+                                <table t-foreach="get_categ_details(data)" t-as="cat" style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr class="body">
+                                        <td width="10%"> 
+                                            <span t-esc="count"/>
+                                            <t t-set="count" t-value="count+1"/>
+                                        </td>
+                                        <td width="40%%" colspan="8" style="text-align:left;">
+                                            <div class="parent-border">
+                                                <div class="child-border"><span t-esc="cat['categ_name']"/></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <t t-set="counter" t-value="1"/>
+                                    <tr t-foreach="get_prod_details(data,cat['categ'])" t-as="prod" class="body">
+                                        <td width="10%" colspan="2" style="border-right:0px"></td>
+                                         <td width="10%"> 
+                                            <span t-esc="counter"/>
+                                            <t t-set="counter" t-value="counter+1"/>
+                                        </td>
+                                        <td width="15%" style="text-align:left"><span t-esc="prod['default_code']"/></td>
+                                        <td width="20%" style="text-align:left"><span t-esc="prod['name']"/></td>
+                                        <td width="10%" style="text-align:left"><span t-esc="prod['qty']"/></td>
+                                        <td width="10%" style="text-align:left"><span t-esc="prod['product_value']"/></td>
+                                        <td width="10%" style="text-align:left"><span t-esc="prod['qty']"/></td>
+                                        <td width="10%" style="text-align:left"><span t-esc="prod['mrp']"/></td>
+                                    </tr>
+                                    <tr t-foreach="get_tot_details(data,cat['categ'])" t-as="tot" class="body">
+                                        <td width="10%" colspan="2" style="border-right:0px"></td>
+                                        <td width="10%"></td>
+                                        <td width="25%" style="text-align:left">** Total for the Prod.Group</td>
+                                        <td width="10%" style="text-align:right"></td>
+                                        <td width="10%" style="text-align:right"></td>
+                                        <td width="10%" style="text-align:left"><span t-esc="tot['total']"/></td>
+                                        <td width="10%" style="text-align:right"></td>
+                                        <td width="10%" style="text-align:right"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> 
+                                <table t-foreach="get_gr_details(data)" t-as="gr" style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr class="body">
+                                        <td width="60%" colspan="4" style="border-right:0px;text-align:right">** Product Summary Total **</td>
+                                        <td width="15%" style="text-align:right"></td>
+                                        <td width="10%" style="text-align:right"><span t-esc="gr['total']"/></td>
+                                        <td width="10%" style="text-align:right"></td>
+                                        <td width="10%" style="text-align:right"></td>
+                                    </tr>
+                                    
+                                </table>
+                            </td>
+                        </tr>       
+                  </table>
+                </div>
+            </t>
+    </t>
+</template>
+
+
+
+</data>
+</openerp>

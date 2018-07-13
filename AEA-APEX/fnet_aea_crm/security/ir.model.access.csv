@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_post_date_cheque_manager,post.date.cheque,model_post_date_cheque,base.group_sale_manager,1,1,1,1
+access_post_date_cheque_user,post.date.cheque,model_post_date_cheque,base.group_sale_salesman,1,1,1,0
+access_stockist_type_manager,stockist.type,model_stockist_type,base.group_sale_manager,1,1,1,1
+access_stockist_type_user,stockist.type,model_stockist_type,base.group_sale_salesman,1,1,1,0
+access_res_country_district_manager,res.country.district,model_res_country_district,base.group_sale_manager,1,1,1,1
+access_res_country_district_user,res.country.district,model_res_country_district,base.group_sale_salesman,1,1,1,0
+access_lorry_receipt_manager,lorry.receipt,model_lorry_receipt,stock.group_stock_manager,1,1,1,1
+access_lorry_receipt_user,lorry.receipt,model_lorry_receipt,stock.group_stock_user,1,1,1,0
+access_lorry_receipt_line_manager,lorry.receipt.line,model_lorry_receipt_line,stock.group_stock_manager,1,1,1,1
+access_lorry_receipt_line_user,lorry.receipt.line,model_lorry_receipt_line,stock.group_stock_user,1,1,1,0
+access_cheque_details_manager,cheque.details,model_cheque_details,account.group_account_manager,1,1,1,0
+access_cheque_details_user,cheque.details,model_cheque_details,account.group_account_user,1,1,1,0
+access_cheque_details_line_manager,cheque.details.line,model_cheque_details_line,account.group_account_manager,1,1,1,0
+access_cheque_details_line_user,cheque.details.line,model_cheque_details_line,account.group_account_user,1,1,1,0
+access_product_category_manager,product.category,model_product_category,base.group_sale_manager,1,1,1,1
+access_product_category_user,product.category,model_product_category,base.group_sale_salesman,1,1,1,1

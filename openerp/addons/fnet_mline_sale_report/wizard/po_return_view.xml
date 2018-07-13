@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_po_return_summary_form" model="ir.ui.view">
+            <field name="name">view.po.return.summary.form</field>
+            <field name="model">purchase.return.summary</field>
+            <field name="arch" type="xml">
+            <form string="Purchase Return Register">
+                <p class="oe_grey">
+                        Difine Purchase Return Register
+                    </p>
+                <notebook>
+                    <page string="Dates">
+                        <group>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                        </group>
+                    </page>
+                    <page string="Customer">
+                        <field name="partner_ids"/>
+                    </page> 
+                </notebook>
+                <footer>
+                    <button name="wiz_print_report" string="Print" type="object" class="oe_highlight"/> or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_po_return_summary" model="ir.actions.act_window">
+            <field name="name">Purchase Return Summary</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.return.summary</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        
+       
+        <menuitem
+            name="Purchase Return"
+            parent="menu_purchase_register"
+            action="action_po_return_summary"
+            id="menu_po_return_summary"
+            sequence="2"
+            icon="STOCK_PRINT"/>
+            
+       
+
+    </data>
+</openerp>

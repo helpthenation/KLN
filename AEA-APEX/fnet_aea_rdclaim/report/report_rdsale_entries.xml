@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+        <record id="paperformat_rdsale_entries" model="report.paperformat">
+        <field name="name">paper format</field>
+        <field name="default" eval="True"/>
+        <field name="format">A0</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">3</field>
+        <field name="margin_right">3</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">10</field>
+        <field name="dpi">90</field> 
+        </record>
+        
+        
+    <record id ="fnet_aea_rdclaim.rdsale_entry_report" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="fnet_aea_rdclaim.paperformat_rdsale_entries"/>
+    </record>
+    
+
+<template id="report_rdsale_entries">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+        <style>
+          #table{
+            max-width: 2480px;
+            width:100%;
+          }
+          #table td{
+            width: auto;
+            overflow: visible;
+            word-wrap: break-word;
+          }
+        </style>            
+            <div class="page">
+                <center><b><h1><span>Sales Entry Analysis</span><t t-esc="o.company_id.name"/></h1></b></center>                  
+                <center>
+                    <span style="padding:5px;tex-align:left;font-size:25px;"><b>Start Date:</b><span style="padding:5px;tex-align:left;font-size:25px;" t-field="o.date_from" t-field-options='{"format": "dd-MM-y"}'/></span>
+                    <span style="padding:5px;tex-align:left;font-size:25px;"><b> End Date </b></span>:<span style="padding:5px;tex-align:left;font-size:25px;" t-field="o.date_to" t-field-options='{"format": "dd-MM-y"}'/>
+                    <span style="padding:5px;tex-align:right;font-size:25px;"><b> Product Category</b></span>:<span style="padding:5px;tex-align:right;font-size:25px;" t-esc="product_categ(data)"/>   
+                    <span style="padding:5px;tex-align:right;font-size:25px;"><b>Sales Manager</b></span>:<span style="padding:5px;tex-align:right;font-size:25px;" t-esc="sales_manager(data) "/>   
+                </center>
+                <table class="table table-condensed" style="border:1px solid black;">
+                    <thead>
+                        <tr>
+                            <td style="border:1px solid black;">Stockiest Name</td>
+                            <td style="border:1px solid black;">Product Code</td>
+                            <t t-foreach="product_name(data)" t-as="prod">
+                                <td style="border:1px solid black;"><t t-esc="prod['default_code']"/></td>
+                            </t>
+                            <td style="border:1px solid black;">Total Qty</td>
+                        </tr>
+                    </thead>      
+                    <tbody>
+<t t-foreach="stockiest_line(data)" t-as="man">
+    <t t-set="mg_open" t-value="[]"/>
+    <t t-set="mg_awd" t-value="[]"/>
+    <t t-set="mg_sale" t-value="[]"/>
+    <t t-set="mg_close" t-value="[]"/>
+    <t t-foreach="man['salesrep']"  t-as="rep">
+        <t t-set="sr_open" t-value="[]"/>
+        <t t-set="sr_awd" t-value="[]"/>
+        <t t-set="sr_sale" t-value="[]"/>
+        <t t-set="sr_close" t-value="[]"/>
+        <tr>
+            <td style="border-left:1px solid black;border-right:1px solid black;"><span style="padding:5px;font-weight: bold;">Sale Representative :</span><t t-esc="rep['saleperson']"/></td>
+        </tr>       
+        <t t-foreach="rep['customer_lines']" t-as="cus">
+            <tr>
+                <td style="border-left:1px solid black;border-right:1px solid black;"><t t-esc="cus['name']"/>-<span style="padding:5px"><t t-esc="cus['city']"/></span></td>
+            </tr>           
+            <t t-if="o.is_open == True">
+                <tr> 
+                   <t t-set="open" t-value="[]"/>               
+                   <t t-foreach="cus['lines']" t-as="j">
+                        <td style="border:1px solid black;"></td>
+                        <td style="border:1px solid black;">Opening Stock Qty</td>
+                        <t t-foreach="j['opening']" t-as="p">
+                            <t t-set="open" t-value="open+[int(p['opening'])]"/>
+                            <t t-set="sr_open" t-value="sr_open+[int(p['opening'])]"/>
+                            <t t-set="mg_open" t-value="mg_open+[int(p['opening'])]"/>
+                            <td style="border:1px solid black;"><t t-esc="int(p['opening'])"/></td>
+                        </t>
+                        <td style="border:1px solid black;"><t t-esc="int(sum(open))"/></td>
+                   </t>               
+                   </tr>
+               </t>
+               <t t-if="o.is_awd == True">
+                   <tr> 
+                   <t t-set="awd" t-value="[]"/>   
+                   <t t-foreach="cus['lines']" t-as="j">
+                        <td style="border:1px solid black;"></td>
+                        <td style="border:1px solid black;">AWD To Stockiest Qty</td>
+                        <t t-foreach="j['opening']" t-as="p">
+                            <t t-set="awd" t-value="awd+[int(p['sale'])]"/>
+                            <t t-set="sr_awd" t-value="sr_awd+[int(p['sale'])]"/>
+                            <t t-set="mg_awd" t-value="mg_awd+[int(p['sale'])]"/>
+                            <td style="border:1px solid black;"><t t-esc="int(p['sale'])"/></td>
+                        </t>
+                        <td style="border:1px solid black;"><t t-esc="int(sum(awd))"/></td>
+                   </t>
+                   </tr>
+               </t>
+               <t t-if="o.is_sale == True">
+               <tr> 
+               <t t-set="qty" t-value="[]"/>                               
+               <t t-foreach="cus['lines']" t-as="j">
+                    <td style="border:1px solid black;"></td>
+                    <td style="border:1px solid black;">RD Sales Qty</td>
+                    <t t-foreach="j['opening']" t-as="p">
+                        <t t-set="qty" t-value="qty+[int(p['quantity'])]"/>
+                        <t t-set="sr_sale" t-value="sr_sale+[int(p['quantity'])]"/>
+                        <t t-set="mg_sale" t-value="mg_sale+[int(p['quantity'])]"/>
+                        <td style="border:1px solid black;"><t t-esc="int(p['quantity'])"/></td>
+                    </t>
+                    <td style="border:1px solid black;"><t t-esc="int(sum(qty))"/></td>
+               </t>
+               </tr>
+               </t>
+               <t t-if="o.is_closing == True">
+               <tr> 
+               <t t-set="cls" t-value="[]"/>                               
+               <t t-foreach="cus['lines']" t-as="j">
+                    <td style="border:1px solid black;"></td>
+                    <td style="border:1px solid black;">Closing Stock Qty</td>
+                    <t t-foreach="j['opening']" t-as="p">
+                        <t t-set="cls" t-value="cls+[int(p['closing'])]"/>
+                        <t t-set="sr_close" t-value="sr_close+[int(p['closing'])]"/>
+                        <t t-set="mg_close" t-value="mg_close+[int(p['closing'])]"/>
+                        <td style="border:1px solid black;"><t t-esc="int(p['closing'])"/></td>
+                    </t>
+                    <td style="border:1px solid black;"><t t-esc="int(sum(cls))"/></td>
+               </t>
+               </tr>
+               </t>
+            </t>
+     
+        
+        <tr>
+            <td style="border-left:1px solid black;border-right:1px solid black;font-weight: bold;"><span style="padding:5px;font-weight: bold;">Total Of Sale Representative</span><t t-esc="rep['saleperson']"/></td>
+        </tr>
+            <t t-if="o.is_open == True">
+                <tr> 
+                   <t t-set="open_stock" t-value="[]"/>               
+
+                        <td style="border:1px solid black;"></td>
+                        <td style="border:1px solid black;">Opening Stock</td>
+                        <t t-foreach="rep['sales_reps_totals']" t-as="p">
+                            <t t-set="open" t-value="open_stock+[int(p['opening'])]"/>
+                            <td style="border:1px solid black;"><t t-esc="int(p['opening'])"/></td>
+                        </t>
+                        <td style="border:1px solid black;"><t t-esc="int(sum(open_stock))"/></td>
+
+                   </tr>
+               </t>        
+            <t t-if="o.is_awd == True">
+                <tr> 
+                   <t t-set="awd_stock" t-value="[]"/>               
+
+                        <td style="border:1px solid black;"></td>
+                        <td style="border:1px solid black;">AWD To Stockiest Qty</td>
+                        <t t-foreach="rep['sales_reps_totals']" t-as="p">
+                            <t t-set="open" t-value="awd_stock+[int(p['awd'])]"/>
+                            <td style="border:1px solid black;"><t t-esc="int(p['awd'])"/></td>
+                        </t>
+                        <td style="border:1px solid black;"><t t-esc="int(sum(awd_stock))"/></td>
+
+                   </tr>
+               </t>        
+            <t t-if="o.is_sale == True">
+                <tr> 
+                   <t t-set="sale_stock" t-value="[]"/>               
+
+                        <td style="border:1px solid black;"></td>
+                        <td style="border:1px solid black;">RD Sales Qty</td>
+                        <t t-foreach="rep['sales_reps_totals']" t-as="p">
+                            <t t-set="open" t-value="sale_stock+[int(p['rd'])]"/>
+                            <td style="border:1px solid black;"><t t-esc="int(p['rd'])"/></td>
+                        </t>
+                        <td style="border:1px solid black;"><t t-esc="int(sum(sale_stock))"/></td>
+
+                   </tr>
+               </t>        
+            <t t-if="o.is_closing == True">
+                <tr> 
+                   <t t-set="close_stock" t-value="[]"/>               
+
+                        <td style="border:1px solid black;"></td>
+                        <td style="border:1px solid black;">Closing Stock Qty</td>
+                        <t t-foreach="rep['sales_reps_totals']" t-as="p">
+                            <t t-set="open" t-value="open_stock+[int(p['close'])]"/>
+                            <td style="border:1px solid black;"><t t-esc="int(p['close'])"/></td>
+                        </t>
+                        <td style="border:1px solid black;"><t t-esc="int(sum(close_stock))"/></td>
+
+                   </tr>
+               </t>           
+        <t t-if="o.is_open == True">
+        <tr>
+            <td style="border:1px solid black;font-weight: bold;"><b>Total Opening Stock Qty</b></td>
+            <td style="border:1px solid black;font-weight: bold;"><t t-esc="int(sum(sr_open))"/></td>
+        </tr>
+        </t>
+        <t t-if="o.is_awd == True">
+        <tr>
+            <td style="border:1px solid black;font-weight: bold;"><b>Total AWD To Stockiest Qty</b></td>
+            <td style="border:1px solid black;font-weight: bold;"><t t-esc="int(sum(sr_awd))"/></td>
+        </tr>
+        </t>
+        <t t-if="o.is_sale == True">
+        <tr>
+            <td style="border:1px solid black;font-weight: bold;"><b>Total RD Sales Qty</b></td>
+            <td style="border:1px solid black;font-weight: bold;"><t t-esc="int(sum(sr_sale))"/></td>
+        </tr>
+        </t>
+        <t t-if="o.is_closing == True">
+        <tr>
+            <td style="border:1px solid black;font-weight: bold;"><b>Total Closing Stock Qty</b></td>
+            <td style="border:1px solid black;font-weight: bold;"><t t-esc="int(sum(sr_close))"/></td>
+        </tr>
+        </t>
+        
+        
+        </t>
+        <tr>
+            <td style="border-left:1px solid black;border-right:1px solid black;font-weight: bold;"><span style="padding:5px">Total Of Sale Manager</span><t t-esc="man['manager_name']"/></td>
+        </tr>
+        <t t-if="o.is_open == True">
+        <tr>
+            <td style="border:1px solid black;font-weight: bold;"><b>Total Opening Stock Qty</b></td>
+            <td style="border:1px solid black;font-weight: bold;"><t t-esc="int(sum(mg_open))"/></td>
+        </tr>
+        </t>
+        <t t-if="o.is_awd == True">        
+        <tr>
+            <td style="border:1px solid black;font-weight: bold;"><b>Total AWD To Stockiest Qty</b></td>
+            <td style="border:1px solid black;font-weight: bold;"><t t-esc="int(sum(mg_awd))"/></td>
+        </tr>
+        </t>
+        <t t-if="o.is_sale == True">
+        <tr>
+            <td style="border:1px solid black;font-weight: bold;"><b>Total RD Sales Qty</b></td>
+            <td style="border:1px solid black;font-weight: bold;"><t t-esc="int(sum(mg_sale))"/></td>
+        </tr>
+        </t>
+        <t t-if="o.is_closing == True">        
+        <tr>
+            <td style="border:1px solid black;font-weight: bold;"><b>Total Closing Stock Qty</b></td>
+            <td style="border:1px solid black;font-weight: bold;"><t t-esc="int(sum(mg_close))"/></td>
+        </tr>
+       </t>  
+    </t>
+                    </tbody>    
+             </table>
+            </div>
+        </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

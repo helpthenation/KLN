@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+<template id="report_reciept_voucher">
+        <t t-foreach="doc_ids" t-as="o">
+			<t t-call="report.html_container">
+			<t t-call="fnet_mline_reportz.header_wizards"/>
+                <div class="page">
+                    <style>
+						  tr {page-break-inside: avoid;}
+					.table { border: 1px solid black; }
+					.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { border: 1px solid black; }
+					.table-borderless tr td,
+					.table-borderless tr {
+						border: 0;
+					}
+					</style>
+									   
+					   <div align="right">
+					   <h3 style="text-align:center;background-color:#568eff;border: 1px solid #568eff;color:#ffffff;text-align:center;border-radius:5px"><right><strong> Reciept Voucher</strong></right></h3>
+					   </div>					   
+					   <br/>
+					   <table class="table table-bordered" style="width:100%;">
+						  <tr>
+							  <td width="50%">
+								  <p>Customer code: <span t-field="o.name"/></p>
+									<p>Recieved from M/S: <span t-field="o.partner_id.name"/></p>
+									<p>Phone: <span t-field="o.partner_id.phone"/></p>
+									<p>Fax: <span t-field="o.partner_id.fax"/></p>
+									<br/>
+							  </td>
+							  <td width="50%">
+								<p>Date: <span t-field="o.date" t-field-options='{"format": "d-MM-y"}'/></p>
+								<p>RV No: <span t-field="o.number"/></p>
+							</td>
+							 </tr>
+							</table>
+						   <br/> 
+							<p>Being Reciept against the following</p>
+							<br/>
+						   
+						   <table class="table table-bordered">
+							  <thead style="background-color:#ccc;border: 1px solid black;color:black;">
+								 <tr>
+									<th width="10%">S.No</th>
+									<th width="25%">Invoice</th>
+									<th width="40%">Particular</th>
+									<th width="25%">Amount</th>
+								 </tr>
+							  </thead>
+							  <tbody>
+								  <t t-set="counter" t-value="1"/>
+								  <t t-if="o.partner_id.customer">
+								  <tr t-foreach="o.line_cr_ids" t-as="l" style="page-break-inside: avoid;">
+									<td class="text-center">
+										<b><span t-esc="counter"/></b>
+										<t t-set="counter" t-value="counter+1"/>
+									</td>
+									<td>
+									   <span class="oblique" t-esc="o.number"/>
+									   
+									</td>
+									<td class="text-right">
+<!--
+									   <span t-esc="l.name"/>
+-->
+									</td>
+									
+									<td class="text-right">
+									   <span t-esc="docs.amount(o,l)"/>
+									</td>                            
+								   </tr>
+								   </t>
+								   <t t-if="o.partner_id.supplier">
+								  <tr t-foreach="o.line_dr_ids" t-as="l" style="page-break-inside: avoid;">
+									<td class="text-center">
+										<b><span t-esc="counter"/></b>
+										<t t-set="counter" t-value="counter+1"/>
+									</td>
+									<td>
+									   <span class="oblique" t-esc="o.number"/>
+									   
+									</td>
+									<td class="text-right">
+<!--
+									   <span t-esc="l.name"/>
+-->
+									</td>
+									
+									<td class="text-right">
+									   <span t-esc="docs.amount(o,l)"/>
+									</td>                            
+								   </tr>
+								   </t>
+								   <tr>
+										<td colspan="3" class="text-right" width="20%"><strong>Bank Charges </strong></td>
+										<td width="20%" class="text-right"><b><span t-esc="o.writeoff_amount"/></b></td>
+									</tr> 
+									<tr>
+										<td colspan="3" class="text-right" width="20%"><strong>Total Amount Paid AED </strong></td>
+										<td width="20%" class="text-right"><b><span t-esc="docs.calculate_total(o)"/></b></td>
+									</tr>                           
+							   </tbody>
+						  </table>
+						  <br/>
+						  <p><span>Amount in words AED :<span t-esc="docs.numToWords(o)"/></span></p>
+						  <br/>
+						<table style="width:100%;">
+						  <tr>
+							  <td width="33%">
+								  <p>Recieved Vide: <span t-esc="o.journal_id.name"/></p>
+									<br/>
+									
+							  </td>
+							  <td width="33%">
+								<p>Bearing On:<span t-field="o.reference"/></p>
+							</td>
+							  <td width="33%">
+								
+							</td>
+						 </tr>
+						</table>
+						<br/><br/>
+						<table style="width:100%;">
+						  <tr>
+							  <td width="25%">
+								  <p><b>Prepared By</b></p>
+									<br/>
+							  </td>
+							  <td width="25%">
+								<p><b>Checked By</b></p>
+							</td>
+							  <td width="25%">
+								<p><b>Approved By</b></p>
+							</td>
+							<td width="25%">
+								<p><b>Recieved By</b></p>
+							</td>
+						 </tr>
+						</table>     
+						</div>
+
+                <t t-call="fnet_mline_reportz.footer_wizards"/>
+    </t>
+    </t>
+</template>
+
+</data>
+</openerp>

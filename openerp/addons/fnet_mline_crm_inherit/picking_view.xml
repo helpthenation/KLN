@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+	  
+	   <record model="ir.ui.view" id="picking_inherit_lead">
+            <field name="name">picking.inherit.lead</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+				
+				<field name="partner_id" position='after'>
+					<field name="lpo_no"/>
+					<field name="country_origin"/>
+					<field name="courier_name"/>
+					<field name="courier_no"/>
+					<field name="lead_id" attrs="{'invisible': [('picking_type_id', '!=', 1)]}"/>
+				</field>
+			
+				<xpath expr="//div[@class='oe_right oe_button_box']" position="inside">
+					<button name="action_get_attachment_picking_tree_view" 
+                        class="oe_stat_button"
+                        icon="fa-book"
+                        type="object">
+                        <field name="attachment_number" widget="statinfo" string="Documents"/>
+                    </button>
+				</xpath>
+	        </field>
+	   </record>
+	   
+	   <record model="ir.ui.view" id="move_inherit_lead">
+            <field name="name">move.inherit.lead</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>
+            <field name="arch" type="xml">
+				
+				<field name="date_expected" position="attributes">
+					<attribute name="string">Scheduled Date</attribute>
+				</field>
+	        </field>
+	   </record>
+	   
+	   <record model="ir.ui.view" id="move_picking_inherit_lead">
+            <field name="name">move.picking.inherit.lead</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_form"/>
+            <field name="arch" type="xml">
+				
+				<field name="date_expected" position="attributes">
+					<attribute name="string">Scheduled Date</attribute>
+				</field>
+	        </field>
+	   </record>
+	   
+<!--
+	   <record id="seq_type_grn" model="ir.sequence.type">
+            <field name="name">GRN</field>
+            <field name="code">stock.picking.in</field>
+        </record>
+        <record id="seq_grn" model="ir.sequence">
+            <field name="name">GRN</field>
+            <field name="code">stock.picking.in</field>
+            <field name="prefix">MLWH/GRN/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <record id="seq_type_delivery" model="ir.sequence.type">
+            <field name="name">Delivery</field>
+            <field name="code">stock.picking.out</field>
+        </record>
+        <record id="seq_delivery" model="ir.sequence">
+            <field name="name">Delivery</field>
+            <field name="code">stock.picking.out</field>
+            <field name="prefix">MLWH/DO/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+-->
+
+  </data>          
+</openerp>

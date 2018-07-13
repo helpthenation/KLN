@@ -1,0 +1,15 @@
+<openerp>
+<data>
+    <record id="view_partner_bank_form_inheritsssss" model="ir.ui.view">
+        <field name="name">Partner Bank Accounts - Journal</field>
+        <field name="model">res.partner.bank</field>
+        <field name="inherit_id" ref="base.view_partner_bank_form"/>
+        <field name="arch" type="xml">
+		<field name="bank_bic" position="replace">
+		<field name="bank_bic" placeholder="e.g. GEBABEBB"/>
+		<field name="swift_code" placeholder="e.g. GEBABEBB"/>
+</field>
+</field>
+</record>
+</data>
+</openerp>

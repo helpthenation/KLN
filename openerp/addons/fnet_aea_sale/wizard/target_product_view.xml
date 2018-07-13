@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_target_product_wiz" model="ir.ui.view">
+            <field name="name">view.target.product.wiz</field>
+            <field name="model">target.product.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Target Wizard">
+                    <p class="oe_grey">
+                        Craete For Fiscal Year creation and fix Permanant 
+                        Journey Cycle
+                    </p>
+                    <group>
+                        <group>
+                            <field name="prod_categ_id" domain="[('visible','=',True)]" on_change="onchange_prod_categ_id(prod_categ_id)"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Product Update">
+                            <field name="pjc_update_line">
+                                <tree string="Product Update" editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <footer>
+                         <button name="update_product" string="_Apply" type="object" class="oe_highlight"/>
+                        or
+                        <button string="_Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_target_product" model="ir.actions.act_window">
+            <field name="name">Target Product Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">target.product.wiz</field>
+            <field name="view_id" ref="view_target_product_wiz"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+      
+    </data>
+</openerp>

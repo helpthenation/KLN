@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data> 
+            <report
+                id="aged_partner_balance"
+                model="aged.partner.balance"
+                string="Aged Partner Balance(FNET)"
+                report_type="qweb-pdf"
+                name="fnet_aea_function.report_aged_partner_invoice" 
+                file="fnet_aea_function.report_aged_partner_invoice"
+                menu="True"/>
+     
+     <template id="report_aged_partner_invoice">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-if="o.direction_selection == 'sales'">
+                    <t t-call="fnet_aea_function.report_aged_partner_invoice_sales"/>
+                </t>
+                <t t-if="o.direction_selection == 'executive'">
+                    <t t-call="fnet_aea_function.report_aged_partner_invoice_executive"/>
+                </t>
+                <t t-if="o.direction_selection == 'team' ">
+                    <t t-call="fnet_aea_function.report_aged_partner_invoice_team"/>
+                </t>
+            </t>
+        </t>
+    </template>          
+                
+    <template id="report_aged_partner_invoice_sales">
+    <t t-call="report.html_container">
+        <t t-call="report.internal_layout">
+            
+            <div class="page">
+                <style type="text/css">
+                        #table_chk{font-size:13px;border:1px solid silver;border-top:0px;font-family:Inconsolata}   
+                        #table_chk tr td {padding:0px;margin:0px;display:inline-table}
+                        #table_chk tr td table tr td {padding:5px;text-align:center}
+                        #table_chk tr td table tr.header {border:1px solid silver;border-right:0px;border-left:0px}
+                        #table_chk tr td table tr.header td {border-right:1px solid silver;font-weight:bold}
+                        #table_chk tr td table tr.body {border:1px solid white;border-right:0px;border-left:0px}
+                        #table_chk tr td table tr.body td {border-right:1px solid white;}
+                        .parent-border {width:300px;border-bottom:2px dotted silver;}
+                        .child-border {width:300px;border-bottom:2px dotted silver;margin-bottom:2px}   
+                        .interest-type {height:30px;line-height:30px;padding:0px 10px}
+                </style>
+                <h2>Aged Trial Balance</h2>
+
+                <div class="row mt32">
+                    <div class="col-xs-3">
+                        <strong>Chart of Accounts:</strong>
+                        <p t-esc="get_account(data)"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Fiscal Year:</strong>
+                        <p t-esc="get_fiscalyear(data)"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Start Date:</strong>
+                        <p t-esc="formatLang(data['form']['date_from'], date=True)"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Period Length (days)</strong>
+                        <p t-esc="data['form']['period_length']"/>
+                    </div>
+                </div>
+                <div class="row mb32">
+                    <div class="col-xs-3">
+                        <strong>Partner's:</strong>
+                        <p>
+                            <span t-if="data['form']['result_selection'] == 'customer'">Receivable Accounts</span>
+                            <span t-if="data['form']['result_selection'] == 'supplier'">Payable Accounts</span>
+                            <span t-if="data['form']['result_selection'] == 'customer_supplier'">Receivable and Payable Accounts</span>
+                        </p>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Analysis Direction:</strong>
+                        <p t-esc="data['form']['direction_selection']"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Target Moves:</strong>
+                        <p t-esc="get_target_move(data)"/>
+                    </div>
+                </div>
+                <table id="table_chk" style="width:100%;" cellpadding="0" cellspacing="0">
+                        <tr style="border-bottom:1px solid silver">
+                            <td> 
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr class="header">
+                                        <td width="10%">Partner</td>
+                                        <td width="10%">Date</td>
+                                        <td width="10%">Age</td>
+                                        <td width="10%">Not Due</td>
+                                        <td width="10%"><span t-esc="data['form']['4']['name']"/></td>
+                                        <td width="10%"><span t-esc="data['form']['3']['name']"/></td>
+                                        <td width="10%"><span t-esc="data['form']['2']['name']"/></td>
+                                        <td width="10%"><span t-esc="data['form']['1']['name']"/></td>
+                                        <td width="10%"><span t-esc="data['form']['0']['name']"/></td>
+                                        <td width="10%">Total</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+							<t t-foreach="get_total(data)" t-as="lines" >
+								<tr style="border-bottom:1px solid silver">
+									<td> 
+										<table style="width:100%;" cellpadding="0" cellspacing="0">
+											<tr class="header">
+												<td width="10%">Account</td>
+												<td width="10%"></td>
+												<td width="10%"></td>
+												<td width="10%"><span t-esc="lines['due']"/></td>
+												<td width="10%"><span t-esc="lines['one']"/></td>
+												<td width="10%"><span t-esc="lines['two']"/></td>
+												<td width="10%"><span t-esc="lines['three']"/></td>
+												<td width="10%"><span t-esc="lines['four']"/></td>
+												<td width="10%"><span t-esc="lines['five']"/></td>
+												<td width="10%"><span t-esc="get_total_line(data)"/></td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr  t-foreach="get_salesperson(data)" t-as="sales">
+									<td> 
+										<table style="width:100%;" cellpadding="0" cellspacing="0">
+											<tr class="body">
+												<td width="100%" colspan="10" style="text-align:left;">
+													<div class="parent-border">
+														<div class="child-border"><b><span t-esc="sales['salesperson']"/></b></div>
+													</div>
+												</td>
+											</tr>
+											<t t-foreach="get_customer(data,sales['id'])" t-as="partner" >
+												<tr class="body" >
+													<td width="30%" colspan="3" style="text-align:left;">
+														<div class="parent-border">
+															<div class="child-border"><b><span t-esc="partner['partner'] + '-' + partner['city']"/></b></div>
+														</div>
+													</td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['due']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['one']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['two']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['three']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['four']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['five']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_total_value(data,sales['id'], partner['id'])[0]['paid']"/></td>
+												</tr>
+												<tr class="body" t-foreach="get_lines(data,sales['id'], partner['id'])" t-as="lines" >
+													<td width="10%" style="text-align:left"><span t-esc="lines['number']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['date_invoice']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="int(lines['days'])+1"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['due']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['one']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['two']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['three']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['four']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['five']"/></td>
+												</tr>
+											</t>
+										</table>
+									</td>
+								</tr>
+						</t>
+                  </table>
+            </div>
+        </t>
+    </t>
+    </template>
+    
+    <template id="report_aged_partner_invoice_executive">
+    <t t-call="report.html_container">
+        <t t-call="report.internal_layout">
+            
+            <div class="page">
+                <style type="text/css">
+                        #table_chk{font-size:13px;border:1px solid silver;border-top:0px;font-family:Inconsolata}   
+                        #table_chk tr td {padding:0px;margin:0px;display:inline-table}
+                        #table_chk tr td table tr td {padding:5px;text-align:center}
+                        #table_chk tr td table tr.header {border:1px solid silver;border-right:0px;border-left:0px}
+                        #table_chk tr td table tr.header td {border-right:1px solid silver;font-weight:bold}
+                        #table_chk tr td table tr.body {border:1px solid white;border-right:0px;border-left:0px}
+                        #table_chk tr td table tr.body td {border-right:1px solid white;}
+                        .parent-border {width:300px;border-bottom:2px dotted silver;}
+                        .child-border {width:300px;border-bottom:2px dotted silver;margin-bottom:2px}   
+                        .interest-type {height:30px;line-height:30px;padding:0px 10px}
+                </style>
+                <h2>Aged Trial Balance</h2>
+
+                <div class="row mt32">
+                    <div class="col-xs-3">
+                        <strong>Chart of Accounts:</strong>
+                        <p t-esc="get_account(data)"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Fiscal Year:</strong>
+                        <p t-esc="get_fiscalyear(data)"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Start Date:</strong>
+                        <p t-esc="formatLang(data['form']['date_from'], date=True)"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Period Length (days)</strong>
+                        <p t-esc="data['form']['period_length']"/>
+                    </div>
+                </div>
+                <div class="row mb32">
+                    <div class="col-xs-3">
+                        <strong>Partner's:</strong>
+                        <p>
+                            <span t-if="data['form']['result_selection'] == 'customer'">Receivable Accounts</span>
+                            <span t-if="data['form']['result_selection'] == 'supplier'">Payable Accounts</span>
+                            <span t-if="data['form']['result_selection'] == 'customer_supplier'">Receivable and Payable Accounts</span>
+                        </p>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Analysis Direction:</strong>
+                        <p t-esc="data['form']['direction_selection']"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Target Moves:</strong>
+                        <p t-esc="get_target_move(data)"/>
+                    </div>
+                </div>
+                <table id="table_chk" style="width:100%;" cellpadding="0" cellspacing="0">
+                        <tr style="border-bottom:1px solid silver">
+                            <td> 
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr class="header">
+                                        <td width="10%">Partner</td>
+                                        <td width="10%">Date</td>
+                                        <td width="10%">Age</td>
+                                        <td width="10%">Not Due</td>
+                                        <td width="10%"><span t-esc="data['form']['4']['name']"/></td>
+                                        <td width="10%"><span t-esc="data['form']['3']['name']"/></td>
+                                        <td width="10%"><span t-esc="data['form']['2']['name']"/></td>
+                                        <td width="10%"><span t-esc="data['form']['1']['name']"/></td>
+                                        <td width="10%"><span t-esc="data['form']['0']['name']"/></td>
+                                        <td width="10%">Total</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+							<t t-foreach="get_total(data)" t-as="lines" >
+								<tr style="border-bottom:1px solid silver">
+									<td> 
+										<table style="width:100%;" cellpadding="0" cellspacing="0">
+											<tr class="header">
+												<td width="10%">Account</td>
+												<td width="10%"></td>
+												<td width="10%"></td>
+												<td width="10%"><span t-esc="lines['due']"/></td>
+												<td width="10%"><span t-esc="lines['one']"/></td>
+												<td width="10%"><span t-esc="lines['two']"/></td>
+												<td width="10%"><span t-esc="lines['three']"/></td>
+												<td width="10%"><span t-esc="lines['four']"/></td>
+												<td width="10%"><span t-esc="lines['five']"/></td>
+												<td width="10%"><span t-esc="get_total_line(data)"/></td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							<t t-foreach="get_salesperson(data)" t-as="sales" >
+								<tr>
+									<td> 
+										<table style="width:100%;" cellpadding="0" cellspacing="0">
+											<tr class="body">
+												<td width="100%" colspan="10" style="text-align:left;">
+													<div class="parent-border">
+														<div class="child-border"><b><span t-esc="sales['salesperson']"/></b></div>
+													</div>
+												</td>
+											</tr>
+											<t t-foreach="get_customer(data,sales['id'])" t-as="partner" >
+												<tr class="body" >
+													<td width="30%" colspan="3" style="text-align:left;">
+														<div class="parent-border">
+															<div class="child-border"><b><span t-esc="partner['partner'] + '-' + partner['city']"/></b></div>
+														</div>
+													</td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['due']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['one']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['two']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['three']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['four']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['five']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_total_value(data,sales['id'], partner['id'])[0]['paid']"/></td>
+												</tr>
+												<tr class="body" t-foreach="get_lines(data,sales['id'], partner['id'])" t-as="lines" >
+													<td width="10%" style="text-align:left"><span t-esc="lines['number']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['date_invoice']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="int(lines['days'])+1"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['due']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['one']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['two']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['three']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['four']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['five']"/></td>
+												</tr>
+											</t>
+										</table>
+									</td>
+								</tr>
+							</t>
+						</t>
+                  </table>
+            </div>
+        </t>
+    </t>
+    </template>
+    
+    <template id="report_aged_partner_invoice_team">
+    <t t-call="report.html_container">
+        <t t-call="report.internal_layout">
+            
+            <div class="page">
+                <style type="text/css">
+                        #table_chk{font-size:13px;border:1px solid silver;border-top:0px;font-family:Inconsolata}   
+                        #table_chk tr td {padding:0px;margin:0px;display:inline-table}
+                        #table_chk tr td table tr td {padding:5px;text-align:center}
+                        #table_chk tr td table tr.header {border:1px solid silver;border-right:0px;border-left:0px}
+                        #table_chk tr td table tr.header td {border-right:1px solid silver;font-weight:bold}
+                        #table_chk tr td table tr.body {border:1px solid white;border-right:0px;border-left:0px}
+                        #table_chk tr td table tr.body td {border-right:1px solid white;}
+                        .parent-border {width:300px;border-bottom:2px dotted silver;}
+                        .child-border {width:300px;border-bottom:2px dotted silver;margin-bottom:2px}   
+                        .interest-type {height:30px;line-height:30px;padding:0px 10px}
+                </style>
+                <h2>Aged Trial Balance</h2>
+
+                <div class="row mt32">
+                    <div class="col-xs-3">
+                        <strong>Chart of Accounts:</strong>
+                        <p t-esc="get_account(data)"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Fiscal Year:</strong>
+                        <p t-esc="get_fiscalyear(data)"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Start Date:</strong>
+                        <p t-esc="formatLang(data['form']['date_from'], date=True)"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Period Length (days)</strong>
+                        <p t-esc="data['form']['period_length']"/>
+                    </div>
+                </div>
+                <div class="row mb32">
+                    <div class="col-xs-3">
+                        <strong>Partner's:</strong>
+                        <p>
+                            <span t-if="data['form']['result_selection'] == 'customer'">Receivable Accounts</span>
+                            <span t-if="data['form']['result_selection'] == 'supplier'">Payable Accounts</span>
+                            <span t-if="data['form']['result_selection'] == 'customer_supplier'">Receivable and Payable Accounts</span>
+                        </p>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Analysis Direction:</strong>
+                        <p t-esc="data['form']['direction_selection']"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Target Moves:</strong>
+                        <p t-esc="get_target_move(data)"/>
+                    </div>
+                </div>
+                <table id="table_chk" style="width:100%;" cellpadding="0" cellspacing="0">
+                        <tr style="border-bottom:1px solid silver">
+                            <td> 
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr class="header">
+                                        <td width="10%">Partner</td>
+                                        <td width="10%">Date</td>
+                                        <td width="10%">Age</td>
+                                        <td width="10%">Not Due</td>
+                                        <td width="10%"><span t-esc="data['form']['4']['name']"/></td>
+                                        <td width="10%"><span t-esc="data['form']['3']['name']"/></td>
+                                        <td width="10%"><span t-esc="data['form']['2']['name']"/></td>
+                                        <td width="10%"><span t-esc="data['form']['1']['name']"/></td>
+                                        <td width="10%"><span t-esc="data['form']['0']['name']"/></td>
+                                        <td width="10%">Total</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+							<t t-foreach="get_total(data)" t-as="lines" >
+								<tr style="border-bottom:1px solid silver">
+									<td> 
+										<table style="width:100%;" cellpadding="0" cellspacing="0">
+											<tr class="header">
+												<td width="10%">Account</td>
+												<td width="10%"></td>
+												<td width="10%"></td>
+												<td width="10%"><span t-esc="lines['due']"/></td>
+												<td width="10%"><span t-esc="lines['one']"/></td>
+												<td width="10%"><span t-esc="lines['two']"/></td>
+												<td width="10%"><span t-esc="lines['three']"/></td>
+												<td width="10%"><span t-esc="lines['four']"/></td>
+												<td width="10%"><span t-esc="lines['five']"/></td>
+												<td width="10%"><span t-esc="get_total_line(data)"/></td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							<t t-foreach="get_salesperson(data)" t-as="sales" >
+								<tr>
+									<td> 
+										<table style="width:100%;" cellpadding="0" cellspacing="0">
+											<tr class="body">
+												<td width="100%" colspan="10" style="text-align:left;">
+													<div class="parent-border">
+														<div class="child-border"><b><span t-esc="sales['salesperson']"/></b></div>
+													</div>
+												</td>
+											</tr>
+											<t t-foreach="get_customer(data,sales['id'])" t-as="partner" >
+												<tr class="body" >
+													<td width="30%" colspan="3" style="text-align:left;">
+														<div class="parent-border">
+															<div class="child-border"><b><span t-esc="partner['partner'] + '-' + partner['city']"/></b></div>
+														</div>
+													</td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['due']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['one']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['two']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['three']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['four']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_aged_value(data,sales['id'], partner['id'])[0]['five']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_total_value(data,sales['id'], partner['id'])[0]['paid']"/></td>
+												</tr>
+												<tr class="body" t-foreach="get_lines(data,sales['id'], partner['id'])" t-as="lines" >
+													<td width="10%" style="text-align:left"><span t-esc="lines['number']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="get_date(lines['date_invoice'])"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="int(lines['days'])+1"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['due']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['one']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['two']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['three']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['four']"/></td>
+													<td width="10%" style="text-align:left"><span t-esc="lines['five']"/></td>
+												</tr>
+											</t>
+										</table>
+									</td>
+								</tr>
+							</t>
+						</t>
+                  </table>
+            </div>
+        </t>
+    </t>
+    </template>
+  </data>          
+</openerp>
+
+

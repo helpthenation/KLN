@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+            <report
+                id="rdsale_entry_report"
+                model="rdsale.entries"
+                string="RD Sale Entries"
+                report_type="qweb-pdf"
+                name="fnet_aea_rdclaim.report_rdsale_entries" 
+                file="fnet_aea_rdclaim.report_rdsale_entries"
+                menu="True"/>		
+	<report
+        id="rdsale_entry_report_xlsx"
+        model="rdsale.entries"
+        string="Sale Entry Analysis"
+        report_type="xlsx"
+        name="fnet_aea_rdclaim.rdsale_entries_xlsx.xlsx"
+        file="fnet_aea_rdclaim.rdsale_entries_xlsx.xlsx"
+        attachment_use="False"
+    />
+        <!-- we do not use report tag has we can not set header ref -->
+       <record id="report_rdsale_entries_webkit" model="ir.actions.report.xml">
+            <field name="report_type">webkit</field>
+            <field name="report_name">fnet_aea_rdclaim.report_rdsale_entries_webkit</field>
+            <field eval="[(6,0,[])]" name="groups_id"/>
+            <field eval="0" name="multi"/>
+            <field eval="0" name="auto"/>
+            <field eval="1" name="header"/>
+            <field name="model">rdclaim.wizard</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="name">RD Sale Entries Report</field>
+            <field name="report_rml">fnet_aea_rdclaim/report/templates/rdsale_entries_report.mako</field>
+            <field name="report_file">fnet_aea_rdclaim/report/templates/rdsale_entries_report.mako</field>
+        </record>
+
+        <record id="property_report_rdsale_entries_webkit" model="ir.property">
+            <field name="name">fnet_aea_rdclaim.report_rdsale_entries_webkit</field>
+            <field name="fields_id" ref="report_webkit.field_ir_act_report_xml_webkit_header"/>
+            <field eval="'ir.header_webkit,'+str(ref('fnet_aea_rdclaim.custom_landscape_header'))" model="ir.header_webkit" name="value"/>
+            <field eval="'ir.actions.report.xml,'+str(ref('fnet_aea_rdclaim.report_rdsale_entries_webkit'))" model="ir.actions.report.xml" name="res_id"/>
+        </record>
+       <record id="report_rdclaim_webkit" model="ir.actions.report.xml">
+            <field name="report_type">webkit</field>
+            <field name="report_name">fnet_aea_rdclaim.report_rdclaim_webkit</field>
+            <field eval="[(6,0,[])]" name="groups_id"/>
+            <field eval="0" name="multi"/>
+            <field eval="0" name="auto"/>
+            <field eval="1" name="header"/>
+            <field name="model">rdclaim.wizard</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="name">RD Claim Report</field>
+            <field name="report_rml">fnet_aea_rdclaim/report/templates/rdclaim_report.mako</field>
+            <field name="report_file">fnet_aea_rdclaim/report/templates/rdclaim_report.mako</field>
+        </record>
+
+        <record id="property_report_rdclaim_webkit" model="ir.property">
+            <field name="name">fnet_aea_rdclaim.report_rdclaim_webkit</field>
+            <field name="fields_id" ref="report_webkit.field_ir_act_report_xml_webkit_header"/>
+            <field eval="'ir.header_webkit,'+str(ref('fnet_aea_rdclaim.custom_landscape_header'))" model="ir.header_webkit" name="value"/>
+            <field eval="'ir.actions.report.xml,'+str(ref('fnet_aea_rdclaim.report_rdclaim_webkit'))" model="ir.actions.report.xml" name="res_id"/>
+        </record>
+       <record id="report_rdclaim_consolidate_webkit" model="ir.actions.report.xml">
+            <field name="report_type">webkit</field>
+            <field name="report_name">fnet_aea_rdclaim.report_rdclaim_consolidate_webkit</field>
+            <field eval="[(6,0,[])]" name="groups_id"/>
+            <field eval="0" name="multi"/>
+            <field eval="0" name="auto"/>
+            <field eval="1" name="header"/>
+            <field name="model">rdclaim.wizard</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="name">RD Claim Consolidated Report</field>
+            <field name="report_rml">fnet_aea_rdclaim/report/templates/rdclaim_consolidated_report.mako</field>
+            <field name="report_file">fnet_aea_rdclaim/report/templates/rdclaim_consolidated_report.mako</field>
+        </record>
+
+        <record id="property_report_rdclaim_consolidate_webkits" model="ir.property">
+            <field name="name">fnet_aea_rdclaim.report_rdclaim_consolidate_webkit</field>
+            <field name="fields_id" ref="report_webkit.field_ir_act_report_xml_webkit_header"/>
+            <field eval="'ir.header_webkit,'+str(ref('fnet_aea_rdclaim.custom_landscape_header'))" model="ir.header_webkit" name="value"/>
+            <field eval="'ir.actions.report.xml,'+str(ref('fnet_aea_rdclaim.report_rdclaim_consolidate_webkit'))" model="ir.actions.report.xml" name="res_id"/>
+        </record>
+       <record id="report_rdclaim_sales_achievement_webkit" model="ir.actions.report.xml">
+            <field name="report_type">webkit</field>
+            <field name="report_name">fnet_aea_rdclaim.report_rdclaim_sales_achievement_webkit</field>
+            <field eval="[(6,0,[])]" name="groups_id"/>
+            <field eval="0" name="multi"/>
+            <field eval="0" name="auto"/>
+            <field eval="1" name="header"/>
+            <field name="model">rdclaim.sales.achievement</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="name">Sales Plan Achievement Report</field>
+            <field name="report_rml">fnet_aea_rdclaim/report/templates/rdclaim_sales_achievement.mako</field>
+            <field name="report_file">fnet_aea_rdclaim/report/templates/rdclaim_sales_achievement.mako</field>
+        </record>
+
+        <record id="property_report_rdclaim_sales_achievement_webkit" model="ir.property">
+            <field name="name">fnet_aea_rdclaim.report_rdclaim_sales_achievement_webkit</field>
+            <field name="fields_id" ref="report_webkit.field_ir_act_report_xml_webkit_header"/>
+            <field eval="'ir.header_webkit,'+str(ref('fnet_aea_rdclaim.custom_landscape_header'))" model="ir.header_webkit" name="value"/>
+            <field eval="'ir.actions.report.xml,'+str(ref('fnet_aea_rdclaim.report_rdclaim_sales_achievement_webkit'))" model="ir.actions.report.xml" name="res_id"/>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+<!--
+		CGST
+-->
+	    <record id="cgst_tax_0" model="account.tax.template">
+        <field name="name">CGST Sales Tax @ 0%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="type">percent</field>
+        <field name="amount">0.00</field>
+        <field name="sequence">10</field>
+        <field name="base_code_id" ref="0bases_cgst_on_sale"/>
+        <field name="tax_code_id" ref="0cgst_on_sale"/>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>        
+    </record>	
+<!--
+    <function model="account.tax.template" name="_generate_tax" eval="[ref('cgst_tax_0'),ref('tax_code_id'),ref('company_id')]"/>
+-->
+<!--
+    <function model="account.tax.template" name="_generate_tax" eval="[(ref('gst_tax.cgst_tax_0'))]"/>
+-->
+<!--
+    <function id="account_tax_default_set" model="account.tax.template" name="_generate_tax" eval="[('cgst_tax_0')]"/>
+-->
+    <record id="cgst_tax_25" model="account.tax.template">
+        <field name="name">CGST Sales Tax @ 2.5%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="type">percent</field>
+        <field name="amount">0.025</field>
+        <field name="sequence">10</field>
+        <field name="base_code_id" ref="25bases_cgst_on_sale"/>
+        <field name="tax_code_id" ref="25cgst_on_sale"/>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>	
+    <record id="cgst_tax_6" model="account.tax.template">
+        <field name="name">CGST Sales Tax @ 6%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="type">percent</field>
+        <field name="amount">0.06</field>
+        <field name="sequence">10</field>
+         <field name="base_code_id" ref="9bases_cgst_on_sale"/>
+        <field name="tax_code_id" ref="6cgst_on_sale"/>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>	
+        <record id="cgst_tax_9" model="account.tax.template">
+        <field name="name">CGST Sales Tax @ 9%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="type">percent</field>
+        <field name="amount">0.09</field>
+        <field name="sequence">10</field>
+                <field name="base_code_id" ref="9bases_cgst_on_sale"/>
+        <field name="tax_code_id" ref="9cgst_on_sale"/>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>	
+    <record id="cgst_tax_14" model="account.tax.template">
+        <field name="name">CGST Sales Tax @ 14%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="type">percent</field>
+        <field name="amount">0.14</field>
+        <field name="sequence">10</field>
+                <field name="base_code_id" ref="14bases_cgst_on_sale"/>
+        <field name="tax_code_id" ref="14cgst_on_sale"/>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>	
+    <record id="cgst_output_tax_0" model="account.tax.template">
+        <field name="name">CGST Purchase Tax @ 0%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="type">percent</field>
+        <field name="amount">0.00</field>
+        <field name="sequence">10</field>
+        <field name="base_code_id" ref="0bases_cgst_on_purchase"/>
+        <field name="tax_code_id" ref="0cgst_on_purchase"/>
+        <field name="base_sign" eval="-1"/>
+        <field name="tax_sign" eval="-1"/>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>
+   <record id="cgst_output_tax_25" model="account.tax.template">
+        <field name="name">CGST Purchase Tax @ 2.5%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="type">percent</field>
+        <field name="amount">0.025</field>
+        <field name="sequence">10</field>
+                <field name="base_code_id" ref="25bases_cgst_on_purchase"/>
+        <field name="tax_code_id" ref="25cgst_on_purchase"/>
+        <field name="base_sign" eval="-1"/>
+        <field name="tax_sign" eval="-1"/>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>
+        <record id="cgst_output_tax_6" model="account.tax.template">
+        <field name="name">CGST Purchase Tax @ 6%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="type">percent</field>
+        <field name="amount">0.06</field>
+        <field name="sequence">10</field>
+                <field name="base_code_id" ref="6bases_cgst_on_purchase"/>
+        <field name="tax_code_id" ref="6cgst_on_purchase"/>
+        <field name="base_sign" eval="-1"/>
+        <field name="tax_sign" eval="-1"/>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>
+        <record id="cgst_output_tax_9" model="account.tax.template">
+        <field name="name">CGST Purchase Tax @ 9%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="type">percent</field>
+        <field name="amount">0.09</field>
+        <field name="sequence">10</field>
+                <field name="base_code_id" ref="9bases_cgst_on_purchase"/>
+        <field name="tax_code_id" ref="9cgst_on_purchase"/>
+        <field name="base_sign" eval="-1"/>
+        <field name="tax_sign" eval="-1"/>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>
+    <record id="cgst_output_tax_14" model="account.tax.template">
+        <field name="name">CGST Purchase Tax @ 14%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="type">percent</field>
+        <field name="amount">0.14</field>
+        <field name="sequence">10</field>
+        <field name="base_code_id" ref="14bases_cgst_on_purchase"/>
+        <field name="tax_code_id" ref="14cgst_on_purchase"/>
+        <field name="base_sign" eval="-1"/>
+        <field name="tax_sign" eval="-1"/>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>
+    
+<!--
+    SGST COFIGGGGGGGGGGGGGGGGGGGGGGGGgg
+    
+-->
+	    <record id="sgst_tax_0" model="account.tax.template">
+        <field name="name">SGST Sales Tax @ 0%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="type">percent</field>
+        <field name="amount">0.00</field>
+        <field name="sequence">10</field>
+        <field name="base_code_id" ref="0bases_sgst_on_sale"/>
+        <field name="tax_code_id" ref="0sgst_on_sale"/>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>	
+    <record id="sgst_tax_25" model="account.tax.template">
+        <field name="name">SGST Sales Tax @ 2.5%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="type">percent</field>
+        <field name="amount">0.025</field>
+        <field name="sequence">10</field>
+        <field name="base_code_id" ref="25bases_sgst_on_sale"/>
+        <field name="tax_code_id" ref="25sgst_on_sale"/>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>	
+    <record id="sgst_tax_6" model="account.tax.template">
+        <field name="name">SGST Sales Tax @ 6%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="type">percent</field>
+        <field name="amount">0.06</field>
+        <field name="sequence">10</field>
+        <field name="base_code_id" ref="6bases_sgst_on_sale"/>
+        <field name="tax_code_id" ref="6sgst_on_sale"/>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>	
+        <record id="sgst_tax_9" model="account.tax.template">
+        <field name="name">SGST Sales Tax @ 9%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="type">percent</field>
+        <field name="amount">0.09</field>
+        <field name="sequence">10</field>
+        <field name="base_code_id" ref="9bases_sgst_on_sale"/>
+        <field name="tax_code_id" ref="9sgst_on_sale"/>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>	
+    <record id="sgst_tax_14" model="account.tax.template">
+        <field name="name">SGST Sales Tax @ 14%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="type">percent</field>
+        <field name="amount">0.14</field>
+        <field name="sequence">10</field>
+        <field name="base_code_id" ref="14bases_sgst_on_sale"/>
+        <field name="tax_code_id" ref="14sgst_on_sale"/>        
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>	
+    <record id="sgst_output_tax_0" model="account.tax.template">
+        <field name="name">SGST Purchase Tax @ 0%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="type">percent</field>
+        <field name="amount">0.00</field>
+        <field name="sequence">10</field>
+        <field name="base_sign" eval="-1"/>
+        <field name="tax_sign" eval="-1"/>
+        <field name="base_code_id" ref="0bases_sgst_on_purchase"/>
+        <field name="tax_code_id" ref="0sgst_on_purchase"/>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>
+   <record id="sgst_output_tax_25" model="account.tax.template">
+        <field name="name">SGST Purchase Tax @ 2.5%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="type">percent</field>
+        <field name="amount">0.025</field>
+        <field name="sequence">10</field>
+        <field name="base_sign" eval="-1"/>
+        <field name="tax_sign" eval="-1"/>        
+        <field name="base_code_id" ref="25bases_sgst_on_purchase"/>
+        <field name="tax_code_id" ref="25sgst_on_purchase"/>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>
+        <record id="sgst_output_tax_6" model="account.tax.template">
+        <field name="name">SGST Purchase Tax @ 6%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="type">percent</field>
+        <field name="amount">0.06</field>
+        <field name="sequence">10</field>
+        <field name="base_sign" eval="-1"/>
+        <field name="tax_sign" eval="-1"/>
+        <field name="base_code_id" ref="6bases_sgst_on_purchase"/>
+        <field name="tax_code_id" ref="6sgst_on_purchase"/>        
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>
+        <record id="sgst_output_tax_9" model="account.tax.template">
+        <field name="name">SGST Purchase Tax @ 9%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="type">percent</field>
+        <field name="amount">0.09</field>
+        <field name="sequence">10</field>
+        <field name="base_sign" eval="-1"/>
+        <field name="tax_sign" eval="-1"/>
+         <field name="base_code_id" ref="9bases_sgst_on_purchase"/>
+        <field name="tax_code_id" ref="9sgst_on_purchase"/>       
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>
+    <record id="sgst_output_tax_14" model="account.tax.template">
+        <field name="name">SGST Purchase Tax @ 14%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="type">percent</field>
+        <field name="amount">0.14</field>
+        <field name="sequence">10</field>
+        <field name="base_sign" eval="-1"/>
+        <field name="tax_sign" eval="-1"/>
+        <field name="base_code_id" ref="14bases_sgst_on_purchase"/>
+        <field name="tax_code_id" ref="14sgst_on_purchase"/>        
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>
+    
+<!--
+    IGST############################################
+-->
+	    <record id="igst_tax_0" model="account.tax.template">
+        <field name="name">IGST Sales Tax @ 0%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="type">percent</field>
+        <field name="amount">0.00</field>
+        <field name="sequence">10</field>
+        <field name="base_code_id" ref="0bases_igst_on_sale"/>
+        <field name="tax_code_id" ref="0igst_on_sale"/>        
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>	
+    <record id="igst_tax_5" model="account.tax.template">
+        <field name="name">IGST Sales Tax @ 5%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="type">percent</field>
+        <field name="amount">0.050</field>
+        <field name="sequence">10</field>
+        <field name="base_code_id" ref="5bases_igst_on_sale"/>
+        <field name="tax_code_id" ref="5igst_on_sale"/> 
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>	
+    <record id="igst_tax_12" model="account.tax.template">
+        <field name="name">IGST Sales Tax @ 12%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="type">percent</field>
+        <field name="amount">0.12</field>
+        <field name="sequence">10</field>
+        <field name="base_code_id" ref="12bases_igst_on_sale"/>
+        <field name="tax_code_id" ref="12igst_on_sale"/> 
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>	
+        <record id="igst_tax_18" model="account.tax.template">
+        <field name="name">IGST Sales Tax @ 18%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="type">percent</field>
+        <field name="amount">0.18</field>
+        <field name="sequence">10</field>
+        <field name="base_code_id" ref="18bases_igst_on_sale"/>
+        <field name="tax_code_id" ref="18igst_on_sale"/> 
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>	
+    <record id="igst_tax_28" model="account.tax.template">
+        <field name="name">CGST Sales Tax @ 28%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="type">percent</field>
+        <field name="amount">0.28</field>
+        <field name="sequence">10</field>
+        <field name="base_code_id" ref="28bases_igst_on_sale"/>
+        <field name="tax_code_id" ref="28igst_on_sale"/> 
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>	
+    <record id="igst_output_tax_0" model="account.tax.template">
+        <field name="name">IGST Purchase Tax @ 0%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="type">percent</field>
+        <field name="amount">0.00</field>
+        <field name="sequence">10</field>
+        <field name="base_sign" eval="-1"/>
+        <field name="tax_sign" eval="-1"/>
+        <field name="base_code_id" ref="0bases_igst_on_purchase"/>
+        <field name="tax_code_id" ref="0igst_on_purchase"/>   
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>
+   <record id="igst_output_tax_5" model="account.tax.template">
+        <field name="name">IGST Purchase Tax @ 5%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="type">percent</field>
+        <field name="amount">0.05</field>
+        <field name="sequence">10</field>
+        <field name="base_sign" eval="-1"/>
+        <field name="tax_sign" eval="-1"/>
+        <field name="base_code_id" ref="5bases_igst_on_purchase"/>
+        <field name="tax_code_id" ref="5igst_on_purchase"/>   
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>
+        <record id="igst_output_tax_12" model="account.tax.template">
+        <field name="name">IGST Purchase Tax @ 12%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="type">percent</field>
+        <field name="amount">0.12</field>
+        <field name="sequence">10</field>
+        <field name="base_sign" eval="-1"/>
+        <field name="tax_sign" eval="-1"/>
+        <field name="base_code_id" ref="12bases_igst_on_purchase"/>
+        <field name="tax_code_id" ref="12igst_on_purchase"/>   
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>
+        <record id="igst_output_tax_18" model="account.tax.template">
+        <field name="name">IGST Purchase Tax @ 18%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="type">percent</field>
+        <field name="amount">0.18</field>
+        <field name="sequence">10</field>
+        <field name="base_sign" eval="-1"/>
+        <field name="tax_sign" eval="-1"/>
+        <field name="base_code_id" ref="18bases_igst_on_purchase"/>
+        <field name="tax_code_id" ref="18igst_on_purchase"/>   
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>
+    <record id="igst_output_tax_28" model="account.tax.template">
+        <field name="name">CGST Purchase Tax @ 28%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="type">percent</field>
+        <field name="amount">0.28</field>
+        <field name="sequence">10</field>
+        <field name="base_sign" eval="-1"/>
+        <field name="tax_sign" eval="-1"/>
+        <field name="base_code_id" ref="28bases_igst_on_purchase"/>
+        <field name="tax_code_id" ref="28igst_on_purchase"/>   
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+    </record>
+    </data>
+</openerp>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <template id="header_invoice_cash">
+		<div class="header">
+        <t t-if ="o and 'partner_id' in o" >
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+			<style>
+				p{
+				margin:0; 
+				}
+				table, th, td {
+					padding: 10px;
+				}
+				.dealer {width:60%;height:80%;text-align:left}
+				#txt1
+				{
+				 float: left
+				}
+				#txt2
+				{
+				 float: right
+				}
+				#p1
+				{
+				 float: right
+				}
+				</style>
+				  <table width="100%" cellspacing="10" style="margin-bottom:2px;">
+					  <tr style="border-spacing:20em;">
+						<td width="70%" align="left">
+							<table width="100%" height="100" style="
+					border-radius: 10px !important; overflow:auto;
+					border: 1px solid silver;border-collapse:separate;">
+							   <tr>
+								 <td width="100%" height="100">
+									 <div class="dealer">
+										<div style="font-size:12px;font-family:courier-new;">To:</div>
+										<div><span style="font-size:12px;font-family:courier-new;" t-esc="o.partner_id.name"/></div>
+										<div><span style="font-size:12px;font-family:courier-new;" t-esc="o.partner_id.city"/></div>
+										<div><span style="font-size:12px;font-family:courier-new;" t-esc="o.partner_id.state_id.name"/></div>
+										<div><span style="font-size:12px;font-family:courier-new;" t-esc="o.partner_id.country_id.name"/></div>           
+									</div>
+								 </td>
+							   </tr>
+							</table>
+						</td>
+						<td rowspan="2" width="30%" height="100%">
+						<table border="1" width="100%" height="100%"  style="
+					border-radius: 10px !important;  overflow:auto;
+					border: 1px solid silver;border-collapse:separate;" >
+							   <tr>
+							  <td width="100%" height="100%" style="height: 180px; border:none;">
+							  <br/>
+							  <br/>
+							  <br/>
+							  <h4 align="center">C A S H <br/> I n v o i c e<br/><img src="/fnet_mline_reportz/static/src/img/invoice.png" style="float:center;width:80%;"/></h4>
+							  </td>
+							   </tr>
+							</table>
+						</td>
+					  </tr>
+					  <tr>
+						<td>
+						<table border="1" width="100%" height="110%"  style="
+					border-radius: 10px !important;  overflow:auto;
+					border: 1px solid silver;border-collapse:separate;">
+							   <tr>
+								 <td width="100%" style="font-size:12px;font-family:courier-new;">L.P.O: <span style="font-size:12px;font-family:courier-new;" t-esc="o.lpo_no"/></td>
+							   </tr>
+							</table> 
+						</td>
+					  </tr>
+				  </table>
+				  <table width="100%">
+				  <tr>
+				  <td width="33%" style="text-align:left;font-size:12px;font-family:courier-new;" >Invoice date: <span style="font-size:12px;font-family:courier-new;" t-esc="o.date_invoice"/> </td>
+				  <td width="33%" style="text-align:right;font-size:12px;font-family:courier-new;">Job No: <span style="font-size:12px;font-family:courier-new;" t-esc="get_job_no(o.origin)"/> </td>
+				  <td width="34%" style="text-align:right;font-size:12px;font-family:courier-new;">No:<span style="font-size:12px;font-family:courier-new;" t-esc="o.number"/></td>
+				  </tr>
+				  </table>
+ 
+         </div>
+    </template>
+    
+    
+
+
+</data>
+</openerp>

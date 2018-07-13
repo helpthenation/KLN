@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	
+<template id="report_coveringletter">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="fnet_mline_reportz.header_wizards"/>
+                <div class="page">
+		<style type="text/css">
+                     .table_sale, th, td {
+                       border: 1px solid black;
+                     }
+                     .table_sale {
+                       width: 100%;
+                     }
+                     .oblique {
+                       font-style: oblique;
+                       }
+
+                </style>
+                    
+                   <div align="right">
+                   <h3 style="text-align:center"><right><strong>COVERING LETTER</strong></right></h3>
+                   </div>
+                   <h5 style="font-family:courier-new;font-size: 12px;"><left><b>Date: </b><span style="font-family:courier-new;font-size: 12px;" t-field="o.date_order" t-field-options='{"format": "dd.M.Y"}'/></left></h5>
+                   <h5 style="font-family:courier-new;font-size: 12px;"><left><b>Ref: </b><span style="font-family:courier-new;font-size: 12px;" t-field="o.lead_id.seq_no"/></left></h5>
+                   <div t-if="o.partner_id">
+                       <strong><div style="font-family:courier-new;font-size: 12px;" t-field="o.partner_id" 
+                            t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}'/></strong>
+                       <p style="font-family:courier-new;font-size: 12px;" t-if="o.partner_id.vat">VAT: <span style="font-family:courier-new;font-size: 12px;" t-field="o.partner_id.vat"/></p>
+                   </div>
+                   <br/> 
+                   <h5 style="font-family:courier-new;font-size: 12px;"><left>Attn: <span style="font-family:courier-new;font-size: 12px;" t-field="o.title_id.name"></span>.<span style="font-family:courier-new;font-size: 12px;" t-field="o.contact_name"></span></left></h5>  
+                   <h5 style="font-family:courier-new;font-size: 12px;"><left><span t-field="o.function"></span></left></h5>
+                   <br/> 
+                   <span style="font-family:courier-new;font-size: 12px;" t-field="o.subject"/>
+                   <br/>
+                   <h5 style="font-family:courier-new;font-size: 12px;"><left>Dear Sir/Madam</left></h5>
+                   <br/>
+                   <span t-field="o.covering_remark"/>
+                   <br/>
+                   <h4 style="font-family:courier-new;font-size: 12px;"><left>With Best Regards,</left></h4>
+                   <br/>
+                   <h5 style="font-family:courier-new;font-size: 12px;"><left>For,</left><strong><span style="font-family:courier-new;font-size: 14px;" t-field="o.company_id.name"/></strong></h5>
+                   <br/>
+                   <br/>
+                   <h4><left></left><strong><span style="font-family:courier-new;font-size: 12px;" t-field="o.user_id.name"/></strong></h4>
+                   <h5><left></left><span style="font-family:courier-new;font-size: 12px;" t-field="o.user_id.email"/></h5>
+                  <br/><br/><br/><br/>
+                  
+                   <table width="100%" style="border: none">
+					<tr>
+						<span style="font-family:courier-new;font-size: 12px;" t-field="o.signature"/><br/>
+
+					</tr>
+					</table>        
+                </div>
+                <t t-call="fnet_mline_reportz.footer_wizards"/>
+            </t>
+       
+    </t>
+</template>
+</data>
+</openerp>

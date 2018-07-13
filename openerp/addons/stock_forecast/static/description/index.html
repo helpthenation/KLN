@@ -1,0 +1,543 @@
+<html>
+ <head>
+  <style>
+   .backgrounds{background-color:#fff;color:#a41d35}
+  </style>
+ </head>
+ <body>
+  <section class="oe_container" id="description">
+   <object data="https://img.shields.io/badge/licence-LGPL--3-blue.svg" type="image/svg+xml">
+    License: LGPL-3
+   </object>
+   <div class="section oe_span12" id="stock-forecast">
+    <h2 class="oe_slogan">
+     <a class="toc-backref" href="#id1">
+      Stock Forecast
+     </a>
+    </h2>
+    <div class="contents topic" id="contents">
+     <p class="oe_mt32">
+      Contents
+     </p>
+     <ul class="simple">
+      <li>
+       <a class="reference internal" href="#stock-forecast" id="id1">
+        Stock Forecast
+       </a>
+      </li>
+      <li>
+       <a class="reference internal" href="#installation" id="id2">
+        Installation
+       </a>
+      </li>
+      <li>
+       <a class="reference internal" href="#configuration" id="id3">
+        Configuration
+       </a>
+      </li>
+      <li>
+       <a class="reference internal" href="#usage" id="id4">
+        Usage
+       </a>
+      </li>
+      <li>
+       <a class="reference internal" href="#known-issues-roadmap" id="id5">
+        Known issues / Roadmap
+       </a>
+      </li>
+      <li>
+       <a class="reference internal" href="#bug-tracker" id="id6">
+        Bug Tracker
+       </a>
+      </li>
+      <li>
+       <a class="reference internal" href="#todo" id="id7">
+        TODO
+       </a>
+      </li>
+      <li>
+       <a class="reference internal" href="#credits" id="id8">
+        Credits
+       </a>
+      </li>
+      <li>
+       <a class="reference internal" href="#maintainer" id="id9">
+        Maintainer
+       </a>
+      </li>
+     </ul>
+    </div>
+    <p class="oe_mt32">
+     This module add a way to generate forecasting from the product demand.
+    </p>
+    <p class="oe_mt32">
+     <strong>
+      Features
+     </strong>
+     :
+    </p>
+    <ul class="simple">
+     <li>
+      Integrate forecasting with products. Add button
+      <code class="docutils literal">
+       Forecasting
+      </code>
+      in the
+product form view and add product field to the forecast record.
+     </li>
+     <li>
+      Add product and product template fields to the Forecast model to be used as
+a informative fields to filter the forecast.
+     </li>
+     <li>
+      Add wizard at
+      <code class="docutils literal">
+       Reporting &gt; Warehouse &gt; Stock Demand
+      </code>
+      to calculate demand
+for a product in a specific location. Also can have a date margin to extract
+demand only in a certain group (required Forecast Manager permission).
+     </li>
+     <li>
+      Add demo data so you can check how the product demand forecast works. You
+can go to
+      <code class="docutils literal">
+       Settings &gt; Technical &gt; Forecasting &gt; Forecast
+      </code>
+      and select the
+forecast with the prefix
+      <code class="docutils literal">
+       (ST Test 01)
+      </code>
+      .
+     </li>
+     <li>
+      NOTE: A internal move is considered a demand for a location.
+     </li>
+    </ul>
+   </div>
+   <div class="section oe_span12" id="installation">
+    <h1>
+     <a class="toc-backref" href="#id2">
+      Installation
+     </a>
+    </h1>
+    <p class="oe_mt32">
+     To install this module, you need to:
+    </p>
+    <ul class="simple">
+     <li>
+      Not special pre-installation is required, just install as a regular odoo
+module:
+      <ul>
+       <li>
+        Download this module from
+        <a class="reference external" href="https://github.com/vauxoo/forecast">
+         Vauxoo/forecast
+        </a>
+       </li>
+       <li>
+        Add the repository folder into your odoo addons-path.
+       </li>
+       <li>
+        Go to
+        <code class="docutils literal">
+         Settings &gt; Module list
+        </code>
+        search for the current name and click in
+        <code class="docutils literal">
+         Install
+        </code>
+        button.
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </div>
+   <div class="section oe_span12" id="configuration">
+    <h1>
+     <a class="toc-backref" href="#id3">
+      Configuration
+     </a>
+    </h1>
+    <p class="oe_mt32">
+     To configure this module, you need to:
+    </p>
+    <ul class="simple">
+     <li>
+      There is not special configuration for this module.
+     </li>
+    </ul>
+   </div>
+   <div class="section oe_span12" id="usage">
+    <h1>
+     <a class="toc-backref" href="#id4">
+      Usage
+     </a>
+    </h1>
+    <p class="oe_mt32">
+     To use this module, you need to:
+    </p>
+    <ul>
+     <li>
+      <p class="oe_mt32">
+       Go to a
+       <code class="docutils literal">
+        Product
+       </code>
+       form view and click on the
+       <code class="docutils literal">
+        Forecasting
+       </code>
+       button at the top right of the form. There you can check or create a new
+forecasting for you selected product product.
+      </p>
+      <img alt="Forecasting button at the Product Form View" class="oe_picture oe_screenshot" src="product_button_forcast.png"/>
+     </li>
+     <li>
+      <p class="oe_mt32">
+       Once in the forecast form view you can check that is associated to what
+product in the section
+       <code class="docutils literal">
+        Done for product
+       </code>
+       .
+      </p>
+      <img alt="Forecast Buttons" class="oe_picture oe_screenshot" src="forecast_buttons.png"/>
+     </li>
+    </ul>
+    <p class="oe_mt32">
+     <strong>
+      Demand Forecast
+     </strong>
+    </p>
+    <p class="oe_mt32">
+     A demand forecast is set by the way that the forecast rule is configured. This
+kind of rule need to the linked to a filter that have at least next elements
+at domain:
+    </p>
+    <ul class="simple">
+     <li>
+      A product, group of products or product category.
+     </li>
+     <li>
+      A range of dates where the data will be extract.
+     </li>
+     <li>
+      A location you want to review.
+     </li>
+    </ul>
+    <p class="oe_mt32">
+     Also the filter need to have the context required forecast keys
+     <code class="docutils literal">
+      ['forecast_order', 'forecast_value']
+     </code>
+     . Optionally can use the
+     <code class="docutils literal">
+      forecast_step
+     </code>
+     key in the filter context to indicate that you want to fill
+the empty demand dates with 0.0 values and a
+     <code class="docutils literal">
+      group_by
+     </code>
+     key to group the
+data by a date/datetime. You can use the syntax
+     <code class="docutils literal">
+      'group_by':
+[datefield:period]
+     </code>
+     .  The
+     <code class="docutils literal">
+      period
+     </code>
+     and the
+     <code class="docutils literal">
+      forecast_step
+     </code>
+     can
+be one of the next options:
+     <code class="docutils literal">
+      ['day', 'week', 'month', 'year']
+     </code>
+    </p>
+    <p class="oe_mt32">
+     <strong>
+      NOTE: For more information about how does the forecasting rules works you
+can find out at Forecasting Rules module description
+     </strong>
+    </p>
+    <p class="oe_mt32">
+     The Demand Forecast Rule is related to the
+     <code class="docutils literal">
+      stock.history
+     </code>
+     model. This last
+one holds the information about the product demand. To calculate the product
+demand you can go to
+     <code class="docutils literal">
+      Reporting &gt; Warehouse &gt; Stock Demand
+     </code>
+     wizard and
+generate a query of the demand for a specific product / location. In the
+     <code class="docutils literal">
+      Stock Demand
+     </code>
+     wizard there is an option (a check field) that let you
+auto-generate a filter ready to be use in a forecast rule. The generate filter
+will have this name by default
+     <code class="docutils literal">
+      Stock Demand for {product} in {location}
+(From {date_from} to {date_to}
+     </code>
+    </p>
+    <p class="oe_mt32">
+     <em>
+      NOTE
+     </em>
+     : You can run the -
+     <code class="docutils literal">
+      Reporting &gt; Warehouse &gt; Stock Valuation
+     </code>
+     wizard
+and generate the demand for all the products / locations in your system.
+     <strong>
+      WARNING: This could take a lot of time if you have a database with a lot of
+products and movements. We highly recommend to generate the demand you need
+using the Stock Demand wizard
+     </strong>
+     .
+    </p>
+    <p class="oe_mt32">
+     <strong>
+      Forecast Rules Examples
+     </strong>
+    </p>
+    <p class="oe_mt32">
+     If you install this module using data demo you can find examples of some
+demand forecast rules at
+     <code class="docutils literal">
+      Settings &gt; Technical Features &gt; Forecasting &gt;
+Forecasting Rules
+     </code>
+     menu that you can copy and reuse for your purpose.
+    </p>
+    <ul class="simple">
+     <li>
+      You can extract a demand for a product. All the operations for a range of
+date. Check
+      <code class="docutils literal">
+       (SFD01) 2015 Demand for iMac with Retina 5K display Product in
+WH/Stock until
+       <span class="pre">
+        2015-09-29
+       </span>
+      </code>
+      .
+     </li>
+     <li>
+      You can extract a demand for a product group by month
+      <code class="docutils literal">
+       (SFD02) 2015 Demand
+for iPad Mini 4 in WH/Stock until
+       <span class="pre">
+        2015-09-29
+       </span>
+       (Group by Month)
+      </code>
+      .
+     </li>
+     <li>
+      A demand for a new product using the data of the replaced product in
+      <code class="docutils literal">
+       (SFD03) 2015 Demand for New Product S76 Kudu Pro in WH/Stock until
+       <span class="pre">
+        2015-09-29
+       </span>
+      </code>
+      .
+     </li>
+     <li>
+      The demand of the last 2 months group by week. The last 2 months not taking
+into account the current one
+      <code class="docutils literal">
+       (SFD04) Last 2 months Demand for Gazelle Pro
+in WH/Stock at date
+       <span class="pre">
+        2015-09-29
+       </span>
+       (Group by Week)
+      </code>
+      .
+     </li>
+     <li>
+      The demand of the last month for a product group by day. The last month not
+taking into account the current one
+      <code class="docutils literal">
+       (SFD05) Last month Demand for iPod
+Touch in WH/Stock at date
+       <span class="pre">
+        2015-09-29
+       </span>
+       (Group by day)
+      </code>
+      .
+     </li>
+     <li>
+      The demand for a product category
+      <code class="docutils literal">
+       (SFD06) 2015 Computers Category Demand
+in WH/Stock until
+       <span class="pre">
+        2015-09-29
+       </span>
+       (Group by Month)
+      </code>
+      .
+     </li>
+     <li>
+      Last N days demand group by day. Look example
+      <code class="docutils literal">
+       (SFD07) Last 14 days Demand
+for iPod Touch Product in WH/Stock at date
+       <span class="pre">
+        2015-09-29
+       </span>
+       (Group by day)
+      </code>
+     </li>
+    </ul>
+    <img alt="forecast_examples.png" class="oe_picture oe_screenshot" src="forecast_examples.png"/>
+   </div>
+   <div class="section oe_span12" id="known-issues-roadmap">
+    <h1>
+     <a class="toc-backref" href="#id5">
+      Known issues / Roadmap
+     </a>
+    </h1>
+   </div>
+   <div class="section oe_span12" id="bug-tracker">
+    <h1>
+     <a class="toc-backref" href="#id6">
+      Bug Tracker
+     </a>
+    </h1>
+    <p class="oe_mt32">
+     Bugs are tracked on
+     <a class="reference external" href="https://github.com/Vauxoo/forecast/issues">
+      GitHub Issues
+     </a>
+     .
+In case of trouble, please check there if your issue has already been reported.
+If you spotted it first, help us smashing it by providing a detailed and
+welcomed feedback
+     <a class="reference external" href="https://github.com/Vauxoo/forecast/issues/new?body=module:%20stock_forecast%0Aversion:%208.0.1.1.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">
+      here
+     </a>
+    </p>
+   </div>
+   <div class="section oe_span12" id="todo">
+    <h1>
+     <a class="toc-backref" href="#id7">
+      TODO
+     </a>
+    </h1>
+    <ul class="simple">
+     <li>
+      Maybe the display_name field and compute method can be defined in the
+forecasting_smoothing_techniques module and overwrite in every forecast
+module.
+     </li>
+     <li>
+      Update this module description and screenshots.
+     </li>
+     <li>
+      When adding a forecasting rule for a product category let to also search
+inside its children categories.
+     </li>
+    </ul>
+   </div>
+   <div class="section oe_span12" id="credits">
+    <h1>
+     <a class="toc-backref" href="#id8">
+      Credits
+     </a>
+    </h1>
+    <p class="oe_mt32">
+     <strong>
+      Contributors
+     </strong>
+    </p>
+    <ul class="simple">
+     <li>
+      Nhomar Hernandez &lt;
+      <a class="reference external" href="mailto:nhomar@vauxoo.com">
+       nhomar@vauxoo.com
+      </a>
+      &gt; (Planner/Auditor)
+     </li>
+     <li>
+      Katherine Zaoral &lt;
+      <a class="reference external" href="mailto:kathy@vauxoo.com">
+       kathy@vauxoo.com
+      </a>
+      &gt; (Developer)
+     </li>
+    </ul>
+   </div>
+  </section>
+  <section class="oe_container">
+   <div class="oe_row oe_spaced">
+    <div class="oe_span6">
+     <h2 class="oe_slogan">
+      Do you need help?
+     </h2>
+     <h3 class="oe_slogan">
+      Let's offer you the best services!
+     </h3>
+     <p class="oe_mt32 text-center">
+      Contact us by our official channels.
+     </p>
+     <div class="oe_spaced">
+      <ul class="text-center list-inline">
+       <li>
+        <a href="https://facebook.com/vauxoo" target="_blank">
+         <i class="fa fa-facebook-square fa-xs backgrounds">
+         </i>
+        </a>
+       </li>
+       <li>
+        <a href="https://twitter.com/vauxoo" target="_blank">
+         <i class="fa fa-twitter-square fa-xs backgrounds">
+         </i>
+        </a>
+       </li>
+       <li>
+        <a href="https://www.linkedin.com/company/vauxoo" target="_blank">
+         <i class="fa fa-linkedin-square fa-xs backgrounds">
+         </i>
+        </a>
+       </li>
+       <li>
+        <a data-placement="left" data-toggle="tooltip" href="https://www.vauxoo.com/page/website.contactus" target="_blank" title="Contact us">
+         <i class="fa fa-envelope-square fa-xs backgrounds">
+         </i>
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="oe_span6">
+     <div class="oe_demo oe_picture oe_screenshot">
+      <a href="https://www.vauxoo.com" r="" target="_blank">
+       <img height="auto" src="https://s3.amazonaws.com/s3.vauxoo.com/description_logo.png" width="200"/>
+      </a>
+      <div class="oe_demo_footer oe_centeralign">
+       Meet Us
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+ </body>
+</html>

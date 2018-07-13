@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_sale_register_pending_form" model="ir.ui.view">
+            <field name="name">view.sale.register.pending.form</field>
+            <field name="model">sale.register.pending</field>
+            <field name="arch" type="xml">
+            <form string="Pending Sales Register">
+                <p class="oe_grey">
+                        Define Pending Sales Register
+                    </p>
+                <notebook>
+                    <page string="Dates">
+                        <group>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                        </group>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="wiz_print_report" string="Print" type="object" class="oe_highlight"/> or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_sale_register_pending" model="ir.actions.act_window">
+            <field name="name">Pending Sales Register</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.register.pending</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        
+            
+        <menuitem
+            name="Pending Sales Register"
+            parent="menu_sale_register"
+            action="action_sale_register_pending"
+            id="menu_sale_register_pending"
+            sequence="1"
+            icon="STOCK_PRINT"/>
+            
+       
+
+    </data>
+</openerp>

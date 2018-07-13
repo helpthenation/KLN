@@ -1,0 +1,65 @@
+<openerp>
+	<data>
+		<!-- Form View of Wizard for Invoice Report-->
+		<record id="product_pricelist_form_view" model="ir.ui.view">
+			<field name="name">update.pricelist.form.view</field>
+			<field name="model">update.pricelist</field>
+			<field name="arch" type="xml">
+				<form string="Update Product Pricelist">
+					<header>
+						<button name="update" string="Update Pricelist" type="object" class="oe_button oe_form_button oe_highlight" />
+					</header>
+					<group>
+						<group>						
+						<field name="prod_categ_id" required="1" widget="selection"/>
+						<field name="company_id"  groups="base.group_multi_company" widget="selection"/>
+						</group>
+						<group> <field name="date"/></group>
+					</group>
+                        <notebook>
+                            <page string="Product Lines">
+                                <field name="product_entry_line">
+                                    <tree string="Product Lines" editable="bottom">
+                                        <field name="product_id"  readonly="1"/>
+                                        <field name="uom_id"/>
+                                        <field name="list_price"/>
+                                        <field name="mrp_price"/>
+                                        <field name="discount_price"/>
+                                        <field name="purchase_discount"/>
+                                        <field name="company_id"  groups="base.group_multi_company" widget="selection"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+				</form>
+			</field>
+		</record>
+      <record id="view_product_pricelist_tree" model="ir.ui.view">
+            <field name="name">update.pricelist.tree</field>
+            <field name="model">update.pricelist</field>
+            <field name="arch" type="xml">
+                <tree string="Update Pricelist">
+                    <field name="date"/>
+                    <field name="prod_categ_id"/>
+                 </tree>
+           </field>
+       </record>		
+		<!-- Action of the Invoice Report  -->
+		<record id="action_update_pricelist" model="ir.actions.act_window">
+			<field name="name">Product Pricelist Update</field>
+			<field name="res_model">update.pricelist</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Product Pricelist.
+                </p><p>
+                    Create Product Pricelist.
+                </p>
+            </field>
+        </record>		
+		<menuitem id="product_pricelist_updatess" name="Products Pricelist Update" parent="product.prod_config_main"  action="action_update_pricelist" sequence="90"/>
+		<!-- Menu of Invoice with Payment Details-->
+
+	</data>
+</openerp>

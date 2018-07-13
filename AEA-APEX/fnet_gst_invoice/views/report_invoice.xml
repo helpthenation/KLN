@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="paperformat_gstinvoices" model="report.paperformat">
+            <field name="name">Invoice format</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">78</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">10</field>
+            <field name="dpi">80</field>
+        </record>
+        <record id="fnet_gst_invoice.gst_invoices_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="fnet_gst_invoice.paperformat_gstinvoices"/>
+        </record>  
+        <template id="report_invoice">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o"> 
+                    <style>
+<!--
+                        table.table-bordered > thead > tr > th{
+                                        border:1px solid black; 
+                                    }
+                        table.table-bordered > tbody > tr > td{
+                                        border:1px solid black;
+                                        
+                                    }
+                        table.table-bordered > tfoot > tr > td{
+                                        border:1px solid black;
+                                    }                   
+                        .row{
+                        border: 1px solid black;
+                        border-bottom: 0px solid black;
+                        border-collapse: collapse;
+                        }       
+                        table.table-condensed{
+                        margin-bottom:0px;}
+-->
+
+
+                    #table_chk{font-size:11px;border:1px solid silver;font-family:Inconsolata;width:100%;}
+                    #table_chk tr td {padding:0px;margin:0px;display:inline-table}
+                    #table_chk tr td table tr td {padding:5px;text-align:center}
+                    #table_chk tr td table tr.header {border:1px solid silver;border-right:0px;border-left:0px;background-color:#BDBDBD;}
+                    #table_chk tr td table tr.header td {border-right:1px solid white;font-weight:bold}
+                    #table_chk tr td table tr.header td:last-child {border-right:1px solid silver;font-weight:bold}
+                    #table_chk tr td table tr.body {border:1px solid white;border-right:0px;border-left:0px;}
+                    #table_chk tr td table tr.body td {border-right:1px solid silver;}
+                    #table_chk tr td table tr.body td:last-child {border-right:1px solid white;}
+                    .top-header {text-align:center;font-size:10px}
+                    .top-header div {display:block;font-size:10px}
+                    .image {width:70px;height:30px;vertical-align:middle;border:1px solid blue;}
+                    .dealer {width:60%;height:120px;text-align:left}
+                    .dealer-head div {display:block;text-align:left}
+                    .invoice div{text-align:left}
+                    .invoice p { display:block;height:35px;line-height:35px;text-align:left}        
+                    .profile-about2 {
+                        float: none;
+                        display: table-cell;
+                        vertical-align: bottom;
+                        border:3px solid pink;
+                        margin-top:500px;
+                        }       
+                    </style>        
+                    <t t-set="discount_amount" t-value="[]"/>       
+                    <t t-set="gross_amount" t-value="[]"/>       
+                    <t t-foreach="invoice_line(o)" t-as="val"> 
+                    <div style="margin-left:15px;margin-right:15px;" class="header">
+                        <div style="padding:0px;" class="col-xs-12">
+                            <table  style="width:100%;overflow:auto;margin-bottom:1px;"  cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <div  class="row" style="border:1px solid black;border-bottom:0px;">
+                                            <table cellpadding="0" cellspacing="0"  width="100%">
+                                                <tr>
+                                                    <td  style="vertical-align:middle;" class="text-left" width="10%"><img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" width="100px;" height="50px;" class="image"/></td>
+                                                    <td style="vertical-align:top;padding-right:30px;" width="90%" >
+                                                        <center>
+                                                            <span style="font-size:13px;font-family:Inconsolata;"><b>GST INVOICE</b></span><br/>
+                                                            <span style="font-size:13px;font-family:Inconsolata;text-transform: uppercase;"><b><t t-esc="get_com(o)"/></b></span><br/>
+                                                            <span style="font-size:10px;font-family:Inconsolata;">H.O &amp; Admin Office :LAKSHMI BHAWAN,4th Floor, No.609,Mount Road,</span><br/>
+                                                            <span style="font-size:10px;font-family:Inconsolata;">Chennai - 600 006. Phone : +91 - 44 - 2829 3830, 2829 4030</span>                     
+                                                        </center>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        
+                                        <div style="padding:0px;" class="row" >
+                                            <div style="padding:0px;" class="col-xs-12" >
+                                                <table style="width:100%;font-size:10px;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td width="50%" colspan="2" style="border-top:0px;border:1px solid black;text-align:center;background-color:#BDBDBD;font-weight:bold;"> Consignor</td>
+                                                        <td width="50%" colspan="2" style="border-top:0px;border:1px solid black;text-align:center;background-color:#BDBDBD;font-weight:bold;"> Consignee</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="15%" style="padding-left:3px;border-left:1px solid black;font-size:12px;"><b>GSTIN Number:</b></td>
+                                                        <td width="35%" style="border-right:1px solid black;font-size:12px;"><b><span t-field='o.company_id.gst_number'/></b></td>
+                                                        <td width="15%" style="padding-left:3px;font-size:12px;"><b>GSTIN Number:</b></td>
+                                                        <td width="35%" style="border-right:1px solid black;font-size:12px;"><b><span t-field='o.partner_id.gst_number'/></b></td>
+                                                    </tr>
+                                                    <tr>                                                        
+                                                        <td width="50%" colspan="2" style="border-right:1px solid black;padding-left:3px;font-size:12px;border-left:1px solid black;"><strong><t t-esc="get_com(o)"/></strong></td>
+                                                        
+                                                        <td width="50%" colspan="2" style="border-right:1px solid black;padding-left:3px;font-size:12px;"><strong><span t-field='o.partner_id.name'/></strong>,<span t-field='o.partner_id.mobile'/></td>
+                                                    </tr>
+                                                    <tr>                                                        
+                                                        <td width="50%" colspan="2" style="border-right:1px solid black;padding-left:3px;border-left:1px solid black;">
+                                                            <span t-field='o.company_id.street'/><br/><span t-field='o.company_id.street2'/><br/>
+                                                            <span t-field='o.company_id.city'/>, <span t-field='o.company_id.state_id.name'/>- <span t-field='o.company_id.zip'/>,<br/>Phone :<span t-field='o.company_id.phone'/>
+                                                        </td>
+                                                        
+                                                        <td width="50%" colspan="2" style="border-right:1px solid black;padding-left:3px;">
+                                                            <div><span t-field='o.partner_id.street'/></div>
+                                                            <div><span t-field='o.partner_id.street2'/></div>
+                                                            <div><span t-field='o.partner_id.city'/>,<span t-field='o.partner_id.district_id.name'/></div>
+                                                            <div><span t-field='o.partner_id.state_id.name'/>-<span t-field='o.partner_id.zip'/></div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="15%" style="padding-left:3px;border-left:1px solid black;">State Code:</td>
+                                                        <td width="35%"  style="border-right:1px solid black;"><span t-field='o.company_id.state_id.code'/></td>
+                                                        <td width="15%" style="padding-left:3px;">State Code:</td>
+                                                        <td width="35%" style="border-right:1px solid black;"><span t-field='o.partner_id.state_id.code'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="15%" style="padding-left:3px;border-left:1px solid black;border-bottom:1px solid black;">State:</td>
+                                                        <td width="35%" style="border-right:1px solid black;border-bottom:1px solid black;"><span t-field='o.company_id.state_id.name'/></td>
+                                                        <td width="15%" style="padding-left:3px;border-bottom:1px solid black;">State:</td>
+                                                        <td width="35%" style="border-right:1px solid black;border-bottom:1px solid black;"><span t-field='o.partner_id.state_id.name'/></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>      
+                                        <div style="padding:0px;" class="row">
+                                            <div style="padding:0px;border-left:1px solid black;border-bottom:1px solid black;" class="col-xs-12">
+                                                <table style="width:100%;font-size:10px;" cellpadding="0" cellspacing="0">
+                                                    <tr>                                                        
+                                                        <td width="19%" style="padding-left:3px;">Despatch Through</td>
+                                                        <td width="1%" style="padding-left:3px;">:</td>
+                                                        <td width="30%"><span t-field='o.del_method'/></td>
+                                                        <td width="19%" style="padding-left:3px;font-size:12px;">Invoice Number</td>
+                                                        <td width="1%" style="padding-left:3px;font-size:12px;">:</td>
+                                                        <td width="30%" style="border-right: 1px solid black;font-size:12px;"><b><span t-field='o.number'/></b></td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="10%" style="padding-left:3px;">TPT.Co.Name</td>
+                                                        <td width="1%" style="padding-left:3px;">:</td>
+                                                        <td width="38%"><span t-field='o.tpt_name.name'/></td>                                                      
+                                                        <td width="19%" style="padding-left:3px;font-size:12px;">Invoice Date</td>
+                                                        <td width="1%" style="padding-left:3px;font-size:12px;">:</td>
+                                                        <td width="30%" style="border-right: 1px solid black;font-size:12px;"><b><span t-field='o.date_invoice'/></b></td>
+
+                                                    </tr>       
+                                                    <tr>
+                                                        <td width="20%" style="padding-left:3px;">Destination</td>
+                                                        <td width="1%" style="padding-left:3px;">:</td>
+                                                        <td width="30%"><span t-field='o.partner_id.city'/></td>
+                                                        <td width="19%" style="padding-left:3px;font-size:12px;">Eway Bill No</td>
+                                                        <td width="1%" style="padding-left:3px;font-size:12px;">:</td>
+                                                        <td width="30%" style="border-right: 1px solid black;font-size:12px;"><b></b></td>
+                                                        
+                                                    </tr>                           
+                                                </table>
+                                            </div>
+                                        </div>                              
+                                    </td>
+                                </tr> 
+                                                      
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="page">                       
+                        
+                            <div  style="padding:0px;width:100%;float:left;margin-top:200px;height:600px;border:1px solid black;display: table;"> 
+                                <table cellpadding="0" cellspacing="0" width="100%" style="font-size:12px;border:0px;height:580px;vertical-align:top;">
+                                    <thead>
+                                            <tr>
+                                                <td style="padding:5px;text-align:center;font-size:10px;background-color:#BDBDBD;" width="1%"><b><br/>Sl.No.</b></td>
+                                                <td  style="padding:5px;text-align:center;font-size:10px;background-color:#BDBDBD;" width="9%"><b><br/>HSN No</b></td>
+                                                <td  style="padding:5px;text-align:center;font-size:10px;background-color:#BDBDBD;" width="30%"><b><br/>PRODUCT DESCRIPTION</b></td>
+                                                <td  style="padding:5px;text-align:center;font-size:10px;background-color:#BDBDBD;" width="10%"><b>SALE QTY. IN PCS</b></td>
+                                                <td  style="padding:5px;text-align:center;font-size:10px;background-color:#BDBDBD;" width="5%"><b>RATE <br/> PER <br/>PCS</b></td>
+                                                <td  style="padding:5px;text-align:center;font-size:10px;background-color:#BDBDBD;" width="5%"><b>TRADER DISCOUNT PER <br/> PCS</b></td>
+                                                <td  style="padding:5px;text-align:center;font-size:10px;background-color:#BDBDBD;" width="5%"><b>NO. OF CASES</b></td>
+                                                <td  style="padding:5px;text-align:center;font-size:10px;background-color:#BDBDBD;" width="5%"><b>MRP <br/> PER <br/>PCS</b></td>
+                                                <td  style="padding:5px;text-align:center;font-size:10px;background-color:#BDBDBD;" width="10%"><b>GROSS AMOUNT RS</b></td>
+                                                <td  style="padding:5px;text-align:center;font-size:10px;background-color:#BDBDBD;" width="10%"><b>TOTAL TRADE DISCOUNT RS</b></td>
+                                                <td   style="padding:5px;text-align:center;font-size:10px;background-color:#BDBDBD;" width="10%"><b>NET AMOUNT RS </b></td>
+                                            </tr>                                   
+                                    </thead>
+                                    <tbody style="padding:0px;width:100%;height:100%" >                                         
+                                        <tr  t-foreach="get_invoice_tn_obj(val,o)" t-as="inv_line">
+                                                <td style="padding:5px;border-right:1px solid black;vertical-align:top !important;" width="5%">
+                                                    <span t-esc="inv_line['serial_no']"/>
+                                                </td>
+                                                <td style="padding:5px;border-left:1px solid black;border-right:1px solid black;vertical-align:top !important;" width="10%">
+                                                    <span t-esc="inv_line['hsn']"/>
+                                                </td>
+                                                <td width="30%" style="border-right:1px solid black;text-align:left;border-bottom: 0px;padding:2px;vertical-align:top !important;">
+                                                    <span t-esc="inv_line['prod']"/>
+                                                </td>
+                                                <td style="border-right:1px solid black;border-bottom: 0px;padding:5px;text-align:right;border-left:1px solid black;vertical-align:top !important;" width="5%">
+                                                    <span t-esc="int(inv_line['qty'])"/>
+                                                </td>
+                                                <td width="5%" style="border-right:1px solid black;text-align:right;border-bottom: 0px;padding:5px;vertical-align:top !important;">
+                                                    <span t-esc="'{:,.2f}'.format(inv_line['rate'])"/>
+                                                </td>
+                                                <td width="5%" style="border-right:1px solid black;text-align:right;border-bottom: 0px;padding:5px;vertical-align:top !important;">
+                                                    <span t-esc="'{:,.2f}'.format(inv_line['uom'])"/>
+                                                </td>
+                                                <td width="5%" style="border-right:1px solid black;text-align:right;border-bottom: 0px;padding:5px;vertical-align:top !important;">
+                                                    <span t-esc="'{:,.2f}'.format(inv_line['case_qty'])"/>
+                                                </td>
+                                                <td width="10%" style="border-right:1px solid black;text-align:right;border-bottom: 0px;padding:5px;vertical-align:top !important;">
+                                                     <span t-esc="'{:,.2f}'.format(inv_line['mrp'])"/>
+                                                </td>
+                                                 <td width="10%" style="border-right:1px solid black;text-align:right;border-bottom: 0px;padding:5px;vertical-align:top !important;">
+                                                    <span t-esc="'{:,.2f}'.format(inv_line['gross'])"/>
+                                                    <t t-set="gross_amount" t-value="gross_amount+[inv_line['gross']]"/>
+                                                </td>     
+                                                <td width="5%" style="border-right:1px solid black;text-align:right;border-bottom: 0px;padding:5px;vertical-align:top !important;">
+                                                    <span t-esc="'{:,.2f}'.format(inv_line['prod_discount'])"/>
+                                                    <t t-set="discount_amount" t-value="discount_amount+[inv_line['prod_discount']]"/>
+                                                </td>                                   
+                                                <td width="10%" style="border-right:1px solid black;text-align:right;border-bottom: 0px;padding:5px;vertical-align:top !important">
+                                                    <span t-esc="'{:,.2f}'.format(inv_line['value'])"/>
+                                                </td>                                   
+                                            </tr>
+                                            <tr>
+                                                <td height="100%" style="border-right:1px solid black;" width="5%"></td>
+                                                <td height="100%" style="border-right:1px solid black;"  width="10%"></td>
+                                                <td height="100%" style="border-right:1px solid black;" width="30%"></td>
+                                                <td height="100%" style="border-right:1px solid black;" width="5%"></td>
+                                                <td height="100%" style="border-right:1px solid black;" width="10%"></td>
+                                                <td height="100%" style="border-right:1px solid black;" width="10%"></td>
+                                                <td height="100%" style="border-right:1px solid black;" width="5%"></td>
+                                                <td height="100%" style="border-right:1px solid black;" width="10%"></td>
+                                                <td height="100%" style="border-right:1px solid black;"  width="5%"></td>
+                                                <td height="100%" style="border-right:1px solid black;" width="10%"></td>
+                                            </tr>
+                                            </tbody>    
+                                </table>        
+                                <div  style="padding:0px;width:100%;float:left;border:1px solid red;float: none;display: table-footer-group;vertical-align: bottom;">
+                                    <table class="align-bottom" style="padding:5px;text-align:center;font-size:10px;border:1px solid black;border-bottom:0px;width:100%;">
+                                            <tr>
+                                                <td  style="padding-left:3px;width:10%;font-family:courier-new;font-size: 12px;text-align:left;">Wt of Kgs: </td>
+                                                <td  style="width:10%;font-family:courier-new;font-size: 12px;padding-left:5px;border-right:1px solid black;">
+                                                    <t t-if="get_amount(val,o) == 'Continued..'">
+                                                    <span style="font-family:courier-new;font-size: 10px;"><b>Continued..</b></span>
+                                                    </t>
+                                                    <t t-if="get_amount(val,o) != 'Continued..'">
+                                                    <b><span style="font-family:courier-new;font-size: 12px;" t-esc="'{:,.2f}'.format(get_weight(o))"/></b>
+                                                    </t>
+                                                     </td>
+                                                <td  style="padding-left:3px;width:15%;font-family:courier-new;font-size: 12px;text-align:left;">No Of Cases: </td>                                      
+                                                <td  style="width:5%;font-family:courier-new;font-size: 12px;padding-left:5px;border-right:1px solid black;">
+                                                    <t t-if="get_amount(val,o) == 'Continued..'">
+                                                    <span style="font-family:courier-new;font-size: 10px;"><b>Continued..</b></span>
+                                                    </t>
+                                                    <t t-if="get_amount(val,o) != 'Continued..'">
+                                                    <b><span style="font-family:courier-new;font-size: 12px;" t-esc="'{:,.2f}'.format(get_csh(o))"/></b>
+                                                    </t>
+                                                     </td>          
+                                                 <td  style="width:15%;font-family:courier-new;font-size: 12px;text-align:right;">Gross Amount: </td>                                      
+                                                <td  style="width:10%;font-family:courier-new;font-size: 12px;padding-left:5px;border-right:1px solid black;">
+                                                    <t t-if="get_amount(val,o) == 'Continued..'">
+                                                    <span style="font-family:courier-new;font-size: 10px;"><b>Continued..</b></span>
+                                                    </t>
+                                                    <t t-if="get_amount(val,o) != 'Continued..'">
+                                                    <b><span style="font-family:courier-new;font-size: 12px;" t-esc="'{:,.2f}'.format(sum(gross_amount))"/></b>
+                                                    </t>
+                                                     </td>                                                       
+                                                <td  style="width:20%;font-family:courier-new;font-size: 12px;text-align:right;">Total Trade Discount: </td>                                      
+                                                <td  style="width:5%;font-family:courier-new;font-size: 12px;padding-left:5px;border-right:1px solid black;">
+                                                    <t t-if="get_amount(val,o) == 'Continued..'">
+                                                    <span style="font-family:courier-new;font-size: 10px;"><b>Continued..</b></span>
+                                                    </t>
+                                                    <t t-if="get_amount(val,o) != 'Continued..'">
+                                                    <b><span style="font-family:courier-new;font-size: 12px;" t-esc="'{:,.2f}'.format(sum(discount_amount))"/></b>
+                                                    </t>
+                                                     </td>      
+                                                                                 
+                                                <td  style="width:15%;text-align:right;font-family:courier-new;font-size: 12px;">Total:</td>
+                                                <td  style="width:10%;font-family:courier-new;font-size: 12px;padding-left:5px;"><b><span t-esc="get_amount(val,o)"/></b></td>
+                                            </tr>
+                                    </table>    
+                                </div>          
+                        </div>                          
+                                    
+                    </div>
+                                
+                    <div class="footer">
+                        <table style="width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="width:100%;">
+                                    <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td width="65%" style="border:1px solid black;font-size:12px;font-family:courier-new;">
+                                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <t t-if="payment(o) == False">
+                                                        <td colspan='3' width="100%" style="text-align:left;font-size:10px;padding-left:5px;">Payment due date for this Invoice : <span t-field='o.date_due'/></td>
+                                                       </t>
+                                                       <t t-if="payment(o) == True">
+                                                        <td colspan='3' width="100%" style="text-align:left;font-size:10px;padding-left:5px;"><br/></td>
+                                                       </t>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan='3' width="100%" style="text-align:left;font-size:10px;padding-left:5px;border-bottom:1px solid black"><span>Whether the tax is payable on reverse charges basis:Yes / No :  No </span></td></tr>
+                                                    <tr>
+                                                        <td colspan='3' width="100%" style="font-family:courier-new;text-align:left;font-size:11px;padding-left:3px;padding-top:50px;">
+                                                            Amount in Words:
+                                                            <t t-if="get_amount(val,o) == 'Continued..'">
+<!--
+                                                                Continued..
+-->
+                                                            </t>
+                                                            <t t-if="get_amount(val,o) != 'Continued..'">
+                                                            <b><span style="font-family:courier-new;padding-left:3px" t-esc="numtowords(o)"/></b>
+                                                            </t>
+                                                            </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td width="35%" style="border:1px solid black;">
+                                                <table style="width:100%;font-size:12px;" cellpadding="0" cellspacing="0">
+                                                    <t t-if="o.round_amount != 0.0">
+                                                    <tr>
+                                                        <td width="35%" style="text-align:left;padding-left:5px;">Round Off</td>
+                                                        <td width="1%">:</td>
+                                                        <td width="64%" style="text-align:right;padding-left:5px;">
+                                                            <t t-if="get_amount(val,o) == 'Continued..'">
+<!--
+                                                                continued..
+-->
+                                                            </t>
+                                                            <t t-if="get_amount(val,o) != 'Continued..'">
+                                                                <t t-esc="'{0:,.2f}'.format(o.round_amount)"/>
+                                                            </t>
+                                                            </td>
+                                                    </tr> 	
+                                                    </t>												
+                                                    <tr>
+                                                        <td width="35%" style="text-align:left;padding-left:5px;">Discount @ <span t-esc="o.company_id.discount_value"/> <span>&#37;</span> </td>
+                                                        <td width="1%">:</td>
+                                                        <td width="64%" style="text-align:right;padding-left:5px;">
+                                                            <t t-if="get_amount(val,o) == 'Continued..'">
+<!--
+                                                                continued..
+-->
+                                                            </t>
+                                                            <t t-if="get_amount(val,o) != 'Continued..'">
+                                                                <t t-esc="'{0:,.2f}'.format(dis_amt(o))"/>
+                                                            </t>
+                                                            </td>
+                                                    </tr>                                                  
+                                                    <tr>
+                                                        <td width="35%" style="text-align:left;padding-left:5px;">Taxable Value</td>
+                                                        <td width="1%">:</td>
+                                                        <td width="64%"  style="text-align:right;padding-left:5px;">
+                                                        <t t-if="get_amount(val,o) == 'Continued..'">
+
+<!--
+                                                                continued..
+-->
+
+                                                            </t>
+                                                            <t t-if="get_amount(val,o) != 'Continued..'">
+                                                                <span t-esc="'{:,.2f}'.format(untaxed_dis_amount(o))"/>
+                                                            </t>
+                                                    </td>
+                                                    </tr>                                                   
+                                                   <t  t-foreach="tax_name(o)" t-as="c">
+                                                        <tr>
+                                                            <td width="55%" style="text-align:left;padding-left:5px;"><t t-esc="c['name']"/></td>
+                                                            <td width="1%">:</td>
+                                                            <td width="44%" style="text-align:right;padding-left:5px;">
+                                                                <t t-if="get_amount(val,o) == 'Continued..'">
+<!--
+                                                                       Continued..
+-->
+                                                                </t>
+                                                                <t t-if="get_amount(val,o) != 'Continued..'">
+                                                                    <t t-esc="'{0:,.2f}'.format(c['amount'])"/>
+                                                                </t>
+                                                                </td>
+                                                        </tr>                                                                                
+                                                    </t>
+
+
+                                                    <tr>
+                                                        <td width="35%" style="text-align:left;border-top:1px solid black;padding-left:5px;font-size:12px;">Net Amount</td>
+                                                        <td style="border-top:1px solid black;" width="1%">:</td>
+<!--
+                                                        <span t-esc="'{:,.2f}'.format(o.amount_total)"/>
+-->
+                                                        <td width="64%" style="text-align:right;border-top:1px solid black;font-size:12px;padding-left:5px;">
+                                                        <t t-if="get_amount(val,o) == 'Continued..'">
+<!--
+                                                                continued..
+-->
+                                                            </t>
+                                                            <t t-if="get_amount(val,o) != 'Continued..'">
+                                                                <b><span t-esc="CommaInIndiaFormat(o,o.amount_total)"/></b>
+                                                            </t>                                                            
+                                                            </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+									<table style="width:100%;padding:0px;" >    
+										<tr>
+										<td style="text-align:center;border-left:1px solid black;border-bottom:1px solid black;padding-left:5px;font-size:12px;"><b>S.No</b></td>
+										<td style="text-align:center;border-left:1px solid black;border-bottom:1px solid black;padding-left:5px;font-size:12px;"><b>HSN Code</b></td>
+										<td style="text-align:center;border-left:1px solid black;border-bottom:1px solid black;padding-left:5px;font-size:12px;"><b>Taxable Value</b></td>
+										<td style="text-align:center;border-left:1px solid black;border-bottom:1px solid black;padding-left:5px;font-size:12px;"><b>%</b></td>
+										<td style="text-align:center;border-left:1px solid black;border-bottom:1px solid black;padding-left:5px;font-size:12px;"><b>CGST</b></td>
+										<td style="text-align:center;border-left:1px solid black;border-bottom:1px solid black;padding-left:5px;font-size:12px;"><b>SGST</b></td>
+										<td style="text-align:center;border-left:1px solid black;border-bottom:1px solid black;padding-left:5px;font-size:12px;"><b>IGST</b></td>
+										<td style="text-align:center;border-left:1px solid black;border-bottom:1px solid black;border-right:1px solid black;padding-left:5px;font-size:12px;"><b>Tax Total</b></td>
+										</tr>                          
+								  <t t-set="counter" t-value="1"/>
+									<tr t-foreach="tax_breakup(o)" t-as="t">
+									<td style="text-align:center;border-left:1px solid black;padding-left:5px;font-size:12px;"><t t-esc="counter"/><t t-set="counter" t-value="counter+1"/></td>
+									<td style="text-align:center;border-left:1px solid black;padding-right:5px;font-size:12px;"><t t-esc="t['hsn']"/> </td>
+									<td style="text-align:right;border-left:1px solid black;padding-right:5px;font-size:12px;"><t t-esc="'{:,.2f}'.format(t['amount'])"/></td>
+									<td style="text-align:right;border-left:1px solid black;padding-right:5px;font-size:12px;"><t t-esc="t['percentage']"/></td>
+									<td style="text-align:right;border-left:1px solid black;padding-right:5px;font-size:12px;"><t t-esc="'{:,.2f}'.format(t['cgst'])"/></td>
+									<td style="text-align:right;border-left:1px solid black;padding-right:5px;font-size:12px;"><t t-esc="'{:,.2f}'.format(t['sgst'])"/></td>
+									<td style="text-align:right;border-left:1px solid black;padding-right:5px;font-size:12px;"><t t-esc="'{:,.2f}'.format(t['igst'])"/></td>
+									<td style="text-align:right;border-left:1px solid black;border-right:1px solid black;padding-right:5px;font-size:12px;"><t t-esc="'{:,.2f}'.format(t['total'])"/></td>
+									</tr>
+									</table>
+                                </td></tr>
+                            <tr >
+                              <td style="width:100%;" >
+                                      <table style="width:100%;" >
+                                        <tr>
+                                            <td style="width:70%;border-top:1px solid black;border-left:1px solid black;font-size:10px;padding-left:5px;text-transform: uppercase;" >
+                                            <b>ALL DISPUTES ARE SUBJECT TO JURICTION OF  <span style="padding-right:5px;"  t-esc='o.company_id.city'/> COURT</b>
+                                            </td>
+                                            <td style="width:30%;border:1px solid black;font-size:10px;border-top:1px solid black;padding-left:3px;"><center><b>For <span t-esc="get_com(o)"/></b></center></td>
+                                        </tr>
+                                        <tr>
+                                        <td style="width:70%;text-align:justify;border:1px solid black;padding:5px;font-size:10px;" >
+                                        <b>Certified that the particulars given above are true and correct and the amount  indicated represents the prices actually charged and that there is no flow of additional consideration directly or indirectly from the buyers</b>
+                                        </td>   
+                                        <td style="vertical-align:bottom;width:30%;border:1px solid black;padding-top:40px;text-align:center;font-size:10px;"><center><b>Authorised Signatory</b></center></td>
+                                        </tr>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                                <td style="width:100%;border-left:1px solid black;border-right:1px solid black;border-bottom:1px solid black;font-size:10px;padding-left:3px;"> 
+                                 <t t-if="o.company_id.com_type == 'ob' ">
+                                     <div style="text-align:center;display:block;font-size:10px;padding:0px;"><b>Branch Office:</b><span>Plot No. 368 and 369, Unit II</span>,<span>Khetrajpur, Gapalpali Chowk, NH- 6</span>,<span>Remed Post, Sambalpur Dt</span>,<span>Odisha - 768 006</span>.<span>Phone : 0663 -2545001</span></div>
+                                 </t>
+                                 <t t-if="o.company_id.com_type =='os' ">
+                                     <div style="text-align:center;display:block;font-size:10px;padding:0px;"><b>Branch Office:</b><span>Root Plot No. 112, Sub Plot No.2,</span><span>Khata No.615, Mouza - Lingipur</span>,<span>Nalco Colony Sishpalgarh Post, Khuurdha Dt, Bhubaneswar </span></div>
+                                      <div style="text-align:center;display:block"><span>Odisha - 751 002</span>.<span>Phone : 0663 -2545001</span></div>
+                                </t>     
+                                 <t t-if="o.company_id.com_type != 'ob' and o.company_id.com_type != 'os' ">
+                                     <b>Branch Office:</b>
+                                     </t>
+                                </td>
+                            </tr>
+                        </table>    
+                    </div>          
+                    </t>                
+                </t>
+            </t>    
+        </template>
+    </data>
+</openerp>

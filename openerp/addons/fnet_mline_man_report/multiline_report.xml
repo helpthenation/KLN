@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+           
+        <report
+            id="manpower_quote_report"
+            model="crm.lead"
+            string="Download Enquiry Quote"
+            report_type="qweb-pdf"
+            name="fnet_mline_man_report.report_manpowerquote" 
+            file="fnet_mline_man_report.report_manpowerquote"
+            menu="True"/>
+            
+        <report
+            id="manpower_quote_report_preview"
+            model="crm.lead"
+            string="Preview Enquiry Quote"
+            report_type="qweb-html"
+            name="fnet_mline_man_report.report_manpowerquote_preview" 
+            file="fnet_mline_man_report.report_manpowerquote_preview"
+            menu="True"/>            
+            
+        <report
+            id="man_quote_report"
+            model="sale.order"
+            string="Commercial Quote"
+            report_type="qweb-pdf"
+            name="fnet_mline_man_report.report_quote" 
+            file="fnet_mline_man_report.report_quote"
+            menu="True"/>
+            
+        <report
+            id="technical_quote_report"
+            model="sale.order"
+            string="Technical Quote"
+            report_type="qweb-pdf"
+            name="fnet_mline_man_report.report_technical_quote" 
+            file="fnet_mline_man_report.report_technical_quote"
+            menu="True"/>
+            
+        <report
+            id="payslip_report"
+            model="mline.payroll"
+            string="Payslip"
+            report_type="qweb-pdf"
+            name="fnet_mline_man_report.report_payslip" 
+            file="fnet_mline_man_report.report_payslip"
+            menu="True"/>
+            
+        <report
+            id="invoice_report"
+            model="account.invoice"
+            string="Manpower Invoice"
+            report_type="qweb-pdf"
+            name="fnet_mline_man_report.report_invoice" 
+            file="fnet_mline_man_report.report_invoice"
+            menu="True"/>
+            
+      
+    </data>
+</openerp>

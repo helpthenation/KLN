@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="seq_type_customer_ids" model="ir.sequence.type">
+            <field name="name">Customer ID</field>
+            <field name="code">res.partner.customers</field>
+        </record>
+
+        <function model="res.partner" name="_updating_customer_sequence"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="1">		
+        <!-- Casual leave -->
+        <record model="hr.holidays.status" id="hr_holidays.holiday_status_cl">
+            <field name="name">Medical Leave</field>
+            <field name="code">ML</field>
+            <field name="color_name">black</field>
+        </record>
+
+        <record model="hr.holidays.status" id="holiday_status_mal">
+            <field name="name">Maternity Leave</field>
+            <field name="code">MAL</field>
+            <field name="color_name">black</field>
+        </record>
+ 
+         <record model="hr.holidays.status" id="hr_holidays.holiday_status_vl">
+            <field name="name">Vacation Leave</field>
+            <field name="code">VL</field>
+            <field name="color_name">black</field>
+        </record>
+               
+        <!-- Sick leave -->
+        <record model="hr.holidays.status" id="hr_holidays.holiday_status_sl">
+            <field name="name">Stay Days</field>
+            <field name="code">SL</field>
+            <field name="limit">True</field>
+            <field name="color_name">red</field>
+        </record>
+
+        <!-- Compensatory Days -->
+        <record model="hr.holidays.status" id="hr_holidays.holiday_status_comp">
+            <field name="name">Long Vacation Leave</field>
+            <field name="code">LVL</field>
+            <field name="limit">True</field>
+            <field name="color_name">lavender</field>
+        </record>
+
+        <!--Unpaid Leave -->
+        <record model="hr.holidays.status" id="hr_holidays.holiday_status_unpaid">
+            <field name="name">Absent</field>
+            <field name="code">UL</field>
+            <field name="limit">True</field>
+            <field name="color_name">brown</field>
+        </record>
+
+
+    </data>
+</openerp>

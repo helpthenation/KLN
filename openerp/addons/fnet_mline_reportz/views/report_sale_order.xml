@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="report_saleorder">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="fnet_mline_reportz.header_wizards"/>
+                <div class="page">
+					<style type="text/css">
+                     .table_order, td {
+                       border: 1px solid black;
+                     }
+                     .table_order1, td, th {
+                       border: 1px solid black;
+                     }
+                     .table_right, td {
+                       border: 1px solid black;
+                     }
+                     .table_order {
+                       width: 100%;
+                     }
+                     .table_right {
+                       width: 40%;
+                     }
+                     .table_order1 {
+                       width: 100%;
+                     }
+                     .oblique {
+                       font-style: oblique;
+                       }
+
+                   </style>
+                   <br/>
+                    <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo"/>
+					<h5><left>Date: <span t-field="o.date_order" t-field-options='{"format": "d.M.Y"}'/></left></h5>
+                   <h2><center><strong>SALE ORDER</strong></center></h2>
+				 <div class="oe_structure"/>
+                         <div class="row">
+							
+                             <div class="col-xs-4">
+                                <h3><strong t-if="o.partner_shipping_id == o.partner_invoice_id">Invoice and shipping address:</strong></h3>
+                                <h3><strong t-if="o.partner_shipping_id != o.partner_invoice_id">Invoice address:</strong></h3>
+                                <div t-field="o.partner_invoice_id" 
+                                     t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}'/>
+                                <p t-if="o.partner_id.vat">VAT: <span t-field="o.partner_id.vat"/></p>
+                             </div>
+                             <div t-if="o.partner_shipping_id != o.partner_invoice_id" class="col-xs-4">
+                                <h3><strong>Shipping address:</strong></h3>
+                                <div t-field="o.partner_shipping_id" 
+                                     t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}'/>
+                                <p t-if="o.partner_id.vat">VAT: <span t-field="o.partner_id.vat"/></p>
+                             </div>                        
+                             <div class="col-xs-4">
+	                            <h3><strong>Customer:</strong></h3>
+                                <div t-field="o.partner_id"
+                                     t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}' />
+                                </div>
+                         </div>
+                         <br />
+                     <table class="table table_order">
+						<thead>
+                         <tr>
+                            <td width="20%"><strong>Reference</strong></td>
+                            <td width="30%"><span t-field="o.name"/></td>
+                            <td width="20%"><strong>Date</strong></td>
+                            <td width="30%"><span t-field="o.date_order" t-field-options='{"format": "d.M.Y"}'/></td>
+                        </tr>
+                        </thead>
+                        <tr>
+                            <td><strong>Enquiry</strong></td>
+                            <td><span t-field="o.lead_id.seq_no"/></td>
+                            <td><strong>Payment Term</strong></td>
+                            <td><span t-field="o.payment_term"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Customer Request</strong></td>
+                            <td><span t-field="o.client_order_ref"/></td>
+                            <td><strong>Shipping Type</strong></td>
+                            <td><span t-field="o.picking_policy"/></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    
+                    <table class="table table_order1">
+						<thead>
+                            <tr>
+                                <th class="text-center">S.No</th>
+                                <th class="text-center">Product</th>
+                                <th class="text-center">Quantity</th>
+                                <th width="20%" class="text-center">Unit Price</th>
+                                <th width="20%" class="text-center">Line Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+							<t t-set="counter" t-value="1"/>
+                            <tr t-foreach="o.order_line" t-as="l">
+                                    <td class="text-center">
+<!--
+                                  <span t-esc="get_inc_no(value)"/>
+-->
+                                       <span t-esc="counter"/>
+                                       <t t-set="counter" t-value="counter+1"/>
+                                    </td>
+                                    <td width="40%"><span t-field="l.product_id.name_template"/></td>
+                                    <td width="15%" class="text-right"><span t-field="l.product_uom_qty"/></td>
+                                    <td width="20%" class="text-right"><span t-field="l.price_unit"/></td>
+                                    <td width="20%" class="text-right"><span t-field="l.price_subtotal"/></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+						    <tr>
+							    <td colspan="4" class="text-right" width="20%"><strong>Sub Total</strong></td>
+                                <td width="20%" class="text-right"><span t-field="o.amount_untaxed"/></td>
+                            </tr>
+						    <tr>
+							    <td colspan="4" class="text-right" width="20%"><strong>Net Total</strong></td>
+                                <td width="20%" class="text-right"><span t-field="o.amount_total"/></td>
+                            </tr>
+                        </tfoot>
+
+					</table>
+<!--
+					<table align="right" class="table table_right">
+						<tr>
+							<td width="20%"><strong>Sub Total</strong></td>
+                            <td width="20%" class="text-right"><span t-field="o.amount_untaxed"/></td>
+                        </tr>
+						<tr>
+							<td width="20%"><strong>Net Total</strong></td>
+                            <td width="20%" class="text-right"><span t-field="o.amount_total"/></td>
+                        </tr>
+					</table>
+-->
+					
+                </div>
+            </t>
+    </t>
+</template>
+</data>
+</openerp>

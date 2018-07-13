@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+<!--
+        <report
+            id="sale_order_report"
+            model="sale.order"
+            string="Sale Order"
+            report_type="qweb-pdf"
+            name="fnet_mline_reportz.report_saleorder" 
+            file="fnet_mline_reportz.report_saleorder"
+            menu="True"/>
+-->
+            
+        <report
+            id="sale_quote_report"
+            model="sale.order"
+            string="Commercial Quote"
+            report_type="qweb-pdf"
+            name="fnet_mline_reportz.report_salequote" 
+            file="fnet_mline_reportz.report_salequote"
+            menu="True"/>
+            
+        <report
+            id="sale_tech_report"
+            model="sale.order"
+            string="Technical Quote"
+            report_type="qweb-pdf"
+            name="fnet_mline_reportz.report_techquote" 
+            file="fnet_mline_reportz.report_techquote"
+            menu="True"/>
+            
+        <report
+            id="purchase_quote_report"
+            model="purchase.order"
+            string="Quotation"
+            report_type="qweb-pdf"
+            name="fnet_mline_reportz.report_purchasequote" 
+            file="fnet_mline_reportz.report_purchasequote"
+            menu="True"/>
+            
+        <report
+            id="purchase_order_report"
+            model="purchase.order"
+            string="Purchase Order"
+            report_type="qweb-pdf"
+            name="fnet_mline_reportz.report_purchaseorder" 
+            file="fnet_mline_reportz.report_purchaseorder"
+            menu="True"/>
+                       
+            
+        <report
+            id="covering_letter_report"
+            model="sale.order"
+            string="Covering Letter"
+            report_type="qweb-pdf"
+            name="fnet_mline_reportz.report_coveringletter" 
+            file="fnet_mline_reportz.report_coveringletter"
+            menu="True"/>
+            
+            <report
+            id="invoice_report"
+            model="account.invoice"
+            string="Mline Invoice"
+            report_type="qweb-pdf"
+            name="fnet_mline_reportz.report_invoice" 
+            file="fnet_mline_reportz.report_invoice"
+            menu="True"/>
+            
+         <report
+            id="purchase_order_report_buluff"
+            model="purchase.order"
+            string="Buluff PO Order"
+            report_type="qweb-pdf"
+            name="fnet_mline_reportz.report_po_buluff" 
+            file="fnet_mline_reportz.report_po_buluff"
+            menu="True"/> 
+            
+         <report
+            id="purchase_quote_report_buluff"
+            model="purchase.order"
+            string="Bulluff RFQ"
+            report_type="qweb-pdf"
+            name="fnet_mline_reportz.report_po_quote_buluff" 
+            file="fnet_mline_reportz.report_po_quote_buluff"
+            menu="True"/>
+            
+         <report
+            id="costing_report"
+            model="purchase.order"
+            string="Costing Report"
+            report_type="qweb-pdf"
+            name="fnet_mline_reportz.report_costing" 
+            file="fnet_mline_reportz.report_costing"
+            menu="True"/>  
+            
+         <report
+            id="sale_quote_report_buluff"
+            model="sale.order"
+            string="Bulluff Sale Quote"
+            report_type="qweb-pdf"
+            name="fnet_mline_reportz.report_so_quote_buluff" 
+            file="fnet_mline_reportz.report_so_quote_buluff"
+            menu="True"/> 
+            
+         <report
+            id="account_bank_voucher"
+            model="account.move"
+            string="Bank Payment Voucher"
+            report_type="qweb-pdf"
+            name="fnet_mline_reportz.report_bank_voucher" 
+            file="fnet_mline_reportz.report_bank_voucher"
+            menu="True"/>
+            
+         <report
+            id="account_bank_voucher_customer"
+            model="account.voucher"
+            string="Bank Payment Voucher"
+            report_type="qweb-pdf"
+            name="fnet_mline_reportz.report_bank_voucher_reciept" 
+            file="fnet_mline_reportz.report_bank_voucher_reciept"
+            menu="True"/>
+            
+         <report
+            id="account_cheque"
+            model="account.move"
+            string="Cheque"
+            report_type="qweb-pdf"
+            name="fnet_mline_reportz.check_writing" 
+            file="fnet_mline_reportz.check_writing"
+            menu="True"/>
+            
+         <report
+            id="account_reciept_voucher"
+            model="account.voucher"
+            string="Reciept Voucher"
+            report_type="qweb-pdf"
+            name="fnet_mline_reportz.report_reciept_voucher" 
+            file="fnet_mline_reportz.report_reciept_voucher"
+            menu="True"/>                                         
+                      
+            
+    </data>
+</openerp>

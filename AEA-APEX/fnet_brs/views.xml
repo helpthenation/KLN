@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+     <record id="view_daywise_brs_statement_form" model="ir.ui.view">
+            <field name="name">view.daywise.brs.statement.form</field>
+            <field name="model">daywise.brs</field>
+            <field name="arch" type="xml">
+                <form string="Day Wise BRS">
+                        <group>
+                            <group col="4">
+                                <field name="unreconcile_balance"/>
+                                <field name="date"/>
+                                <field name="debit"/>
+                                <field name="credit"/>  
+                                <field name="unreconcile_debit"/>                                
+                                <field name="opening_balance"/>
+                                <field name="unreconcile_credit"/>
+                            </group>
+                        </group>
+						<notebook>
+						<page name="daywise_statement_line" string="Entry Line">
+						  <field name="daywise_statement_line" widget="one2many_list">
+						 <tree create="false" editable='bottom'>
+							 <field name="company_id"/> 							 
+							 <field name="move_id" invisible='1'/> 
+							 <field name="date" readonly="1"/>							 
+							 <field name="cheque" readonly="1"/>
+							 <field name="balance" readonly="1"/>
+							 <field name="credit" readonly="1"/>
+							 <field name="reconcile" />
+							 <field name="reconsile_date"/>
+						  </tree>
+						 <form string="Tool Details">
+						  <group col='4'>
+							 <field name="cheque"/>
+							 <field name="date"/>
+							 <field name="balance"/>
+							 <field name="credit"/>
+						  </group>
+						 </form>
+						 </field>
+						</page>  
+					   </notebook>        
+                 </form>
+           </field>
+       </record>
+  </data>
+</openerp>

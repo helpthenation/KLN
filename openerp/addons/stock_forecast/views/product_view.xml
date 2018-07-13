@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+    <data>
+
+        <record id="product_template_forecast_form" model="ir.ui.view">
+            <field name="name">product.template.forecast.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button class="oe_inline oe_stat_button" string="Forecasting" name="%(action_view_product_template_forecast)d" type="action" icon="fa-bar-chart-o" context="{'product_tmpl_id': id}" attrs="{'invisible': [('is_product_variant', '=', True)]}" groups="forecasting_smoothing_techniques.forecast_group_user,forecasting_smoothing_techniques.forecast_group_manager"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_product_forecast_form" model="ir.ui.view">
+            <field name="name">product.product.forecast.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button class="oe_inline oe_stat_button" string="Forecasting" name="%(action_view_product_product_forecast)d" type="action" icon="fa-bar-chart-o"
+                        context="{'product_id': id}" attrs="{'invisible': [('is_product_variant', '=', False)]}" groups="forecasting_smoothing_techniques.forecast_group_user,forecasting_smoothing_techniques.forecast_group_manager"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

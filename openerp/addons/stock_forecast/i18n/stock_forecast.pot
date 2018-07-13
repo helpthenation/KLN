@@ -1,0 +1,299 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* stock_forecast
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-21 21:31+0000\n"
+"PO-Revision-Date: 2015-12-21 21:31+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_forecast
+#: view:stock.history:stock_forecast.view_stock_demand_history_report_tree
+msgid "# of Products"
+msgstr ""
+
+#. module: stock_forecast
+#: view:stock.history:stock_forecast.view_stock_demand_history_report_tree
+msgid "# of Products Available"
+msgstr ""
+
+#. module: stock_forecast
+#: model:ir.filters,name:stock_forecast.irfilter_01
+msgid "(SFD01) 2015 Demand for iMac with Retina 5K display Product in WH/Stock until 2015-09-29"
+msgstr ""
+
+#. module: stock_forecast
+#: model:ir.filters,name:stock_forecast.irfilter_02
+msgid "(SFD02) 2015 Demand for iPad Mini 4 in WH/Stock until 2015-09-29 (Group by Month)"
+msgstr ""
+
+#. module: stock_forecast
+#: model:ir.filters,name:stock_forecast.irfilter_03
+msgid "(SFD03) 2015 Demand for New Product S76 Kudu Pro in WH/Stock until 2015-09-29"
+msgstr ""
+
+#. module: stock_forecast
+#: model:ir.filters,name:stock_forecast.irfilter_04
+msgid "(SFD04) Last 2 months Demand for Gazelle Pro in WH/Stock at date 2015-09-29 (Group by Week)"
+msgstr ""
+
+#. module: stock_forecast
+#: model:ir.filters,name:stock_forecast.irfilter_05
+msgid "(SFD05) Last month Demand for iPod Touch in WH/Stock at date 2015-09-29 (Group by day)"
+msgstr ""
+
+#. module: stock_forecast
+#: model:ir.filters,name:stock_forecast.irfilter_06
+msgid "(SFD06) 2015 Computers Category Demand in WH/Stock until 2015-09-29 (Group by Month)"
+msgstr ""
+
+#. module: stock_forecast
+#: model:ir.filters,name:stock_forecast.irfilter_07
+msgid "(SFD07) Last 14 days Demand for iPod Touch Product in WH/Stock at date 2015-09-29 (Group by day)"
+msgstr ""
+
+#. module: stock_forecast
+#: model:product.template,description:stock_forecast.product_product_4_product_template
+msgid "15.6\" Glossy 1080p LED Backlit Display\n"
+"    Processor 2.5GHz i7-4710MQ\n"
+"    8 GB RAM\n"
+"    500 GB 7200 RPM DRIVE\n"
+"                "
+msgstr ""
+
+#. module: stock_forecast
+#: model:product.template,description_sale:stock_forecast.product_product_2_product_template
+msgid "17\" LED Backlit Monitor\n"
+"    Processor 4th gen Intel Core i7\n"
+"    16GB RAM\n"
+"    HDD SH-1"
+msgstr ""
+
+#. module: stock_forecast
+#: model:product.template,description_sale:stock_forecast.product_product_3_product_template
+msgid "7.9‑inch (diagonal) LED-backlit, 128Gb\n"
+"    A8 second-generation chip M8 coprocessor\n"
+"    FaceTime HD Camera, 1.2 MP Photos"
+msgstr ""
+
+#. module: stock_forecast
+#: view:wizard.stock.demand:stock_forecast.view_wizard_demand_history
+msgid "Cancel"
+msgstr ""
+
+#. module: stock_forecast
+#: field:wizard.stock.demand,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: stock_forecast
+#: field:wizard.stock.demand,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: stock_forecast
+#: help:wizard.stock.demand,date_to:0
+msgid "Date End used to get the range of the demands"
+msgstr ""
+
+#. module: stock_forecast
+#: view:stock.history:stock_forecast.view_stock_demand_history_search
+#: field:wizard.stock.demand,date_from:0
+msgid "Date From"
+msgstr ""
+
+#. module: stock_forecast
+#: help:wizard.stock.demand,date_from:0
+msgid "Date Start used to get the range of the demands"
+msgstr ""
+
+#. module: stock_forecast
+#: view:stock.history:stock_forecast.view_stock_demand_history_search
+msgid "Date To"
+msgstr ""
+
+#. module: stock_forecast
+#: field:wizard.stock.demand,date_to:0
+msgid "Date to"
+msgstr ""
+
+#. module: stock_forecast
+#: view:stock.history:stock_forecast.view_stock_demand_history_search
+msgid "Demand Lines"
+msgstr ""
+
+#. module: stock_forecast
+#: help:wizard.stock.demand,location_id:0
+msgid "Destination location of the moves to show"
+msgstr ""
+
+#. module: stock_forecast
+#: view:forecast:stock_forecast.stock_forecast_view_form
+msgid "Done for product...."
+msgstr ""
+
+#. module: stock_forecast
+#: model:ir.model,name:stock_forecast.model_forecast
+msgid "Forecast"
+msgstr ""
+
+#. module: stock_forecast
+#: view:product.product:stock_forecast.product_product_forecast_form
+#: view:product.template:stock_forecast.product_template_forecast_form
+msgid "Forecasting"
+msgstr ""
+
+#. module: stock_forecast
+#: model:ir.actions.act_window,name:stock_forecast.action_view_product_product_forecast
+#: model:ir.actions.act_window,name:stock_forecast.action_view_product_template_forecast
+msgid "Forecasts"
+msgstr ""
+
+#. module: stock_forecast
+#: code:addons/stock_forecast/wizard/stock_demand.py:77
+#, python-format
+msgid "From"
+msgstr ""
+
+#. module: stock_forecast
+#: model:product.template,name:stock_forecast.product_product_4_product_template
+msgid "Gazelle Pro"
+msgstr ""
+
+#. module: stock_forecast
+#: field:wizard.stock.demand,demand_filter:0
+msgid "Generate Rule Filter"
+msgstr ""
+
+#. module: stock_forecast
+#: field:wizard.stock.demand,id:0
+msgid "ID"
+msgstr ""
+
+#. module: stock_forecast
+#: help:wizard.stock.demand,demand_filter:0
+msgid "If True generate a Search Filter to re-use in the forecast rule. If False only check the demand"
+msgstr ""
+
+#. module: stock_forecast
+#: model:product.template,name:stock_forecast.product_product_2_product_template
+msgid "Kudu Pro"
+msgstr ""
+
+#. module: stock_forecast
+#: field:wizard.stock.demand,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: stock_forecast
+#: field:wizard.stock.demand,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: stock_forecast
+#: field:wizard.stock.demand,location_id:0
+msgid "Location"
+msgstr ""
+
+#. module: stock_forecast
+#: code:addons/stock_forecast/wizard/stock_demand.py:75
+#: view:forecast:stock_forecast.forecast_search_view
+#: field:forecast,product_id:0
+#: field:wizard.stock.demand,product_id:0
+#, python-format
+msgid "Product"
+msgstr ""
+
+#. module: stock_forecast
+#: view:forecast:stock_forecast.forecast_search_view
+#: field:forecast,product_tmpl_id:0
+msgid "Product Template"
+msgstr ""
+
+#. module: stock_forecast
+#: help:forecast,product_id:0
+msgid "Product related to the current forecasting"
+msgstr ""
+
+#. module: stock_forecast
+#: help:wizard.stock.demand,product_id:0
+msgid "Product used to filter the information to show, We will show you only moves related to this product"
+msgstr ""
+
+#. module: stock_forecast
+#: view:wizard.stock.demand:stock_forecast.view_wizard_demand_history
+msgid "Retrieve the Inventory Value"
+msgstr ""
+
+#. module: stock_forecast
+#: model:ir.actions.act_window,name:stock_forecast.action_wizard_stock_demand_history
+#: model:ir.ui.menu,name:stock_forecast.menu_action_wizard_demand_history
+msgid "Stock Demand"
+msgstr ""
+
+#. module: stock_forecast
+#: view:stock.history:stock_forecast.view_stock_demand_history_report_tree
+msgid "Stock Demand At Date"
+msgstr ""
+
+#. module: stock_forecast
+#: code:addons/stock_forecast/wizard/stock_demand.py:75
+#, python-format
+msgid "Stock Demand for"
+msgstr ""
+
+#. module: stock_forecast
+#: view:stock.history:stock_forecast.view_stock_demand_history_report_tree
+msgid "Total Value"
+msgstr ""
+
+#. module: stock_forecast
+#: view:forecast:stock_forecast.stock_forecast_view_form
+msgid "from"
+msgstr ""
+
+#. module: stock_forecast
+#: model:product.template,name:stock_forecast.product_product_1_product_template
+msgid "iMac with Retina 5K display"
+msgstr ""
+
+#. module: stock_forecast
+#: model:product.template,name:stock_forecast.product_product_3_product_template
+msgid "iPad Mini 4"
+msgstr ""
+
+#. module: stock_forecast
+#: model:product.template,name:stock_forecast.product_product_5_product_template
+msgid "iPod Touch"
+msgstr ""
+
+#. module: stock_forecast
+#: code:addons/stock_forecast/wizard/stock_demand.py:76
+#, python-format
+msgid "in"
+msgstr ""
+
+#. module: stock_forecast
+#: view:wizard.stock.demand:stock_forecast.view_wizard_demand_history
+msgid "or"
+msgstr ""
+
+#. module: stock_forecast
+#: view:forecast:stock_forecast.stock_forecast_view_form
+msgid "template"
+msgstr ""
+
+#. module: stock_forecast
+#: code:addons/stock_forecast/wizard/stock_demand.py:77
+#, python-format
+msgid "to"
+msgstr ""
+

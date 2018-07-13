@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+<template id="delivery_note">
+    <t t-name="fnet_mline_reportz.delivery_note">
+	
+<div class="oe_structure">     
+        
+        <div class="page">
+ 		<t t-foreach="doc_ids" t-as="doc_id">
+			<div class="page">
+			 <img t-if="doc_id.company_id.logo" t-att-src="'data:image/png;base64,%s' % doc_id.company_id.logo" style="float:left;"/>
+			</div>
+			<br/><br/><br/>
+		  <div class="container">
+			  <h3 style="text-align:center"><b>DELIVERY NOTE</b></h3>
+			  <table style="width:100%;" cellpadding="0" cellspacing="0" >
+			  <tr>
+			  <td style="width:45%;text-align:center; border: 1px; border-radius: 5px;">
+			  <table style="width:100%;">
+			  <tr>
+			  <td style="width:100%;"><t t-esc="doc_id.partner_id.name"/></td>
+			  </tr>
+			  <tr>
+			  <td style="width:100%;"><t t-esc="doc_id.partner_id.street"/></td>
+			  </tr>
+			  <tr>
+			  <td style="width:100%;"><t t-esc="doc_id.partner_id.street2"/></td>
+			  </tr>
+			  <tr>
+			  <td style="width:100%;"><t t-esc="doc_id.partner_id.city"/>,<t t-esc="doc_id.partner_id.country_id.name"/>,<t t-esc="doc_id.partner_id.zip"/></td>
+			  </tr>
+			  <tr>
+			  <td style="width:100%;">2398723487237</td>
+			  </tr>			  
+			  </table>
+			  </td>
+			  <td style="width:25%;text-align:center;"></td>
+			  <td style="width:30%;border: 1px;border-radius: 5px;">
+			  <table style="width:100%;">
+			  <tr>
+			  <td style="width:100%;">NO: <t t-esc="doc_id.name"/></td>
+			  </tr>
+			  <tr>
+			  <td style="width:100%;">D.N Date: <t t-esc="doc_id.date"/></td>
+			  </tr>
+			  <tr>
+			  <td style="width:100%;"></td>
+			  </tr>
+			  <tr>
+			  <td style="width:100%;">L.P.O: <t t-esc="docs.lp_no(doc_id)"/></td>
+			  </tr>
+			  </table>
+			  </td>
+			  </tr>
+			  </table>
+			 <br/>
+			  <table class="table table-bordered">
+				<thead>
+				  <tr>
+					<th>S.NO</th>
+					<th>Quantity</th>
+					<th>Description</th>
+				  </tr>
+				</thead>
+				<tbody>
+				<t t-foreach="doc_id.move_lines" t-as="line">
+				  <tr>
+					<td><t t-esc="line_index + 1"/></td>
+					<td><t t-esc="line.product_uom_qty"/></td>
+					<td><t t-esc="docs.product_desc(doc_id)"/></td>
+				  </tr>
+				 </t>
+				</tbody>
+			  </table> 
+			  <br/> 
+			<table style="width:100%;">
+			<tr>
+			<td style="width:50%; text-align:left;"><h5>The above goods recieved in good condition</h5></td>
+			<td style="width:50%;  text-align:right;"><h4><b>For Multiline Technical Company W.L.</b></h4></td>
+			</tr>
+			<tr>
+			</tr>
+			<tr>
+			<td style="width:50%; text-align:left;"><h5><b>Recieved by</b></h5></td>
+			<td style="width:50%;  text-align:left;"><h5><b>Issued by</b></h5></td>
+			</tr>
+			</table>
+			</div>
+ 		</t>
+ 		</div>
+ 		</div>
+	</t>
+</template>
+</data>
+</openerp>

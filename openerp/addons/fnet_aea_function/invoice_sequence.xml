@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+		<record id="seq_invoice_category_bty_type" model="ir.sequence.type">
+            <field name="name">Invoice Category BTY</field>
+            <field name="code">category.battery</field>
+        </record>
+        <!-- Sequences for account.invoice -->
+        <record id="seq_invoice_category_bty" model="ir.sequence">
+            <field name="name">Invoice Category BTY</field>
+            <field name="code">category.battery</field>
+            <field name="prefix">BTY/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+
+		<record id="seq_invoice_category_cfl_type" model="ir.sequence.type">
+            <field name="name">Invoice Category CFL</field>
+            <field name="code">category.cfl</field>
+        </record>
+        <!-- Sequences for account.invoice -->
+        <record id="seq_invoice_category_cfl" model="ir.sequence">
+            <field name="name">Invoice Category CFL</field>
+            <field name="code">category.cfl</field>
+            <field name="prefix">CFL/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        
+        <record id="seq_invoice_category_tlt_type" model="ir.sequence.type">
+            <field name="name">Invoice Category TLT</field>
+            <field name="code">category.tlt</field>
+        </record>
+        <!-- Sequences for account.invoice -->
+        <record id="seq_invoice_category_tlt" model="ir.sequence">
+            <field name="name">Invoice Category TLT</field>
+            <field name="code">category.tlt</field>
+            <field name="prefix">TLT/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <record id="seq_invoice_category_led_type" model="ir.sequence.type">
+            <field name="name">Invoice Category LED</field>
+            <field name="code">category.led</field>
+        </record>
+        <!-- Sequences for account.invoice -->
+        <record id="seq_invoice_category_led" model="ir.sequence">
+            <field name="name">Invoice Category LED</field>
+            <field name="code">category.led</field>
+            <field name="prefix">LED/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+		<record id="seq_invoice_category_mos_type" model="ir.sequence.type">
+            <field name="name">Invoice Category Mosquito Bat</field>
+            <field name="code">category.mosq</field>
+        </record>
+        <!-- Sequences for account.invoice -->
+        <record id="seq_invoice_category_mosq" model="ir.sequence">
+            <field name="name">Invoice Category MOSQ</field>
+            <field name="code">category.mosq</field>
+            <field name="prefix">MOS/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</openerp>

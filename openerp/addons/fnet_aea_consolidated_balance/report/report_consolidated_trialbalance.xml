@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+            <report
+                id="fnet_consolidated_tb_report"
+                model="consolidated.balance.report"
+                string="Fnet Balance"
+                report_type="qweb-pdf"
+                name="fnet_aea_consolidated_balance.report_consolidated_balance"
+                file="fnet_aea_consolidated_balance.report_consolidated_balance"
+                menu="True"/>
+
+
+<template id="report_consolidated_balance">
+    <t t-call="report.html_container">
+        <t t-call="report.internal_layout">
+            <div class="page">
+                <h2><span t-esc="res_company.name"/>: Consolidated Balance</h2>
+                <div class="row mt32">
+
+
+                    <div class="col-xs-3">
+                        <strong>Chart of Accounts:</strong>
+                        <p t-esc="get_account(data)"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Fiscal Year:</strong>
+                        <p t-esc="get_fiscalyear(data)"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Display Account:</strong>
+                        <p>
+                            <span t-if="data['form']['display_account'] == 'all'">All accounts</span>
+                            <span t-if="data['form']['display_account'] == 'movement'">With movements</span>
+                            <span t-if="data['form']['display_account'] == 'not_zero'">With balance not equal to zero</span>
+                        </p>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Filter By:</strong>
+                        <p>
+                            <span t-if="data['form']['filter'] == 'filter_no'">Not filtered</span>
+                            <span t-if="data['form']['filter'] == 'filter_period'">Filtered by period</span>
+                            <span t-if="data['form']['filter'] == 'filter_date'">Filtered by date</span>
+                            <p t-if="data['form']['filter'] == 'filter_period'">
+                                Start Period: <span t-esc="get_start_period(data)"/>
+                                End Period: <span t-esc="get_end_period(data)"/>
+                            </p>
+                            <p t-if="data['form']['filter'] == 'filter_date'">
+                                Date from : <span t-esc="formatLang(get_start_date(data), date=True)"/><br />
+                                Date to : <span t-esc="formatLang(get_end_date(data), date=True)"/>
+                            </p>
+                        </p>
+                    </div>
+                </div>
+                <div class="row mb32">
+                    <div class="col-xs-3">
+                        <strong>Target Moves:</strong>
+                        <p t-esc="get_target_move(data)"/>
+                    </div>
+                </div>
+
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th> </th>
+                            <th>Code</th>
+                            <th>Account</th>
+                            <th class="text-right">Debit</th>
+                            <th class="text-right">Credit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         <t t-set="varl" t-value="[]"/>
+                        <t t-foreach="lines(data['form'])" t-as="childrenaccount">
+
+                            <tr t-foreach="childrenaccount" t-as="chd">
+                                    <t t-set="varl" t-value="chd"/>
+                                   <td colspan="5" style="text-align: left;">
+                                        <span t-att-style="style" t-esc="chd"/>
+                                    </td>
+                            </tr>
+                            <t t-set="debit_amt" t-value="[]"/>
+                            <t t-set="credit_amt" t-value="[]"/>
+                            <tr t-foreach="childrenaccount[varl]" t-as="chdr">
+                                <t t-set="debit_amt" t-value="debit_amt + [chdr['debit']]"/>
+                                <t t-set="credit_amt" t-value="credit_amt + [chdr['credit']]"/>
+                                    <td colspan="2" style="text-align: right;">
+                                        <span  t-esc="chdr['code']"/>
+                                    </td>
+
+                                    <td>
+                                        <span t-att-style="style" t-esc="chdr['name']"/>
+                                    </td>
+
+                                    <td class="text-right">
+                                        <span t-att-style="style" t-esc="formatLang(chdr['debit'], currency_obj=res_company.currency_id,digits=2)"/>
+                                    </td>
+
+                                    <td class="text-right">
+                                        <span t-att-style="style" t-esc="formatLang(chdr['credit'], currency_obj=res_company.currency_id,digits=2)"/>
+                                    </td>
+                            </tr>
+                            
+                            <tr>
+                                <t t-set="credit_amt" t-value="sum(credit_amt)"/>
+                                <t t-set="debit_amt" t-value="sum(debit_amt)"/>
+                                <td colspan="3" style="text-align: center;">Net Total For :
+                                    <span  t-esc="varl"/>
+                                </td>
+
+                                <td  class="text-right">
+                                     <span t-att-style="style" t-esc="formatLang(debit_amt, currency_obj=res_company.currency_id,digits=2)"/>
+                                </td>
+
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="formatLang(credit_amt , currency_obj=res_company.currency_id,digits=2)"/>
+                                </td>
+
+							</tr>                            
+
+                       </t>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

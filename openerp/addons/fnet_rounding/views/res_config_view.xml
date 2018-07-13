@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="account_config_settings_view" model="ir.ui.view">
+            <field name="name">account settings.add.roundings</field>
+            <field name="model">account.config.settings</field>
+            <field name="inherit_id" ref="account.view_account_config_settings"/>
+            <field name="arch" type="xml">
+                                
+				<xpath expr="//field[@name='tax_calculation_rounding_method']" position="after">
+					
+					<field name="tax_calculation_rounding_account_id"
+							attrs="{'required': [('tax_calculation_rounding_method', '=', 'rounding total amount')],'invisible': [('tax_calculation_rounding_method', '&lt;&gt;', 'rounding total amount')]}" class="oe_inline"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

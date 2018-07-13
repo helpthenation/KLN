@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data> 
+<!--
+	   <record id="act_hr_employee_holiday_allocationzz" model="ir.actions.act_window">
+            <field name="name">Leaves</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.holidays</field>
+            <field name="src_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_employee_id': [active_id], 'default_employee_id': active_id}</field>
+            <field name="domain">[('type','=','add')]</field>
+            <field name="view_id" eval="hr_holidays.view_holiday"/>
+        </record>
+-->
+	  
+	   <menuitem id="multiline_master_menu"
+			   name= "Multiline Master"
+			   parent="hr.menu_hr_configuration"
+			   sequence="62"/>
+
+ 
+  <!-- HR Job Form inherit View -->
+      <record model="ir.ui.view" id="view_hr_job_form_inherit">
+            <field name="name">vie.hr.job.form.inherit</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.view_hr_job_form"/>
+            <field name="arch" type="xml">
+				 
+				 <field name="department_id" position="before">
+					 <field name="lead_id"/>
+					 <field name="partner_id" invisible = "1" domain="[('customer','=',True)]"/>
+					 <field name="product_id"/>
+				 </field>
+                
+		     </field>
+	  </record>
+	  
+<!--HR EMPLOYEE FILTER-->	  
+	  
+	   <record id="fnet_employee_filter_inherit" model="ir.ui.view">
+            <field name="name">Employees</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+				<filter string="Company" position="after">
+					<filter string="Company" domain="[]"
+						context="{'group_by':'branch_id'}" />
+				</filter>	
+             </field>
+         </record>
+	  
+	  <!--   HR Employee Form -->
+
+        <record id="act_hr_employee_holiday_allocations" model="ir.actions.act_window">
+            <field name="name">Leaves</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.holidays</field>
+            <field name="src_model">hr.employee</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_employee_id': [active_id], 'default_employee_id': active_id}</field>
+            <field name="domain">[('type','=','add')]</field>
+<!--
+            <field name="view_id" eval="view_holiday_allocation_tree"/>
+-->
+        </record>
+        	  
+      <record model="ir.ui.view" id="view_employee_form_inherited">
+            <field name="name">view.employee.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="%(act_hr_employee_holiday_allocations)d"
+                        type="action"
+                        class="oe_stat_button"
+                        icon="fa-calendar"
+                       groups="base.group_hr_user">
+                        <field name="leaves_counts" widget="statinfo" string="Leave Allocation"/>
+                    </button>
+                </xpath>
+				
+				<field name="work_phone" position="after">
+					<label for="branch_id" class="oe_edit_only"/>
+					<field name="branch_id"/>
+					<label for="emp_code" class="oe_edit_only"/>
+					<field name="emp_code" style="width: 60%%"/>
+				</field>
+				
+				<field name="address_home_id" position="replace">
+					<field name="address_home_id"
+						context="{'show_address': 1, 'default_customer': False}"
+						domain = "[('employee', '=', True)]"
+                        options='{"always_reload": True, "highlight_first_line": True}'/>
+				</field>
+				
+				
+				
+				<group string="Birth" position="after">
+					<group string="Family">
+						<field name="father_name"/>
+						<field name="mother_name"/>
+						<field name="spouse_name" attrs="{'invisible': [('marital','in',('single'))]}"/>
+					</group>
+					<group string="Family">
+						<field name="country_id"/>
+						<field name="state_id"/>
+						<field name="phone_no"/>
+				   </group>
+			  </group>
+				
+				<page string="HR Settings" position="before">
+					 <page string="Salary Information" groups="base.group_hr_manager">
+						 <group>
+							 <group>
+								<field name="uom_id"/>
+								<field name="hours"/>
+								<field name="bank_account_id"/>
+							 </group>
+							 <group>
+								<field name="ot_hours"/>
+								<field name="salary"/>
+								<field name="account_id" on_change="onchange_account_id(account_id)"/>
+<!--
+								<field name="leave_lines" widget="many2many_tags"/>
+-->
+							 </group>
+				         </group>
+				    </page>
+			   </page>
+                 
+                 <page string="HR Settings" position="after">
+					 <page string="Document Information" groups="base.group_hr_manager">
+						 <group>
+							 <group string="Passport Details"  attrs="{'readonly':[('is_boolean','=',True)]}">
+								 <field name="passport_no"/>
+								 <field name="pass_place_issue"/>
+								 <field name="expiry_date"/>
+								 <field name="pass_issue"/>
+								 <field name="pass_remind"/>
+								 <field name="is_boolean" invisible="True"/>
+							 </group>
+							 <group string="Visa Details">
+								 <field name="visa_no"/>
+								 <field name="visa_type"/>
+								 <field name="visa_expiry"/>
+								 <field name="visa_issue"/>
+								 <field name="visa_remind"/>
+							 </group>
+						 </group>
+						 <group>
+							 <group string="Labour Details">
+								 <field name="labour_no"/>
+								 <field name="labour_expiry"/>
+								 <field name="labour_issue"/>
+								 <field name="labour_remind"/>
+							 </group>
+							 <group string="Insurance Details">
+								 <field name="ins_comp_name"/>
+								 <field name="ins_no"/>
+								 <field name="ins_issue"/>
+								 <field name="ins_expiry"/>
+								 <field name="ins_remind"/>
+							 </group>
+					     </group>
+					     <group>
+							 <group string="Critical National Infrastructure Authority">
+								 <field name="cnia_no"/>
+								 <field name="cnia_expiry"/>
+								 <field name="cnia_issue"/>
+								 <field name="cnia_remind"/>
+							 </group>
+							 <group string="Emirates Details">
+								 <field name="emirates_no"/>
+								 <field name="emirates_expiry"/>
+								 <field name="emirates_issue"/>
+								 <field name="emirates_remind"/>
+							 </group>
+					     </group>
+					     <group string="Other Card Details">
+							 <field name="other_name"/>
+							 <field name="other_no"/>
+							 <field name="other_issue"/>
+							 <field name="other_expiry"/>
+							 <field name="other_remind"/>
+						 </group>
+					 </page>
+					 <page string="Accounts">
+						 <group>
+							 <group>
+								<field name="journal_salary_id"/>
+							 </group>
+							 <group>
+								<field name="debit_account_id"/>
+								<field name="credit_account_id"/>
+							 </group>
+						 </group>
+					 </page>
+			     </page>
+			     
+			     <field name="otherid" position="attributes">
+					 <attribute name="invisible">True</attribute>
+				 </field>
+				 
+			     <field name="passport_id" position="attributes">
+					 <attribute name="invisible">True</attribute>
+				 </field>
+				 
+				 <xpath expr="//form/sheet/notebook/page/group/group/field[@name='bank_account_id']" position="attributes">
+					 <attribute name="invisible">True</attribute>
+			     </xpath>
+			     
+			     <field name="work_location" position="attributes">
+					 <attribute name="invisible">True</attribute>
+				 </field>
+                <xpath expr="//group[@string='Leaves']/div[1]" position="after">
+                            <field name="resumption_date"/>                      
+                </xpath>				 
+			     <field name="remaining_leaves" position="after">
+									
+				 </field>
+		     </field>
+	  </record>
+	  <record id="hr.view_employee_tree" model="ir.ui.view">
+            <field name="name">hr.employee.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <tree string="Employees">
+                    <field name="name"/>
+                    <field name="emp_code"/>
+                    <field name="branch_id"/>
+                    <field name="work_phone"/>
+                    <field name="work_email"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="department_id"/>
+                    <field name="job_id"/>
+                    <field name="parent_id"/>
+                    <field name="coach_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+         <record model="ir.ui.view" id="hr.hr_kanban_view_employees">
+        <field name="name">HR - Employess Kanban</field>
+        <field name="model">hr.employee</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="last_login"/>
+                <field name="message_is_follower"/>
+                <field name="message_follower_ids"/>
+                <field name="message_ids"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_employee_vignette">
+                            <div class="oe_employee_image">
+                                <a type="open"><img t-att-src="kanban_image('hr.employee', 'image_medium', record.id.value)" class="oe_employee_picture"/></a>
+                            </div>
+                            <div class="oe_employee_details">
+                                <h4>
+                                    <a type="open"><field name="name"/><t t-if="record.login.raw_value"> (<field name="login"/>)</t></a>
+                                </h4>
+                                
+                                    <a type="open"><field name="emp_code"/><t t-if="record.login.raw_value"> (<field name="login"/>)</t></a><br/>
+                                    <a type="open"><field name="branch_id"/><t t-if="record.login.raw_value"> (<field name="login"/>)</t></a>
+                               
+                                <ul>
+                                    <li id="last_login">
+                                        <span t-if="record.last_login.raw_value &amp;&amp; record.last_login.raw_value.is().today()" class="oe_kanban_button" style="font-size: 100%%">
+                                              <t t-esc="record.last_login.raw_value.toString('HH:mm')"/>
+                                        </span>
+                                    </li>
+                                    <li t-if="record.job_id.raw_value"><field name="job_id"/></li>
+                                    <li t-if="record.work_location.raw_value"><field name="work_location"/></li>
+                                    <li t-if="record.work_email.raw_value"><a t-attf-href="mailto:#{record.work_email.value}"><field name="work_email"/></a></li>
+                                </ul>
+                                <div class="oe_kanban_footer_left">
+                                    <span title='Messages'><span class='oe_e'>9</span><t t-esc="record.message_ids.raw_value.length"/></span>
+                                    <span title='Followers'><span class='oe_e'>+</span><t t-esc="record.message_follower_ids.raw_value.length"/></span>
+                                </div>
+                                <div class="oe_followers" groups="base.group_user">
+                                    <button t-if="record.message_is_follower.raw_value" name="action_unfollow" type="object" class="oe_follower oe_following">
+                                        <span class="oe_unfollow">Unfollow</span>
+                                        <span class="oe_following">Following</span>
+                                    </button>
+                                    <button t-if="! record.message_is_follower.raw_value" name="action_follow" type="object" class="oe_follower oe_notfollow">Follow</button>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            $('.oe_employee_picture').load(function() { if($(this).width() > $(this).height()) { $(this).addClass('oe_employee_picture_wide') } });
+                        </script>
+                    </t>
+                </templates>
+            </kanban>
+
+        </field>
+    </record>
+	  
+	 
+
+	 
+	  
+      <record model="ir.ui.view" id="view_hr_applicant_form_inherit">
+            <field name="name">vie.hr.applicant.form.inherit</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job"/>
+            <field name="arch" type="xml">
+				 
+				 <field name="job_id" position="before">
+					 <field name="lead_id"/>
+					 <field name="sponsor_id"/>
+					 <field name="partner_id" domain="[('customer','=',True)]"/>
+				 </field>
+				 <field name="company_id" position="before">
+					 <field name="address_id" context="{'show_address': 1}"/>
+			     </field>
+		     </field>
+	  </record>
+	  
+	 
+	  
+	  
+	  <!-- Leave Days added -->
+	  
+	  <record id="view_hr_employee_leave_form" model="ir.ui.view">
+            <field name="name">view.hr.employee.leave.form</field>
+            <field name="model">hr.employee.leave</field>
+            <field name="arch" type="xml">
+                <form string="Leave Days">
+					<sheet>
+					    <group>
+                            <group>
+								<field name="name"/>
+							</group>
+						 </group>
+				     </sheet>
+				 </form>
+		   </field>
+	   </record>
+	   
+	  <record id="view_hr_employee_leave_tree" model="ir.ui.view">
+            <field name="name">view.hr.employee.leave.tree</field>
+            <field name="model">hr.employee.leave</field>
+            <field name="arch" type="xml">
+                <tree string="Leave Days">
+					<field name="name"/>
+				</tree>
+		   </field>
+	   </record>
+	   
+  		
+	   
+	   <record id="action_hr_employee_leave1" model="ir.actions.act_window">
+            <field name="name">Week Days</field>
+            <field name="res_model">hr.employee.leave</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_hr_employee_leave_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Week Days.
+                </p><p>
+                    Create Week Days
+                </p>
+            </field>
+        </record> 
+    
+        <!-- Public Holiday -->
+       
+        <record id="view_public_holiday_form" model="ir.ui.view">
+            <field name="name">view.public.holiday.form</field>
+            <field name="model">public.holiday</field>
+            <field name="arch" type="xml">
+                <form string="Public Holiday">
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+							</group>
+							<group>
+								<field name="date"/>
+							</group>
+						</group>
+				     </sheet>
+				 </form>
+		   </field>
+	   </record>
+	   
+	  <record id="view_public_holiday_tree" model="ir.ui.view">
+            <field name="name">view.public.holiday.tree</field>
+            <field name="model">public.holiday</field>
+            <field name="arch" type="xml">
+                <tree string="Public Holiday">
+				    <field name="name"/>
+				    <field name="date"/>
+				 </tree>
+		   </field>
+	   </record>
+	   
+	  <record id="view_public_holiday_calendar" model="ir.ui.view">
+            <field name="name">Public Holiday</field>
+            <field name="model">public.holiday</field>
+            <field name="arch" type="xml">
+                <calendar string="Public Holiday" color="name" date_start="date">
+				    <field name="name"/>
+				    <field name="date"/>
+				 </calendar>
+		   </field>
+	   </record>
+	  
+		
+	   
+	   <record id="action_public_holiday" model="ir.actions.act_window">
+            <field name="name">Public Holiday</field>
+            <field name="res_model">public.holiday</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_public_holiday_calendar"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Public Holiday.
+                </p><p>
+                    Create Public Holiday
+                </p>
+            </field>
+        </record> 
+     
+     <menuitem action="action_public_holiday"
+               id="menu_public_holiday" 
+               name="Public Holiday"
+               parent="hr_holidays.menu_open_ask_holidays" 
+               sequence="20"/>
+            
+               <!-- Company Branch -->
+        <record id="view_company_branch_form" model="ir.ui.view">
+            <field name="name">view.company.branch.form</field>
+            <field name="model">company.branch</field>
+            <field name="arch" type="xml">
+                <form string="Company Branch">
+					<sheet>
+						<group>
+								<label for="name"/>
+								<h1>
+									<field name="name"/>
+								</h1>
+							 
+								<label for="code"/>
+								<h2>
+									<field name="code" default_focus="1" placeholder="Code" />
+								</h2>
+						</group>
+						 
+						 <group>
+						 <group>
+							 <label for="street" string="Address"/>
+                            <div>
+							 <field name="street" placeholder="Street..." />
+                                <field name="street2"/>
+                                <div class="address_format">
+                                    <field name="city" placeholder="City" style="width: 40%%"/>
+                                    <field name="state_id" class="oe_no_button" placeholder="State" style="width: 37%%" options='{"no_open": True}'/>
+                                    <field name="zip" placeholder="ZIP" style="width: 20%%"/>
+                                </div>
+                                <field name="country_id" placeholder="Country" class="oe_no_button" options='{"no_open": True, "no_create": True}'/>
+                            </div>
+                            <field name="website" widget="url" placeholder="e.g. www.multilinetech.com"/>
+					     </group>
+					     <group>
+							 <field name="phone1"/>
+							 <field name="phone2"/>
+							 <field name="phone3"/>
+						 </group>
+					     </group>
+					     <notebook>
+							 <page string="Information">
+								 <group>
+									 <group>
+										 <field name="tradeno"/>
+										 <field name="tidate"/>
+										 <field name="tedate"/>
+										 <field name="trdate"/>
+									 </group>
+									 <group>
+										 <field name="ccno"/>
+										 <field name="ccidate"/>
+										 <field name="ccedate"/>
+										 <field name="ccrdate"/>
+									 </group>
+								 </group>
+							</page>
+						</notebook>
+				     </sheet>
+				 </form>
+		   </field>
+	   </record>
+	   
+	  <record id="view_company_branch_tree" model="ir.ui.view">
+            <field name="name">view.company.branch.tree</field>
+            <field name="model">company.branch</field>
+            <field name="arch" type="xml">
+                <tree string="Company Branch">
+				    <field name="name"/>
+				    <field name="code"/>
+				 </tree>
+		   </field>
+	   </record>
+	  
+	   <record id="action_company_branch" model="ir.actions.act_window">
+            <field name="name">Company Branch</field>
+            <field name="res_model">company.branch</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_company_branch_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Company Branch.
+                </p><p>
+                    Create Company Branch
+                </p>
+            </field>
+        </record> 
+        
+	<menuitem action="action_hr_employee_leave1"
+               id="menu_action_hr_employee_leave" 
+               name="Leave Days"
+               parent="multiline_master_menu" 
+               sequence="60"/>
+				
+     <menuitem action="action_company_branch"
+               id="menu_company_branch" 
+               name="Company Branch"
+               parent="multiline_master_menu" 
+               sequence="3"/> 
+    <menuitem parent="hr_holidays.menu_open_ask_holidays" id="hr_holidays.menu_open_allocation_holidays" action="hr_holidays.open_allocation_holidays"  groups="base.group_hr_user"/>
+    <menuitem id="hr.menu_hr_reporting_timesheet" name="Reports"
+            parent="hr.menu_hr_reporting" sequence="6" groups="base.group_hr_user"/>
+
+	  
+  </data>          
+</openerp>
+

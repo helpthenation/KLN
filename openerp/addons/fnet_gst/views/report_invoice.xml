@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+         <record id="paperformat_gstinvoices" model="report.paperformat">
+            <field name="name">Invoice format</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">60</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">10</field>
+            <field name="dpi">80</field>
+        </record>
+        
+    <record id="fnet_gst_invoice.gst_invoices_report" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="fnet_gst_invoice.paperformat_gstinvoices"/>
+    </record>  
+        
+<template id="report_invoice">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+                <t t-call="fnet_gst_invoice.header_invoice"/>       
+                <div class="page">
+                    <style>
+                            .headers {border:1px solid silver;border-right:0px;border-left:0px;background-color:#BDBDBD;}
+                            .headers td {border-right:1px solid white;border-bottom:0px;}
+                            .headers td:last-child {border-right:1px solid silver;}
+                            table {page-break-inside: avoid;}
+                            table.table-bordered.table-condensed > thead > tr > th{
+                                            border:1px solid red; 
+                                            padding:0px;
+                                            
+                                        }
+                            table.table-bordered.table-condensed > tbody > tr > td{
+                                            border-bottom:1px solid silver;
+                                            padding:0px;
+                                            border-left:1px solid silver;
+                                            border-right:1px solid silver;
+                                            border-top:0px solid white;
+                                        }
+                            table.table-bordered.table-condensed > tfoot > tr > td{
+                                            border:1px solid silver;
+                                        }   
+                    </style>                
+                    <t t-foreach="invoice_line()" t-as="val">
+                        <table cellpadding="0" cellspacing="0" class="table table-bordered table-condensed" style="width:100%;height:495px;float:left;margin-top:320px;border:1px solid sliver;">
+                        
+                            <tbody>
+                                <tr>
+                                <td colspan='10'>
+                                    <table cellpadding="0" cellspacing="0" width="100%" style="font-size:12px;">
+                                      <thead>
+											<tr class="headers">
+												<td style="padding:5px;text-align:center;" width="5%">Sl.No.</td>
+												<td style="padding:5px;text-align:center;" width="10%">HSN.No.</td>
+												<td style="padding:5px;text-align:center;" width="30%">PRODUCT DESCRIPTION</td>
+												<td style="padding:5px;text-align:center;" width="5%">SALE QTY.</td>
+												<td style="padding:5px;text-align:center;" width="10%">UOM</td>
+												<td style="padding:5px;text-align:center;" width="10%">RATE</td>
+												<td style="padding:5px;text-align:center;" width="5%">NO OF CASES</td>
+												<td style="padding:5px;text-align:center;" width="10%">MRP PER PIECES</td>
+												<td style="padding:5px;text-align:center;" width="5%">DISCOUNT</td>
+												<td style="padding:5px;text-align:center;" width="10%">TOTAL VALUE</td>
+											</tr>
+							</thead>
+                                        <tr  t-foreach="get_invoice_tn_obj(val)" t-as="inv_line">
+                                            <td style="padding:5px;" width="5%">
+                                                <span t-esc="inv_line['serial_no']"/>
+                                            </td>
+                                            <td style="padding:5px;" width="10%">
+                                                <span t-esc="inv_line['serial_no']"/>
+                                            </td>
+                                            <td width="30%" style="text-align:left;border-bottom: 0px;padding:5px;">
+                                                <span t-esc="inv_line['prod']"/>
+                                            </td>
+                                            <td style="border-bottom: 0px;padding:5px;" width="5%">
+                                                <span t-esc="'{:,.2f}'.format(inv_line['qty'])"/>
+                                            </td>
+                                            <td width="10%" style="text-align:right;border-bottom: 0px;padding:5px;">
+                                                <span t-esc="inv_line['uom']"/>
+                                            </td>
+                                            <td width="10%" style="text-align:right;border-bottom: 0px;padding:5px;">
+                                                <span t-esc="'{:,.2f}'.format(inv_line['rate'])"/>
+                                            </td>
+                                            <td width="5%" style="text-align:right;border-bottom: 0px;padding:5px;">
+                                                <span t-esc="'{:,.2f}'.format(inv_line['case_qty'])"/>
+                                            </td>
+                                            <td width="10%" style="text-align:right;border-bottom: 0px;padding:5px;">
+                                                 <span t-esc="'{:,.2f}'.format(inv_line['mrp'])"/>
+                                            </td>
+                                            <td width="5%" style="text-align:right;border-bottom: 0px;padding:5px;">
+                                                 <span t-esc="'{:,.2f}'.format(inv_line['mrp'])"/>
+                                            </td>                                   
+                                            <td width="10%" style="text-align:right;border-bottom: 0px;padding:5px;">
+                                                <span t-esc="'{:,.2f}'.format(inv_line['value'])"/>
+                                            </td>                                   
+                                        </tr>
+                                    </table>
+                               </td>
+                             </tr>
+                            </tbody>
+                        <tfoot>
+                        <tr>
+                        <td width="30%" colspan="3" align="bottom" style="font-family:courier-new;font-size: 12px;">Weight in Kgs: <span style="font-family:courier-new;font-size: 12px;"></span></td>
+                        <td width="60%" colspan="6" style="text-align:right;font-family:courier-new;font-size: 12px;">Total</td>
+                        <td width="10%" style="text-align:right;font-family:courier-new;font-size: 12px;"></td>
+                        </tr>
+                        </tfoot>
+                        </table>    
+                    </t>
+                    </div> 
+                    <t t-call="fnet_gst_invoice.invoice_footer"/>
+                </t>
+                </t>    
+</template>
+</data>
+</openerp>

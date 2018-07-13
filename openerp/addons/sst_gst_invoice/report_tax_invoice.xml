@@ -1,0 +1,499 @@
+<openerp>
+<data>
+<report 
+id="action_report_invoice"
+model="account.invoice"
+string="GST Invoice"
+report_type="qweb-pdf"
+file="sst_gst_invoice.report_invoice"
+name="sst_gst_invoice.report_invoice"/>
+
+<record id="paperformat_marginss" model="report.paperformat">
+<field name="name">European A4 low margin</field>
+<field name="default" eval="True" />
+<field name="format">A4</field>
+<field name="page_height">0</field>
+<field name="page_width">0</field>
+<field name="orientation">Portrait</field>
+<field name="margin_top">5</field>
+<field name="margin_bottom">10</field>
+<field name="margin_left">0</field>
+<field name="margin_right">0</field>
+<field name="header_line" eval="False" />
+<field name="header_spacing">20</field>
+<field name="dpi">90</field>
+</record>
+
+<record id="sst_gst_invoice.action_report_invoice" model="ir.actions.report.xml">
+<field name="orientation">Portrait</field>
+<field name="paperformat_id" ref="sst_gst_invoice.paperformat_marginss" />
+</record>
+
+<template id="report_invoice">
+<t t-call="report.html_container">
+    <t t-foreach="doc" t-as="doc_id"> 
+<!--
+        <t t-call="sst_invoice.header_company"/>
+-->
+            <div class="page" style="font-size:13px">
+                <style>
+                @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@font-face {
+font-family: 'Typography';
+font-style: bold;
+font-weight: 100;
+src:url("/home/muthu/odoo-8.0-20160627/openerp/addons/sst_invoice/Typography times.ttf") format('truetype');
+}
+                    tr {page-break-inside: avoid;}
+                    .table { border: 1px solid black; padding:1px;}
+                    .table thead > tr > th, .table > tbody > tr > td { border: 1px solid black;padding:0px;}
+                    #child {width: 100%;height: 200px;padding:0px;margin:0px;}          
+                    #child tbody > tr > td { border-bottom: 1px solid black;border-right: 1px solid black;padding-left:10px; }
+                    #child tbody > tr > td:last-child { border-bottom: 1px solid black;border-right: none;padding-left:10px; }
+                    .table thead > tr > th {border-bottom: 0px solid black;}
+                    .c{ border-collapse: collapse;
+        border: 0px solid black;
+      }
+            #set01{
+                           font-family: 'Typography';
+color:green;
+                        
+                      }
+                    .padd{padding-left:5px;}
+                    thead {
+                           display:table-header-group;
+                        }
+
+                    @media print {
+                        .page-break { display: block; page-break-before: avoid; border-bottom:1px solid black}
+                    }
+                    .set-2  {background-color:black;color:white;border-width:7px;   
+                        border-style:double;
+                        border-left:0px;
+                        border-right:0px;
+                        font-family: "Typography"
+                        text-transform: uppercase;
+                        font-size:12px;
+                        word-spacing:2px;
+                        letter-spacing: 0.2px;
+                        text-align:center;
+                        line-height:15px;
+                        margin-right:75px;
+                        font-weight:bold;
+                      }
+.Table_02{margin-top:-1px solid black;}
+
+                </style>
+<table width="100%" class="Table_02" style="padding-bottom:0px;">
+<tr>
+<td style="padding-top:8px;padding-left:2px;border-bottom:1px solid black;border-right:1px solid black;border-left:1px solid black;border-top:1px solid black;"  width="60%" colspan='3'>
+<t t-if="doc_id.company_id.id == 1">
+<div style="text-align:center;margin-left:70px;margin-right:70px;margin-bottom:0px;"> 
+<b>
+<span>
+<img class="img img-responsive" src="/sst_invoice/static/src/img/siva.png"/>
+</span>
+</b>
+</div>
+</t>
+<t t-if="doc_id.company_id.id == 3">
+<div style="text-align:center;margin-left:70px;margin-right:70px;margin-bottom:0px;"> 
+<b>
+<span>
+<img class="img img-responsive" src="/sst_invoice/static/src/img/color.png"/>
+</span>
+</b>
+</div>
+</t>
+<t t-if="doc_id.company_id.id == 4">
+<div style="text-align:center;margin-left:70px;margin-right:70px;margin-bottom:0px;"> 
+<b>
+<span>
+<img class="img img-responsive" src="/sst_invoice/static/src/img/arts.png"/>
+</span>
+</b>
+</div>
+</t>
+<t t-if ="doc_id.company_id.id != 4">
+<span style="font-size:16px;margin-top:0px;padding-left:150px;" t-esc="doc_id.company_id.rml_header1"/>
+</t>
+</td>
+<t t-if ="doc_id.company_id.id != 4">
+<td  style="vertical-align:top;padding-left:5px;font-size:18px;word-spacing:3px;letter-spacing:0.5px;text-align:center;border-bottom:1px solid black;border-right:1px solid black;border-left:1px solid black;border-top:1px solid black;" width="40%" colspan='3'>
+INVOICE<br/> CUM DELIVERY CHELLAN            
+</td></t>
+<t t-if ="doc_id.company_id.id == 4">
+<td  style="vertical-align:top;padding-left:5px;font-size:22px;word-spacing:3px;letter-spacing:0.5px;text-align:center;border-bottom:1px solid black;border-right:1px solid black;border-left:1px solid black;border-top:1px solid black;" width="40%" colspan='3'>
+LABOUR BILL  CUM<br/>  DELIVERY CHELLAN          
+</td>
+</t>
+</tr>
+<tr>
+<td style="border-bottom:1px solid black;border-right:1px solid black;border-left:1px solid black;border-top:1px solid black;" class="padd" width="65%" colspan='3'>
+<t t-if ="doc_id.company_id.id != 4">
+
+<table width="100%">
+<tr>
+<td style="padding-left:5px;" width="10%"><b>Office</b></td>
+<td style="padding-left:5px;" width="1%"><b>:</b></td>
+<td style="padding-left:5px;" width="89%">
+<span t-if="doc_id.company_id.street"  t-esc="doc_id.company_id.street"/>
+<span t-if="doc_id.company_id.street2"  t-esc="doc_id.company_id.street2"/><br/>
+<span t-if="doc_id.company_id.city"  t-esc="doc_id.company_id.city"/>
+<span t-if="doc_id.company_id.state_id.name" t-esc="doc_id.company_id.state_id.name"/>
+
+<span t-if="doc_id.company_id.zip"  t-esc="doc_id.company_id.zip"/>
+
+<span t-if="doc_id.company_id.country_id.name"  t-esc="doc_id.company_id.country_id.name"/>
+</td>
+</tr>
+<tr>
+<td style="padding-left:5px;"  width="10%"><b>Factory</b></td>
+<td style="padding-left:5px;" width="1%"><b>:</b></td>
+<td style="padding-left:5px;" width="89%">  
+<div><span t-if="doc_id.company_id.off_street"  t-esc="doc_id.company_id.off_street"/></div>
+<div><span t-if="doc_id.company_id.off_street1"  t-esc="doc_id.company_id.off_street1"/></div>
+<span t-if="doc_id.company_id.off_city"  t-esc="doc_id.company_id.off_city"/>
+<span t-if="doc_id.company_id.off_state.name" t-esc="doc_id.company_id.off_state.name"/>
+<span t-if="doc_id.company_id.off_country.name"  t-esc="doc_id.company_id.off_country.name"/>
+<span t-if="doc_id.company_id.off_zip"  t-esc="doc_id.company_id.off_zip"/>
+</td></tr>
+<tr>
+<td style="padding-left:5px;"  width="10%"><b>Mobile</b></td>
+<td style="padding-left:5px;" width="1%"><b>:</b></td>
+<td style="padding-left:5px;" width="89%">  
+<div><span t-if="doc_id.company_id.phone"  t-esc="doc_id.company_id.phone"/></div></td>
+</tr>
+<tr>
+<td style="padding-left:5px;"  width="10%"><b>Ph/Fax</b></td>
+<td style="padding-left:5px;" width="1%"><b>:</b></td>
+<td style="padding-left:5px;" width="89%">  
+<div><span t-if="doc_id.company_id.fax"  t-esc="doc_id.company_id.fax"/></div></td>
+</tr>
+<tr>
+<td style="padding-left:5px;"  width="10%"><b>Email</b></td>
+<td style="padding-left:5px;" width="1%"><b>:</b></td>
+<td style="padding-left:5px;" width="89%">  
+<div><span t-if="doc_id.company_id.email"  t-esc="doc_id.company_id.email"/></div></td>
+</tr>
+</table>
+</t>
+<t t-if ="doc_id.company_id.id == 4">  
+
+<table width="100%">
+<tr>
+
+<td style="padding-left:5px;text-align:center;" width="100%">
+<span t-if="doc_id.company_id.street"  t-esc="doc_id.company_id.street"/>
+<span t-if="doc_id.company_id.street2"  t-esc="doc_id.company_id.street2"/><br/>
+<span t-if="doc_id.company_id.city"  t-esc="doc_id.company_id.city"/>
+<span t-if="doc_id.company_id.state_id.name" t-esc="doc_id.company_id.state_id.name"/>                                        
+<span t-if="doc_id.company_id.zip"  t-esc="doc_id.company_id.zip"/>
+<span t-if="doc_id.company_id.country_id.name"  t-esc="doc_id.company_id.country_id.name"/>
+</td>
+</tr>
+
+<tr>
+
+<td style="padding-left:5px;text-align:center;" width="100%">  
+<div><span t-if="doc_id.company_id.phone"  t-esc="doc_id.company_id.phone"/></div></td>
+</tr>
+<tr>
+
+<td style="padding-left:5px;text-align:center;" width="100%">  
+<div><span t-if="doc_id.company_id.fax"  t-esc="doc_id.company_id.fax"/></div></td>
+</tr>
+<tr>
+
+<td style="padding-left:5px;text-align:center;" width="100%">  
+<div><span t-if="doc_id.company_id.email"  t-esc="doc_id.company_id.email"/></div></td>
+</tr>
+</table>
+</t>
+</td>
+
+<td  style="border-bottom:1px solid black;border-right:1px solid black;border-left:1px solid black;border-top:1px solid black;"  width="35%" colspan='3'>
+<table width="100%">
+<t t-if ="doc_id.company_id.id != 4">
+<tr>
+<td style="padding-left:5px;padding-top:2px"  width="30%"> <b>GSTIN No</b></td>
+<td width="1%">:</td>
+<b><td style="padding-left:5px;font-size:16px;font-weight:bold;" width="69%"><t t-esc="doc_id.company_id.gst_number"/></td></b>
+</tr>
+<tr>
+<td style="padding-left:5px;padding-top:2px"  width="30%"> <b>HSN No</b></td>
+<td width="1%">:</td>
+<b><td style="padding-left:5px;font-size:16px;font-weight:bold;" width="69%"><t t-esc="docs.hsn_code(doc_id)"/></td></b>
+</tr>
+<tr>
+<td style="padding-left:5px;padding-top:2px;border-bottom:1px solid black"  width="30%"><b>State Code</b></td>
+<td style="border-bottom:1px solid black" width="1%">:</td>
+<b><td style="padding-left:5px;border-bottom:1px solid black;font-size:16px;font-weight:bold" width="69%"><t t-esc="doc_id.company_id.state_id.code"/></td></b>
+</tr>
+</t>
+<tr>
+<td style="padding-left:5px;" width="20%"><b>No</b></td>
+<td  width="1%">:</td>
+<b><td style="padding-left:5px;font-size:18px;font-weight:bold;" width="79%"><t t-esc="doc_id.number"/></td></b>
+</tr>
+<tr style="display: none;">
+<td style="padding-left:5px"  width="20%"><b></b></td>
+<td width="1%"></td>
+<td style="padding-left:5px;" width="79%"></td>
+</tr>
+
+
+<tr>
+<td style="padding-left:5px" width="20%"><b>Date</b></td>
+<td width="1%">:</td>
+<b><td style="padding-left:5px;font-size:18px;font-weight:bold;" width="79%"><span t-field="doc_id.date_invoice" t-field-options='{"format": "dd-MM-y"}'/></td></b>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td style="padding:5px;border-bottom:1px solid black;border-right:1px solid black;border-left:1px solid black;border-top:1px solid black;"  width="100%" colspan='6'>
+<table width="100%">
+<tr>
+<td width="10%" >
+<b>To M/s</b>
+</td>
+<td width="1%"><b>:</b></td>
+<td width="89%" style="padding-left:5px;">
+<b style="font-size:16px;"><span t-field="doc_id.partner_id.name"/></b>
+<div><span t-if="o.partner_id.street" t-esc="doc_id.partner_id.street"/></div>
+<div><span t-if="o.partner_id.street2" t-esc="doc_id.partner_id.street2"/></div>
+<div><span t-if="o.partner_id.city" t-esc="doc_id.partner_id.city"/></div>
+<div><span t-if="o.partner_id.state_id.name" t-esc="doc_id.partner_id.state_id.name"/></div>
+<div><span t-if="o.partner_id.country_id.name" t-esc="doc_id.partner_id.country_id.name"/></div>
+<div><span t-if="o.partner_id.phone" t-esc="doc_id.partner_id.phone"/></div>               
+<div><span t-if="o.partner_id.fax" t-esc="doc_id.partner_id.fax"/></div>
+</td>
+</tr>
+
+<tr>
+<td  width="10%">
+<b>State Code</b>
+</td>
+<td width="1%"><b>:</b></td>
+<td width="89%" style="padding-left:5px;">
+<t t-esc="doc_id.partner_id.state_id.code"/><br/>  
+</td>
+</tr>
+
+<tr>
+<td  width="10%">
+<b>GSTIN No</b>   
+</td>
+<td width="1%"><b>:</b></td>
+<td width="89%" style="padding-left:5px;">
+<t t-esc="doc_id.partner_id.gst_number"/><br/>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td style="padding:5px; line-height:100%;border-right:1px solid black;border-left:1px solid black;border-top:1px solid black;" colspan='3'>             
+<b>Design name:</b><t t-esc="docs.product_name(doc_id)"/>          
+</td>
+<td style="padding:5px; line-height:30%;border-right:1px solid black;border-left:1px solid black;border-top:1px solid black;" colspan='3'>
+<table width="100%"><tr><td width="60%"><b style="padding:5px;">P.O<![CDATA[&nbsp;]]>No:</b></td><td style="padding:5px;font-size:16px;font-weight:bold" class="text-left" width="40%"><t t-esc="doc_id.name"/></td></tr></table>
+
+</td>
+</tr>
+</table>
+<t t-set="price" t-value="[]"/>
+<table width="100%" style="page-break-before:avoid;height:575px;" cellpadding="0" cellspacing="0">                    
+<thead>
+    <tr class="header">
+        <th width="80%" style="text-align:center; border:1px solid black;line-height:15px;"><b>Particulars</b></th>
+        <th width="5%"  style="text-align:center; border:1px solid black;line-height:15px;"><b>Qty</b></th>
+        <th width="5%"  style="text-align:center; border:1px solid black;line-height:15px;"><b> Rate</b></th>
+        <th width="10%"  style="text-align:center; border:1px solid black;line-height:15px;"><b>Amount</b></th>    
+    </tr>
+</thead>                        
+ <tbody>                            
+    <t t-set="counter" t-value="1"/>    
+        <tr t-foreach="docs.product_date(doc_id)" t-as="a">
+            <td height='1px' style="text-align:center;border-left:1px solid black;padding:0;margin:0;font-size:16px;" width="70%">
+                    
+                    <table width="100%" style="page-break-before:avoid;" cellpadding="0" cellspacing="0">
+                       <tr>
+                           <td width="2%" style="text-align:center;border-bottom:0px;border-left:2px;padding:2px;font-size:14px;">
+                               <t t-esc="counter"/><t t-set="counter" t-value="counter+1"/>
+                           </td>
+                           <td style="text-align:left; padding:5px; border-bottom:0px;font-size:16px;" width="30%" >
+                             <b> <span style="text-align:left;font-size:16px;"  t-esc="a['product']"/></b>
+                            </td>
+                            <td width="20%" style="text-align:left;padding:5px;border-bottom:0px;font-size:16px;">
+                                <b><span t-esc="a['color']"/></b>
+                            </td>
+                            <t t-set="pqty" t-value="[]"/> 
+                        <td class="text-left" style="border-bottom:0px;padding:5px;">
+                    <table>
+                    <tr>
+                        <t t-foreach="a['attribute']"  t-as="p">
+                            <t t-if ="a['color'] == p['color'] and a['product'] == p['product']">
+                                <td class="text-center" style="padding:5px;font-size:16px;">
+                                <t t-if="p['size'] != None"> <b><span  class="text-left" style="border-bottom:0px solid black; padding-top:0px; padding-bottom:0px" t-esc="p['size']"/></b><br/></t>
+                                <t t-if="p['size'] != None"><b><span  style="border-top:1px solid black;font-size:16px;" class="text-left" t-esc="int(p['qty'])"/></b></t>
+                                <t t-if="p['size'] == None"><b><span  style="border-top:0px solid black;font-size:16px;" class="text-left" t-esc="int(p['qty'])"/></b></t>
+                                <t t-set="pqty" t-value="pqty+[p['qty']]"/>
+                                </td>
+                            </t>
+                        </t>
+                </tr>
+            </table>        
+        </td>
+    </tr>
+</table>
+</td>
+            
+            <t t-set="tqty" t-value="[]"/>
+            <td  style="text-align:center;border-left:1px solid black;border-right:1px solid black; padding:5px;font-size:16px;"> 
+                <b><t t-esc="int(sum(pqty))"/></b>
+            </td>
+            <td style="text-align:right;border-left:1px solid black;border-right:1px solid black;padding:5px;font-size:16px;"> 
+                <t t-set="aaa" t-value="a['price']" />
+                <b><t t-esc="'{:,.4f}'.format(aaa)"/> </b>
+            </td>
+            <td style="text-align:right;border-left:1px solid black;border-right:1px solid black;padding:5px;font-size:16px;"> 
+            <t t-set="bbb" t-value="sum(pqty)*a['price']" />                                
+         <b><t t-esc="docs.total(bbb)"/></b>
+            </td>
+        </tr>
+
+<tr>
+            <td width="79%"  style="border-right:1px solid black;text-align:right;border-left:1px solid black">
+                <b></b>
+            </td>
+            <td  width="6%"  style="text-align:center;padding:5px;"></td>
+            <td  width="5%"  style="text-align:center;border-left:1px solid black;border-right:1px solid black"></td>
+            <td  width="10%"  style="text-align:center;border-left:1px solid black;border-right:1px solid black"></td>
+        </tr>
+        
+    </tbody>
+ <tr>
+        <td width="79%"  style="border-right:1px solid black;text-align:right;border-left:1px solid black">
+                <b>Total Qty</b>
+            </td>
+            <td  width="6%"  style="text-align:center;border-top:1px solid black;padding:5px;font-size:16px;"><b><t t-esc="docs.total_qty(doc_id)"/></b></td>
+            <td  width="5%"  style="text-align:center;border-left:1px solid black;border-right:1px solid black"></td>
+            <td  width="10%"  style="text-align:center;border-left:1px solid black;border-right:1px solid black"></td>
+        
+    </tr>
+ <tfoot>
+     
+    
+    <tr>
+    <td colspan="4" style="border-bottom:1px solid black;"></td>
+    </tr>
+</tfoot>
+
+</table>
+
+                                
+<table class="table table-bordered;" padding="2px" width="100%">
+    <t t-if ="doc_id.company_id.id != 4">
+    <tr class="body">
+                <td width="50%" style="border-right:1px solid black;border-bottom:1px solid black;font-size:12px;">
+                    <div style="padding-left:5px">
+                    1. Any complaint on the goods supplied by us should be reported to within - 7 days from the date of receipt.<br/>
+            2. Before fusing kindly check the quality of the stickers.<br/>
+                    3. Under no circumstances, We are not responsible for your order cancellation due to any reason,whatsoever.<br/>
+                    4. Subject to Tirupur Jurisdiction.<br/>
+                                        </div>
+                        <table width="100%" style="font-size:13;padding:0px;">
+                        <t t-foreach="doc_id.company_id.bank_ids" t-as="b">
+                        <tr>
+                        <td style="border-top:1px solid black; padding-left:5px;"><b>Account Number</b></td>
+                        <td style="border-left:1px solid black;border-top:1px solid black;padding-left:5px"><t t-esc="b.acc_number"/></td>
+                        </tr>
+                        <tr>
+                        <td style="border-top:1px solid black; padding-left:5px;"><b>Account Name</b></td>
+                        <td style="border-left:1px solid black;border-top:1px solid black;padding-left:5px"><t t-esc="b.owner_name"/></td>
+                        </tr>
+                        <tr>
+                        <td style="border-top:1px solid black; padding-left:5px;"><b>Bank Name</b></td>
+                        <td style="border-left:1px solid black;border-top:1px solid black;padding-left:5px"><t t-esc="b.bank_name"/>-<t t-esc="b.city"/></td>
+                        </tr>
+                        <tr>
+                        <td style="border-top:1px solid black;padding-left:5px;"><b>IFSC Code</b></td>
+                        <td style="border-left:1px solid black;border-top:1px solid black;padding-left:5px"><t t-esc="b.bank_bic"/></td>
+                        </tr>
+                        </t>
+                        </table>
+                </td>
+                <td width="50%">    
+                    <table width="100%">
+                        <tr>
+                            <td style="padding-left:5px;" width="0%"><b>Sub Total</b> </td>
+                            <td width="50%" class="text-right;" style="font-size:16px;padding-left:3px;font-weight:bold;">
+<span t-field="doc_id.company_id.currency_id.symbol" /><span t-field="doc_id.amount_untaxed" />
+                                
+                                </td>
+                        </tr>
+                        
+                        <tr  t-foreach="docs.tax_name(doc_id)" t-as="c">
+                            <td style="border-left:0px;border:1px solid black;padding-left:3px;" width="90%"><t t-esc="c['name']"/> </td>
+                            <td style="border:1px solid black;padding:3px;font-size:16px;font-weight:bold;" width="10%" class="text-right"><span t-field="doc_id.currency_id.symbol" /><t t-esc="'{0:,.2f}'.format(c['amount'])"/>
+                            </td>       
+                        </tr>
+                        <tr>
+                            <td width="50%" style="padding-left:3px;"> <b>ROUND OFF</b></td>
+                            <td width="50%" style="padding-right:3px;font-size:16px;font-weight:bold;" class="text-right"><t t-esc="'{0:,.2f}'.format(doc_id.round_amount)" /></td>
+                        </tr>
+                        <tr>
+                            <td width="50%" style="padding-left:3px;"> <b>TRANSPORT CHARGES</b></td>
+                            <td width="50%" style="padding-right:3px;font-size:16px;font-weight:bold;" class="text-right"><t t-esc="'{0:,.2f}'.format(docs.job_id(doc_id))"/></td>
+                        </tr>                                                                
+                        <tr>
+                            <td width="50%" style="padding-left:3px;"> <b>Grand Total</b></td>
+                            <td width="50%" style="padding-right:3px;font-size:16px;font-weight:bold;" class="text-right"><span t-field="doc_id.currency_id.symbol" /><t t-esc="'{0:,.2f}'.format(doc_id.amount_total)"/></td>
+                        </tr>
+                    </table>
+                </td>       
+            </tr>       
+       </t>
+<t t-if ="doc_id.company_id.id == 4">
+<tr class="body">
+
+                <td width="50%" style="padding-left:3px;"> <b>Grand Total</b></td>
+                <td width="50%" style="padding-right:3px;font-size:16px;font-weight:bold;" class="text-right"><span t-field="doc_id.currency_id.symbol" /><t t-esc="'{0:,.2f}'.format(doc_id.amount_total)"/></td>
+
+</tr>       
+</t>
+<tr class="body">
+    <td style="padding-left:5px;" colspan="2" width="100%" >
+        <b>Rupees:</b> <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><span t-esc="docs.numToWords(doc_id)"/>
+    </td>
+</tr>
+                    
+                    <tr class="body">
+                        <td colspan="2" width="100%" >
+                            <table width="100%">
+                                <tr>
+                                    <td style="padding-left:5px;" width="35%">
+                                        <b>Receivers Signature </b>
+                                    </td>
+                                    <td style="padding-left:5px;"  width="15%"><b>Vehicle No</b></td>
+                                    <td  style="padding-left:5px;" width="15%"></td>
+                                    <td  width="5%" style="padding-left:15px;margin-right:0px"><b></b></td>
+                                    <td  style="text-align:right;" width="40%"><div style="float:left;margin-left:65px;padding-top:5px"><b>For</b> </div><div style="background-color:black;color:white;border-width:7px;border-style:double;border-left:0px;border-right:5px;text-transform: uppercase;font-size:11px;word-spacing:2px;letter-spacing: 0.2px;margin-right:5px;padding-right:4px;margin-left:100px;"><i><t t-esc="doc_id.company_id.name"/></i></div></td>
+                                </tr>
+                                <tr><td><br/></td></tr>
+                                <tr><td><br/></td></tr>
+
+                            </table>
+                        </td>
+                    </tr>
+                </table>    
+        </div>
+    </t>
+</t>
+</template>
+</data>
+</openerp>

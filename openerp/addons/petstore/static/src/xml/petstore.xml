@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+	<t t-name="test">  
+    	<button name="view_images" type="object" id="message" >Alert</button>
+	 </t>
+</templates>

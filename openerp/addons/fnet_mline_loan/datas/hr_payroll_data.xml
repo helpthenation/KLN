@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate='1'>
+		<record id="hr_rule_loan" model="mline.payroll.rule">
+			<field name="name">Loan Deduction</field>
+			<field name="code">LOAN</field>
+			<field name="type">remove</field>
+			<field name="credit_account_id">899</field>
+		</record>
+	</data>
+</openerp>

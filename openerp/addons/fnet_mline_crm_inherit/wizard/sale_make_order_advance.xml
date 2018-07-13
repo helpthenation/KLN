@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_sale_advance_payment_ordered" model="ir.ui.view">
+            <field name="name">Sale Order</field>
+            <field name="model">sale.advance.payment.order</field>
+            <field name="arch" type="xml">
+                <form string="Sales Order">
+                    <p class="oe_grey">
+                        Select how you want to invoice this order. This
+                        will create a draft invoice that can be modified
+                        before validation.
+                    </p>
+                    <group>
+                        <field name="advance_payment_method" class="oe_inline"/>
+                    </group>
+                    <div>
+                        <b><label string="After clicking 'Show Lines to Ordered', select lines to sale order and create the invoice from the 'More' dropdown menu." attrs="{'invisible': [('advance_payment_method', '!=', 'lines')]}"/></b>
+                    </div>
+                    <footer>
+                        <button name="create_invoices" string="Create and View Sale Order" type="object"
+                            context="{'open_invoices': True}" class="oe_highlight"
+                            attrs="{'invisible': [('advance_payment_method', '=', 'lines')]}"/>
+                        <button name="create_invoices" string="Show Lines to Ordered" type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('advance_payment_method', '!=', 'lines')]}"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_sale_advance_payment_order" model="ir.actions.act_window">
+            <field name="name">Sale Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.advance.payment.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

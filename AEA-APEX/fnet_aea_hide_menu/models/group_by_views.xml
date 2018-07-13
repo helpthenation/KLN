@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="group_by_form" model="ir.ui.view">
+            <field name="name">groupby.form.view</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+		 <group expand="0" string="Group By">
+         <filter name="group_by_tpt" string="TPT.Co.Name" context="{'group_by':'tpt_name'}"/>
+           </group>
+         </field>
+        </record>
+         
+	</data>
+</openerp>	

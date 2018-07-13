@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+	<record id="group_employee_access" model="res.groups">
+        <field name="name">Employee Access</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="menu_access" eval="[(4,ref('hr_payroll.menu_hr_payroll_root'))]"/>
+    </record>
+</data>
+</odoo>

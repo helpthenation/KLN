@@ -1,0 +1,426 @@
+<html>
+ <head>
+  <style>
+   .backgrounds{background-color:#fff;color:#a41d35}
+  </style>
+ </head>
+ <body>
+  <section class="oe_container" id="description">
+   <object data="https://img.shields.io/badge/licence-LGPL--3-blue.svg" type="image/svg+xml">
+    License: LGPL-3
+   </object>
+   <div class="section oe_span12" id="forecasting-by-smoothing-techniques">
+    <h2 class="oe_slogan">
+     Forecasting by Smoothing Techniques
+    </h2>
+    <p class="oe_mt32">
+     Data collected over time is likely to show some form of random variation.
+"Smoothing techniques" can be used to reduce or cancel the effect of these
+variations. These techniques, when properly applied, will
+     <code class="docutils literal">
+      smooth
+     </code>
+     out the
+random variation in the time series data to reveal any underlying trends that
+may exist.
+    </p>
+    <p class="oe_mt32">
+     <strong>
+      NOTE
+     </strong>
+     : This module add a calculator to odoo that simulate the application in
+     <a class="reference external" href="http://home.ubalt.edu/ntsbarsh/Business-stat/otherapplets/ForecaSmo.htm">
+      this link
+     </a>
+    </p>
+   </div>
+   <div class="section oe_span12" id="installation">
+    <h1>
+     Installation
+    </h1>
+    <p class="oe_mt32">
+     To install this module, you need to:
+    </p>
+    <ul class="simple">
+     <li>
+      Install python package used to calculate the forecasting:
+      <code class="docutils literal">
+       pandas
+      </code>
+      and
+      <code class="docutils literal">
+       numexpr
+      </code>
+      . You can install them manually
+      <code class="docutils literal">
+       sudo pip install package_name
+      </code>
+      or you can use this repository
+      <code class="docutils literal">
+       requirement.txt
+      </code>
+      field with the command
+      <code class="docutils literal">
+       sudo pip install
+       <span class="pre">
+        -r
+       </span>
+       requirements.txt
+      </code>
+      .
+     </li>
+     <li>
+      Download this module from
+      <a class="reference external" href="https://github.com/vauxoo/stock-forecasting">
+       Vauxoo/stock-forecasting
+      </a>
+     </li>
+     <li>
+      Add the repository folder into your odoo addons-path.
+     </li>
+     <li>
+      Go to
+      <code class="docutils literal">
+       Settings &gt; Module list
+      </code>
+      search for the current name and click in
+      <code class="docutils literal">
+       Install
+      </code>
+      button.
+     </li>
+    </ul>
+   </div>
+   <div class="section oe_span12" id="configuration">
+    <h1>
+     Configuration
+    </h1>
+    <p class="oe_mt32">
+     To configure this module, you need to:
+    </p>
+    <ul>
+     <li>
+      <p class="oe_mt32">
+       Set the Forecasting permission for your user to be able to use this module
+new features. Go to
+       <code class="docutils literal">
+        Settings &gt; Users &gt; Users
+       </code>
+       menu and select your user
+from the list view. In the user form view activate the
+       <code class="docutils literal">
+        Forecasting
+       </code>
+       permission as
+       <code class="docutils literal">
+        User
+       </code>
+       or
+       <code class="docutils literal">
+        Manager
+       </code>
+       . Also need to activate the Technical
+Features to see the Forecasting Menu.
+      </p>
+      <img alt="Forecasting Permission" class="oe_picture oe_screenshot" src="forecasting_permission.png"/>
+     </li>
+    </ul>
+    <div class="note">
+     <p class="oe_mt32">
+      Note
+     </p>
+     <p class="oe_mt32">
+      If you are using a data base with demo data the user
+      <code class="docutils literal">
+       Admin
+      </code>
+      will be by default a
+      <code class="docutils literal">
+       Forecast Manager
+      </code>
+      and the
+      <code class="docutils literal">
+       Demo User
+      </code>
+      will be a
+      <code class="docutils literal">
+       Forecast User
+      </code>
+      .
+     </p>
+    </div>
+   </div>
+   <div class="section oe_span12" id="usage">
+    <h1>
+     Usage
+    </h1>
+    <p class="oe_mt32">
+     To use this module, you need to:
+    </p>
+    <ul>
+     <li>
+      <p class="oe_mt32">
+       Go to a
+       <code class="docutils literal">
+        Settings &gt; Technical &gt; Forecasting
+       </code>
+       menu. There you will find
+the
+       <code class="docutils literal">
+        Forecasts
+       </code>
+       sub menu that will show you a list view with all the
+Forecast Records. There you just simply can check or create a new
+forecasting.  Forecasting list view have the forecast
+       <code class="docutils literal">
+        ID
+       </code>
+       and
+       <code class="docutils literal">
+        name
+       </code>
+       for quick identification, forecasting parameters, and some columns with a
+brief result summary.
+      </p>
+      <img alt="Forecasting Menu and List View" class="oe_picture oe_screenshot" src="forecasting_menu.png"/>
+     </li>
+     <li>
+      <p class="oe_mt32">
+       When click over a Forecasting record over the
+       <code class="docutils literal">
+        Create
+       </code>
+       button will take
+you to the Forecasting Form View. This view show up at the top the basic
+forecast data and some buttons:
+      </p>
+      <ul class="simple">
+       <li>
+        <code class="docutils literal">
+         Reset Details
+        </code>
+        : Reset the default parameters of the forecasting.
+       </li>
+       <li>
+        <code class="docutils literal">
+         Clear
+        </code>
+        : Clear the forecasting incoming data values.
+       </li>
+       <li>
+        <code class="docutils literal">
+         List of Values
+        </code>
+        : Go to the list of the forecasting incoming data so
+you can edit them. Also you can see a table with all the forecasting
+results per data point (detail results).
+       </li>
+      </ul>
+      <p class="oe_mt32">
+       In the first view of the forecasting form view you can view a graph with
+the results of all the forecasting methods applied over the data you
+submit.
+      </p>
+      <img alt="Forecast Buttons" class="oe_picture oe_screenshot" src="forecast_buttons.png"/>
+     </li>
+     <li>
+      <p class="oe_mt32">
+       There is a functionality to help the user to use the forecast model.
+You can hide/show two kinds of help:
+      </p>
+      <ul>
+       <li>
+        <p class="oe_mt32">
+         <code class="docutils literal">
+          Help
+         </code>
+         : Show step by step the things to configure to generate the
+forecast.
+        </p>
+        <img alt="Forecast Step by Steph Help" class="oe_picture oe_screenshot" src="forecast_help.png"/>
+       </li>
+       <li>
+        <p class="oe_mt32">
+         <code class="docutils literal">
+          Mathematical Base Help
+         </code>
+         : Showing information about how the forecast
+methods works, how to set the parameters and how to make the forecast
+results compare. If you have any doubt there is an explanation about every
+forecasting methods so will be more easy to use.
+        </p>
+        <img alt="forecast complete form view" class="oe_picture oe_screenshot" src="forecast_complete_form_view.png"/>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <p class="oe_mt32">
+       When editing the forecast values (Click over the
+       <code class="docutils literal">
+        List of Values
+       </code>
+       button)
+you can observe all the values in the table with all the detail forecasting
+results per data point with the mathematical absolute error (MAE).
+      </p>
+     </li>
+    </ul>
+    <img alt="Forecast Data List View" class="oe_picture oe_screenshot" src="forecast_data_tree_view.png"/>
+    <ul class="simple">
+     <li>
+      To edit the list of values just click over the value in the forecasting data
+list view to go to the form view and edit the values. You can edit the
+Sequence and the Value itself indicating in the
+      <code class="docutils literal">
+       Data Information
+      </code>
+      section. As you can check all the
+      <code class="docutils literal">
+       Forecasting Results
+      </code>
+      for this
+particular point can be also review in the form view, this results fields
+are not editable only readonly.
+     </li>
+    </ul>
+    <img alt="Forecasr Data Form View" class="oe_picture oe_screenshot" src="forecast_data_form_view.png"/>
+    <ul class="simple">
+     <li>
+      If the forecast values are not length enough for calculate the forecast then
+will show at the top of the form a list with the warnings and what to do to
+eliminate then.
+     </li>
+    </ul>
+    <img alt="Forecast Data Warning" class="oe_picture oe_screenshot" src="forecast_data_warning.png"/>
+   </div>
+   <div class="section oe_span12" id="known-issues-roadmap">
+    <h1>
+     Known issues / Roadmap
+    </h1>
+    <ul class="simple">
+     <li>
+      Review problem can not create new forecast records even in the forecast
+groups are correctly set.
+     </li>
+    </ul>
+   </div>
+   <div class="section oe_span12" id="todo">
+    <h1>
+     TODO
+    </h1>
+    <ul class="simple">
+     <li>
+      The module name can be change to just forecast or forecasting.
+     </li>
+     <li>
+      Add constraint that make that the list of values are consecutive values
+start from 1. If not then the forecast calculus will fail.
+     </li>
+    </ul>
+   </div>
+   <div class="section oe_span12" id="bug-tracker">
+    <h1>
+     Bug Tracker
+    </h1>
+    <p class="oe_mt32">
+     Bugs are tracked on
+     <a class="reference external" href="https://github.com/Vauxoo/stock-forecasting/issues">
+      GitHub Issues
+     </a>
+     .
+In case of trouble, please check there if your issue has already been reported.
+If you spotted it first, help us smashing it by providing a detailed and welcomed feedback
+     <a class="reference external" href="https://github.com/Vauxoo/stock-forecasting/issues/new?body=module:%20{forecasting_smoothing_techniques}%0Aversion:%20{8.0.1.0.0}%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">
+      here
+     </a>
+    </p>
+   </div>
+   <div class="section oe_span12" id="credits">
+    <h1>
+     Credits
+    </h1>
+    <div class="section oe_span12" id="contributors">
+     <h2>
+      Contributors
+     </h2>
+     <ul class="simple">
+      <li>
+       Nhomar Hernandez &lt;
+       <a class="reference external" href="mailto:nhomar@vauxoo.com">
+        nhomar@vauxoo.com
+       </a>
+       &gt; (Planner/Auditor)
+      </li>
+      <li>
+       Maria Gabriela Quilarque &lt;
+       <a class="reference external" href="mailto:gabriela@vauxoo.com">
+        gabriela@vauxoo.com
+       </a>
+       &gt; (Planner)
+      </li>
+      <li>
+       Katherine Zaoral &lt;
+       <a class="reference external" href="mailto:kathy@vauxoo.com">
+        kathy@vauxoo.com
+       </a>
+       &gt; (Developer)
+      </li>
+     </ul>
+    </div>
+   </div>
+  </section>
+  <section class="oe_container">
+   <div class="oe_row oe_spaced">
+    <div class="oe_span6">
+     <h2 class="oe_slogan">
+      Do you need help?
+     </h2>
+     <h3 class="oe_slogan">
+      Let's offer you the best services!
+     </h3>
+     <p class="oe_mt32 text-center">
+      Contact us by our official channels.
+     </p>
+     <div class="oe_spaced">
+      <ul class="text-center list-inline">
+       <li>
+        <a href="https://facebook.com/vauxoo" target="_blank">
+         <i class="fa fa-facebook-square fa-xs backgrounds">
+         </i>
+        </a>
+       </li>
+       <li>
+        <a href="https://twitter.com/vauxoo" target="_blank">
+         <i class="fa fa-twitter-square fa-xs backgrounds">
+         </i>
+        </a>
+       </li>
+       <li>
+        <a href="https://www.linkedin.com/company/vauxoo" target="_blank">
+         <i class="fa fa-linkedin-square fa-xs backgrounds">
+         </i>
+        </a>
+       </li>
+       <li>
+        <a data-placement="left" data-toggle="tooltip" href="https://www.vauxoo.com/page/website.contactus" target="_blank" title="Contact us">
+         <i class="fa fa-envelope-square fa-xs backgrounds">
+         </i>
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="oe_span6">
+     <div class="oe_demo oe_picture oe_screenshot">
+      <a href="https://www.vauxoo.com" r="" target="_blank">
+       <img height="auto" src="https://s3.amazonaws.com/s3.vauxoo.com/description_logo.png" width="200"/>
+      </a>
+      <div class="oe_demo_footer oe_centeralign">
+       Meet Us
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+ </body>
+</html>

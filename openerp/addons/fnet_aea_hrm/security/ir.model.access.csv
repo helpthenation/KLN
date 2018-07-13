@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_salary_arrear, salary.arrear,model_salary_arrear,base.group_hr_manager,1,1,1,1
+access_employee_line,employee.line,model_employee_line,base.group_hr_manager,1,1,1,1
+access_salary_revision,salary.revision,model_salary_revision,base.group_hr_manager,1,1,1,1
+access_salary_history_line,salary.history.line,model_salary_history_line,base.group_hr_manager,1,1,1,1

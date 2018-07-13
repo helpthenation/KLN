@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+            <report
+                id="vat_invoices_report"
+                model="account.invoice"
+                string="Manpower Tax Invoice"
+                report_type="qweb-pdf"
+                name="fnet_manpower_vat_invoicereport.report_invoices" 
+                file="fnet_manpower_vat_invoicereport.report_invoices"
+                menu="True"/>
+            <report
+                id="vat_invoices_reportsss"
+                model="account.invoice"
+                string="MEPS Tax Invoice"
+                report_type="qweb-pdf"
+                name="fnet_manpower_vat_invoicereport.report_meps_invoices" 
+                file="fnet_manpower_vat_invoicereport.report_meps_invoices"
+                menu="True"/>
+    </data>
+</openerp>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data> 
+      
+      <!-- Lorry Receipt-->
+     <record id="seq_type_lorry_receipt" model="ir.sequence.type">
+            <field name="name">Lorry Receipt</field>
+            <field name="code">lorry.receipt</field>
+        </record>
+
+        <record id="seq_lorry_receipt" model="ir.sequence">
+            <field name="name">Lorry Receipt</field>
+            <field name="code">lorry.receipt</field>
+            <field name="prefix">LRNO</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <!-- Scheme -->
+       
+     <record id="seq_type_seheme" model="ir.sequence.type">
+            <field name="name">Scheme</field>
+            <field name="code">seheme.entry</field>
+        </record>
+
+        <record id="seq_seheme" model="ir.sequence">
+            <field name="name">Scheme</field>
+            <field name="code">seheme.entry</field>
+            <field name="prefix">SEHM</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <!--Stokiest ID -->
+
+     <record id="seq_type_stokiest_id" model="ir.sequence.type">
+            <field name="name">Stokiest ID</field>
+            <field name="code">stokiest.ids</field>
+        </record>
+
+        <record id="seq_stokiest_tn_id" model="ir.sequence">
+            <field name="name">Stokiest ID</field>
+            <field name="code">stokiest.ids</field>
+            <field name="prefix">TN</field>
+            <field name="padding">7</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_stokiest_ka_id" model="ir.sequence">
+            <field name="name">Stokiest ID</field>
+            <field name="code">stokiest.ids</field>
+            <field name="prefix">KA</field>
+            <field name="padding">7</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    
+        <record id="seq_stokiest_kl_id" model="ir.sequence">
+            <field name="name">Stokiest ID</field>
+            <field name="code">stokiest.ids</field>
+            <field name="prefix">KL</field>
+            <field name="padding">7</field>
+            <field name="company_id" eval="False"/>
+        </record>
+  </data>          
+
+</openerp>
+
+

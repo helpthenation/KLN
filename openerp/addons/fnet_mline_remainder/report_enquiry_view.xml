@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<report
+    id="enquiry_reminder"
+    model="crm.lead"
+    string="Enquiry List"
+    report_type="qweb-pdf"
+    name="fnet_mline_remainder.report_enquiry"
+    file="fnet_mline_remainder.report_enquiry"/>
+
+<record id="paperformat_margin" model="report.paperformat">
+    <field name="name">European A4 low margin</field>
+    <field name="default" eval="True" />
+    <field name="format">A4</field>
+    <field name="page_height">0</field>
+    <field name="page_width">0</field>
+    <field name="orientation">Portrait</field>
+    <field name="margin_top">15</field>
+    <field name="margin_bottom">25</field>
+    <field name="margin_left">7</field>
+    <field name="margin_right">7</field>
+    <field name="header_line" eval="False" />
+    <field name="header_spacing">20</field>
+    <field name="dpi">90</field>
+</record>
+
+<record id="fnet_mline_remainder.enquiry_reminder" model="ir.actions.report.xml">
+    <field name="paperformat_id" ref="fnet_mline_remainder.paperformat_margin" />
+</record>
+<template id="report_enquiry">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="o">
+            <div class="page">
+                <div class="row">
+                    <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px">
+                        <tr>
+                            <td>
+                                <span><img t-if="o.company_id.logo" width="100px" height="40px" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="float:left"/> <b><h3><center><t t-esc="o.company_id.name"/></center></h3></b></span>
+                                <span><center><span t-field ="o.company_id.street"/> <span t-field ="o.company_id.street2"/></center></span><br/>
+                                <span><center><span t-field ="o.company_id.city"/> <span t-field= "o.company_id.zip"/></center></span><br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><center><b><h5>List Of Enquiry Not Yet Quoted</h5></b></center></td>
+                        </tr>
+                        <tr>
+                            <td><br/></td>
+                        </tr>
+                </table>
+                <table style="border-collapse: collapse;border: 1px solid black;" width="100%" cellpadding="0px" cellspacing="0px">
+                   <thead>
+                       <tr>
+                          <th style="border: 1px solid black;padding:3px;" width="4%">SNO</th>
+                          <th style="border: 1px solid black;padding:3px;" width="12%">Date</th>
+                          <th style="border: 1px solid black;padding:3px;" width="10%">Enquiry</th>
+                          <th style="border: 1px solid black;padding:3px;" width="35%">Subject</th>
+                          <th style="border: 1px solid black;padding:3px;" width="20%">Customer</th>
+                          <th style="border: 1px solid black;padding:3px;" width="13%">Sales Person</th>
+                          <th style="border: 1px solid black;padding:3px;" width="6%">State</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                   <t t-set="counter" t-value="1"/>  
+                   <tr t-foreach="docs.get_lines(o)" t-as="line">
+                   <td style="border: 1px solid black;padding:3px;" width="4%"><t t-esc="counter"/><t t-set="counter" t-value="counter+1"/></td>
+                   <td style="border: 1px solid black;padding:3px;" width="12%"><span t-esc="line['creation_date']"/></td>
+                   <td style="border: 1px solid black;padding:3px;" width="10%"><span t-esc="line['enquiry']"/></td>
+                   <td style="border: 1px solid black;padding:3px;" width="35%"><span t-esc="line['name']"/></td>
+                   <td style="border: 1px solid black;padding:3px;" width="20%"><span t-esc="line['partner']"/></td>
+                   <td style="border: 1px solid black;padding:3px;" width="13%"><span t-esc="line['sale_person']"/></td>
+                   <td style="border: 1px solid black;padding:3px;" width="6%"><span t-esc="line['state']"/></td>
+                   </tr>
+                   </tbody>
+                </table>
+            </div>
+          </div>
+    </t>
+</t>
+</template>
+</data>
+</openerp>

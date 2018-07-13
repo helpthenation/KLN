@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="view_rdclaim_wizard_viewss" model="ir.ui.view">
+            <field name="name">rd.claim.form</field>
+            <field name="model">rdclaim.wizard</field>
+            <field name="arch" type="xml">
+				<form>
+				
+				<group><div><span style="padding-right:20px;"><b>Select A Type Of  Report</b></span><field  class="oe_inline" name="type" widget="radio" on_change="onchange_type(type)"/> 
+				                                                             </div></group>
+						<group>
+							<group>
+								<field name="scheme_id" on_change="onchange_scheme_id(scheme_id)" widget="selection" attrs="{'invisible': [('type','=', 's')],'required':[('type','=', 'n')]}"/>
+								<field name="company_id" widget="selection"/>
+								<field name="prod_categ_id" widget="selection"  domain="[('visible','=',True)]" attrs="{'invisible': [('type','=', 's')],'required':[('type','=', 'n')]}"/>
+								</group>
+													</group>
+								<notebook>
+							<page string="Filters">
+							<group>
+								<group>
+								<field name="manager_id" domain="[('sale_manager', '=', True)]"  options="{'no_create_edit': True}" on_change="onchange_manager_id(manager_id,company_id)"/>
+								<field name="sr_id"  domain="[('sale_manager', '=', False)]"  widget="many2many_tags" options="{'no_create_edit': True}"/>					
+								</group>					
+							</group>
+							<group >
+								<group attrs="{'invisible': [('type','=', 'n')]}">
+								<field name='filter' on_change="onchange_filter(filter)" attrs="{'invisible': [('type','=', 'n')],'required':[('type','=', 's')]}"/>
+								<field name='period_from' widget="selection"  attrs="{'invisible': ['|',('filter','=', 'filter_no'),('filter','=', 'filter_date')],'required':[('filter','=', 'filter_period')]}"/>
+								<field name='period_to' widget="selection"  attrs="{'invisible': ['|',('filter','=', 'filter_no'),('filter','=', 'filter_date')],'required':[('filter','=', 'filter_period')]}"/>
+								<field name='date_from'  attrs="{'invisible': ['|',('filter','=', 'filter_no'),('filter','=','filter_period')],'required':[('filter','=', 'filter_date')]}"/>
+								<field name='date_to'  attrs="{'invisible': ['|',('filter','=', 'filter_no'),('filter','=','filter_period')],'required':[('filter','=', 'filter_date')]}"/>
+							</group>					
+							</group>	
+								
+							
+</page>
+</notebook>
+
+				<footer>
+					<button icon="gtk-execute" name="check_report" string="Print" type="object" colspan="2"/> or 
+                    <button icon="gtk-execute" name="xls_export" string="Export" type="object" context="{'xls_export':1}" colspan="2"/> or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+               
+			  </form>
+            </field>
+        </record>
+        <record id="action_rdclaim_wizardsss" model="ir.actions.act_window">
+			<field name="name">RD Claim Report</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">rdclaim.wizard</field>
+			<field name="view_mode">form</field>
+			<field name="view_type">form</field>
+			<field name="target">new</field>
+			<field name="view_id" ref="view_rdclaim_wizard_viewss"/>
+		</record>
+		
+	<record model="ir.values" id="action_rdclaim_wizards_webkits">
+            <field name="model_id" ref="fnet_aea_rdclaim.model_rdclaim_wizard"/>
+            <field name="name">RD CLAIM REPORT</field>
+            <field name="key2">client_print_multi</field>
+            <field name="value"
+                eval="'ir.actions.act_window,' +str(ref('action_rdclaim_wizardsss'))"/>
+            <field name="key">action</field>
+            <field name="model">rdclaim.wizard</field>
+        </record>
+	<act_window name="RD CLAIM" res_model="rdclaim.wizard" src_model="rdclaim.wizard" key2="client_action_multi" multi="True" view_mode="form" view_type="form" target="new" id="action_rdclaim_wizardsss" />
+			
+	<menuitem
+            name="RD Claim Report"
+            parent="fnet_aea_sale_report.menu_sale_register"
+            action="action_rdclaim_wizardsss"
+            id="menu_rd_claim_webkit_reportss"
+            sequence="6"
+            icon="STOCK_PRINT"/>
+            
+	
+	</data>
+</openerp>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		  <report 
+            id="travel_expense_format"
+            string="Travel Expense"
+            model="travel.expense" 
+            report_type="qweb-pdf"
+            file="fnet_aea_report.travel_expense_formats" 
+            name="fnet_aea_report.travel_expense_formats"
+            attachment_use="False"/>
+		
+            
+	</data>
+</openerp>

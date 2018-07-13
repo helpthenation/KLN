@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+		<record id="view_partner_form_inherit" model="ir.ui.view">
+            <field name="name">view.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/group/field[@name='function']" position="after">
+                     <field name="file" style="width: 60%%"/>
+	        </xpath>
+		    <field name="user_id" position="after">
+			<field name="enquiry_date"/>
+		    </field>
+                            <field name="website" position="after">
+                              <field name="contact"/>
+                            </field>
+			    
+			</field>
+	   </record>
+	</data>
+</openerp>

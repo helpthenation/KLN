@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+            <report
+                id="vat_invoices_report"
+                model="account.invoice"
+                string="Mline Tax Invoice"
+                report_type="qweb-pdf"
+                name="fnet_mline_vat_invoicereport.report_invoices" 
+                file="fnet_mline_vat_invoicereport.report_invoices"
+                menu="True"/>
+            <report
+                id="vat_invoices_new_report"
+                model="account.invoice"
+                string="Mline New Tax Invoice"
+                report_type="qweb-pdf"
+                name="fnet_mline_vat_invoicereport.report_new_invoices" 
+                file="fnet_mline_vat_invoicereport.report_new_invoices"
+                menu="True"/>
+    </data>
+</openerp>

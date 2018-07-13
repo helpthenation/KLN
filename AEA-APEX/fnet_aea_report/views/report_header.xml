@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <template id="report_header_custom_test" inherit_id="report.external_layout_header">
+            <xpath expr="//div[@class='header']" position="replace">
+                <div class ="header" style="width:100%">
+                    <style type="text/css">
+                      #table_ch{font size:10px;border:1px solid silver;font-family:Times new roman;width:100%}
+                      #table_ch tr td {padding:0px;margin:0px;display:inline-table}
+                      #table_ch tr td table tr td {padding:5px;text-align:center}
+                      .top-header {text-align:center;font-size:10px}
+                      .top-header div {display:block;font-size:10px}
+                      .image {width:100px;height:50px;vertical-align:middle;border:0px solid white;}
+                   </style>
+                    <table id="table_ch" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <table style="width=100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td width="10%" style="vertical-align:middle;">
+                                            <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="image"/>
+                                    </td>
+                                    <td width="80%" class="top-header">
+                                        <div style="font-size:13px"><b>Associated Electrical Agencies</b></div>
+                                        <span t-field='o.company_id.street'/>
+                                        <span t-field='o.company_id.street2'/>
+                                        <span t-field='o.company_id.city'/>
+                                        <span t-field='o.company_id.state_id.name'/> - <span t-field='o.company_id.zip'/>
+
+                                    </td>
+                                    <td width="10%" style="text-align:right;vertical-align:middle;" valign="middle">
+                                            <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="image"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                    
+                </div>
+            </xpath>
+     </template>
+     
+<!--
+<record id="paperformat_invoice" model="report.paperformat">
+    <field name="name">Indian A4 low margin Invoice</field>
+    <field name="default" eval="True" />
+    <field name="format">A4</field>
+    <field name="page_height">0</field>
+    <field name="page_width">0</field>
+    <field name="orientation">Portrait</field>
+    <field name="margin_top">5</field>
+    <field name="margin_bottom">5</field>
+    <field name="margin_left">7</field>
+    <field name="margin_right">7</field>
+    <field name="header_line" eval="False" />
+    <field name="header_spacing">35</field>
+    <field name="dpi">90</field>
+</record>
+-->
+
+
+
+</data>
+</openerp>

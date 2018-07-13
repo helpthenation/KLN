@@ -1,0 +1,26 @@
+<openerp>
+<data>
+<record model="ir.ui.view" id="view_sale_from_inherit">
+            <field name="name">view.sale.from.inheritss</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+            <page string="Terms and Condition" position="after">                                                                                                                                                                                                                                                                                                                                                                                                                    				
+				
+				<page string="Notes &amp; Remarks">
+						<field name="note_documents"/>
+					</page>
+					</page>
+			
+	<xpath expr="//form/sheet/notebook/page[@string='Subject']" position="replace">
+					<page string="Documents Required">
+                        <field name="subject"/>
+                    </page>
+            </xpath>			
+               
+ </field> 
+</record>
+
+
+</data>
+</openerp>

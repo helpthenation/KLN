@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_rd_update,rd.update,model_rd_update,fnet_aea_rd_update.group_rd_update,1,1,1,0
+access_rd_generate,rd.generate,model_rd_generate,base.group_sale_manager,1,1,1,0

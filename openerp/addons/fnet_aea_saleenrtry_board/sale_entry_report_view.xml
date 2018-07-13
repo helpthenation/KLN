@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="view_sale_entry_report" model="ir.ui.view">
+         <field name="name">sale.entry.report</field>
+         <field name="model">sale.entry.report</field>
+         <field name="arch" type="xml">
+             <graph string="Sales Entry Analysis" type="pivot" stacked="True">
+                 <field name="user_id" type="col"/>
+                 <field name="sr_id" type="col"/>
+                 <field name="partner_id" type="col"/>
+                 <field name="prod_categ_id" type="row"/>
+                 <field name="product_id" type="row"/>                 
+                 <field name="current_stock" type="measure"/>
+                 <field name="amount" type="measure"/>                 
+                 <field name="closing_stock" type="measure"/>                 
+             </graph>
+         </field>
+    </record>
+
+        <record id="view_sale_entry_report_search" model="ir.ui.view">
+        <field name="name">sale.entry.report.search</field>
+        <field name="model">sale.entry.report</field>
+        <field name="arch" type="xml">
+            <search string="Sales  Entry Analysis">
+                <field name="date_from"/>
+                <filter string="This Year" name="year" invisible="1" domain="[('date_from','&lt;=', time.strftime('%%Y-12-31')),('date_from','&gt;=',time.strftime('%%Y-01-01'))]"/>
+                
+                <separator/>
+                <filter string="My Sales" help="My Sales" domain="[('sr_id','=',uid)]"/>
+                <field name="partner_id"/>
+                <field name="product_id"/>
+                <field name="sr_id"/>
+                <filter string="This Year" name="thisyear" domain="['|', ('date_from', '=', False), '&amp;',('date_from','&lt;=', time.strftime('%%Y-12-31')),('date_from','&gt;=',time.strftime('%%Y-01-01'))]" help="Journal invoices with period in current year"/>
+                <filter string="Prev Year" name="prev_month"  domain="['&amp;',('date_from','&lt;=',(context_today()-relativedelta(years=1)).strftime('%%Y-12-01')),('date_from','&lt;',time.strftime('%%Y-01-01'))]"/>
+                <group expand="0" string="Extended Filters">
+                    <field name="prod_categ_id" filter_domain="[('prod_categ_id', 'child_of', self)]"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </group>
+                <group expand="1" string="Group By">
+                    <filter string="Sales Manager" name="Officer" context="{'group_by':'user_id'}"/>
+                    <filter string="Sales Representative" name="User" context="{'group_by':'sr_id'}"/>
+                    <filter string="Customer" name="Customer" context="{'group_by':'partner_id'}"/>
+                    <filter string="Product" name="Product" context="{'group_by':'product_id'}"/>
+                    <filter string="Category of Product" name="Category" context="{'group_by':'prod_categ_id'}"/>
+                    <filter string="Status" context="{'group_by':'state'}"/>
+                    <filter string="Company" groups="base.group_multi_company" context="{'group_by':'company_id'}"/>
+                    <separator/>
+                    <filter string="Sale Entry Month" context="{'group_by':'date_from:month'}" help="Ordered date of the sales order"/>
+                </group>
+            </search>
+        </field>
+    </record>
+        <record id="action_sale_entry_report" model="ir.actions.act_window">
+        <field name="name">Sales Entry Analysis</field>
+        <field name="res_model">sale.entry.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph</field>
+        <field name="search_view_id" ref="view_sale_entry_report_search"/>
+        <field name="view_id" ref="view_sale_entry_report"/>
+        <field name="help">This report performs analysis on your quotations and sales orders. Analysis check your sales revenues and sort it by different group criteria (salesman, partner, product, etc.) Use this report to perform analysis on sales not having invoiced yet. If you want to analyse your turnover, you should use the Invoice Analysis report in the Accounting application.</field>
+    </record>
+    <menuitem action="action_sale_entry_report" id="menu_report_sale_entry_all"  parent="base.next_id_64" sequence="40"/>
+
+</data>
+</openerp>

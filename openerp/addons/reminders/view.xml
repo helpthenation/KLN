@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+		<menuitem id = "employee_reminder_action_menu_id" 
+			name = "Reminders" parent = "hr.menu_hr_main" sequence = "3"/>
+			
+	    <record id="employee_reminder_tree11" model="ir.ui.view">
+			<field name="name">view.employee.form.inherit</field>
+			<field name="model">hr.employee</field>
+			<field name="arch" type="xml">
+				<tree>
+				<field name = "emp_code"/>
+				<field name = "name_related"/>
+				<field name = "branch_id"/>
+				<field name = "passport_no"/>
+				<field name = "pass_place_issue"/>
+				<field name = "pass_issue"/>
+				<field name = "expiry_date"/>
+				<field name = "pass_remind"/>
+<!--
+				<button name="move_to_hr_employee" string="hr" type="object"/>
+-->
+				</tree>
+			</field>
+		</record>
+		
+	    <record id="view_employee_filter" model="ir.ui.view">
+			<field name="name">employees</field>
+			<field name="model">hr.employee</field>
+			<field name="arch" type="xml">
+				<search string="Employees">
+				     <group expand="0" string="Group By">
+						 <filter string="reminder date" domain="[]" context="{'group_by':'pass_remind'}"/>
+						 <filter string="issue date" domain="[]" context="{'group_by':'pass_issue'}"/>
+						 <filter string="expiry date" domain="[]" context="{'group_by':'expiry_date'}"/>
+						 <filter string="Company" icon="terp-go-home" domain="[]" context="{'group_by':'branch_id'}"/>
+					 </group>
+				</search>
+			</field>
+		</record>
+		
+		<record id="employee_reminder_action_id11" model="ir.actions.act_window">
+			<field name="name">Passport Reminder</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.employee</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="employee_reminder_tree11"/>
+		</record>
+		
+		<menuitem action = "employee_reminder_action_id11" id = "employee_reminder_action_menu11" 
+			name = "Passport Reminders" parent = "employee_reminder_action_menu_id" sequence = "1"/>
+			
+		<record id="employee_reminder_tree12" model="ir.ui.view">
+			<field name="name">view.employee.form.inherit</field>
+			<field name="model">hr.employee</field>
+			<field name="arch" type="xml">
+				<tree>
+				<field name = "emp_code"/>
+				<field name = "name_related"/>
+				<field name = "branch_id"/>
+				<field name = "visa_no"/>
+				<field name = "visa_type"/>
+				<field name = "visa_issue"/>
+				<field name = "visa_expiry"/>
+				<field name = "visa_remind"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_employee_filter" model="ir.ui.view">
+			<field name="name">employees</field>
+			<field name="model">hr.employee</field>
+			<field name="arch" type="xml">
+				<search string="Employees">
+				     <group expand="0" string="Group By">
+						 <filter string="reminder date" domain="[]" context="{'group_by':'visa_remind'}"/>
+						 <filter string="issue date" domain="[]" context="{'group_by':'visa_issue'}"/>
+						 <filter string="expiry date" domain="[]" context="{'group_by':'visa_expiry'}"/>
+						 <filter string="Company" icon="terp-go-home" domain="[]" context="{'group_by':'branch_id'}"/>
+					 </group>
+				</search>
+			</field>
+		</record>
+		
+		<record id="employee_reminder_action_id12" model="ir.actions.act_window">
+			<field name="name">Visa Reminder</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.employee</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="employee_reminder_tree12"/>
+		</record>
+		
+		<menuitem action = "employee_reminder_action_id12" id = "employee_reminder_action_menu12" 
+			name = "Visa Reminders" parent = "employee_reminder_action_menu_id" sequence = "2"/>
+			
+		<record id="employee_reminder_tree13" model="ir.ui.view">
+			<field name="name">view.employee.form.inherit</field>
+			<field name="model">hr.employee</field>
+			<field name="arch" type="xml">
+				<tree>
+				<field name = "emp_code"/>
+				<field name = "name_related"/>
+				<field name = "branch_id"/>
+				 <field name = "ins_no"/>
+				<field name = "ins_comp_name"/>				
+				<field name = "ins_issue"/>
+				<field name = "ins_expiry"/>
+				<field name = "ins_remind"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_employee_filter" model="ir.ui.view">
+			<field name="name">employees</field>
+			<field name="model">hr.employee</field>
+			<field name="arch" type="xml">
+				<search string="Employees">
+				     <group expand="0" string="Group By">
+						 <filter string="reminder date" domain="[]" context="{'group_by':'ins_remind'}"/>
+						 <filter string="issue date" domain="[]" context="{'group_by':'ins_issue'}"/>
+						 <filter string="expiry date" domain="[]" context="{'group_by':'ins_expiry'}"/>
+						 <filter string="Company" icon="terp-go-home" domain="[]" context="{'group_by':'branch_id'}"/>
+					 </group>
+				</search>
+			</field>
+		</record>
+		
+		<record id="employee_reminder_action_id13" model="ir.actions.act_window">
+			<field name="name">Insurance Reminder</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.employee</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="employee_reminder_tree13"/>
+		</record>
+		
+		<menuitem action = "employee_reminder_action_id13" id = "employee_reminder_action_menu13" 
+			name = "Insurance Reminders" parent = "employee_reminder_action_menu_id" sequence = "3"/>
+			
+		<record id="employee_reminder_tree14" model="ir.ui.view">
+			<field name="name">view.employee.form.inherit</field>
+			<field name="model">hr.employee</field>
+			<field name="arch" type="xml">
+				<tree>
+				<field name = "emp_code"/>
+				<field name = "name_related"/>
+				<field name = "branch_id"/>
+				<field name = "cnia_no"/>
+				<field name = "cnia_issue"/>
+				<field name = "cnia_expiry"/>
+				<field name = "cnia_remind"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_employee_filter" model="ir.ui.view">
+			<field name="name">employees</field>
+			<field name="model">hr.employee</field>
+			<field name="arch" type="xml">
+				<search string="Employees">
+				     <group expand="0" string="Group By">
+						 <filter string="reminder date" domain="[]" context="{'group_by':'cnia_remind'}"/>
+						 <filter string="issue date" domain="[]" context="{'group_by':'cnia_issue'}"/>
+						 <filter string="expiry date" domain="[]" context="{'group_by':'cnia_expiry'}"/>
+						 <filter string="Company" icon="terp-go-home" domain="[]" context="{'group_by':'branch_id'}"/>
+					 </group>
+				</search>
+			</field>
+		</record>
+		
+		<record id="employee_reminder_action_id14" model="ir.actions.act_window">
+			<field name="name">CNIA Reminder</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.employee</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="employee_reminder_tree14"/>
+		</record>
+		
+		<menuitem action = "employee_reminder_action_id14" id = "employee_reminder_action_menu14" 
+			name = "CNIA Reminders" parent = "employee_reminder_action_menu_id" sequence = "4"/>
+		
+			
+ 
+    </data>
+</openerp>

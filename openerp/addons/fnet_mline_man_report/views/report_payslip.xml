@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	
+<!--
+<template id="mline_header">
+	<div class="header">
+		<div class="row">
+			<div class="col-xs-3">
+				<h4>FFFFFFFFFFFFFFFf</h4>
+			</div>
+		</div>
+	</div>
+</template>
+-->
+
+<template id="report_payslip">
+	<template id="report_header_custom" inherit_id="report.external_layout_header">
+		<xpath expr="//div[@class='header']" position="replace">
+            <div class="header">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <strong>ACMKC &amp;copy;</strong>
+                    </div>
+                </div>
+                <div class="row zero_min_height">
+                    <div class="col-xs-12">
+                        <div style="border-bottom: 1px solid black;"/>
+                    </div>
+                </div>
+            </div>
+		</xpath>
+	</template>
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="report.external_layout">
+				
+                <div class="page">
+				  <style type="text/css">
+                     .table_payslip, th, td {
+                       border: 1px solid black;
+                     }
+                     .table_sale {
+                       width: 100%;
+                     }
+                     .oblique {
+                       font-style: oblique;
+                       }
+					 
+                   </style>
+                   
+                   <h3><center><strong>EMPLOYEE PAYSLIP</strong></center></h3>
+                   <h3><center><span t-field="o.employee_id.branch_id.name"/></center></h3>
+                   
+                   <table class="table table-condensed table-bordered">
+                        <tr>
+                            <td><strong>Name</strong></td>
+                            <td><span t-field="o.employee_id"/></td>
+                            <td><strong>Designation</strong></td>
+                            <td><span t-field="o.employee_id.job_id"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Address</strong></td>
+                            <td colspan="3">
+                                <div t-field="o.employee_id.address_home_id"
+                                    t-field-options='{"widget": "contact", "fields": ["address", "phone", "fax"], "no_marker": true}'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email</strong></td>
+                            <td><span t-field="o.employee_id.work_email"/></td>
+                            <td><strong>Employee Code</strong></td>
+                            <td><span t-field="o.employee_id.emp_code"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reference</strong></td>
+                            <td><span t-field="o.name"/></td>
+                            <td><strong>Bank Account</strong></td>
+                            <td><span t-field="o.employee_id.bank_account_id.acc_number"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Date From</strong></td>
+                            <td><span t-field="o.date_from"/></td>
+                            <td><strong>Date To</strong></td>
+                            <td><span t-field="o.date_to"/></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Overtime Hours</th>
+                                <th class="text-center">Holiday Hours</th>
+                                <th class="text-center">Leave Days</th>
+                            </tr>
+                        </thead>
+                        <thead>
+                            <tr t-foreach="o.working_line" t-as="p">
+                                <td class="text-right"><span t-field="p.ot_hours"/></td>
+                                <td class="text-right"><span t-field="p.holiday_hours"/></td>
+                                <td class="text-right"><span t-field="p.leave_days"/></td>
+                            </tr>
+                        </thead>
+                    </table>
+                    <br/>
+                    
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Salary type</th>
+                                <th class="text-center">Amount</th>
+                            </tr>
+                        </thead>
+                        <thead>
+                            <tr t-foreach="o.salary_line" t-as="p">
+                                <td><span t-field="p.rule_id.name"/></td>
+                                <td class="text-right"><span t-field="p.amount"/></td>
+                            </tr>
+                        </thead>
+<!--
+                        <tfoot>
+							<th>Net</th>
+							<td class="text-right"><strong><span t-field="o.net_total"/></strong></td>
+                        </tfoot>
+                        <tfoot>
+							<th>Gross</th>
+							<td class="text-right"><strong><span t-field="o.gross_total"/></strong></td>
+                        </tfoot>
+-->
+                    </table>
+                    <br/>
+                    <p class="text-right"><strong>Authorized signature</strong></p>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

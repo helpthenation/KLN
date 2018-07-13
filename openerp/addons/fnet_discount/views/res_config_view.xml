@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="sale_discount_config_settings_view" model="ir.ui.view">
+            <field name="name">account settings.add.roundings</field>
+            <field name="model">sale.config.settings</field>
+            <field name="inherit_id" ref="sale.view_sales_config"/>
+            <field name="arch" type="xml">
+                                
+                <xpath expr="//label[@for='group_discount_per_so_line']" position="after">                  
+                           <div>
+                                <field name="group_product_discount" class="oe_inline"/>
+                                <label for="group_product_discount"/>
+                            </div>
+                           <div attrs="{'invisible':[('group_product_discount', '=', False)]}">
+                               <group>
+                                 <group col="4">                             
+                                        <field name="product_discount_account_id"/>
+                                </group>
+                                </group>
+                            </div>
+                            <div>
+                                <field name="group_discount_global" class="oe_inline"/>
+                                <label for="group_discount_global"/>
+                            </div>
+                           <div attrs="{'invisible':[('group_discount_global', '=', False)]}">
+                               <group>
+                                 <group col="4">                                  
+                                               
+                                    <field name="discount_percentage"/>                     
+                                    <field name="discount_calculation_account_id"/>
+                                     <field name="discount_value" invisible="1"/>            
+                                </group>
+                                </group>
+                            </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

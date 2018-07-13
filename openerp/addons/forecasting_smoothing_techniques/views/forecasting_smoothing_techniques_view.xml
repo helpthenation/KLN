@@ -1,0 +1,469 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+    <data>
+        <record id="forecasting_data_view_form" model="ir.ui.view">
+            <field name="name">stock.forecasting.data.form</field>
+            <field name="model">forecast.data</field>
+            <field name="arch" type="xml">
+                <form string="Forecast Data">
+                    <group string="Data information" colspan="4" col="4">
+                        <group colspan="2">
+                            <field name="sequence"/>
+                            <field name="label"/>
+                            <field name="value"/>
+                        </group>
+                        <group colspan="2">
+                            <field name="create_date"/>
+                            <field name="create_uid"/>
+                            <field name="write_date"/>
+                            <field name="write_uid"/>
+                        </group>
+                    </group>
+                    <group string="Forecasting Results" col="4">
+                        <field name="sma" readonly="1"/>
+                        <field name="sma_error" readonly="1"/>
+                        <field name="cma" readonly="1"/>
+                        <field name="cma_error" readonly="1"/>
+                        <field name="wma" readonly="1"/>
+                        <field name="wma_error" readonly="1"/>
+                        <field name="es1" readonly="1"/>
+                        <field name="es1_error" readonly="1"/>
+                        <field name="es2" readonly="1"/>
+                        <field name="es2_error" readonly="1"/>
+                        <field name="es3" readonly="1"/>
+                        <field name="es3_error" readonly="1"/>
+                        <field name="holt" readonly="1"/>
+                        <field name="holt_error" readonly="1"/>
+                        <field name="holt_level" readonly="1"/>
+                        <newline/>
+                        <field name="holt_trend" readonly="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="forecasting_data_view_tree" model="ir.ui.view">
+            <field name="name">stock.forecasting.data.tree</field>
+            <field name="model">forecast.data</field>
+            <field name="arch" type="xml">
+                <tree string="Forecast Data">
+                    <field name="sequence"/>
+                    <field name="label"/>
+                    <field name="value"/>
+                    <field name="forecast_id" invisible="1"/>
+                    <field name="sma"/>
+                    <field name="cma"/>
+                    <field name="wma"/>
+                    <field name="es1"/>
+                    <field name="es2"/>
+                    <field name="es3"/>
+                    <field name="holt"/>
+                    <field name="holt_level"/>
+                    <field name="holt_trend"/>
+                    <field name="sma_error"/>
+                    <field name="cma_error"/>
+                    <field name="wma_error"/>
+                    <field name="es1_error"/>
+                    <field name="es2_error"/>
+                    <field name="es3_error"/>
+                    <field name="holt_error"/>
+                </tree>
+            </field>
+        </record>
+        <record id="forecasting_data_view_search" model="ir.ui.view">
+            <field name="name">stock.forecasting.data.search</field>
+            <field name="model">forecast.data</field>
+            <field name="arch" type="xml">
+                <search string="Forecast Data">
+                    <field name="sequence"/>
+                    <field name="label"/>
+                    <field name="value"/>
+                </search>
+            </field>
+        </record>
+        <record id="forecasting_data_view_graph" model="ir.ui.view">
+            <field name="name">stock.forecasting.data.graph</field>
+            <field name="model">forecast.data</field>
+            <field name="arch" type="xml">
+                <graph string="Forecast Data">
+                    <field name="sequence"/>
+                    <field name="value" operator="+"/>
+                    <field name="sma" operator="+"/>
+                    <field name="cma" operator="+"/>
+                    <field name="wma" operator="+"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_view_forecasting_data" model="ir.actions.act_window">
+            <field name="name">Forecast Data</field>
+            <field name="res_model">forecast.data</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="domain">[('forecast_id', '=', context.get('forecast_id'))]</field>
+        </record>
+
+        <record id="forecasting_view_form" model="ir.ui.view">
+            <field name="name">stock.forecasting.view.form</field>
+            <field name="model">forecast</field>
+            <field name="arch" type="xml">
+                <form string="Forecast">
+                    <header>
+                        <label for="shelp"/>
+                        <field name="shelp"/>
+                        <label for="mhelp"/>
+                        <field name="mhelp" class="oe_inline"/>
+                    </header>
+                    <sheet>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="id" string='With ID...'/>
+                                <h2><field name="id"/></h2>
+                            </div>
+                            <div class="col-md-5">
+                                <label for="name" string='Title of this forcast'/>
+                                <h2 class="oe_inline"><field name="name" placeholder="Name..." required="1"/></h2>
+                            </div>
+                            <div class="col-md-5 oe_button_box" name="button_box" style="width: 41.6667%">
+                                <button name="reset_defaults" type="object" string="Reset Defaults" class="oe_inline oe_stat_button" icon="fa-refresh" help="Reset the forecasting methods default parameter values"/>
+                                <button name="clear" type="object" string="Clear" class="oe_inline oe_stat_button" icon="fa-times-circle" help="Clear the forecast values data to run the forecasting"/>
+                                <button name="%(action_view_forecasting_data)d" type="action" string="List of values" class="oe_inline oe_stat_button" icon="fa-database" help="List of Values" context="{'forecast_id': id}"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="alert alert-warning col-md-10 col-md-offset-1"
+                                attrs="{'invisible':[('sma_warning','=', False)]}">
+                                <b>
+                                    <label for="sma_warning"/>
+                                    <field name="sma_warning" readonly="1"/>
+                                </b>
+                            </div>
+                            <div class="alert alert-warning col-md-10 col-md-offset-1"
+                                attrs="{'invisible':[('cma_warning','=', False)]}">
+                                <b>
+                                    <label for="cma_warning"/>
+                                    <field name="cma_warning" readonly="1"/>
+                                </b>
+                            </div>
+                            <div class="alert alert-warning col-md-10 col-md-offset-1"
+                                attrs="{'invisible':[('wma_warning','=', False)]}">
+                                <b>
+                                    <label for="wma_warning"/>
+                                    <field name="wma_warning" readonly="1"/>
+                                </b>
+                            </div>
+                            <div class="alert alert-warning col-md-10 col-md-offset-1"
+                                attrs="{'invisible':[('exp_warning','=', False)]}">
+                                <b>
+                                    <label for="exp_warning"/>
+                                    <field name="exp_warning" readonly="1"/>
+                                </b>
+                            </div>
+                            <div class="alert alert-warning col-md-10 col-md-offset-1"
+                                attrs="{'invisible':[('holt_warning','=', False)]}">
+                                <b>
+                                    <label for="holt_warning"/>
+                                    <field name="holt_warning" readonly="1"/>
+                                </b>
+                            </div>
+                        </div>
+                        <field name="value_ids" nolabel="1" widget="x2many_graph" color_value="#2CA02C" color_sma="#FFBB78" color_cma="#1F77B4" color_wma="#D62728">
+                            <graph >
+                                <field name="sequence"/>
+                                <field name="value"/>
+                                <field name="sma"/>
+                                <field name="cma"/>
+                                <field name="wma"/>
+                                <field name="es1"/>
+                                <field name="es2"/>
+                                <field name="es3"/>
+                                <field name="holt"/>
+                                <field name="holt_level"/>
+                                <field name="holt_trend"/>
+                            </graph>
+                        </field>
+                        <div class="panel panel-default" attrs="{'invisible':[('shelp','=',False), ('mhelp','=',False) ]}">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Forecasting Data</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12 no_print" attrs="{'invisible':[('mhelp','=',False)]}">
+                                        <p class="mt_32">
+                                            A time series is a sequence of observations which are ordered in time. Inherent in the collection of data taken over time is some form of random variation. There exist methods for reducing of canceling the effect due to random variation. Widely used techniques are "smoothing". These techniques, when properly applied, reveals more clearly the underlying trends.
+                                        </p>
+                                        <p class="mt_32">
+                                            For deep mathematical explanation of the method you can check in
+                                            <a class="reference external" href="https://home.ubalt.edu/ntsbarsh/business-stat/stat-data/Forecast.htm#rhomave">
+                                                this link
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 no_print" attrs="{'invisible':[('shelp','=',False)]}">
+                                        <div class="alert alert-success" role="alert">
+                                            <strong>Step 1:</strong>
+                                            Fill forecast values. Click over the List of Values button at the right-upper corner of this form and add the data to calcula the forecast. This data must be consecutive values, you can associate a label to identificate what the value means. You can add as many values as you want. When updating the values data the forecast will be re-compute automactly.
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--
+                                TODO add o2m widget to show the list of values
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-1 col-md-offset-1"><field name="value_ids" class="oe_inline"/></div>
+                                    </div>
+                                </div>
+                                -->
+                                <div class="row">
+                                    <div class="col-md-12 no_print" attrs="{'invisible':[('mhelp','=',False)]}">
+                                        <p class="mt_32">
+                                            <strong>How to compare several smoothing methods</strong>. Although there are numerical indicators for assessing the accuracy of the forecasting technique, the most widely approach is in using visual comparison of several forecasts to assess their accuracy and choose among the various forecasting methods. In this approach, one must plot (using, e.g., Excel) on the same graph the original values of a time series variable and the predicted values from several different forecasting methods, thus facilitating a visual comparison.
+                                        </p>
+
+
+                                        <p class="mt_32">
+                                            The single exponential smoothing emphasizes the short-range perspective; it sets the level to the last observation and is based on the condition that there is no trend. The linear regression, which fits a least squares line to the historical data (or transformed historical data), represents the long range, which is conditioned on the basic trend. Holt’s linear exponential smoothing captures information about recent trend. The parameters in Holt’s model is levels-parameter which should be decreased when the amount of data variation is large, and trends-parameter should be increased if the recent trend direction is supported by the causal some factors.
+
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Moving Averages</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12 no_print" attrs="{'invisible':[('mhelp','=',False)]}">
+                                        <p class="mt_32">
+                                            Moving averages rank among the most popular techniques for the pre processing of time series. They are used to filter random "white noise" from the data, to make the time series smoother or even to emphasize certain informational components contained in the time series.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 no_print" attrs="{'invisible':[('shelp','=',False)]}">
+                                        <div class="alert alert-success" role="alert">
+                                            <strong>Step 2:</strong> Set the Period parameter to calculate the moving average forecasting. This period must be greater than one.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p class="text-center">
+                                            <label for="period"/>
+                                            <field name="period" class="oe_inline"/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <table class="table">
+                                    <tr>
+                                        <td></td>
+                                        <td><label string="Forecast"/></td>
+                                        <td><label string="MA Error"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label string="Simple Moving Average"/></td>
+                                        <td><field name="sma_forecast"/></td>
+                                        <td><field name="sma_ma_error"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label string="Cumulative Moving Average"/></td>
+                                        <td><field name="cma_forecast"/></td>
+                                        <td><field name="cma_ma_error"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label string="Weighted Moving Average"/></td>
+                                        <td><field name="wma_forecast"/></td>
+                                        <td><field name="wma_ma_error"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Exponential Smoothing</h3>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="col-md-12 no_print" attrs="{'invisible':[('mhelp','=',False)]}">
+                                        <p class="mt_32">
+                                            This is a very popular scheme to produce a smoothed Time Series. Whereas in Moving Averages the past observations are weighted equally, Exponential Smoothing assigns exponentially decreasing weights as the observation get older. In other words, recent observations are given relatively more weight in forecasting than the older observations. <strong>Double Exponential Smoothing</strong> is better at handling trends. <strong>Triple Exponential Smoothing</strong> is better at handling parabola trends.
+                                        </p>
+                                        <p class="mt_32">
+                                            An exponentially weighted moving average with a smoothing constant a, corresponds roughly to a simple moving average of length (i.e., period) n, where a and n are related by:
+                                        </p>
+                                        <p class="mt_32 text-center">
+                                            a = 2/(n+1)    OR    n = (2 - a)/a.
+                                        </p>
+                                        <p class="mt_32">
+                                            Thus, for example, an exponentially weighted moving average with a smoothing constant equal to 0.1 would correspond roughly to a 19 day moving average. And a 40-day simple moving average would correspond roughly to an exponentially weighted moving average with a smoothing constant equal to 0.04878.
+                                        </p>
+                                        <p class="mt_32">
+                                            Notice that the simple moving average is special case of the exponential smoothing by setting the period of the moving average to the integer part of (2-Alpha)/Alpha.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 no_print" attrs="{'invisible':[('shelp','=',False)]}">
+                                        <div class="alert alert-success" role="alert">
+                                            <strong>Step 3:</strong> Set the Alpha to use to calculate the exponential smoothing forecasts.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 col-md-offset-5">
+                                        <div class="form-group">
+                                            <label for="exp_alpha"/>
+                                            <field name="exp_alpha" class="oe_inline"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="table">
+                                    <tr>
+                                        <td></td>
+                                        <td><label string="Forecast"/></td>
+                                        <td><label string="MA Error"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label string="Single Exponential Smoothing"/></td>
+                                        <td><field name="single_forecast"/></td>
+                                        <td><field name="single_ma_error"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label string="Double Exponential Smoothing"/></td>
+                                        <td><field name="double_forecast"/></td>
+                                        <td><field name="double_ma_error"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label string="Triple Exponential Smoothing"/></td>
+                                        <td><field name="triple_forecast"/></td>
+                                        <td><field name="triple_ma_error"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Holt's Linear Smoothing</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-md-12 no_print" attrs="{'invisible':[('mhelp','=',False)]}">
+                                    <p class="mt_32">
+                                        Suppose that the time series is non-seasonal but does display trend. Holt’s method estimates both the current level and the current trend.
+                                    </p>
+                                    <p class="mt_32">
+                                        For most business data an Alpha parameter smaller than 0.40 is often effective. However, one may perform a grid search of the parameter space, with = 0.1 to = 0.9, with increments of 0.1. Then the best alpha has the smallest Mean Absolute Error (MA Error).
+                                    </p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 no_print" attrs="{'invisible':[('shelp','=',False)]}">
+                                        <div class="alert alert-success" role="alert">
+                                            <strong>Step 4:</strong> Set Holt's parameters to calculate the forecasting.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 col-md-offset-1">
+                                        <p class="text-center">
+                                            <label for="holt_period" string="Period"/>
+                                            <field name="holt_period" class="oe_inline"/>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="text-center">
+                                            <label for="holt_alpha"/>
+                                            <field name="holt_alpha" class="oe_inline"/>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="text-center">
+                                            <label for="beta"/>
+                                            <field name="beta" class="oe_inline"/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <table class="table">
+                                    <tr>
+                                        <td></td>
+                                        <td><label string="Forecast"/></td>
+                                        <td><label string="MA Error"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label string="Holt's Linear Smotting"/></td>
+                                        <td><field name="holt_forecast"/></td>
+                                        <td><field name="holt_ma_error"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="forecasting_view_tree" model="ir.ui.view">
+            <field name="name">stock.forecasting.view.tree</field>
+            <field name="model">forecast</field>
+            <field name="arch" type="xml">
+                <tree string="Forecast">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="value_ids"/>
+                    <field name="sma_forecast" string="SMA"/>
+                    <field name="cma_forecast" string="CMA"/>
+                    <field name="wma_forecast" string="WMA"/>
+                    <field name="single_forecast" string="ES1"/>
+                    <field name="double_forecast" string="ES2"/>
+                    <field name="triple_forecast" string="ES3"/>
+                    <field name="holt_forecast" string="HOLT"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="forecasting_view_search" model="ir.ui.view">
+            <field name="name">stock.forecasting.view.search</field>
+            <field name="model">forecast</field>
+            <field name="arch" type="xml">
+                <search string="Forecast">
+                    <field name="id"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_view_forecasting" model="ir.actions.act_window">
+            <field name="name">Forecast</field>
+            <field name="res_model">forecast</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="menu_forecasting"
+            parent="base.menu_custom"
+            name="Forecasting"
+            sequence="35"
+        />
+
+        <menuitem
+            id="menu_forecasting_technique"
+            parent="menu_forecasting"
+            sequence="5"
+            name="Forecasts"
+            action="action_view_forecasting"
+            groups="forecast_group_user,forecast_group_manager"
+        />
+
+    </data>
+</openerp>

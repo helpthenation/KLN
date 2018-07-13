@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    <template id="report_debtors_closing_balance">
+    <t t-call="report.html_container">
+        
+        <t t-foreach="docs" t-as="o">
+                
+                <div class="page">
+					<style type="text/css">
+						#table_chk{font-size:13px;border:1px solid silver;border-top:0px;font-family:Inconsolata}	
+						#table_chk tr td {padding:0px;margin:0px;display:inline-table}
+						#table_chk tr td table tr td {padding:5px;text-align:center}
+						#table_chk tr td table tr.header {border:1px solid silver;border-right:0px;border-left:0px}
+						#table_chk tr td table tr.header td {border-right:1px solid silver;font-weight:bold}
+						#table_chk tr td table tr.body {border:1px solid white;border-right:0px;border-left:0px}
+						#table_chk tr td table tr.body td {border-right:1px dashed silver;vertical-align:middle}
+						#table_chk tr td table tr.body td:last-child {border-right:0px;}
+						.parent-border {width:200px;border-bottom:2px dotted silver;}
+						.child-border {width:200px;border-bottom:2px dotted silver;margin-bottom:2px}	
+						.border-right {text-align:right !important;border-right:1px dashed silver !important}
+					</style>
+					<table style="width:100%;font-size:13px;font-family:Inconsolata" cellpadding="0" cellspacing="0">
+						<tr>
+							<td width="33%" style="text-align:left">
+								<div style="display:block"><span>ASSOCIATED ELECTRICAL AGENCIES</span>, <span t-esc="o.company_id.state_id.name"/></div>
+							</td>
+							<td width="33%" style="text-align:center">
+								<div style="display:block">DEBTORS MONTH WISE CLOSING BALANCE </div>
+							</td>
+							<td width="34%" style="text-align:right">
+								<span style="padding-right:20px">from:<span t-esc="get_date(data)[0]['from_date'][0]"/> to <span t-esc="get_date(data)[0]['to_date'][0]"/></span>
+							</td>
+						</tr>
+					</table><br/><br/>
+                    <table id="table_chk" style="width:100%;" cellpadding="0" cellspacing="0">
+						<tr>
+							<td> 
+								<table style="width:100%;" cellpadding="0" cellspacing="0">
+									<tr class="header">
+										<td width="5%" rowspan="2" style="text-align:center">S. No</td>
+										<td width="25%" rowspan="2" style="text-align:center">Party Name</td>
+										<td width="70%" colspan="13" style="text-align:center">MONTH WISE BREAKUP OFF NET TOTAL</td>
+									</tr>
+									<tr class="header">
+										<td width="5%" style="text-align:center">APR</td>
+										<td width="5%" style="text-align:center">MAY</td>
+										<td width="5%" style="text-align:center">JUN</td>
+										<td width="5%" style="text-align:center">JUL</td>
+										<td width="5%" style="text-align:center">AUG</td>
+										<td width="5%" style="text-align:center">SEP</td>
+										<td width="5%" style="text-align:center">OCT</td>
+										<td width="5%" style="text-align:center">NOV</td>
+										<td width="5%" style="text-align:center">DEC</td>
+										<td width="5%" style="text-align:center">JAN</td>
+										<td width="10%" style="text-align:center">FEB</td>
+										<td width="10%" style="text-align:center">MAR</td>
+									</tr>
+									<t t-set="counter" t-value="1"/>
+									<tr class="body" t-foreach="get_debtors(data)" t-as="partner">
+										<td width="5%" style="text-align:center"><span t-esc="counter"/>
+                                            <t t-set="counter" t-value="counter+1"/></td>
+										<td width="5%" style="text-align:left"><strong t-esc="partner['name']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_debtor_closing(data,partner['partner_id'],4)[0]['balance']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_debtor_closing(data,partner['partner_id'],5)[0]['balance']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_debtor_closing(data,partner['partner_id'],6)[0]['balance']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_debtor_closing(data,partner['partner_id'],7)[0]['balance']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_debtor_closing(data,partner['partner_id'],8)[0]['balance']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_debtor_closing(data,partner['partner_id'],9)[0]['balance']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_debtor_closing(data,partner['partner_id'],10)[0]['balance']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_debtor_closing(data,partner['partner_id'],11)[0]['balance']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_debtor_closing(data,partner['partner_id'],12)[0]['balance']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_debtor_closing(data,partner['partner_id'],1)[0]['balance']"/></td>
+										<td width="10%" style="text-align:right"><span t-esc="get_debtor_closing(data,partner['partner_id'],2)[0]['balance']"/></td>
+										<td width="10%" style="text-align:right"><span t-esc="get_debtor_closing(data,partner['partner_id'],3)[0]['balance']"/></td>
+									</tr>
+									<tr class="body">
+										<td width="5%"></td>
+										<td width="5%">** ALL PARTY TOTAL ** </td>
+										<td width="5%"><span t-esc="get_debtor_total(data,4)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,5)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,6)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,7)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,8)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,9)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,10)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,11)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,12)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,1)[0]['total']"/></td>
+										<td width="10%"><span t-esc="get_debtor_total(data,2)[0]['total']"/></td>
+										<td width="10%"><span t-esc="get_debtor_total(data,3)[0]['total']"/></td>
+									</tr>
+									<tr class="body">
+										<td width="5%"></td>
+										<td width="5%">** OPENING BALANCE ** </td>
+										<td width="5%"><span t-esc="get_debtor_opening(data,4)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_opening(data,5)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_opening(data,6)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_opening(data,7)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_opening(data,8)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_opening(data,9)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_opening(data,10)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_opening(data,11)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_opening(data,12)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_opening(data,1)[0]['total']"/></td>
+										<td width="10%"><span t-esc="get_debtor_opening(data,2)[0]['total']"/></td>
+										<td width="10%"><span t-esc="get_debtor_opening(data,3)[0]['total']"/></td>
+									</tr>
+									<tr class="body">
+										<td width="5%"></td>
+										<td width="5%">** INVOICE ** </td>
+										<td width="5%"><span t-esc="get_debtor_invoice(data,4)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_invoice(data,5)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_invoice(data,6)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_invoice(data,7)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_invoice(data,8)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_invoice(data,9)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_invoice(data,10)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_invoice(data,11)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_invoice(data,12)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_invoice(data,1)[0]['total']"/></td>
+										<td width="10%"><span t-esc="get_debtor_invoice(data,2)[0]['total']"/></td>
+										<td width="10%"><span t-esc="get_debtor_invoice(data,3)[0]['total']"/></td>
+									</tr>
+									<tr class="body">
+										<td width="5%"></td>
+										<td width="5%">** CASH RECIEPT ** </td>
+										<td width="5%"><span t-esc="get_debtor_cash(data,4)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_cash(data,5)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_cash(data,6)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_cash(data,7)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_cash(data,8)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_cash(data,9)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_cash(data,10)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_cash(data,11)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_cash(data,12)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_cash(data,1)[0]['total']"/></td>
+										<td width="10%"><span t-esc="get_debtor_cash(data,2)[0]['total']"/></td>
+										<td width="10%"><span t-esc="get_debtor_cash(data,3)[0]['total']"/></td>
+									</tr>
+									<tr class="body">
+										<td width="5%"></td>
+										<td width="5%">** BANK PAYMENTS ** </td>
+										<td width="5%"><span t-esc="get_debtor_bank(data,4)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_bank(data,5)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_bank(data,6)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_bank(data,7)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_bank(data,8)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_bank(data,9)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_bank(data,10)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_bank(data,11)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_bank(data,12)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_bank(data,1)[0]['total']"/></td>
+										<td width="10%"><span t-esc="get_debtor_bank(data,2)[0]['total']"/></td>
+										<td width="10%"><span t-esc="get_debtor_bank(data,3)[0]['total']"/></td>
+									</tr>
+									<tr class="body">
+										<td width="5%"></td>
+										<td width="5%">** CREDIT NOTE ** </td>
+										<td width="5%"><span t-esc="get_debtor_credit_note(data,4)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_credit_note(data,5)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_credit_note(data,6)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_credit_note(data,7)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_credit_note(data,8)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_credit_note(data,9)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_credit_note(data,10)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_credit_note(data,11)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_credit_note(data,12)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_credit_note(data,1)[0]['total']"/></td>
+										<td width="10%"><span t-esc="get_debtor_credit_note(data,2)[0]['total']"/></td>
+										<td width="10%"><span t-esc="get_debtor_credit_note(data,3)[0]['total']"/></td>
+									</tr>
+									<tr class="body">
+										<td width="5%"></td>
+										<td width="5%">** CLOSING BALANCE ** </td>
+										<td width="5%"><span t-esc="get_debtor_total(data,4)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,5)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,6)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,7)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,8)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,9)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,10)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,11)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,12)[0]['total']"/></td>
+										<td width="5%"><span t-esc="get_debtor_total(data,1)[0]['total']"/></td>
+										<td width="10%"><span t-esc="get_debtor_total(data,2)[0]['total']"/></td>
+										<td width="10%"><span t-esc="get_debtor_total(data,3)[0]['total']"/></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						
+					</table>
+                </div>
+        </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

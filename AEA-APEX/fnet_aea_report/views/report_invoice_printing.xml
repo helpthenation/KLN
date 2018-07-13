@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    <template id="report_invoice_print">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-if="o.company_id.state_id.name != 'Kerala' ">
+                    <t t-call="fnet_aea_report.report_invoice_print1"/>
+                </t>
+                <t t-if="o.company_id.state_id.name == 'Kerala' ">
+                    <t t-call="fnet_aea_report.report_invoice_print2"/>
+                </t>
+            </t>
+        </t>
+    </template>
+    
+    <template id="report_invoice_print1">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+           
+                <div class="page">
+                    <style type="text/css">
+                    #table_chk{font-size:11px;font-family:Inconsolata;width:100%;}	
+					#table_chk tr td {padding:0px;margin:0px;display:inline-table}
+					#table_chk tr td table tr td {padding:5px;text-align:center}
+					#table_chk tr td table tr.header {border:0px;border-right:0px;border-left:0px;background-color:#BDBDBD;}
+					#table_chk tr td table tr.header td {border-right:0px;font-weight:bold}
+					#table_chk tr td table tr.header td:last-child {border-right:0px;font-weight:bold}
+					#table_chk tr td table tr.body {border:0px;border-right:0px;border-left:0px;}
+					#table_chk tr td table tr.body td {border-right:0px;}
+					#table_chk tr td table tr.body td:last-child {border-right:0px;}
+					.top-header {text-align:center;font-size:10px}
+					.top-header div {display:block;font-size:10px}
+					.image {width:100px;height:50px;vertical-align:middle;border:0px;}
+					.dealer {width:60%;height:100px;text-align:left}
+					.dealer-head div {display:block;text-align:left}
+					.invoice div{text-align:left}
+					.invoice p { display:block;height:35px;line-height:35px;text-align:left}
+                    </style>
+                    <table id="table_chk" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <table style="width:100%;visibility:hidden" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="10%" style="vertical-align:middle;">
+                                            <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="image"/>
+                                        </td>
+                                        <td width="80%" class="top-header">
+                                            <div style="font-size:13px"><b>TAX INVOICE CUM DELIVERY CHALLAN</b></div>
+                                            <div style="font-size:15px"><b>ASSOCIATED ELECTRICAL AGENGIES</b></div>
+                                            <div><span t-field='o.company_id.street'/>,<span t-field='o.company_id.street2'/></div>
+                                            <div><span t-field='o.company_id.city'/>, <span t-field='o.company_id.state_id.name'/>- <span t-field='o.company_id.zip'/>,Phone :<span t-field='o.company_id.phone'/></div>
+                                            <div>TIN : <span t-field='o.company_id.tin_no'/>CST No<span t-field='o.company_id.tin_no'/></div>
+                                        </td>
+                                        <td width="10%" style="text-align:right;vertical-align:middle;" valign="middle">
+                                            <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="image"/>
+                                        </td>
+                                    </tr>
+                                </table>    
+                            </td>
+                        </tr>   
+                        <tr>
+                            <td>
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="50%" class="dealer-head">
+                                            <div class="dealer">
+                                                <div style="visibility:hidden"><b>Part's Name &amp; Address</b></div>
+                                                <div><strong><span t-field='o.partner_id.name'/></strong></div>
+                                                <div><span t-field='o.partner_id.street'/></div>
+                                                <div><span t-field='o.partner_id.street2'/>,<span t-field='o.partner_id.district_id.name'/></div>
+                                                <div><span t-field='o.partner_id.state_id.name'/>,<span t-field='o.partner_id.zip'/></div>
+                                                <div>PH: <span t-field='o.partner_id.phone'/>, <span t-field='o.partner_id.mobile'/></div>
+                                                <div>TIN: <span t-field='o.partner_id.tin_vat_no'/></div>
+                                            </div>
+                                        </td>
+                                        <td width="50%" class="invoice">
+                                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td width="42%" height="30" style="text-align:left;visibility:hidden"><b>Invoice No &amp; Date</b></td>
+                                                    <td width="1%">:</td>
+                                                    <td width="37%" style="text-align:left"><span t-field='o.number'/> &amp; <span t-field='o.date_invoice'/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="42%" height="30" style="text-align:left;visibility:hidden">D.C. No &amp; Date</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="37%" style="text-align:left"><span t-esc="get_dc()[0]['name']"/> &amp; <span t-esc="get_dc()[0]['date']"/></td>
+                                                </tr>
+                                            </table>    
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table t-foreach="get_dispatch()" t-as="dispatch" style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="45%" class="invoice">
+                                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td width="35%" style="text-align:left;visibility:hidden">Despatch Through</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="64%" style="text-align:left"><span t-field='o.del_method'/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%" style="text-align:left;visibility:hidden">TPT.Co.Name</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="64%" style="text-align:left"><span t-esc="dispatch['tpt_name']"/></td>
+                                                </tr>
+                                            </table>    
+                                        </td>
+                                        <td width="35%" class="invoice">
+                                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td width="30%" style="text-align:left;visibility:hidden">Destination</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="69%" style="text-align:left"><span t-esc="dispatch['desti']"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="33%" style="text-align:left;visibility:hidden">L.R. No</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="69%" style="text-align:left"><span t-esc="dispatch['lr_no']"/></td>
+                                                </tr>
+                                            </table>    
+                                        </td>
+                                        <td width="20%" class="invoice">
+                                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td width="33%" style="text-align:left;visibility:hidden">Date</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="46%" style="text-align:left"><span t-esc="dispatch['date']"/></td>
+                                                </tr>
+                                            </table>    
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr class="header" style="visibility:hidden">
+                                        <td width="5%">Sl.No.</td>
+                                        <td width="40%">PRODUCT DESCRIPTION</td>
+                                        <td width="5%">SALE QTY.</td>
+                                        <td width="10%">UOM</td>
+                                        <td width="10%">RATE</td>
+                                        <td width="10%">PIECES PER CASE</td>
+                                        <td width="10%">MRP PER PRICE</td>
+                                        <td width="10%">VALUE</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8" style="padding:0;margin:0;">
+                                            <div style="height:440px;overflow:hidden;">
+                                                <table style="width:100%;height:440px" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>
+                                                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                                                <t t-set="counter" t-value="1"/>
+                                                                <tr t-foreach="get_invoice_tn_obj()" t-as="inv_line" >
+                                                                    <td width="5%" height="30">
+                                                                        <span t-esc="counter"/>
+                                                                        <t t-set="counter" t-value="counter+1"/>
+                                                                    </td>
+                                                                    <td width="40%" style="text-align:left">
+                                                                        <span t-esc="inv_line['prod']"/>
+                                                                    </td>
+                                                                    <td width="5%">
+                                                                        <span t-esc="formatLang(inv_line['qty'])"/>
+                                                                    </td>
+                                                                    <td width="10%" style="text-align:right">
+                                                                        <span t-esc="inv_line['uom']"/>
+                                                                    </td>
+                                                                    <td width="10%" style="text-align:right">
+                                                                        <span t-esc="formatLang(inv_line['rate'])"/>
+                                                                    </td>
+                                                                    <td width="10%" style="text-align:right">
+                                                                        <span t-esc="formatLang(inv_line['case_qty'])"/>
+                                                                    </td>
+                                                                    <td width="10%" style="text-align:right">
+                                                                         <span t-esc="formatLang(inv_line['mrp'])"/>
+                                                                    </td>
+                                                                    <td width="10%" style="text-align:right">
+                                                                        <span t-esc="formatLang(inv_line['value'])"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>  
+                                        </td>
+                                    </tr>
+                                    <tr class="body">
+                                        <td colspan="6" rowspan="1" width="80%" style="text-align:left;vertical-align:bottom">
+                                            <div style="width:40%;float:left;">Payment due date for this Invoice</div>
+                                            <div style="width:30%;float:left;"><span t-field='o.date_due'/> </div><br/>
+                                        </td>
+                                        <td width="10%" height="10" style="text-align:right;visibility:hidden">Gross Amount</td>
+                                        <td width="10%" style="text-align:right;"><span t-esc="formatLang(get_gro_amd())"/></td>
+                                    </tr>
+                                    <tr class="body">
+                                        <td colspan="6" rowspan="1" width="80%" style="text-align:left;vertical-align:bottom">
+                                            <div style="width:20%;float:left">Wt : <span t-esc="get_weight()"/> Kgs.</div>
+                                            <div style="width:20%;float:left">Total Qty : <span t-esc="get_qty()"/></div>
+                                        </td>
+                                        <td width="10%" height="10" style="text-align:right"><span t-esc="get_tax_name()[0]['name']"/>...<span t-esc="get_tax_name()[0]['tax']"/></td>
+                                        <td width="10%" style="text-align:right"><span t-field='o.amount_tax'/></td>
+                                    </tr>
+                                    <tr class="body">
+                                        <td colspan="6" rowspan="2" width="80%" style="text-align:left;vertical-align:bottom">
+                                            <div style="width:30%;float:left;visibility:hidden">E. &amp; O.E. </div>
+                                            <div style="width:70%;float:left;">
+                                                <span t-esc="get_amd2text()"/>
+                                            </div>
+                                        </td>
+                                        <td width="10%" height="40" style="text-align:right;">Rount off</td>
+                                        <td width="10%" style="text-align:right;"><span t-esc="formatLang(get_round())"/></td>
+                                    </tr>
+                                    <tr class="body">
+                                        <td width="10%" height="40" style="text-align:right;visibility:hidden">Net Amount</td>
+                                        <td width="10%" style="text-align:right">
+                                            <span t-field='o.amount_total'/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>   
+                        
+                    </table>
+                </div>
+            
+        </t>
+    </t>
+</template>
+
+<template id="report_invoice_print2">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <style type="text/css">
+                    #table_chk{font-size:11px;font-family:Inconsolata;width:100%;}	
+					#table_chk tr td {padding:0px;margin:0px;display:inline-table}
+					#table_chk tr td table tr td {padding:5px;text-align:center}
+					#table_chk tr td table tr.header {border:0px solid silver;border-right:0px;border-left:0px;background-color:#BDBDBD;}
+					#table_chk tr td table tr.header td {border-right:0px solid white;font-weight:bold}
+					#table_chk tr td table tr.header td:last-child {border-right:0px solid silver;font-weight:bold}
+					#table_chk tr td table tr.body {border:0px solid white;border-right:0px;border-left:0px;}
+					#table_chk tr td table tr.body td {border-right:0px;}
+					#table_chk tr td table tr.body td:last-child {border-right:0px;}
+					.top-header {text-align:center;font-size:10px}
+					.top-header span {display:block;font-size:10px}
+					.image {width:100px;height:50px;vertical-align:middle;border:none}
+					.dealer {width:60%;height:100px;text-align:left}
+					.dealer-head div {display:block;text-align:left}
+					.invoice div{text-align:left}
+					.invoice p { display:block;height:35px;line-height:35px;text-align:left}
+                    </style>
+                    <table id="table_chk" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <table style="width:100%;visibility:hidden" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="10%" style="vertical-align:middle;">
+                                            <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="image"/>
+                                        </td>
+                                        <td width="40%" class="top-header">
+                                            <div><span><b>ASSOCIATED ELECTRICAL AGENGIES</b></span></div>
+                                            <div><span t-field='o.company_id.street'/></div>
+                                            <div><span t-field='o.company_id.street2'/></div>
+                                            <div>
+                                                <span t-field='o.company_id.city'/>
+                                                <span t-field='o.company_id.state_id.name'/>
+                                                <span t-field='o.company_id.zip'/>
+                                            </div>
+                                            <div><span><b>Phone : <span t-field='o.company_id.phone'/></b></span></div>
+                                            <div><span><b>TIN : <span t-field='o.company_id.tin_no'/></b></span></div>
+                                        </td>
+                                        <td width="30%" class="top-header">
+                                            <div><span><b>FORM No.8</b></span></div>
+                                            <div><span style="font-size:8px">(For VAT Dealers Other than Manufactures)</span></div>
+                                            <div><span style="font-size:8px">[see Rules 58(10)]</span></div>
+                                            <div><span style="font-size:13px"><b>TAX INVOICE</b></span></div>
+                                            <div><span><b>Cash / Credit</b></span></div>
+                                        </td>
+                                        <td width="20%" style="text-align:right;vertical-align:middle;" valign="middle">
+                                            <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="image"/>
+                                        </td>
+                                    </tr>
+                                </table>    
+                            </td>
+                        </tr>   
+                        <tr>
+                            <td>
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="60%" class="dealer-head">
+                                            <div class="dealer">
+                                                <div style="visibility:hidden"><b>Name &amp; Address of Purchasing Dealer</b></div>
+                                                <div><b><span t-field='o.partner_id.name'/></b></div>
+                                                <div><span t-field='o.partner_id.street'/></div>
+                                                <div><span t-field='o.partner_id.street2'/>,</div>
+                                                <div><span t-field='o.partner_id.city'/>,<span t-field='o.partner_id.district_id.name'/>,<span t-field='o.partner_id.state_id.name'/>,<span t-field='o.partner_id.zip'/></div>
+                                                <div>PH: <span t-field='o.partner_id.phone'/>, <span t-field='o.partner_id.mobile'/></div>
+                                            </div>
+                                            <div>
+                                                <p><span style="visibility:hidden">TIN No :</span> <span t-field='o.partner_id.tin_vat_no'/></p>
+												<p><span style="visibility:hidden">CST No :</span> <span t-field='o.partner_id.cst_no'/></p>
+                                            </div>
+                                        </td>
+                                        <td width="40%" class="invoice">
+                                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td width="42%" height="30" style="text-align:left;visibility:hidden"><b>Invoice No &amp; Date</b></td>
+                                                    <td width="1%">:</td>
+                                                    <td width="37%" style="text-align:left"><span t-field='o.number'/> &amp; <span t-field='o.date_invoice'/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="42%" height="30" style="text-align:left;visibility:hidden">D.C. No &amp; Date</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="37%" style="text-align:left"><span t-esc="get_dc()[0]['name']"/> &amp; <span t-esc="get_dc()[0]['date']"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="42%" height="30" style="text-align:left;visibility:hidden">Purchase No &amp; Date</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="37%" style="text-align:left"><span></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="42%" height="40" style="text-align:left;visibility:hidden">Terms of Delivery &amp; if any </td>
+                                                    <td width="1%">:</td>
+                                                    <td width="37%" style="text-align:left"><span></span></td>
+                                                </tr>
+                                            </table>    
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table t-foreach="get_dispatch()" t-as="dispatch" style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="45%" class="invoice">
+                                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td width="35%" style="text-align:left;visibility:hidden">Despatch Through</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="64%" style="text-align:left"><span t-field='o.del_method'/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%" style="text-align:left;visibility:hidden">TPT.Co.Name</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="64%" style="text-align:left;"><span t-esc="dispatch['tpt_name']"/></td>
+                                                </tr>
+                                            </table>    
+                                        </td>
+                                        <td width="35%" class="invoice">
+                                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td width="30%" style="text-align:left;visibility:hidden">Destination</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="69%" style="text-align:left"><span t-esc="dispatch['desti']"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="33%" style="text-align:left;visibility:hidden">L.R. No</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="69%" style="text-align:left"><span t-esc="dispatch['lr_no']"/></td>
+                                                </tr>
+                                            </table>    
+                                        </td>
+                                        <td width="20%" class="invoice">
+                                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td width="33%" style="text-align:left;visibility:hidden">Date</td>
+                                                    <td width="1%">:</td>
+                                                    <td width="46%" style="text-align:left"><span t-esc="dispatch['date']"/></td>
+                                                </tr>
+                                            </table>    
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr class="header" style="visibility:hidden;border:0px">
+                                        <td width="4%">Sl. No</td>
+                                        <td width="11%">Sch. Entry No. / Comm Code</td>
+                                        <td width="20%">Commodity of Item</td>
+                                        <td width="5%">Rate of Tax</td>
+                                        <td width="5%">Unit Price C/S</td>
+                                        <td width="5%">Qty. C/S.</td>
+                                        <td width="10%">Gross Value</td>
+                                        <td width="10%">Cash Discount</td>
+                                        <td width="10%">Net Value</td>
+                                        <td width="10%">Tax Amount</td>
+                                        <td width="10%">Total</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="11" style="padding:0;margin:0;">
+                                            <div style="height:450px;overflow:hidden;">
+                                                <table style="width:100%;height:450px" cellpadding="0" cellspacing="0">
+													<tr>
+														<td>
+															<table style="width:100%;" cellpadding="0" cellspacing="0">
+																<t t-set="counter" t-value="1"/>
+																<tr t-foreach="get_invoice_obj()" t-as="inv_line" >
+																	<td width="4%">
+																		<span t-esc="counter"/>
+																		<t t-set="counter" t-value="counter+1"/>
+																	</td>
+																	<td width="11%">
+																		<span></span>
+																	</td>
+																	<td width="20%" style="text-align:left">
+																		<span t-esc="inv_line['prod']"/>
+																	</td>
+																	<td width="5%" style="text-align:right">
+																		<span t-esc="formatLang(inv_line['tax'])"/>
+																	</td>
+																	<td width="5%" style="text-align:right">
+																		<span t-esc="formatLang(inv_line['pri_unit'])"/>
+																	</td>
+																	<td width="5%">
+																		<span t-esc="formatLang(inv_line['qty'])"/>
+																	</td>
+																	<td width="10%" style="text-align:right">
+																		<span t-esc="formatLang(inv_line['gro_val'])"/>
+																	</td>
+																	<td width="10%" style="text-align:right">
+																		<span t-esc="formatLang(inv_line['dis'])"/>
+																	</td>
+																	<td width="10%" style="text-align:right">
+																		<span t-esc="formatLang(inv_line['pri_sub'])"/>
+																	</td>
+																	<td width="10%" style="text-align:right">
+																		 <span t-esc="formatLang(inv_line['tax_amd'])"/>
+																	</td>
+																	<td width="10%" style="text-align:right">
+																		<span t-esc="formatLang(inv_line['tot'])"/>
+																	</td>
+																</tr>
+															</table>
+														 </td>
+													 </tr>
+                                                </table>
+                                            </div>  
+                                        </td>
+                                    </tr>
+                                    <tr class="body" t-foreach="get_total_obj()" t-as="inv_tot">
+                                        <td width="15%" colspan="2" style="text-align:left;visibility:hidden">E. &amp; O.E.</td>
+                                        <td width="20%" style="text-align:right;visibility:hidden"><b>TOTAL</b></td>
+                                        <td width="5%" style="text-align:right;"></td>
+                                        <td width="5%" style="text-align:right;"></td>
+                                        <td width="5%">
+                                            <span t-esc="inv_tot['qty']"/>
+                                        </td>
+                                        <td width="10%" style="text-align:right">
+                                            <span t-esc="inv_tot['gro_val']"/>
+                                        </td>
+                                        <td width="10%" style="text-align:right">
+                                            <span t-esc="inv_tot['dis']"/>
+                                        </td>
+                                        <td width="10%" style="text-align:right">
+                                            <span t-esc="inv_tot['pri_sub']"/>
+                                        </td>
+                                        <td width="10%" style="text-align:right">
+                                            <span t-esc="inv_tot['tax_amd']"/>
+                                        </td>
+                                        <td width="10%" style="text-align:right">
+                                            <span t-esc="inv_tot['tot']"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="body">
+                                        <td colspan="9" width="80%" style="text-align:left">
+                                            <div style="width:30%;float:left;visibility:hidden">GRAND TOTAL IN WORDS:</div>
+                                            <div style="width:70%;float:left">
+                                                <span t-esc="get_amd2text()"/>
+                                            </div>
+                                        </td>
+                                        <td width="10%" style="text-align:right;visibility:hidden">Round off</td>
+                                        <td width="10%" style="text-align:right;"><span t-esc="get_round()"/></td>
+                                    </tr>
+                                    <tr class="body">
+                                        <td colspan="9" width="80%" style="text-align:left;">
+                                            <div style="width:20%;float:left;">Wt : <span t-esc="get_weight()"/> Kgs.</div>
+                                            <div style="width:20%;float:left">Total Qty : <span t-esc="get_qty()"/></div>
+                                            <div style="width:60%;float:left">Payment due date for this Invoice : <span t-field='o.date_due'/></div>
+                                        </td>
+                                        <td width="10%" style="text-align:right;visibility:hidden">Net Amount</td>
+                                        <td width="10%" style="text-align:right;">
+                                            <span t-esc="formatLang(get_tot())"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>   
+                    </table>
+                </div>
+            </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

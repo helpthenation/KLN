@@ -1,0 +1,16 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_hr_contract_line_manager","hr.contract.line","model_hr_contract_line","base.group_hr_manager",1,1,1,1
+"access_mline_payroll_rule_manager","mline.payroll.rule","model_mline_payroll_rule","base.group_hr_manager",1,1,1,1
+"access_mline_payroll_manager","mline.payroll","model_mline_payroll","base.group_hr_manager",1,1,1,1
+"access_mline_working_line_manager","mline.working.line","model_mline_working_line","base.group_hr_manager",1,1,1,1
+"access_mline_payroll_line_manager","mline.payroll.line","model_mline_payroll_line","base.group_hr_manager",1,1,1,1
+"access_rejoin_detail_manager","rejoin.detail.manager","model_rejoin_detail","base.group_hr_manager",1,1,1,1
+"access_mline_payroll_run_manager","mline.payroll.run","model_mline_payroll_run","base.group_hr_manager",1,1,1,1
+"access_hr_contract_line_officer","hr.contract.line.officer","model_hr_contract_line","base.group_hr_user",1,1,1,1
+"access_mline_payroll_rule_officer","mline.payroll.rule","model_mline_payroll_rule","base.group_hr_user",1,1,1,1
+"access_mline_payroll_officer","mline.payroll","model_mline_payroll","base.group_hr_user",1,1,1,1
+"access_mline_working_line_officer","mline.working.line","model_mline_working_line","base.group_hr_user",1,1,1,1
+"access_mline_payroll_line_officer","mline.payroll.line","model_mline_payroll_line","base.group_hr_user",1,1,1,1
+"access_rejoin_detail_officer","rejoin.detail.manager","model_rejoin_detail","base.group_hr_user",1,1,1,1
+"access_mline_payroll_run_officer","mline.payroll.run","model_mline_payroll_run","base.group_hr_user",1,1,1,1
+"access_hr_contract_line_finace_manager","hr.contract.line.fmanager","model_hr_contract_line","account.group_account_manager",1,1,1,1

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <template id="invoice_footer">
+		 <div class="footer">
+		<t t-if ="o and 'company_id' in o" >
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+        <style>
+			table tr.body {border:1px solid white;border-right:0px solid silver;border-left:0px solid silver;boder-collapse:collapse;}
+			table tr.body td {border:1px solid silver;}
+			table tr.body td:last-child {border-right:1px solid white;}	
+		</style>
+		
+<table style="width:100%;" cellpadding="0" cellspacing="0">
+	<tr>
+		<td style="width:100%;">
+			<table  t-foreach="get_dispatch(o)" t-as="dispatch" style="width:100%;" cellpadding="0" cellspacing="0">
+					<tr>
+							<td width="65%" style="border:1px solid silver;font-size:12px;">
+									<table style="width:100%;" cellpadding="0" cellspacing="0">
+												<tr>
+													<td width="45%" style="text-align:left">Despatch Through</td>
+													<td width="1%">:</td>
+													<td width="54%" style="text-align:left"><span t-field='o.del_method'/></td>
+												</tr>
+												<tr>
+													<td width="35%" style="text-align:left">TPT.Co.Name</td>
+													<td width="1%">:</td>
+													<td width="64%" style="text-align:left"><span t-field='o.tpt_name.name'/></td>
+												</tr>
+												<tr>
+													<td width="35%" style="text-align:left">Destination</td>
+													<td width="1%">:</td>
+													<td width="64%" style="text-align:left"><span t-field='o.partner_id.city'/></td>
+												</tr>
+												<tr>
+													<td colspan='3' width="100%" style="text-align:left">Whether the tax is payable on reverse charges basis:Yes / No </td>
+												</tr>
+												<tr>
+													<td colspan='3' width="100%" style="text-align:left"></td>
+												</tr>
+												<tr>
+													<td colspan='3' width="100%" style="text-align:left">br.</td>
+												</tr>
+												<tr>
+													<td colspan='3' width="100%" style="text-align:left;border-top:1px solid silver;font-size:14px;">Amount in Words</td>
+												</tr>
+										</table>
+								</td>
+								<td width="35%" style="border:1px solid silver;">
+										<table t-foreach="get_dispatch(o)" t-as="dispatch" style="width:100%;" cellpadding="0" cellspacing="0">
+												<tr>
+													<td width="45%" style="text-align:left">CGST</td>
+													<td width="1%">:</td>
+													<td width="54%" style="text-align:left"><span t-field='o.del_method'/></td>
+												</tr>
+												<tr>
+													<td width="35%" style="text-align:left">SGST</td>
+													<td width="1%">:</td>
+													<td width="64%" style="text-align:left"></td>
+												</tr>
+												<tr>
+													<td width="35%" style="text-align:left">IGST</td>
+													<td width="1%">:</td>
+													<td width="64%" style="text-align:left"><span t-field='o.partner_id.city'/></td>
+												</tr>
+												<tr>
+													<td width="35%" style="text-align:left">Discount</td>
+													<td width="1%">:</td>
+													<td width="64%" style="text-align:left"><span t-field='o.partner_id.city'/></td>
+												</tr>
+												<tr>
+													<td width="35%" style="text-align:left">Round Off</td>
+													<td width="1%">:</td>
+													<td width="64%"  style="text-align:right;border-top:0px solid silver"><span t-esc="'{:,.2f}'.format(get_round(o))"/></td>
+												</tr>
+												<tr>
+													<td width="35%" style="text-align:left;border-top:1px solid silver;">Net Amount</td>
+													<td style="border-top:1px solid silver;" width="1%">:</td>
+													<td width="64%" style="text-align:right;border-top:1px solid silver;font-size:14px"><span t-esc="get_amd_tot(o.amount_total)"/></td>
+												</tr>
+											</table>
+									 </td>
+									</tr>
+			</table>
+		</td>
+	</tr>
+  <tr >
+	  <td style="width:100%;border-right:1px solid silver;" >
+			  <table style="width:100%;" >
+				<tr>
+					<td style="width:70%;border:1px solid silver;font-size:12px;" >
+					 ALL DISPUTES ARE SUBJECT TO JURICTION OF CHENNAI COURT
+					</td>
+					<td style="width:30%;border:1px solid silver;font-size:12px;">For <span t-esc="get_com(o)"/></td>
+				</tr>
+				<tr>
+				<td style="width:70%;text-align:justify;border:1px solid silver;padding:5px;font-size:12px;" >
+				Certified that the particulars given above are true and correct and the amount  indicated represents the prices actually charged and that there is no flow of additional consideration directly or indirectly from the buyers
+				</td>	
+				<td style="vertical-align:bottom;width:30%;border:1px solid silver;padding-top:40px;text-align:center;font-size:12px;">Authorised Signatory</td>
+				</tr>
+		</table>
+	  </td>
+  </tr>
+  <tr>
+  <td style="width:100%;border:1px solid silver;font-size:12px;"> Branch Office:</td>
+  </tr>
+</table>			
+    </div>  
+    </template>
+    
+    
+
+
+</data>
+</openerp>

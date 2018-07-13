@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		  <report 
+            id="hr_payslip_pdf"
+            string="Apex Payslip"
+            model="hr.payslip" 
+            report_type="qweb-pdf"
+            file="fnet_aea_report.hr_payslip_formats" 
+            name="fnet_aea_report.hr_payslip_formats" 
+            attachment_use="False"/>
+	
+		<record id="payslip_paperformat" model="report.paperformat">
+		    <field name="name">Apex Payslip paper fromat</field>
+		    <field name="default" eval="True"/>
+		    <field name="format">custom</field>
+		    <field name="page_height">350</field>
+		    <field name="page_width">250</field>
+		    <field name="orientation">Landscape</field>
+		    <field name="margin_top">10</field>
+		    <field name="margin_bottom">10</field>
+		    <field name="margin_left">10</field>
+		    <field name="margin_right">10</field>
+		    <field name="header_line" eval="False"/>
+		    <field name="header_spacing">1</field>
+		    <field name="dpi">90</field>
+		</record>
+            
+           	<record id="hr_payslip_pdf" model="ir.actions.report.xml">
+        	<field name="paperformat_id" ref="fnet_aea_report.payslip_paperformat"/>
+    	</record>
+    	
+            
+	</data>
+</openerp>

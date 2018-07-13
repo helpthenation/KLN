@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data> 
+      
+    <record id="view_res_company_inh" model="ir.ui.view">
+            <field name="name">view.res.company.inh</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+				<xpath expr='//form/sheet/group/field[@name="parent_id"]' position="after">
+                   <field name="com_type" invisible='1'/>
+                </xpath>
+            </field>
+     </record>
+				
+    <record id="view_sale_order_line_inh" model="ir.ui.view">
+            <field name="name">view.sale.order.line.inh</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                
+                <xpath expr='//form/sheet/group/group/field[@name="project_id"]' position="after">
+                    <field name="prod_categ_id" domain="[('visible', '=', True)]" on_change="onchange_prod_categ_id(prod_categ_id)"/>
+                   <!-- <field name="payment_term"/> -->
+                </xpath>
+                
+                <xpath expr='//form/sheet/notebook/page/field/form/group/group/field[@name="price_unit"]' position="after">
+                    <field name="mrp_price"/>
+                </xpath>
+               
+               <field name="carrier_id" position="attributes">
+                   <attribute name="invisible">True</attribute>
+               </field>
+               <field name="carrier_id" position="after">
+                   <field name="del_method" on_change="onchange_del_method(del_method, partner_id)"/>
+                   <field name="tpt_name" string="TPT Co Name"/>
+               </field>
+               <!--
+               <xpath expr='//form/sheet/notebook/page/group/group/field[@name="payment_term"]' position="attributes">
+					<attribute name="invisible">True</attribute>
+				</xpath>
+             
+                -->
+                <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="replace">
+                       <field name="product_id"
+                       context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':False, 'company_id': parent.company_id}"
+                       groups="base.group_user"
+                       domain="[('company_id', '=', parent.company_id)]"
+                       on_change="product_id_change_with_wh(parent.pricelist_id,product_id,product_uom_qty,False,product_uos_qty,False,name,parent.partner_id, False, True, parent.date_order, product_packaging, parent.fiscal_position, False, parent.warehouse_id, context)"/>
+                   </xpath>
+                   <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="replace">
+                       <field name="product_id"
+                       context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
+                       groups="base.group_user"
+                       on_change="product_id_change_with_wh(parent.pricelist_id,product_id,product_uom_qty,False,product_uos_qty,False,name,parent.partner_id, False, True, parent.date_order, product_packaging, parent.fiscal_position, False, parent.warehouse_id, context)"/>
+                   </xpath>
+              
+               <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                    <attribute name="editable">bottom</attribute>
+                </xpath>
+                
+                
+                <xpath expr='//form/sheet/notebook/page/field/tree/field[@name="price_unit"]' position="after">
+                    <field name="mrp_price"/>
+                </xpath>
+              
+            </field>
+    </record>
+    
+    <record id="sale.action_orders" model="ir.actions.act_window">
+            <field name="name">Sales Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            <field name="context">{
+                }
+            </field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a quotation that can be converted into a sales
+                    order.
+                </p><p>
+                    Odoo will help you efficiently handle the complete sales flow:
+                    quotation, sales order, delivery, invoicing and payment.
+                </p>
+            </field>
+        </record>
+    
+  </data>          
+</openerp>
+
+

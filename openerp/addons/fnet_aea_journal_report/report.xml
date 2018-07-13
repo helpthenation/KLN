@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+		  <report 
+			id="report_journal_note" 
+			string="Credit Note"
+			model="account.voucher"
+			name="fnet_aea_journal_report.report_credit" 
+			file="fnet_aea_journal_report.report_credit" 
+			report_type="qweb-pdf" 
+			menu="True"
+			/>
+           <report 
+			id="report_debit_note" 
+			string="Debit Note"
+			model="account.voucher"
+			name="fnet_aea_journal_report.report_debit" 
+			file="fnet_aea_journal_report.report_debit" 
+			report_type="qweb-pdf" 
+			menu="True"
+			/>    
+  		  <report 
+			id="report_credit_note_move" 
+			string="Credit Note"
+			model="account.move"
+			name="fnet_aea_journal_report.report_credit_move" 
+			file="fnet_aea_journal_report.report_credit_move" 
+			report_type="qweb-pdf" 
+			menu="True"
+			/>
+            <report 
+			id="report_debit_note_move" 
+			string="Debit Note"
+			model="account.move"
+			name="fnet_aea_journal_report.report_debit_move" 
+			file="fnet_aea_journal_report.report_debit_move" 
+			report_type="qweb-pdf" 
+			menu="True"
+			/>     
+    </data>
+</openerp>

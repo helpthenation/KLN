@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+   
+<template id="report_cheque">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <div class="page">
+                <style type="text/css">
+                #table_chk{font-size:11px;border:1px solid silver;font-family:Inconsolata;width:100%;}  
+                #table_chk tr td {padding:0px;margin:0px;display:inline-table}
+                #table_chk tr td table tr td {padding:5px;text-align:center}
+                #table_chk tr td table tr.header {border:1px solid silver;border-right:0px;border-left:0px;background-color:#BDBDBD;}
+                #table_chk tr td table tr.header td {border-right:1px solid white;font-weight:bold}
+                #table_chk tr td table tr.header td:last-child {border-right:1px solid silver;font-weight:bold}
+                #table_chk tr td table tr.body {border:1px solid white;border-right:0px;border-left:0px;}
+                #table_chk tr td table tr.body td {border-right:1px solid silver;}
+                #table_chk tr td table tr.body td:last-child {border-right:1px solid white;}
+                .top-header {text-align:center;font-size:10px}
+                .top-header div {display:block;font-size:10px}
+                .image {width:100px;height:50px;vertical-align:middle;border:0px solid white;}
+                .dealer {width:60%;height:135px;text-align:left}
+                .dealer-head div {display:block;text-align:left}
+                .invoice div{text-align:left}
+                .invoice p { display:block;height:40px;line-height:45px;text-align:left}
+                </style>
+                <table id="table_chk" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td width="10%" style="vertical-align:middle;">
+                                        <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="image"/>
+                                    </td>
+                                    <td width="80%" class="top-header">
+                                        <div style="font-size:15px"><b><span t-esc="get_com()"/></b></div>
+                                        <div><span t-field='o.company_id.street'/>,<span t-field='o.company_id.street2'/></div>
+                                        <div><span t-field='o.company_id.city'/>, <span t-field='o.company_id.state_id.name'/>- <span t-field='o.company_id.zip'/>,Phone :<span t-field='o.company_id.phone'/></div>
+                                        <div>TIN : <span t-field='o.company_id.tin_no'/> CST No : <span t-field='o.company_id.tin_no'/></div><br/>
+                                        <div style="font-size:13px"><b>CHEQUE/DD RECEIPT</b></div>
+                                    </td>
+                                    <td width="10%" style="text-align:right;vertical-align:middle;" valign="middle">
+                                        <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="image"/>
+                                    </td>
+                                </tr>
+                            </table>    
+                        </td>
+                    </tr>   
+                    <tr style="border-top:1px solid silver">
+                        <td>
+                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td width="50%" class="dealer-head">
+                                        <div class="dealer">
+                                            <div><span t-field='o.voucher_id.number'/></div><br/>
+                                            <div><b>Part's Name &amp; Address</b></div>
+                                            <div><strong><span t-field='o.partner_id.name'/></strong></div>
+                                            <div><span t-field='o.partner_id.street'/></div>
+                                            <div><span t-field='o.partner_id.street2'/>,<span t-field='o.partner_id.district_id.name'/></div>
+                                            <div><span t-field='o.partner_id.city'/>,<span t-field='o.partner_id.state_id.name'/>,<span t-field='o.partner_id.zip'/></div>
+                                            <div>PH: <span t-field='o.partner_id.phone'/>, <span t-field='o.partner_id.mobile'/></div>
+                                            <div>TIN: <span t-field='o.partner_id.tin_vat_no'/></div>
+                                        </div>
+                                    </td>
+                                    <td width="50%" class="invoice">
+                                        <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td width="42%" height="30" style="text-align:left"><b>Date</b></td>
+                                                <td width="1%">:</td>
+                                                <td width="37%" style="text-align:left"><span t-field='o.date'/></td>
+                                            </tr>
+                                        </table>    
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr style="border-top:0px solid silver !important">
+                        <td>
+                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <p>Received with thanks from M/S : <span t-field="o.partner_id.name"/>-<span t-field="o.partner_id.city"/>___________________<span t-esc="get_amd2text()"/>______________by <span t-field="o.type"/>.<span t-field="o.cheque_id.name"/> Dt: <span t-field="o.date"/> Drawn on <span t-field="o.cheque_id.bank_name"/>-<span t-field="o.amount"/> LESS CH BOUNCE 500________________________against Invoice a detailed under:</p>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table style="width:50%;" cellpadding="0" cellspacing="0">
+                                <tr class="header">
+                                    <td width="5%">Sl.No.</td>
+                                    <td width="15%">INV NO</td>
+                                    <td width="15">INV Date</td>
+                                    <td width="15%">Amount</td>
+                                </tr>
+                                <t t-set="counter" t-value="1"/>
+                                <tr t-foreach="o.cheque_details_line" t-as="l" >
+                                    <td width="5%" height="30">
+                                        <span t-esc="counter"/>
+                                        <t t-set="counter" t-value="counter+1"/>
+                                    </td>
+                                    <td width="15%" style="text-align:left">
+                                        <span t-field="l.invoice_id.number"/>
+                                    </td>
+                                    <td width="15%">
+                                        <span t-field="l.invoice_id.date_invoice"/>
+                                    </td>
+                                    <td width="15%" style="text-align:right">
+                                        <span t-field="l.amount"/>
+                                    </td>
+                                </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        <tr>
+							<td>
+								 <table style="width:100%;" cellpadding="0" cellspacing="0">
+									<tr>
+										<td style="text-align:right">
+											For <span t-esc="get_com()"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="text-align:left">
+											RS. <span t-field="o.amount"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="text-align:right">
+											<div><p>Authorised Signatory</p></div>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>   
+                 </table>
+            </div>
+        </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

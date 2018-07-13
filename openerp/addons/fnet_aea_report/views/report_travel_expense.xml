@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+<template id="travel_expense_formats">
+    <t t-name="fnet_aea_report.travel_expense_formats">
+	
+<div class="oe_structure">     
+        
+        <div class="page">
+ 		<t t-foreach="doc_ids" t-as="doc_id">
+		  <div class="container">
+			  <h3><center>TRAVEL EXPENSE STATEMENT</center></h3>
+			  <table>
+			  <tr>
+			  <td width="20%">Name:<t t-esc="doc_id.sr_id.name"/></td>
+			  <td width="20%">Designation:<t t-esc="doc_id.designation"/></td>
+			  <td width="20%">HQ:<t t-esc="doc_id.head_quaters"/></td>
+			  <td width="25%">Period From:<t t-esc="doc_id.from_date"/></td>
+			  <td width="25%">To:<t t-esc="doc_id.to_date"/></td>
+			  </tr>           
+			  </table>
+			  <table class="table table-bordered">
+				<thead>
+				  <tr>
+					<th>FROM</th>
+					<th>TO</th>
+					<th>DEPARTURE</th>
+					<th>ARRIVAL</th>
+					<th>MODE OF TRAVEL(Bus/Train/Van)</th>
+					<th>FARE</th>
+					<th>DAILY ALLOWANCE</th>
+					<th>POSTAGE/ PHONE</th>
+					<th>TOTAL</th>
+				  </tr>
+				</thead>
+				<tbody>
+				<t t-foreach="doc_id.travel_expense_line_ids" t-as="doc">
+				  <tr>
+					<td><t t-esc="doc.start_place"/></td>
+					<td><t t-esc="doc.destination_place"/></td>
+					<td><t t-esc="doc.departure_date"/></td>
+					<td><t t-esc="doc.arrival_date"/></td>
+					<td><t t-esc="doc.mode_of_travel"/></td>
+					<td><t t-esc="doc.expense_amount"/></td>
+					<td><t t-esc="doc.allowance"/></td>
+					<td><t t-esc="doc.postage"/></td>
+					<td><t t-esc="doc.price_subtotal"/></td>
+				  </tr>
+				  </t>
+				  <tr>
+				  <td colspan='2' rowspan="2">SIGNARURE OF SALES PERSON</td>
+				  <td colspan='4'>Any Special Remarks:</td>
+				  <td rowspan='2'><t t-esc="doc_id.fare_total"/></td>
+				  <td rowspan='2'><t t-esc="doc_id.allowance_total"/></td>
+				  <td rowspan='2'><t t-esc="doc_id.amount_total"/></td>
+				  </tr>
+				  <tr>
+				  <td colspan='2'>AREA In Charge</td>
+				  <td colspan='2' style="text-align:right;">BRANCH MANAGER</td>
+				  </tr>
+				</tbody>
+			  </table>
+			</div>
+ 		</t>
+ 		</div>
+ 		</div>
+	</t>
+</template>
+</data>
+</openerp>

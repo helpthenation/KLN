@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+<!--
+Enquiry
+-->
+        <record model="ir.rule" id="crm_lead_multicompany">
+            <field name="name">Enquiry Company rule</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record> 
+         <record model="ir.rule" id="crm_opportunity_report_multicompany">
+            <field name="name">Opportunity Analysis Company rule</field>
+            <field name="model_id" ref="crm.model_crm_opportunity_report"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record> 
+        <record model="ir.rule" id="crm_lead_report_multicompany">
+            <field name="name">Lead Analysis Company rule</field>
+            <field name="model_id" ref="crm.model_crm_lead_report"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record> 
+        <record model="ir.rule" id="account_treasury_report_multicompany">
+            <field name="name">Account Treasury Report</field>
+            <field name="model_id" ref="account.model_account_treasury_report"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record> 
+         <record model="ir.rule" id="mline_crm_inherit_multicompany">
+            <field name="name">Lead Line Company </field>
+            <field name="model_id" ref="fnet_mline_crm_inherit.model_cutomer_product_line"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('product_cust_id.company_id','=',False),('product_cust_id.company_id','child_of',[user.company_id.id])]</field>
+        </record>   
+       <record model="ir.rule" id="product_category_rule_multicompany">
+        <field name="name">Product Category multi-company</field>
+        <field name="model_id" ref="model_product_category"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+</data>
+</openerp>

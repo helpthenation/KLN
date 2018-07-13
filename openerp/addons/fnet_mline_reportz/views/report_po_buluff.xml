@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="report_po_buluff">
+    <t t-name="fnet_mline_reportz.report_po_buluff">
+		<div class="oe_structure"> 
+			<t t-foreach="doc_ids" t-as="o">
+			<t t-call="report.html_container">
+			<t t-call="fnet_mline_reportz.header_wizardss_buluff"/>
+                <div class="page">
+					<style>
+					tr {page-break-inside: avoid;}
+					.table { border: 1px solid black; }
+					.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { border: 1px solid black; }
+					</style>
+					
+					<div align="right">
+					<h3 style="text-align:center;"><strong>PURCHASE ORDER</strong></h3>
+                      </div>  
+                    
+				  <table class="table table-bordered" style="width:100%;font-family:courier-new;font-size: 12px;">
+					  <thead style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;">
+							  <tr style="border: 1px solid black;">
+								<th width="50%" style="font-family:courier-new;font-size: 12px;">Consignor Address</th>
+								<th width="50%" style="font-family:courier-new;font-size: 12px;">Consignee Address</th>
+						      </tr>
+					      </thead>
+					  <tr>
+						  <td width="50%">
+									<span style="font-family:courier-new;font-size: 12px;" t-field="o.partner_id.company_title"/> <span style="font-family:courier-new;font-size: 12px;" t-field="o.partner_id.name"/>
+                                    <div><span t-if="o.partner_id.street" style="font-family:courier-new;font-size: 12px;" t-esc="o.partner_id.street"/></div>
+										<div><span t-if="o.partner_id.street2" style="font-family:courier-new;font-size: 12px;" t-esc="o.partner_id.street2"/></div>
+										<div><span t-if="o.partner_id.city" style="font-family:courier-new;font-size: 12px;" t-esc="o.partner_id.city"/></div>
+                                		<div><span t-if="o.partner_id.state_id.name" style="font-family:courier-new;font-size: 12px;" t-esc="o.partner_id.state_id.name"/></div>
+										<div><span t-if="o.partner_id.country_id.name" style="font-family:courier-new;font-size: 12px;" t-esc="o.partner_id.country_id.name"/></div>               
+										<div><span t-if="o.partner_id.phone" style="font-family:courier-new;font-size: 12px;" t-esc="o.partner_id.phone"/></div>               
+										<div><span t-if="o.partner_id.fax" style="font-family:courier-new;font-size: 12px;" t-esc="o.partner_id.fax"/></div>               
+									<t t-if="o.partner_id.vat">VAT: <span style="font-family:courier-new;font-size: 12px;" t-field="o.partner_id.vat"/></t><br/><br/>
+								<h5><left><span style="font-family:courier-new;font-size: 12px;"><b>Attn:</b> </span><span style="font-family:courier-new;font-size: 12px;" t-field="o.title_id.name"/><span style="font-family:courier-new;font-size: 12px;" t-field="o.contact_name"/></left></h5>
+								<h5><left><span t-field="o.function"/></left></h5>
+						  </td>
+						  <td width="50%">
+							<h5 style="border-bottom:none !important;font-family:courier-new;font-size: 12px;"><b>Date: <span style="border-bottom:none !important" t-field="o.date_order" t-field-options='{"format": "d.M.Y"}'/></b></h5>
+							<h5 style="border-bottom:none !important;font-family:courier-new;font-size: 12px;"><b>Purchase Order: <span style="text-align:left" t-field='o.name'/></b></h5>
+
+							<h5 style="border-bottom:none !important;font-family:courier-new;font-size: 12px;"><b>Job Number: 
+							<span style="padding-left:3px;" t-esc="docs.get_job(o)"/>
+							</b></h5>
+
+							<h4><span style="font-family:courier-new;font-size: 12px;" t-field="o.company_id.name"/></h4>
+							<span style="font-family:courier-new;font-size: 12px;" t-field="o.company_id.street"/><br/>
+							<span style="font-family:courier-new;font-size: 12px;" t-field="o.company_id.street2"/><br/>
+							<span style="font-family:courier-new;font-size: 12px;" t-field="o.company_id.city"/><span t-field="o.company_id.zip"/><br/>
+							<span style="font-family:courier-new;font-size: 12px;" t-field="o.company_id.country_id.name"/><br/>
+							Phone: <span style="font-family:courier-new;font-size: 12px;" t-field="o.company_id.phone"/><br/>
+							Fax: <span style="font-family:courier-new;font-size: 12px;" t-field="o.company_id.fax"/><br/>
+							Email: <span style="font-family:courier-new;font-size: 12px;" t-field="o.company_id.email"/><br/>
+							Sender's Email ID: <span  style="font-family:courier-new;font-size: 12px;" t-field="o.validator.partner_id.email"/> 
+						</td>
+					 </tr>
+					</table>
+
+<!--
+					<br/>
+-->
+                     <table class="table table-bordered">
+                         <tr style="border: 1px solid black;background-color:#ccc;border: 1px solid black;color:black;">
+                            <th width="20%" class="text-center"><strong style="font-family:courier-new;font-size: 12px;">Shipping Method</strong></th>
+                            <th width="30%" class="text-center"><strong style="font-family:courier-new;font-size: 12px;">Shipping Terms</strong></th>
+                            <th width="20%" class="text-center"><strong style="font-family:courier-new;font-size: 12px;">Currency</strong></th>
+                            <th width="30%" class="text-center"><strong style="font-family:courier-new;font-size: 12px;">Delivery Period</strong></th>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><span style="font-family:courier-new;font-size: 12px;text-align:center;" t-esc="o.shipping_method"/></td>
+                            <td class="text-center"><span style="font-family:courier-new;font-size: 12px;text-align:center;" t-esc="o.incoterm_id.name"/></td>
+                            <td class="text-center"><span style="font-family:courier-new;font-size: 12px;text-align:center;" t-esc="o.currency_id.name"/></td>
+                            <td class="text-center"><span style="font-family:courier-new;font-size: 12px;text-align:center;" t-esc="o.delivery_period"/></td>
+                        </tr>
+                    </table>
+<!--
+                    <br/>
+-->
+                    
+                    <table class="table table-bordered">
+						<thead style="background-color:#ccc;border: 1px solid black;color:black;">
+						<tr>
+							<th width="5%" class="text-center" style="font-family:courier-new;font-size: 12px;text-align:center;">S.No</th>
+							<th width="55%" class="text-center" style="font-family:courier-new;font-size: 12px;text-align:center;">Description</th>
+							<th width="10%" class="text-center" style="font-family:courier-new;font-size: 12px;text-align:center;">Quantity</th>
+							<th width="10%" class="text-center" style="font-family:courier-new;font-size: 12px;text-align:center;">UOM</th>
+							<th width="10%" class="text-center" style="font-family:courier-new;font-size: 12px;text-align:center;">Unit Price</th>
+							<th width="10%" class="text-center" style="font-family:courier-new;font-size: 12px;text-align:center;">Line Total</th>
+						</tr>
+						</thead>
+						<tbody>
+						  <t t-set="counter" t-value="1"/>
+                          <tr t-foreach="o.order_line" t-as="l" style="page-break-inside: avoid;">
+                            <td class="text-center">
+								<span style="font-family:courier-new;font-size: 12px;" t-esc="counter"/>
+								<t t-set="counter" t-value="counter+1"/>
+							</td>
+                            <td>
+                               <span style="font-family:courier-new;font-size: 12px;" t-esc="l.product_id.description_purchase"/><br/>                              
+                               <span style="font-weight:bold;font-family:courier-new;font-size: 12px;">Part No:</span>
+                               <span style="font-family:courier-new;font-size: 12px;" t-esc="l.part_no"/><br/>
+                               <span style="font-weight:bold;font-family:courier-new;font-size: 12px;">Order Code:</span>
+                               <span style="font-family:courier-new;font-size: 12px;" t-esc="l.order_code"/><br/>   
+                               <span style="font-weight:bold;font-family:courier-new;font-size: 12px;">Make:</span>
+                               <span style="font-family:courier-new;font-size: 12px;" t-esc="l.make_no"/>
+                            </td>
+                            <td class="text-right">
+                               <span style="font-family:courier-new;font-size: 12px;" t-esc="int(l.product_qty)"/>
+                            </td>
+                            <td class="text-right">
+                               <span style="font-family:courier-new;font-size: 12px;" t-esc="l.product_uom.name"/>
+                            </td>
+                            <td class="text-right">
+                               <span style="font-family:courier-new;font-size: 12px;" t-esc="'{0:,.2f}'.format(l.price_unit)"/>
+                            </td>
+                            <td class="text-right">
+                               <span style="font-family:courier-new;font-size: 12px;" t-esc="'{0:,.2f}'.format(l.price_subtotal)"/>
+                            </td>                            
+                           </tr>
+						    <tr>
+							    <td colspan="5" class="text-right" width="20%"><strong style="font-family:courier-new;font-size: 12px;">Total Amount</strong></td>
+                                <td width="20%" class="text-right"><span style="font-family:courier-new;font-size: 12px;" t-esc="'{0:,.2f}'.format((o.amount_total))"/></td>
+                            </tr> 
+                       </tbody>
+					</table>
+					
+					<table class="table table-bordered">
+						 <thead style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;">
+							 <tr>
+								 <th style="font-family:courier-new;font-size: 12px;" >Documents Required:</th>
+							  </tr>
+						 </thead>	  	 
+					 <tr>
+					 <td style="font-family:courier-new;font-size: 12px;">
+<!--
+						  <div style="font-family:courier-new;font-size: 12px;"><![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> - <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> Original invoice with company stamps and signature.</div>
+						  <div style="font-family:courier-new;font-size: 12px;"><![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> - <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> Packing list with Company stamp and signature.</div>
+						  <div style="font-family:courier-new;font-size: 12px;"><![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> - <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> Order Confirmation.</div>
+						  <div style="font-family:courier-new;font-size: 12px;"><![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> - <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> Delivery Note.</div>
+-->
+							<span style="font-family:courier-new;font-size: 12px;" t-field="o.subject"/>
+					 </td>
+					 </tr>	
+					 </table>
+<!--
+					 <span style="text-align:left;"><b style="font-family:courier-new;font-size: 14px;">Payment Term: </b></span><br/>
+-->
+<!--
+					<span style="font-family:courier-new;font-size: 12px;padding-left:15px;" t-field="o.vendor_payment_term"/><br/>
+-->
+					<h4><span style="text-align:left;"><strong style="font-family:courier-new;font-size: 14px;">Send all the correspondance to:</strong></span></h4>
+					<br/>
+					<h5 style=" line-height: 70%;"><b><span style="font-family:courier-new;font-size: 12px;" t-field="o.company_id.name"/></b></h5>
+					<h5 style=" line-height: 70%;"><span style="text-align:center;font-family:courier-new;font-size: 12px;" t-field="o.company_id.street"/></h5>
+					<h5 style=" line-height: 70%;"><span style="text-align:center;font-family:courier-new;font-size: 12px;" t-field="o.company_id.street2"/><br/></h5>
+					<h5 style=" line-height: 70%;"><span style="text-align:center;font-family:courier-new;font-size: 12px;" t-field="o.company_id.city"/><strong> </strong><span t-field="o.company_id.zip"/><br/></h5>
+					<h5 style=" line-height: 70%;"><span style="text-align:center;font-family:courier-new;font-size: 12px;" t-field="o.company_id.country_id.name"/><br/></h5>
+					<h5 style=" line-height: 70%;">Phone: <span style="font-family:courier-new;font-size: 12px;" t-field="o.company_id.phone"/><br/></h5>
+					<h5 style=" line-height: 70%;">Fax: <span style="font-family:courier-new;font-size: 12px;" t-field="o.company_id.fax"/><br/></h5>
+					<h5 style=" line-height: 70%;">Email: <span style="font-family:courier-new;font-size: 12px;" t-field="o.company_id.email"/></h5>
+					<br/>
+					<span style="font-family:courier-new;font-size: 12px;" t-field="o.signature"/>
+                </div>
+                <t t-call="fnet_mline_reportz.footer_wizards"/>
+    </t>
+    </t>
+    </div>
+    </t>
+</template>
+</data>
+</openerp>

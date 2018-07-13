@@ -1,0 +1,203 @@
+
+<openerp>
+    <data>
+		<report 
+            id="action_report_forms"
+            model="account.invoice"
+            string="Customized Invoice"
+            report_type="qweb-pdf"
+            file="report_sample.report_complain"
+            name="report_sample.report_complain"
+        />
+        <template id="report_complain">
+		  
+             <t t-call="report.html_container">
+                      <t t-call="report.internal_layout">
+                            <div class="page">
+                                   <div class="container">
+								   <t t-foreach="doc_ids" t-as="doc_id"> 
+									       
+								  <table class="table table-bordered">
+
+<style>
+tr.border_bottom td {
+  border-bottom:1pt solid black;
+} 
+td.thickBorder{ border-right: solid;}
+td.big {
+    line-height: 10.0;
+}
+  table { border: 0px solid black;}
+ table thead > tr > th, .table > tbody > tr > td { border: 1px solid black;padding:0px;}
+ 
+</style>
+<div class="container">
+<h4 style = "text-align:center">A-ID Systems (I) Pvt. Ltd - Chennai</h4>
+<h6 style = "text-align:center">No.4, 2nd Floor, Buhari Towers, Moores Road, Nungambakkam, Chennai-600006India</h6>  
+<hr>
+<div style = "text-align:center">Tax Invoice</div>
+<table class="table table-bordered">    
+<tbody>
+<tr>
+<td colspan='2' width='40%'> <b>Consignor:</b>
+
+	<br><t t-esc="doc_id.company_id.name"/></br>
+	<br><t t-esc="doc_id.company_id.street"/></br>
+	<br><t t-esc="doc_id.company_id.city"/></br>
+	<br><t t-esc="doc_id.company_id.phone"/></br>
+	
+	<br><t t-esc="doc_id.company_id.fax"/></br>
+	<br><t t-esc="doc_id.company_id.email"/></br>
+	<br><t t-esc="doc_id.company_id.website"/></br>
+<td width='20%'> <br><b>Invoice No:</b></br>
+<br><t t-esc="doc_id.number"/></br>
+<br><b>Invoice Date:</b></br>
+<br><t t-esc="doc_id.date_invoice"/> </br>
+</td>
+<td colspan='4' width='40%'></td>
+</td>
+</tr>
+
+<tr>
+<td colspan='2' width='50%'> <br><b>Consignee:</b></br>
+<br>..........</br>
+<br><t t-esc="doc_id.partner_id.name"/></br>
+<br><t t-esc="doc_id.partner_id.street"/></br>
+<br><t t-esc="doc_id.partner_id.city"/></br>
+<br><t t-esc="doc_id.partner_id.phone"/></br>
+<br><t t-esc="doc_id.partner_id.fax"/></br>
+<br><t t-esc="doc_id.partner_id.email"/></br>
+<br><t t-esc="doc_id.partner_id.website"/></br>
+</td>
+<td colspan='5'>
+<table style="width:100%" >
+  <tr width="100%" class="border_bottom" >
+    <td class="big" colspan="2" >Buyer's Order No:</td>
+    <br><t t-esc="docs.order_no(doc_id)"/></br>
+
+  </tr>
+  <tr class="border_bottom">
+    <td class="thickBorder" ><br>Despatch Document No:</br>		
+    <br><t t-esc="docs.document_no(doc_id.name)"/></br>
+  </td>
+  </tr>
+  <tr class="border_bottom">
+    <td class="thickBorder " >Despatch Through: 
+    <br><t t-esc="docs.despatch_through(doc_id)"/></br>
+    </td>		
+    <td class="big">Destination: <t t-esc="doc_id.partner_id.city"/></td>
+  </tr>
+  <tr >
+    <td class="big" >Currency</td>		
+    <td>INR</td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+</td>
+</tr>
+
+
+<t t-foreach="doc_id.partner_id.child_ids" t-as="doc">
+<t t-if="doc.type=='contact'">
+<tr>
+<td colspan='3'> <br><b>Buyer (if other than consignee):</b></br>
+<br>..........</br>
+<br><t t-esc="doc.name"/></br>
+<br><t t-esc="doc.function"/></br>
+<br><t t-esc="doc.email"/></br>
+<br><t t-esc="doc.phone"/></br>
+<br><t t-esc="doc.mobile"/></br>
+<br><t t-esc="doc.use_parent_address"/></br>
+<br><t t-esc="doc.type"/></br>
+</td>
+
+<td colspan = '4'> <br>Terms of Delivery :</br>
+<br> </br></td>
+</tr>
+</t>
+</t>
+<tr>
+<th>Product</th>
+<th>Description</th>
+<th>Account</th>
+<th>Quantity</th>
+<th>Unit Price</th>
+<th>Taxes</th>
+<th>Amount</th>
+</tr>
+<t t-foreach="doc_id.invoice_line" t-as="doc">
+<tr>
+<th> <t t-esc="doc.product_id.name"/></th>
+<th> <t t-esc="doc.name"/> </th>
+<th> <t t-esc="doc.account_id.name"/> </th>
+<th> <t t-esc="doc.quantity"/></th>
+<th> units </th>
+<th> <t t-esc="doc.invoice_line_tax_id.name"/></th>
+<th> <t t-esc="doc.price_subtotal"/></th>
+</tr>
+</t>
+<tr>
+<td colspan='5'></td>
+<th> Subtotal</th>
+<th> <t t-esc="doc_id.amount_untaxed"/></th>
+</tr>
+<tr>
+<td colspan='5'></td>
+<th> Tax</th>
+<th> <t t-esc="doc_id.amount_tax"/> </th>
+</tr>
+<hr>
+<tr>
+<td colspan='5'></td>
+<th> Total </th>
+<th> <t t-esc="doc_id.amount_total"/></th>
+</tr>
+<tr>
+<td colspan='5'></td>
+<th> Balance </th>
+<th> <t t-esc="doc_id.residual"/></th>
+</tr>
+<tr>
+<td colspan='7'> <b>Rupees - Seven Thousand Three Hundred TwentyEight only</b></td>
+
+</tr>
+<tr>
+<th colspan='7'> <br> Company'sVAT TIN : 33831345898</br>
+ <br> Company's CST No. : 846795 Dated: 09/05/2006</br>
+<br> Company's Service Tax No. : AADCA1149GSD002</br>
+<br> Company's PAN : AADCA1149G</br>
+</th>
+</tr>
+<tr>
+<th colspan = '7'><br> Bank Details:</br>
+<br>Bank AC No ------ : 015 205 000 232</br>
+<br>Bank Name ------ : ICICI</br>
+<br>Branch ------------ : Mysore</br>
+<br>IFSC --------------- : ICIC0000152</br>
+</th>
+</tr>
+</hr>
+</tbody>
+</table>
+</hr>
+</div>
+
+<h6> Please mention invoice# while effective remittance. Any disputes about this invoice has to come to our
+<br>attention within 7 days. If not, payable as stated on invoice.
+For A-ID Systems (I) Pvt. Ltd</br></h6>
+<h6 style = "text-align:right">Authorized Signatory</h6>
+<hr>
+<h6 style = "text-align:center"> Page 1 </h6>
+</hr>
+</table>
+</t>
+</div>  
+</div>
+</t>
+</t>
+</template>
+</data>
+</openerp>
+
+

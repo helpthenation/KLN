@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    <template id="report_dd_bounce">
+    <t t-call="report.html_container">
+		
+        <t t-foreach="docs" t-as="o">
+            <t t-call="report.external_layout">
+                
+                <div class="page">
+                  <style type="text/css">
+                    .table_chk, th{
+                       border: 0.5px solid silver;
+                       font-size: 10px;
+                       font-style: bold;
+                       text-wrap:normal;
+                       text-align: center;
+                       border-top: 1px solid silver;
+					   border-bottom: 1px solid silver;
+					   padding-top: 0.2cm;
+					   padding-bottom: 0.2cm;
+                     }
+                    .table_chk, td{
+                       border: 0.5px solid silver;
+                       font-size: 10px;
+                       border-top: 1px solid silver;
+					   border-bottom: 1px solid silver;
+					   padding-top: 0.2cm;
+					   padding-bottom: 0.2cm;
+                     }
+                     .table_chk {
+                       width: 100%;
+                     }
+                   </style>
+                   <h4><center><strong>Demand Draft Details</strong></center></h4>
+                   <br/>
+                   <table class="table_chk">
+                      <thead>
+                         <tr>
+                            <th>S.No</th>
+                            <th>Name of the Stokiest</th>
+                            <th>Town</th>
+                            <th>Chq.No</th>
+                            <th>Chq Date</th>
+                            <th>DD No</th>
+                            <th>DD Date</th>
+                            <th>Name of day</th>
+                            <th>Amount</th>
+                            <th>Bank Name</th>
+                            <th>Branch Name</th>
+                            <th>Pending</th>
+                            <th>Chq Bounce day</th>
+                            <th>Bounce Amt</th>
+                            <th>Sales Rep</th>
+                            <th>INL Exe</th>
+                            <th>Remark</th>
+                         </tr>
+                      </thead>
+                      <tbody>
+                          <t t-set="counter" t-value="1"/>
+                          <tr t-foreach="get_check_details(data)" t-as="partner">
+                            <td class="text-center">
+                                <span t-esc="counter"/>
+                                <t t-set="counter" t-value="counter+1"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['stokiest']"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['town']"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['chk_no']"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['chk_date']"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['dd']"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['dd_date']"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['day']"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="formatLang(partner['amount'])"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['bank_name']"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['branch_name']"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="formatLang(partner['pending'])"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['chk_boun_day']"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="formatLang(partner['bounce_amt'])"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['srp']"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['inl']"/>
+                            </td>
+                            <td>
+                                <span t-esc="partner['des']"/>
+                            </td>
+                           </tr>
+                       </tbody>
+<!--
+                       <tfoot>
+						<tr>
+						  <td>Total</td>
+						  <td class="text-right" colspan="6">
+                              <span t-esc="formatLang(get_check_vou_total(data))"/>
+                          </td>
+						  <td class="text-right" colspan="3">
+                              <span t-esc="formatLang(get_check_chk_total(data))"/>
+                          </td>
+						  <td class="text-right" colspan="4">
+                              <strong></strong>
+                          </td>
+						</tr>
+					  </tfoot>
+-->
+                  </table>
+                 </div>
+               
+            </t>
+        </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

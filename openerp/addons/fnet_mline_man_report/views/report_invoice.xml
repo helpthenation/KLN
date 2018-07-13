@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	
+
+
+<template id="report_invoice">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="report.external_layout">
+				
+                <div class="page">
+				  <style type="text/css">
+                     .table_payslip, th, td {
+                       border: 1px solid black;
+                     }
+                     .table_sale {
+                       width: 100%;
+                     }
+                     .oblique {
+                       font-style: oblique;
+                       }
+					 
+                   </style>
+                   <h3><center><strong>INVOICE</strong></center></h3>
+                   <br/>
+                   <table class="table table-condensed table-bordered">
+                        <tr>
+                            <td colspan="3">
+                                <div t-field="o.partner_id"
+                                    t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}'/>
+                            </td>
+                        </tr>
+                        <tr>
+							<td><strong>L.P.O:-</strong><span t-field="o.number"/></td>
+							<td><strong>Date:-</strong><span t-field="o.date_invoice"/></td>
+							<td><strong>Number:-</strong><span t-field="o.number"/></td>
+						</tr>
+                    </table>
+                    <br/>
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">S.No</th>
+                                <th class="text-center">Description</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Unit Price</th>
+                                <th class="text-center">Total</th>
+                            </tr>
+                        </thead>
+                        <thead>
+							<t t-set="counter" t-value="1"/>
+                            <tr t-foreach="o.invoice_line" t-as="p">
+								<td class="text-center">
+									<span t-esc="counter"/>
+									<t t-set="counter" t-value="counter+1"/>
+								</td>
+                                <td class="text-right"><span t-field="p.name"/></td>
+                                <td class="text-right"><span t-field="p.quantity"/></td>
+                                <td class="text-right"><span t-field="p.price_unit"/></td>
+                                <td class="text-right"><span t-field="p.price_subtotal"/></td>
+                            </tr>
+                        </thead>
+                        <tfoot>
+							<th colspan="2" class="text-right">Grand Total</th>
+							<td colspan="3" class="text-right"><strong><span t-field="o.amount_total"/></strong></td>
+                        </tfoot>
+                    </table>
+                    <br/>
+                    <table class="table table-condensed table-bordered">
+                       <tr t-foreach="o.company_id.bank_ids" t-as="p">
+						   <td colspan="3">
+							    <div><strong>Bank Details:</strong></div>
+                                <div><span t-field="p.bank.name"/></div>
+                                <div><strong>A/C No:-</strong><span t-field="p.acc_number"/></div>
+                                <div><strong>Branch:-</strong><span t-field="p.city"/></div>
+                            </td>
+						</tr>
+                    </table>
+                    <br/>
+                    <p class="text-left"><strong>Receiver's Sign</strong></p>
+                    <br/>
+                    <h4 class="text-right"><strong><span t-field="o.company_id.name"/></strong></h4>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

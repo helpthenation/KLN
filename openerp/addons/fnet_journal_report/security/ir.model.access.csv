@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fnet_journal_report_fnet_journal_report,fnet_journal_report.fnet_journal_report,model_fnet_journal_report_fnet_journal_report,,1,0,0,0

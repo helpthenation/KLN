@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+		<record model="ir.ui.view" id="view_currency_inherit">
+            <field name="name">view.currency.inherit</field>
+            <field name="model">res.currency</field>
+            <field name="inherit_id" ref="base.view_currency_form"/>
+            <field name="arch" type="xml">
+				<field name="rate_silent" position="before">
+					<field name="rate_convert"/>
+				</field>
+				<xpath expr="//form/field/tree/field[@name='name']" position='after'>
+					<field name="convert_rate"/>
+				</xpath>
+			</field>
+		</record>
+		
+		
+		<record model="ir.ui.view" id="view_currency_inherit_tree">
+            <field name="name">view.currency.inherit.tree</field>
+            <field name="model">res.currency</field>
+            <field name="inherit_id" ref="base.view_currency_tree"/>
+            <field name="arch" type="xml">
+				<field name="rate_silent" position="before">
+					<field name="rate_convert"/>
+				</field>
+				
+			</field>
+		</record>
+		
+		
+    </data>
+</openerp>

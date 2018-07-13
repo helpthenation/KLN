@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    <template id="report_salary_summary">
+    <t t-call="report.html_container">
+        
+        <t t-foreach="docs" t-as="o">
+                
+                <div class="page">
+					<style type="text/css">
+						#table_chk{font-size:13px;border:1px solid silver;border-top:0px;font-family:Inconsolata}	
+						#table_chk tr td {padding:0px;margin:0px;display:inline-table}
+						#table_chk tr td table tr td {padding:2px;text-align:center}
+						#table_chk tr td table tr.header {border:1px solid silver;border-right:0px;border-left:0px}
+						#table_chk tr td table tr.header td {border-right:1px solid silver;font-weight:bold}
+						#table_chk tr td table tr.body {border:1px solid white;border-right:0px;border-left:0px}
+						#table_chk tr td table tr.body td {border-right:1px solid white;}
+						.parent-border {width:300px;border-bottom:2px dotted silver;}
+						.child-border {width:300px;border-bottom:2px dotted silver;margin-bottom:2px}	
+						.interest-type {height:30px;line-height:30px;padding:0px 10px}
+					</style>
+					<table style="width:100%;font-size:13px;font-family:Inconsolata" cellpadding="0" cellspacing="0">
+						<tr>
+							<td width="67%" style="text-align:left"><span>ASSOCIATED ELECTRICAL AGENCIES</span>, <span t-esc="o.company_id.state_id.name"/></td>
+							<td width="33%" style="text-align:center">SALARY STATEMENT FOR THE MONTH OF JANUARY-2016 </td>
+						</tr>
+					</table><br/><br/>
+                    <table id="table_chk" style="width:100%;" cellpadding="0" cellspacing="0">
+						<tr style="border-bottom:1px solid silver">
+							<td> 
+								<table style="width:100%;" cellpadding="0" cellspacing="0">
+									<tr class="header">
+										<td width="3%">S.NO</td>
+										<td width="4%">Employee Code</td>
+										<td width="4%">Dpt Name</td>
+										<td width="4%">EMP Name</td>
+										<td width="4%">BASIC</td>
+										<td width="4%">HRA</td>
+										<td width="4%">Special Allowance</td>
+										<td width="4%">Convance</td>
+										<td width="4%">Leave Allowance</td>
+										<td width="4%">Medical Allowance</td>
+										<td width="4%">GROSS</td>
+										<td width="4%">LOP Days</td>
+										<td width="4%">Working Days</td>
+										<td width="4%">BASIC</td>
+										<td width="4%">HRA</td>
+										<td width="4%">Conv/ Others</td>
+										<td width="4%">GROSS</td>
+										<td width="4%">EMP-12%</td>
+										<td width="4%">ESI-1.75%</td>
+										<td width="4%">Advance</td>
+										<td width="4%">Professional Tax</td>
+										<td width="4%">Lunch Expense</td>										
+										<td width="4%">Income Tax</td>
+										<td width="4%">Other deduction 1</td>
+										<td width="4%">Other deduction 2</td>
+										<td width="4%">Net Paid</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td> 
+								<table style="width:100%;" cellpadding="0" cellspacing="0" t-foreach="get_employee(data)" t-as="employee">
+									<t t-set="counter" t-value="1"/>
+									<tr class="body">
+										<td width="3%"><span t-esc="counter"/>
+                                            <t t-set="counter" t-value="counter+1"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="employee['emp_code']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="employee['department']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="employee['name']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract(data,employee['contract_id'])[0]['basic']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract(data,employee['contract_id'])[0]['hra']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract(data,employee['contract_id'])[0]['special_allowance']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract(data,employee['contract_id'])[0]['convance']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract(data,employee['contract_id'])[0]['leave_allownace']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract(data,employee['contract_id'])[0]['medical_allownace']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract(data,employee['contract_id'])[0]['gross']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract(data,employee['contract_id'])[0]['lop']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract(data,employee['contract_id'])[0]['no_of_days']-get_contract(data,employee['contract_id'])[0]['lop']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details(data,employee['contract_id'],'BASIC')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details(data,employee['contract_id'],'hra')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details(data,employee['contract_id'],'convance')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details(data,employee['contract_id'],'GROSS')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details(data,employee['contract_id'],'epf')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details(data,employee['contract_id'],'ESI')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details(data,employee['contract_id'],'ADV')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details(data,employee['contract_id'],'professional_tax')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details(data,employee['contract_id'],'lunch_expense')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details(data,employee['contract_id'],'tax_deduction')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details(data,employee['contract_id'],'other_deduction_1')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details(data,employee['contract_id'],'other_deduction_2')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details(data,employee['contract_id'],'NET')[0]['total']"/></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<table style="width:100%;" cellpadding="0" cellspacing="0">
+									<tr class="body">
+										<td width="3%"></td>
+										<td width="7%">***</td>
+										<td width="4%" style="text-align:right">Branch Total</td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract_total(data)[0]['basic']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract_total(data)[0]['hra']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract_total(data)[0]['special_allowance']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract_total(data)[0]['convance']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract_total(data)[0]['leave_allownace']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract_total(data)[0]['medical_allownace']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract_total(data)[0]['gross']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract_total(data)[0]['lop']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_contract_total(data)[0]['no_of_days']-get_contract_total(data)[0]['lop']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details_total(data,'BASIC')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details_total(data,'hra')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details_total(data,'convance')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details_total(data,'GROSS')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details_total(data,'epf')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details_total(data,'ESI')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details_total(data,'ADV')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details_total(data,'professional_tax')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details_total(data,'lunch_expense')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details_total(data,'tax_deduction')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details_total(data,'other_deduction_1')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details_total(data,'other_deduction_2')[0]['total']"/></td>
+										<td width="4%" style="text-align:right"><span t-esc="get_payslip_details_total(data,'NET')[0]['total']"/></td>
+									</tr>
+								</table>	
+							</td>
+						</tr>
+                  </table>
+                </div>
+            </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

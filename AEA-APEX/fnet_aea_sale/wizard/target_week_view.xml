@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_pjc_year_wiz" model="ir.ui.view">
+            <field name="name">view.pjc.year.wiz</field>
+            <field name="model">pjc.year.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Fiscal Year Creation">
+					<p class="oe_grey">
+                        Craete For Fiscal Year creation and fix Permanant 
+                        Journey Cycle
+                    </p>
+					<group>
+						<group>
+							<field name="fiscal_year_id" domain="[('state','=','draft')]"/>
+						</group>
+					</group>
+                    <footer>
+                        <button name="bounce_transfer" string="_Apply" type="object" class="oe_highlight"/>
+                        or
+                        <button string="_Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_view_pjc_year" model="ir.actions.act_window">
+            <field name="name">Fiscal Year PJC</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pjc.year.wiz</field>
+            <field name="view_id" ref="view_pjc_year_wiz"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem
+            name="Fiscalyear PJC"
+            groups="base.group_sale_manager"
+            parent="menu_pjc"
+            action="action_view_pjc_year"
+            id="menu_pjc_fiscalyear"/>
+
+    </data>
+</openerp>

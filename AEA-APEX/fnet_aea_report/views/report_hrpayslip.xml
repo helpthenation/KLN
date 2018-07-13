@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+<template id="hr_payslip_formats">
+    <t t-name="fnet_aea_report.hr_payslip_formats">
+	
+<div class="oe_structure">     
+        
+        <div class="page">
+ 		<t t-foreach="doc_ids" t-as="doc_id">
+		  <div class="container">
+		  <h3 style="text-align:center;">ASSOCIATED ELECTRICAL AGENCIES CHENNAI</h3>
+		  <h5 style="text-align:center;">609, LAKSHMI BHAVAN</h5>
+		  <h5 style="text-align:center;">4TH FLOOR, MOUNT ROAD, CHENNAI -600 006</h5>
+		  <h3 style="text-align:center;">SALARY SLIP FOR MONTH OF OCTOBER 2016</h3>  
+		  <table width="100%" class="table table-bordered" style="border-top-width: 4px;border-bottom-width: 4px;border-right-width: 4px;border-left-width: 4px;">
+			  <tr>
+				  <td width="50%">
+					<table>
+				  <tr>
+				  <td  width="10%" style="text-align:right;padding-bottom: 1em;">Sr.No: </td>
+					  <td  width="20%" style="text-align:center;padding-bottom: 1em;">1</td>
+				  </tr>   
+				  <tr>
+				  <td width="10%" style="text-align:right;padding-bottom: 1em;">Name : </td>
+					  <td width="20%" style="text-align:center;padding-bottom: 1em;"><t t-esc="doc_id.employee_id.name"/></td>
+				  </tr> 
+				  <tr>
+				  <td style="text-align:right;padding-bottom: 1em;">Tkn.No:</td>
+					  <td style="text-align:center;padding-bottom: 1em;"><t t-esc="doc_id.employee_id.tkn_no"/></td>
+				  </tr> 
+				  <tr>
+				  <td style="text-align:right;padding-bottom: 1em;">P.F.No: </td>
+					  <td style="text-align:center;padding-bottom: 1em;"><t t-esc="doc_id.employee_id.pf_no"/></td> 	      
+					  </tr> 
+				  <tr>
+				  <td style="text-align:right;padding-bottom: 1em;">E.S.I.No: </td>
+					  <td style="text-align:center;padding-bottom: 1em;"><t t-esc="doc_id.employee_id.esi_no"/></td>
+				 </tr> 
+				 <tr>
+				  <td style="text-align:right;padding-bottom: 1em;">F/H NAME:</td>
+					  <td style="text-align:center;padding-bottom: 1em;"><t t-esc="doc_id.employee_id.father_name"/></td>
+				 </tr> 
+				  <tr>
+				  <td style="text-align:right;padding-bottom: 1em;">D.O.J:</td>
+					  <td style="text-align:center;padding-bottom: 1em;"><t t-esc="doc_id.employee_id.doj"/></td>
+				  </tr> 
+				  <tr>
+				  <td style="text-align:right;padding-bottom: 1em;">DEPT : </td>
+					  <td style="text-align:center;padding-bottom: 1em;"><t t-esc="doc_id.employee_id.department_id.name"/></td>
+				  </tr> 
+				  <tr>
+				  <td style="text-align:right;padding-bottom: 2em;">DESG : </td>
+					  <td style="text-align:center;padding-bottom: 2em;"><t t-esc="doc_id.employee_id.job_id.name"/></td>
+				  </tr> 
+				
+			   </table> 
+							
+				<table>
+					 <tr>
+					<td width="10%" style="text-align:right; padding-bottom: 1em;">LEAVE DAYS: </td>
+					<td width="20%" style="text-align:center;padding-bottom: 1em;"><t t-esc="docs.leave_days(doc_id)"/></td>
+					</tr> 
+					<tr>
+					<td style="text-align:right;padding-bottom: 1em;">LOP DAYS : </td>
+					<td style="text-align:center;padding-bottom: 1em;"><t t-esc="doc_id.lop"/></td>
+					</tr> 
+					<tr>
+					<td style="text-align:right;padding-bottom: 3em;">DAYS WORKED :</td>
+					<td style="text-align:center;padding-bottom: 3em;"><t t-esc="docs.worked_days(doc_id)"/></td>
+					</tr> 
+				</table>  
+				  <table>
+					 <tr>
+				 <td width="10%" style="text-align:right; padding-bottom: 1em;">Net Sal. Payable: </td>
+					  <td width="20%" style="text-align:center;padding-bottom: 1em;"><t t-esc="docs.net_salary(doc_id,'NET')"/></td>
+				 </tr> 
+			   </table>          
+				  </td>
+				  <td width="50%">
+				  <table width="100%">
+					<tr>
+						<td width="25%" style="text-align:left; padding-bottom: 1em;">Basic: </td>
+						<td width="25%" style="text-align:center;padding-bottom: 1em;"><t t-esc="docs.net_salary(doc_id,'BASIC')"/></td>
+						<td width="25%" style="text-align:left; padding-bottom: 1em;"></td>
+						<td width="25%" style="text-align:center;padding-bottom: 1em;"></td>						
+					</tr> 
+					<tr>
+						<td style="text-align:left;padding-bottom: 1em;">HRA : </td>
+						<td style="text-align:center;padding-bottom: 1em;"><t t-esc="docs.net_salary(doc_id,'hra')"/></td>
+						<td style="text-align:left;padding-bottom: 1em;"></td>
+						<td style="text-align:center;padding-bottom: 1em;"></td>						
+					</tr> 
+					<tr>
+						<td style="text-align:left;padding-bottom: 1em;">SPL. PAY : </td>
+						<td style="text-align:center;padding-bottom: 1em;"><t t-esc="docs.net_salary(doc_id,'SPL')"/></td>
+						<td style="text-align:left;padding-bottom: 1em;"></td>
+						<td style="text-align:center;padding-bottom: 1em;"></td>						
+					</tr> 
+					<tr>
+						<td style="text-align:left;padding-bottom: 3em;">TOT. PAY :   </td>
+						<td style="text-align:center;padding-bottom: 3em;"><t t-esc="docs.net_salary(doc_id,'GROSS')"/></td>						
+						<td style="text-align:left;padding-bottom: 3em;">TOT. LOP :  </td>
+						<td style="text-align:center;padding-bottom: 3em;"> <t t-esc="docs.net_salary(doc_id,'LOP')"/></td>						
+					</tr> 
+				</table>   
+				   <hr/>    
+				 <table width="100%">
+					<tr>
+						<td width="25%" style="text-align:left; padding-bottom: 1em;">ERN.Basic: </td>
+						<td width="25%" style="text-align:center;padding-bottom: 1em;"><t t-esc="docs.net_salary(doc_id,'BASIC')"/></td>
+						<td width="25%" style="text-align:left;padding-bottom: 1em;">E.P.F:</td>
+						<td width="25%" style="text-align:center;padding-bottom: 1em;"><t t-esc="docs.net_salary(doc_id,'epf')"/></td>
+					</tr> 
+					<tr>
+						<td style="text-align:left;padding-bottom: 1em;"></td>
+						<td style="text-align:center;padding-bottom: 1em;"></td>
+						<td style="text-align:left;padding-bottom: 1em;">E.S.I:</td>
+						<td style="text-align:center;padding-bottom: 1em;"><t t-esc="docs.net_salary(doc_id,'esi')"/></td>
+					</tr> 
+					<tr>
+						<td style="text-align:left;padding-bottom: 1em;">H.R.A : </td>
+						<td style="text-align:center;padding-bottom: 1em;"><t t-esc="docs.net_salary(doc_id,'hra')"/></td>
+						<td style="text-align:left;padding-bottom: 1em;">PRE.PAID: </td>
+						<td style="text-align:center;padding-bottom: 1em;"></td>
+					</tr> 
+					<tr>
+						<td style="text-align:left;padding-bottom: 1em;">CONV.ALW : </td>
+						<td style="text-align:center;padding-bottom: 1em;"><t t-esc="docs.net_salary(doc_id,'convance')"/></td>
+						<td style="text-align:left;padding-bottom: 1em;">MIS.DEDU : </td> 
+						<td style="text-align:center;padding-bottom: 1em;"></td>
+					</tr> 
+					<tr>
+						<td style="text-align:left;padding-bottom: 1em;"></td>
+						<td style="text-align:center;padding-bottom: 1em;"></td>
+						<td style="text-align:left;padding-bottom: 1em;">SAL.LOAN: </td>
+						<td style="text-align:center;padding-bottom: 1em;"><t t-esc="docs.net_salary(doc_id,'advance')"/></td>
+					</tr> 
+					<tr>
+						<td style="text-align:left;padding-bottom: 3em;"></td>
+						<td style="text-align:center;padding-bottom: 3em;"></td>
+						<td style="text-align:left;padding-bottom: 3em;">FES.LOAN : </td> 
+						<td style="text-align:center;padding-bottom: 3em;"></td>
+					</tr>
+					<tr>
+						<td style="text-align:left;padding-bottom: 1em;">OTHalw/Arr: </td>
+						<td style="text-align:center;padding-bottom: 1em;"></td>
+						<td style="text-align:left;padding-bottom: 1em;">INCOME TAX: </td>
+						<td style="text-align:center;padding-bottom: 1em;"><t t-esc="docs.net_salary(doc_id,'income_tax')"/></td>
+					</tr> 
+					<tr>
+						<td style="text-align:left;padding-bottom: 1em;">SPL.PAY : </td>
+						<td style="text-align:center;padding-bottom: 1em;"><t t-esc="docs.net_salary(doc_id,'SPL')"/></td>
+						<td style="text-align:left;padding-bottom: 1em;"></td> 
+						<td style="text-align:center;padding-bottom: 1em;"></td>
+					</tr>
+					<tr>
+						<td style="text-align:left;padding-bottom: 1em;"></td>
+						<td style="text-align:center;padding-bottom: 1em;"></td>
+						<td style="text-align:left;padding-bottom: 1em;">PROF.TAX: </td>
+						<td style="text-align:center;padding-bottom: 1em;"><t t-esc="docs.net_salary(doc_id,'PT')"/></td>
+					</tr> 
+					<tr>
+						<td style="text-align:left;padding-bottom: 1em;">GR.SALARY :</td>
+						<td style="text-align:center;padding-bottom: 1em;"><t t-esc="docs.net_salary(doc_id,'GROSS')"/></td>
+						<td style="text-align:left;padding-bottom: 1em;">TOTAL.DED: </td> 
+						<td style="text-align:center;padding-bottom: 1em;"><t t-esc="docs.total_deduction(doc_id)"/></td>
+					</tr>
+				</table>   
+					<hr/> 
+				   <table width="100%" >
+					 <tr>
+				 <td width="50%" style="text-align:left; padding-bottom: 3em;">Net Paid:</td>
+					  <td width="50%" style="text-align:center; padding-bottom: 3em;"><t t-esc="docs.net_salary(doc_id,'NET')"/></td>
+				 </tr> 
+				   <tr>
+				  <td width="50%" style="text-align:left;padding-bottom: 1em;"></td>
+				  <td width="50%" style="text-align:left;padding-bottom: 1em;">Sr.General Manager </td> 
+					  </tr>
+			   </table>      
+			  </td>
+			  </tr>
+		  </table>
+		</div>
+ 		</t>
+ 		</div>
+ 		</div>
+	</t>
+</template>
+</data>
+</openerp>

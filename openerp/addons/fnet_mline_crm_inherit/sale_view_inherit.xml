@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+       
+       <record model="ir.ui.view" id="crm_oppor_form_inherit_hr">
+            <field name="name">crm.oppor.form.inherit.hr</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+				
+				<field name="partner_id" position='replace'>
+				   <field name="partner_id"
+                    on_change="on_change_partner_id(partner_id)"
+                    string="Customer"
+                    domain="[('customer','=',True),('is_company', '=', True)]"
+                    required="1"
+                    context="{'default_name': partner_name, 'default_email': email_from, 'default_phone': phone}"/>
+				</field>
+			</field>
+		</record>
+	   <record model="ir.ui.view" id="view_mail_form_inherit">
+            <field name="name">view.mail.compose.message.inherit</field>
+            <field name="model">mail.compose.message</field>
+            <field name="inherit_id" ref="mail.email_compose_message_wizard_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//form/group//field[@name='notify']" position='before'>
+					<label for="mail_cc" string="CC"  attrs="{'invisible': [('is_log', '=', True)]}" groups="base.group_user"/>
+                        <div groups="base.group_user" attrs="{'invisible': [('is_log', '=', True)]}">
+                            <field name="mail_cc" widget="many2many_tags_email" placeholder="Add contacts to notify..."
+                                context="{'force_email':True, 'show_email':True}"
+                                attrs="{'invisible': [('composition_mode', '!=', 'comment')]}"/>
+                        </div>
+					<label for="mail_bcc" string="BCC"  attrs="{'invisible': [('is_log', '=', True)]}" groups="base.group_user"/>
+                        <div groups="base.group_user" attrs="{'invisible': [('is_log', '=', True)]}">
+                            <field name="mail_bcc" widget="many2many_tags_email" placeholder="Add contacts to notify..."
+                                context="{'force_email':True, 'show_email':True}"
+                                attrs="{'invisible': [('composition_mode', '!=', 'comment')]}"/>
+                        </div>                        
+				</xpath>
+			</field>
+		</record>
+		
+	   <record model="ir.ui.view" id="view_mail_inherit">
+            <field name="name">view.mail.inherit</field>
+            <field name="model">mail.mail</field>
+            <field name="inherit_id" ref="mail.view_mail_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//form/sheet/group//field[@name='email_cc']" position='after'>
+					 <field name='email_bcc'/>
+				</xpath>
+			</field>
+		</record>	
+		
+	   <record model="ir.ui.view" id="view_mail_message_inherit">
+            <field name="name">view.mail.inherit</field>
+            <field name="model">mail.message</field>
+            <field name="inherit_id" ref="mail.view_message_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//form/sheet/group/group//field[@name='partner_ids']" position='after'>
+					 <field name="mail_cc" widget="many2many_tags"/>
+					 <field name="mail_bcc" widget="many2many_tags"/>
+				</xpath>
+			</field>
+		</record>			
+		
+      <record model="ir.ui.view" id="view_sale_from_inherit">
+            <field name="name">view.sale.from.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//form/header/button[@name='action_button_confirm']" position='replace'>
+
+				    <button name="action_button_confirm" invisible='1' string="Confirm Sale" type="object" groups="base.group_user"/>
+					<button name="action_button_confirm"  invisible='1' states="sent" string="Confirm Sale" class="oe_highlight" type="object" groups="base.group_user"/>			
+
+				</xpath>
+				
+<!--
+				<xpath expr="//form/header/button[@states='draft']" position='replace'>
+					<button name="print_quotation" string="Print" type="object" attrs="{'invisible':[('state','in',('draft','progress','done','cancel','manual'))]}"  groups="base.group_user"/>
+
+				</xpath>
+				<xpath expr="//form/header/button[@states='sent,progress,manual']" position='replace'>
+					<button name="print_quotation" string="Print" type="object" attrs="{'invisible':[('state','in',('draft','progress','done','cancel','manual'))]}"  groups="base.group_user"/>
+				</xpath>
+-->
+				
+				<xpath expr="//form/header/button[@states='draft']" position='after'>
+					<button name="button_confirm_quote" class="oe_highlight" string="Confirm Quote" type="object" states='draft'/>
+				</xpath>
+<!--
+				<xpath expr="//form/header/button[@states='draft']" position='after'>
+										<button name="%(action_view_sale_advance_payment_order)d" string="Convert To Sale Order"
+						type="action" states="draft_so" class="oe_highlight" groups="base.group_user"/>	
+				</xpath>
+-->
+				
+				<xpath expr="//form/sheet/group/group/field[@name='client_order_ref']" position='after'>
+<!--
+					  <field name='job_id'/>
+-->
+				      <field name="lead_id"/>
+				      <field name="request_id"/>
+				      <field name="offer_id"/>
+				      <field name="delivery_period"/>
+				      <field name='validity_new'/>
+				      <field name='validity' invisible='1'/>
+				</xpath>
+				<xpath expr="//form/sheet/group/group/field[@name='partner_id']" position='after'>
+					  <field name='lpo_no'/>
+				</xpath>
+				<field name="origin" position="after">
+					<field name="parent_so" readonly="1"/>
+					<field name="contact_name"/>
+					<field name="function"/>
+					<field name="title_id"/>
+				</field>
+				<page string="Other Information" position="after">
+					<page string="Terms and Condition">
+						<field name="remark"/>
+					</page>
+					<page string="Notes and Remarks">
+						<field name="note_document"/>
+					</page>
+					<page string="Signature">
+						<field name="signature"/>
+					</page>
+					<page string="Covering Terms">
+						<field name="covering_remark"/>
+					</page>
+					<page string="Subject">
+						<field name="subject"/>
+					</page>
+					<page string="Cancel Reason" attrs="{'invisible': [('state', 'not in',('cancel'))]}">
+						<field name="cancel_remark"/>
+					</page>
+				</page>
+				<xpath expr="//form/sheet/notebook/page/field/form/group/group//field[@name='price_unit']" position='after'>
+					<field name="order_code"/>
+				</xpath>
+				<xpath expr="//form/sheet/notebook/page/field/form/group/group//field[@name='price_unit']" position='before'>
+					<field name="uom"/>
+				</xpath>				
+				<xpath expr="//form/sheet/notebook/page/field/form/group/group//field[@name='product_id']" position='after'>
+					<field name="item_no"/>
+				</xpath>
+				<xpath expr="//form/sheet/notebook/page/field/tree/field[@name='name']" position='after'>
+				      <field name="purchase_id"/>
+				      <field name="order_code"/>
+				      <field name="offer_id"/>
+				      <field name="part_no"/>
+				      <field name="make_no"/>
+				</xpath>
+				<xpath expr="//form/sheet/notebook/page/field/tree/field[@name='product_id']" position='before'>
+					<field name="item_no"/>
+				</xpath>
+				<xpath expr="//form/sheet/notebook/page/field/tree/field[@name='price_unit']" position='before'>
+					<field name="uom"/>
+				</xpath>				
+				<xpath expr='//form/sheet/notebook/page/field/tree/field[@name="tax_id"]' position="attributes">
+                    <attribute name="invisible">False</attribute>
+                </xpath>
+                
+				<xpath expr='//form/sheet/notebook/page/group/field[@name="amount_untaxed"]' position="attributes">
+                    <attribute name="invisible">False</attribute>
+                </xpath>
+                
+				<xpath expr='//form/sheet/notebook/page/group/field[@name="amount_tax"]' position="attributes">
+                    <attribute name="invisible">False</attribute>
+                </xpath>
+
+            </field>
+        </record>
+<!--
+                
+         <record id="seq_type_job_id" model="ir.sequence.type">
+            <field name="name">Job ID</field>
+            <field name="code">job_id</field>
+        </record>
+
+        <record id="seq_job_id" model="ir.sequence">
+            <field name="name">Sales Order</field>
+            <field name="code">job_id</field>
+            <field name="prefix">JO</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+-->
+        
+
+   </data>
+</openerp>        

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data> 
+      
+     <record id="view_account_invoice_line_suppliers" model="ir.ui.view">
+            <field name="name">view.account.invoice.line.suppliers</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr='//form/sheet/notebook/page/field/tree/field[@name="price_unit"]' position="after">
+						<field name="discounts"/>
+						<field name="disc_price_unit"/>						
+						<field name="gross_amount"/>
+						<field name="product_discount"/>
+					</xpath>               
+               
+            </field>
+    </record>
+   
+  
+  </data>          
+</openerp>
+
+

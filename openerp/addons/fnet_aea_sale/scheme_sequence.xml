@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>		
+		<record id="seq_scheme_category_bty_type" model="ir.sequence.type">
+            <field name="name">Scheme Category BTY</field>
+            <field name="code">category.batterys</field>
+        </record>
+        <!-- Sequences for account.invoice -->
+        <record id="seq_scheme_category_bty" model="ir.sequence">
+            <field name="name">Scheme Category BTY</field>
+            <field name="code">category.batterys</field>
+            <field name="prefix">BTY/SEHM/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+
+		<record id="seq_scheme_category_cfl_type" model="ir.sequence.type">
+            <field name="name">Scheme Category CFL</field>
+            <field name="code">category.cfls</field>
+        </record>
+        <!-- Sequences for account.invoice -->
+        <record id="seq_scheme_category_cfl" model="ir.sequence">
+            <field name="name">Scheme Category CFL</field>
+            <field name="code">category.cfls</field>
+            <field name="prefix">CFL/SEHM/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        
+        <record id="seq_scheme_category_tlt_type" model="ir.sequence.type">
+            <field name="name">Scheme Category TLT</field>
+            <field name="code">category.tlts</field>
+        </record>
+        <!-- Sequences for account.invoice -->
+        <record id="seq_scheme_category_tlt" model="ir.sequence">
+            <field name="name">Scheme Category TLT</field>
+            <field name="code">category.tlts</field>
+            <field name="prefix">TLT/SEHM/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <record id="seq_scheme_category_led_type" model="ir.sequence.type">
+            <field name="name">Scheme Category LED</field>
+            <field name="code">category.leds</field>
+        </record>
+        <!-- Sequences for account.invoice -->
+        <record id="seq_scheme_category_led" model="ir.sequence">
+            <field name="name">Scheme Category LED</field>
+            <field name="code">category.leds</field>
+            <field name="prefix">LED/SEHM/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+                <record id="seq_scheme_category_epbrs_type" model="ir.sequence.type">
+            <field name="name">Scheme Category EPBRS</field>
+            <field name="code">category.epbrs</field>
+        </record>
+        <!-- Sequences for account.invoice -->
+        <record id="seq_scheme_category_epbrs" model="ir.sequence">
+            <field name="name">Scheme Category EPBRS</field>
+            <field name="code">category.epbrs</field>
+            <field name="prefix">EPBR/SEHM/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</openerp>

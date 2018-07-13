@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <template id="header_invoice">
+		<div class="header">
+        <t t-if ="o and 'partner_id' in o" >
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+			<style>
+                    #table_chk{font-size:11px;border:1px solid silver;font-family:Inconsolata;width:100%;}
+                    #table_chk tr td {padding:0px;margin:0px;display:inline-table}
+                    #table_chk tr td table tr td {padding:5px;text-align:center}
+                    #table_chk tr td table tr.header {border:1px solid silver;border-right:0px;border-left:0px;background-color:#BDBDBD;}
+                    #table_chk tr td table tr.header td {border-right:1px solid white;font-weight:bold}
+                    #table_chk tr td table tr.header td:last-child {border-right:1px solid silver;font-weight:bold}
+                    #table_chk tr td table tr.body {border:1px solid white;border-right:0px;border-left:0px;}
+                    #table_chk tr td table tr.body td {border-right:1px solid silver;}
+                    #table_chk tr td table tr.body td:last-child {border-right:1px solid white;}
+                    .top-header {text-align:center;font-size:10px}
+                    .top-header div {display:block;font-size:10px}
+                    .image {width:100px;height:50px;vertical-align:middle;border:0px solid white;}
+                    .dealer {width:5m,0%;text-align:left}
+                    .dealer-head div {display:block;text-align:left}
+                    .invoice div{text-align:left}
+<!--
+                    .invoice p { display:block;height:35px;line-height:35px;text-align:left}
+-->
+				</style>
+	            <table style="width:100%;overflow:auto;margin-bottom:2px;"  id="table_chk" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="20%" style="vertical-align:middle;">
+                                            <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="image"/>
+                                        </td>
+                                        <td width="80%" class="top-header">
+                                            <div style="font-size:13px"><b>TAX INVOICE</b></div>
+                                            <div style="font-size:15px"><b><span t-esc="get_com(o)"/></b></div>
+                                            <div><span t-field='o.company_id.street'/>,<span t-field='o.company_id.street2'/></div>
+                                            <div><span t-field='o.company_id.city'/>, <span t-field='o.company_id.state_id.name'/>- <span t-field='o.company_id.zip'/>,Phone :<span t-field='o.company_id.phone'/></div>
+                                            <div>TIN : <span t-field='o.company_id.tin_no'/> CST No : <span t-field='o.company_id.tin_no'/></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr style="border-top:1px solid silver">
+                            <td>
+								<table style="width:100%;" cellpadding="0" cellspacing="0">
+									<tr>
+										<td width="50%" class="dealer">                                                                                    
+											<div class="dealer-head">
+												<div><b>GSTIN NO:</b></div>
+												<div><b>Consigner &amp; Address</b></div>
+												<div style="font-size:13px"><strong><b><span t-esc="get_com(o)"/></b></strong></div>
+												<div><span t-field='o.company_id.street'/>,</div>
+												<div><span t-field='o.company_id.street2'/>,</div>
+												<div><span t-field='o.company_id.city'/>,</div>
+												<div><span t-field='o.company_id.state_id.name'/></div>
+												<div><span t-field='o.company_id.zip'/></div>
+												<div>Phone :<span t-field='o.company_id.phone'/></div>
+												<div>TIN : <span t-field='o.company_id.tin_no'/></div>
+												<div> CST No : <span t-field='o.company_id.tin_no'/></div>   
+											</div>                                   
+										</td>
+										<td width="50%" class="invoice" >
+											<table style="width:100%;" cellpadding="0" cellspacing="0">
+											<tr>
+											<td style="padding:0px;" colspan='3' class="dealer">
+											<div><b>GSTIN NO:</b></div>
+											<div><b>Consignee &amp; Address</b></div>
+											<div style="font-size:13px"><strong><span t-field='o.partner_id.name'/></strong>,<span t-field='o.partner_id.mobile'/></div>
+											<div><span t-field='o.partner_id.street'/></div>
+											<div><span t-field='o.partner_id.street2'/></div>
+											<div><span t-field='o.partner_id.city'/>,<span t-field='o.partner_id.district_id.name'/></div>
+											<div><span t-field='o.partner_id.state_id.name'/>-<span t-field='o.partner_id.zip'/></div>
+											<div>TIN: <span t-field='o.partner_id.tin_vat_no'/></div>											
+											</td>
+											</tr>
+											<tr>
+											<td width="29%"  style="text-align:left;padding:0px;"><b>Invoice No:</b></td>
+											<td width="1%">:</td>
+											<td width="70%" style="text-align:left;font-size:14px;padding:0px;"><span t-field='o.number'/> </td>
+											</tr>
+											<tr>
+											<td width="29%" style="text-align:left;padding:0px;"><b>Date</b></td>
+											<td width="1%">:</td>
+											<td width="70%" style="text-align:left;font-size:14px;padding:0px;"><span t-field='o.date_invoice'/></td>
+											</tr>
+											<tr>
+											<td width="29%"  style="text-align:left;padding:0px;"><b>State Code:</b></td>
+											<td width="1%">:</td>
+											<td width="70%" style="text-align:left;font-size:14px;padding:0px;"> </td>
+											</tr>
+											<tr>
+											<td width="29%" style="text-align:left;padding:0px;"><b>State Name</b></td>
+											<td width="1%">:</td>
+											<td width="70%" style="text-align:left;font-size:14px;padding:0px;"></td>
+											</tr>
+											</table>
+										</td>
+									</tr>
+                                  <tr>
+										<td width="40%" class="dealer">                                                                                              
+										</td>
+										<td width="60%" class="invoice" >
+											<table style="width:100%;" cellpadding="0" cellspacing="0">
+											<tr>
+											<td width="29%"  style="text-align:left;padding:0px;"><b>Eway Bill No:</b></td>
+											<td width="1%">:</td>
+											<td width="70%" style="text-align:left;font-size:14px;padding:0px;"><span t-field='o.number'/> </td>
+											</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+                            </td>
+                        </tr>                       
+          </table>
+         </div>
+    </template>
+    
+    
+
+
+</data>
+</openerp>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <template id="invoice_footer_cash">
+		 <div class="footer">
+		<t t-if ="o and 'company_id' in o" >
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+        <style>
+				p{
+				margin:0; 
+				}
+				table, th, td {
+					padding: 10px;
+				}
+				.dealer {width:60%;height:80%;text-align:left}
+				#txt1
+				{
+				 float: left
+				}
+				#txt2
+				{
+				 float: right
+				}
+				#p1
+				{
+				 float: right
+				}
+				</style>
+			<div class="text-left" style="float:left;">
+				<table width="100%" style="float:left;">
+					<tr>
+					<td width="100%" colspan="2"><p style="font-size:12px;font-family:courier-new;">Goods Once Sold will not be taken back</p></td>
+					</tr>
+					  <tr>
+					  <td width="50%">
+					  <div class="row-left">
+					<strong style="margin-bottom:10px;">
+					<p style="font-size:12px;font-family:courier-new;">Bank Details:</p>
+					<p><span style="font-size:12px;font-family:courier-new;" t-esc="o.res_bank_id.bank_name"/></p>
+					<p style="font-size:12px;font-family:courier-new;">Acc No: <span style="font-size:12px;font-family:courier-new;" t-esc="o.res_bank_id.acc_number"/></p>
+					<p><span style="font-size:12px;font-family:courier-new;" t-esc="o.res_bank_id.bank_bic"/></p>
+					<p style="font-size:12px;font-family:courier-new;">Branch: <span style="font-size:12px;font-family:courier-new;" t-esc="o.res_bank_id.city"/></p>
+					<p><span style="font-size:12px;font-family:courier-new;" t-esc="o.res_bank_id.city"/></p>
+					</strong>
+					</div>
+					  </td>
+					  <td width="50%">
+					  <div class="row-left">
+					<strong style="margin-bottom:10px;">
+					<p style="font-size:12px;font-family:courier-new;">NAME:</p>
+					<p style="font-size:12px;font-family:courier-new;">DATE:</p>
+					<br/>
+					<p style="font-size:12px;font-family:courier-new;">SIGN:</p>
+					<p style="font-size:12px;font-family:courier-new;"><span t-esc="o.res_bank_id.city"/></p>
+					</strong>
+					</div>
+					  </td>
+					  </tr>
+					  <tr>
+					  <td width="60%"><p style="font-size:12px;font-family:courier-new;">Receiver's Sign <br/><img src="/fnet_mline_reportz/static/src/img/reciver.png" style="float:center;"/></p></td>
+					  <td style="text-align:right;width:40%;">
+						<strong>
+						<p style="font-size:12px;font-family:courier-new;">For Multiline Technical Company W.L.I</p>
+						</strong>
+						<p style="text-align:left;font-size:12px;font-family:courier-new;">STAMP:</p>
+					</td>
+				  </tr>
+					  
+					  </table>
+					
+					
+			 </div>
+			
+    </div>  
+    </template>
+    
+    
+
+
+</data>
+</openerp>

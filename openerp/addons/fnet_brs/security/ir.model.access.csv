@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bank_reconsile,bank.reconsile,model_bank_reconsile,fnet_brs.group_brs_manager,1,1,1,1
+access_brs_line,brs.line,model_brs_line,fnet_brs.group_brs_manager,1,1,1,1
+access_brs_statement,brs.statement,model_brs_statement,fnet_brs.group_brs_manager,1,1,1,1
+access_brs_statement_line,brs.statement.line,model_brs_statement_line,fnet_brs.group_brs_manager,1,1,1,1
+access_account_moves,account.moves,model_account_moves,fnet_brs.group_brs_manager,1,1,1,1
+access_account_moves_lines,account.moves.lines,model_account_moves_lines,fnet_brs.group_brs_manager,1,1,1,1

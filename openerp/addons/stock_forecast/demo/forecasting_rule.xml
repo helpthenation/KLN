@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="forecast_rule_01" model="forecasting.rule">
+            <field name="filter_id" ref="irfilter_01"/>
+            <field name="name" eval="obj(ref('irfilter_01')).name" model="ir.filters"/>
+            <field name="model">stock.history</field>
+        </record>
+
+        <record id="forecast_rule_02" model="forecasting.rule">
+            <field name="filter_id" ref="irfilter_02"/>
+            <field name="name" eval="obj(ref('irfilter_02')).name" model="ir.filters"/>
+            <field name="model">stock.history</field>
+        </record>
+
+        <record id="forecast_rule_03" model="forecasting.rule">
+            <field name="filter_id" ref="irfilter_03"/>
+            <field name="name" eval="obj(ref('irfilter_03')).name" model="ir.filters"/>
+            <field name="model">stock.history</field>
+        </record>
+
+        <record id="forecast_rule_04" model="forecasting.rule">
+            <field name="filter_id" ref="irfilter_04"/>
+            <field name="name" eval="obj(ref('irfilter_04')).name" model="ir.filters"/>
+            <field name="model">stock.history</field>
+        </record>
+
+        <record id="forecast_rule_05" model="forecasting.rule">
+            <field name="filter_id" ref="irfilter_05"/>
+            <field name="name" eval="obj(ref('irfilter_05')).name" model="ir.filters"/>
+            <field name="model">stock.history</field>
+        </record>
+
+        <record id="forecast_rule_06" model="forecasting.rule">
+            <field name="filter_id" ref="irfilter_06"/>
+            <field name="name" eval="obj(ref('irfilter_06')).name" model="ir.filters"/>
+            <field name="model">stock.history</field>
+        </record>
+
+        <record id="forecast_rule_07" model="forecasting.rule">
+            <field name="filter_id" ref="irfilter_07"/>
+            <field name="name" eval="obj(ref('irfilter_07')).name" model="ir.filters"/>
+            <field name="model">stock.history</field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report 
+        id="report_tpt_id"
+        model="loading.sheet.wizard"
+        string="Invoice_tpt"
+        report_type="qweb-pdf"
+        name="fnet_aea_loading_sheet.report_tpt"
+        file="fnet_aea_loading_sheet.report_tpt"
+    />   
+        <record id="paperformat_tpt" model="report.paperformat">
+        <field name="name">paper format</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">10</field>
+        <field name="dpi">90</field> 
+        </record>
+        
+        
+        <record id ="fnet_aea_loading_sheet.report_tpt_id" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="fnet_aea_loading_sheet.paperformat_tpt"/>
+    </record>
+    
+    
+    <template id="report_tpt">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+               
+                <div class="page">
+                    
+                    <h1>Invoice</h1>
+                    <table class="table table-condensed" style="border:1px solid black">                      
+                        <tr>
+                            <td style="border:1px solid black;padding:5px">SL.NO</td>
+                            <td style="border:1px solid black;padding:5px">STOCKIST NAME TOWNS</td>
+                            <t t-foreach="header_lines(o)" t-as="prod">
+                               <td><div style="border:1px solid black;padding:5px"><t t-raw ="prod['name']"/></div></td>        
+                            </t>    
+                        </tr>
+                     </table>
+                        
+                </div>
+                
+            </t>
+        </t>
+    </template>
+        
+
+    </data>
+</openerp>                  

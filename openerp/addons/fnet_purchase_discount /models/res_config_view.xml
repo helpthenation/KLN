@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="purchase_discount_config_settings_view" model="ir.ui.view">
+            <field name="name">account settings.add.purchase</field>
+            <field name="model">purchase.config.settings</field>
+            <field name="inherit_id" ref="purchase.view_purchase_configuration"/>
+            <field name="arch" type="xml">
+                                
+                <xpath expr="//label[@for='group_analytic_account_for_purchases']" position="after">                  
+                           <div>
+                                <field name="group_purchase_discount" class="oe_inline"/>
+                                <label for="group_purchase_discount"/>
+                            </div>
+                           <div attrs="{'invisible':[('group_purchase_discount', '=', False)]}">
+                               <group>
+                                 <group col="4">                             
+                                        <field name="purchase_discount_account_id"/>
+                                </group>
+                                </group>
+                            </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

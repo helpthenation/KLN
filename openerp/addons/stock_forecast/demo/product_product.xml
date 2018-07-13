@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- NEW PRODUCTS -->
+
+            <record id="product_product_1" model="product.product">
+                <field name="name">iMac with Retina 5K display</field>
+                <field name="categ_id" ref="product.imac"/>
+                <field name="standard_price">3499.0</field>
+                <field name="list_price">3899.0</field>
+                <field name="type">consu</field>
+                <field name="uom_id" ref="product.product_uom_unit"/>
+                <field name="uom_po_id" ref="product.product_uom_unit"/>
+                <field name="default_code">A1091</field>
+            </record>
+
+            <record id="product_product_2" model="product.product">
+                <field name="name">Kudu Pro</field>
+                <field name="categ_id" ref="product.product_category_4"/>
+                <field name="list_price">850.0</field>
+                <field name="standard_price">900.0</field>
+                <field name="type">consu</field>
+                <field name="uom_id" ref="product.product_uom_unit"/>
+                <field name="uom_po_id" ref="product.product_uom_unit"/>
+                <field name="description_sale">17" LED Backlit Monitor
+    Processor 4th gen Intel Core i7
+    16GB RAM
+    HDD SH-1</field>
+                <field name="default_code">S76KUDU</field>
+            </record>
+
+            <record id="product_product_3" model="product.product">
+                <field name="name">iPad Mini 4</field>
+                <field name="categ_id" ref="product.ipad"/>
+                <field name="standard_price">599.0</field>
+                <field name="list_price">800.0</field>
+                <field name="type">consu</field>
+                <field name="uom_id" ref="product.product_uom_unit"/>
+                <field name="uom_po_id" ref="product.product_uom_unit"/>
+                <field name="description_sale">7.9‑inch (diagonal) LED-backlit, 128Gb
+    A8 second-generation chip M8 coprocessor
+    FaceTime HD Camera, 1.2 MP Photos</field>
+                <field name="default_code">A2340</field>
+            </record>
+
+            <record id="product_product_4" model="product.product">
+                <field name="name">Gazelle Pro</field>
+                <field name="categ_id" ref="product.product_category_4"/>
+                <field name="standard_price">600.0</field>
+                <field name="list_price">750.0</field>
+                <field name="type">consu</field>
+                <field name="uom_id" ref="product.product_uom_unit"/>
+                <field name="uom_po_id" ref="product.product_uom_unit"/>
+                <field name="description">15.6" Glossy 1080p LED Backlit Display
+    Processor 2.5GHz i7-4710MQ
+    8 GB RAM
+    500 GB 7200 RPM DRIVE
+                </field>
+                <field name="default_code">S76GAZL</field>
+            </record>
+
+            <record id="product_product_5" model="product.product">
+                <field name="name">iPod Touch</field>
+                <field name="categ_id" ref="product.ipod"/>
+                <field name="standard_price">199.0</field>
+                <field name="list_price">220.0</field>
+                <field name="type">consu</field>
+                <field name="uom_id" ref="product.product_uom_unit"/>
+                <field name="uom_po_id" ref="product.product_uom_unit"/>
+                <field name="default_code">A6680</field>
+            </record>
+
+        <!-- UPDATE FORECAST MANUAL DATA DEMO TO BELONG TO DIFFERENT VARIANTS -->
+
+            <record id="forecasting_smoothing_techniques.fst_demo_04" model="forecast">
+                <field name="product_id" ref="product.product_product_4"/>
+            </record>
+
+            <record id="forecasting_smoothing_techniques.fst_demo_05" model="forecast">
+                <field name="product_id" ref="product.product_product_4b"/>
+            </record>
+
+    </data>
+</openerp>

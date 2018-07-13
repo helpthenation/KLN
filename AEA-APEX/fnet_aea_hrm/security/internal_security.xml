@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  
+<data noupdate="0">
+    <!-- Multi - Company Rules -->
+<!--
+	<record id="group_employee_access" model="res.groups">
+        <field name="name">Employee Access</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="menu_access" eval="[(4,ref('hr_payroll.menu_hr_payroll_root'))]"/>
+    </record>
+-->
+<!--
+        Contract
+-->
+<!--
+        <record model="ir.rule" id="employee_view_rule_managerss">
+            <field name="name">Manager Contract View rule</field>
+            <field name="model_id" ref="hr_contract.model_hr_contract"/>
+            <field name="groups" eval="[(4, ref('base.group_hr_manager'))]" />
+            <field name="domain_force">[('employee_id.company_id', '=', user.company_id.id)]</field>
+        </record> 
+-->
+<!--
+Payslipbase.group_hr_manager
+-->
+<!--
+        <record model="ir.rule" id="employee_view_payslip_managerss">
+            <field name="name">Payslip View rule</field>
+            <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+            <field name="groups" eval="[(4, ref('base.group_hr_manager'))]" />
+            <field name="domain_force">[('employee_id.company_id', '=', user.company_id.id)]</field>
+        </record> 
+-->
+<!--
+   Payslip Batch     
+-->
+       <record model="ir.rule" id="employee_view_payslip_batch_multi">
+            <field name="name">Payslip Batch View rule</field>
+            <field name="model_id" ref="hr_payroll.model_hr_payslip_run"/>
+<!--
+            <field name="groups" eval="[(4, ref('base.group_hr_manager'))]" />
+-->
+            <field name="global" eval="False"/>
+            <field name="domain_force">['|',('company_id', '=', False),('company_id', 'child_of', [user.company_id.id])]</field>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_unlink" eval="True"/>        
+        </record>
+   
+<!--
+ <record model="ir.rule" id="employee_view_payslip_batch_managerss">
+            <field name="name">Payslip Batch View rule</field>
+            <field name="model_id" ref="hr_payroll.model_hr_payslip_run"/>
+            <field name="groups" eval="[(4, ref('hr.group_hr_manager'))]" />
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('slip_ids.company_id', '=', False),('slip_ids.company_id', 'child_of', [user.company_id.id])]</field>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+ 
+-->
+
+        <record model="ir.rule" id="payslip_rule_multicompany">
+            <field name="name">payslip Rule</field>
+            <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>    
+
+        <record model="ir.rule" id="contract_rule_multicompany">
+            <field name="name">Contract Rule</field>
+            <field name="model_id" ref="hr_contract.model_hr_contract"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>    
+        <record model="ir.rule" id="salary_rule_multicompany">
+            <field name="name">Salary Rule</field>
+            <field name="model_id" ref="hr_payroll.model_hr_salary_rule"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>    
+        <record model="ir.rule" id="salary_rule_categ_multicompany">
+            <field name="name">Salary Rule Categ</field>
+            <field name="model_id" ref="hr_payroll.model_hr_salary_rule_category"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>    
+        <record model="ir.rule" id="contrib_register_multicompany">
+            <field name="name">contrib register rule</field>
+            <field name="model_id" ref="hr_payroll.model_hr_contribution_register"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>    
+        <record model="ir.rule" id="hr_payroll_structure_multicompany">
+            <field name="name">hr payroll structure rule</field>
+            <field name="model_id" ref="hr_payroll.model_hr_payroll_structure"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>    
+        <record model="ir.rule" id="hr_employeees_multicompany">
+            <field name="name">hr employee rule</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>    
+        <record model="ir.rule" id="salary_arrears_multicompany">
+            <field name="name">salary arrears rule</field>
+            <field name="model_id" ref="model_salary_arrear"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>    
+
+</data>
+</openerp>

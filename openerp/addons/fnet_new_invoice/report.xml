@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+            <report
+                id="invoices_report"
+                model="account.invoice"
+                string="AEA New Invoice"
+                report_type="qweb-pdf"
+                name="fnet_new_invoice.report_invoices" 
+                file="fnet_new_invoice.report_invoices"
+                menu="True"/>
+    </data>
+</openerp>

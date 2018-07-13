@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <function model="purchase.order" name="_updating_user_id"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data> 
+   
+    <record id="view_sale_entry_form" model="ir.ui.view">
+        <field name="name">view.sale.entry.form</field>
+        <field name="model">sale.entry</field>
+        <field name="inherit_id" ref="fnet_aea_sale.view_sale_entry_form"/>
+        <field name="arch" type="xml">
+            <field name="amount" position="after">
+                 <field name="closing_stock"/>
+            </field>
+        </field>
+    </record>   
+  </data>          
+</openerp>  

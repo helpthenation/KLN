@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+    <data>
+
+        <record id="stock_forecast_view_form" model="ir.ui.view">
+            <field name="name">stock.forecast.view.form</field>
+            <field name="model">forecast</field>
+            <field name="inherit_id" ref="forecasting_smoothing_techniques.forecasting_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='value_ids']" position="before">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label string='Done for product....'/>
+                            <h2><field name="product_id"/></h2>
+                        </div>
+                        <div class="col-md-12">
+                            <h3>
+                                <label string="from"/>
+                                <field name="product_tmpl_id" readonly="1" class="oe_inline"/>
+                                <label string="template"/>
+                            </h3>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="forecast_search_view" model="ir.ui.view">
+            <field name="name">forecast.search.view</field>
+            <field name="model">forecast</field>
+            <field name="inherit_id" ref="forecasting_rules.forecast_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="product_tmpl_id"/>
+                    <field name="product_id"/>
+                </xpath>
+                <xpath expr="//group[@string='Group By']" position="inside">
+                    <filter string="Product" name="product_product" domain="[('product_id','!=',False)]" context="{'group_by':'product_id'}"/>
+                    <filter string="Product Template" name="product_template" domain="[('product_tmpl_id','!=',False)]" context="{'group_by':'product_tmpl_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="forecast_tree_view" model="ir.ui.view">
+            <field name="name">forecast.tree.view</field>
+            <field name="model">forecast</field>
+            <field name="inherit_id" ref="forecasting_rules.forecast_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="product_tmpl_id" invisible="1"/>
+                    <field name="product_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_view_product_template_forecast" model="ir.actions.act_window">
+            <field name="name">Forecasts</field>
+            <field name="res_model">forecast</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="forecast_search_view"/>
+            <field name="domain">[('product_tmpl_id', '=', context.get('product_tmpl_id', False))]</field>
+        </record>
+
+        <record id="action_view_product_product_forecast" model="ir.actions.act_window">
+            <field name="name">Forecasts</field>
+            <field name="res_model">forecast</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="forecast_search_view"/>
+            <field name="domain">[('product_id', '=', context.get('product_id', False))]</field>
+        </record>
+
+    </data>
+</openerp>

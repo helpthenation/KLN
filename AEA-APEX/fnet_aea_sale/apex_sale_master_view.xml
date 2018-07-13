@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+
+        <!-- Daily Sales Details -->
+
+        <record id="view_daily_flash_form" model="ir.ui.view">
+            <field name="name">view.daily.flash.form</field>
+            <field name="model">daily.flash</field>
+            <field name="arch" type="xml">
+                <form string="Daily Sales">
+                    <header>
+                         <button name="submit" string="Submit" type="object" states="draft" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done" statusbar_colors='{"draft":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                 <field name="date" on_change="onchange_date(date, company_id)"/>
+                                <field name="user_id"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="period_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Daily Sales Lines">
+                                <field name="daily_flash_line">
+                                    <tree string="Daily Sales" editable="bottom" create="false">
+                                        <field name="prod_categ_id" domain="[('visible', '=', True)]"/>
+                                        <field name="product_qty"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                     </sheet>
+                 </form>
+           </field>
+       </record>
+
+      <record id="view_daily_flash_tree" model="ir.ui.view">
+            <field name="name">view.daily.flash.tree</field>
+            <field name="model">daily.flash</field>
+            <field name="arch" type="xml">
+                <tree string="Daily Sales">
+                    <field name="date"/>
+                    <field name="user_id"/>
+                    <field name="state"/>
+                 </tree>
+           </field>
+       </record>
+
+      <record id="view_daily_flash_search" model="ir.ui.view">
+            <field name="name">view.daily.flash.search</field>
+            <field name="model">daily.flash</field>
+            <field name="arch" type="xml">
+                <search string="Daily Sales">
+                    <separator/>
+                    <filter string="Submit" name="draft" domain="[('state','=','draft')]"/>
+                    <filter string="Submitted" domain="[('state','=','done')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Month" domain="[]" context="{'group_by':'date'}"/>
+                    </group>
+                 </search>
+           </field>
+       </record>
+
+       <record id="action_view_daily_flash" model="ir.actions.act_window">
+            <field name="name">Daily Sales</field>
+            <field name="res_model">daily.flash</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_daily_flash_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Enter Daily Sale Activity.
+                </p><p>
+                    Create Daily Sale
+                </p>
+            </field>
+        </record>
+
+
+     <menuitem id="menu_daily_sale"
+               name="Sales Activity"
+               parent="fnet_aea_crm.menu_sale_master"
+               sequence="9"/>
+
+     <menuitem action="action_view_daily_flash"
+               id="menu_daily_sale_activity"
+               name="Daily Sale Entry"
+               parent="menu_daily_sale"
+               sequence="2"/>
+
+       <!-- Target achivement  -->
+
+        <record id="view_target_details_form" model="ir.ui.view">
+            <field name="name">view.target.details.form</field>
+            <field name="model">target.details</field>
+            <field name="arch" type="xml">
+                <form string="Target Fixing">
+                    <header>
+                         <button name="submit" string="Submit" type="object" states="draft" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done" statusbar_colors='{"draft":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                 <field name="manager_id" domain="[('sale_manager', '=', True)]"
+                                        on_change="onchange_manager_id(manager_id, company_id, period_id)"/>
+                                <field name="period_id" on_change="onchange_period_id(period_id, manager_id, company_id)"/>
+                             </group>
+                             <group>
+                                <field name="sr_user_id" on_change="onchange_sr_user_id(sr_user_id, manager_id, company_id, period_id)"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Taget Fixing Line">
+                                <field name="batterie_user_line">
+                                    <tree string="Daily Sales" editable="bottom" create="false">
+                                        <field name="sr_user_id"/>
+                                        <field name="section_id"/>
+                                        <field name="prod_categ_id" domain="[('visible', '=', True)]"/>
+                                        <field name="period_id"/>
+                                        <field name="target_amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Productivity Target">
+                                <field name="productivity_targer_line">
+                                    <tree string="Daily Sales" editable="bottom" create="false">
+                                        <field name="sr_user_id"/>
+                                        <field name="section_id"/>
+<!--
+                                        <field name="prod_categ_id" domain="[('visible', '=', True)]"/>
+-->
+                                        <field name="period_id"/>
+                                        <field name="date"/>
+                                        <field name="target_amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                     </sheet>
+                 </form>
+           </field>
+       </record>
+
+      <record id="view_target_details_tree" model="ir.ui.view">
+            <field name="name">view.target.details.tree</field>
+            <field name="model">target.details</field>
+            <field name="arch" type="xml">
+                <tree string="Target Fixing Lines">
+                    <field name="manager_id"/>
+                    <field name="period_id"/>
+                    <field name="state"/>
+                 </tree>
+           </field>
+       </record>
+
+
+       <record id="action_view_target_details" model="ir.actions.act_window">
+            <field name="name">Target Fixing</field>
+            <field name="res_model">target.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_target_details_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Target Details Activity.
+                </p><p>
+                    Create Target Details
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="action_view_target_details"
+               id="menu_target_details"
+               name="Target Details"
+               groups="base.group_sale_manager"
+               parent="menu_daily_sale"
+               sequence="1"/>
+
+
+       <!-- Total Flash -->
+
+
+       <record id="view_total_flash_form" model="ir.ui.view">
+            <field name="name">view.total.flash.form</field>
+            <field name="model">total.flash.daily</field>
+            <field name="arch" type="xml">
+                <form string="Total Flash Sales" create="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="prod_categ_id"/>
+                                <field name="period_id"/>
+                                <field name="target_qyt"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="manager_id"/>
+                                <field name="sr_user_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Total Flash Sales">
+                                <field name="total_flash_line">
+                                    <tree string="Total Flash Sales" editable="bottom" create="false">
+                                        <field name="date"/>
+                                        <field name="total_qty"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                     </sheet>
+                 </form>
+           </field>
+       </record>
+
+      <record id="view_total_flash_tree" model="ir.ui.view">
+            <field name="name">view.total.flash.tree</field>
+            <field name="model">total.flash.daily</field>
+            <field name="arch" type="xml">
+                <tree string="Total Flash Sales">
+                    <field name="prod_categ_id"/>
+                    <field name="period_id"/>
+                    <field name="manager_id"/>
+                    <field name="sr_user_id"/>
+                 </tree>
+           </field>
+       </record>
+
+
+       <record id="action_view_total_flash" model="ir.actions.act_window">
+            <field name="name">Daily Flash Sales</field>
+            <field name="res_model">total.flash.daily</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_total_flash_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Enter Daily Sale Activity.
+                </p><p>
+                    Create Daily Flash Sale
+                </p>
+            </field>
+        </record>
+
+     <menuitem action="action_view_total_flash"
+               id="menu_daily_sale_flash_total"
+               name="Daily Flash Total"
+               parent="menu_daily_sale"
+               sequence="3"/>
+               
+    <!-- Daily Productivity -->
+    
+     <record id="view_daily_productivity_form" model="ir.ui.view">
+            <field name="name">view.daily.productivity.form</field>
+            <field name="model">daily.productivity</field>
+            <field name="arch" type="xml">
+                <form string="Daily Sales">
+                    <header>
+                         <button name="submit" string="Submit" type="object" states="draft" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done" statusbar_colors='{"draft":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                 <field name="date" on_change="onchange_date(date, company_id)"/>
+                                <field name="user_id"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="period_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Daily Productivity Lines">
+                                <field name="daily_productivity_line">
+                                    <tree string="Daily Prodctivity" editable="bottom" create="false">
+                                        <field name="prod_categ_id" domain="[('visible', '=', True)]"/>
+                                        <field name="product_qty"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                     </sheet>
+                 </form>
+           </field>
+       </record>
+
+      <record id="view_daily_productivity_tree" model="ir.ui.view">
+            <field name="name">view.daily.productivity.tree</field>
+            <field name="model">daily.productivity</field>
+            <field name="arch" type="xml">
+                <tree string="Daily Prodctivity">
+                    <field name="date"/>
+                    <field name="user_id"/>
+                    <field name="state"/>
+                 </tree>
+           </field>
+       </record>
+
+      <record id="view_daily_productivity_search" model="ir.ui.view">
+            <field name="name">view.daily.productivity.search</field>
+            <field name="model">daily.productivity</field>
+            <field name="arch" type="xml">
+                <search string="Daily Prodctivity">
+                    <separator/>
+                    <filter string="Submit" name="draft" domain="[('state','=','draft')]"/>
+                    <filter string="Submitted" domain="[('state','=','done')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Month" domain="[]" context="{'group_by':'date'}"/>
+                    </group>
+                 </search>
+           </field>
+       </record>
+
+       <record id="action_view_daily_productivity" model="ir.actions.act_window">
+            <field name="name">Daily Productivity</field>
+            <field name="res_model">daily.productivity</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_daily_productivity_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Enter Daily Sale Activity.
+                </p><p>
+                    Create Daily Sale
+                </p>
+            </field>
+        </record>
+
+
+     <menuitem action="action_view_daily_productivity"
+               id="menu_daily_productivity"
+               name="Daily Productivity"
+               parent="menu_daily_sale"
+               sequence="3"/>
+               
+        <!-- Total Productivity -->
+        
+         <record id="view_daily_productivity_total_form" model="ir.ui.view">
+            <field name="name">view.daily.productivity.total.form</field>
+            <field name="model">daily.productivity.total</field>
+            <field name="arch" type="xml">
+                <form string="Total Productivity" create="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="prod_categ_id"/>
+                                <field name="period_id"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="manager_id"/>
+                                <field name="sr_user_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Total Productivity">
+                                <field name="daily_productivity_total_line">
+                                    <tree string="Total Productivity" editable="bottom" create="false">
+                                        <field name="date"/>
+                                        <field name="allocated_call"/>
+                                        <field name="total_qty"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                     </sheet>
+                 </form>
+           </field>
+       </record>
+
+      <record id="view_daily_productivity_total_tree" model="ir.ui.view">
+            <field name="name">view.daily.productivity.total_tree</field>
+            <field name="model">daily.productivity.total</field>
+            <field name="arch" type="xml">
+                <tree string="Total Productivity">
+                    <field name="prod_categ_id"/>
+                    <field name="period_id"/>
+                    <field name="manager_id"/>
+                    <field name="sr_user_id"/>
+                 </tree>
+           </field>
+       </record>
+
+
+       <record id="action_view_daily_productivity_total" model="ir.actions.act_window">
+            <field name="name">Daily Productivity Total</field>
+            <field name="res_model">daily.productivity.total</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_daily_productivity_total_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Enter Daily Productivity.
+                </p><p>
+                    Create Daily Productivity
+                </p>
+            </field>
+        </record>
+
+     <menuitem action="action_view_daily_productivity_total"
+               id="menu_daily_productivity_total"
+               name="Productivity Total"
+               parent="menu_daily_sale"
+               sequence="5"/>
+
+  </data>
+</openerp>
+
+

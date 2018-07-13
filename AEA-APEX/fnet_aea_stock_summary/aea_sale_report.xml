@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+				
+			 <report
+				id="stock_summary_wiz"
+				model="stock.summary"
+				string="Consolidated Stock Summary"
+				report_type="qweb-pdf"
+				name="fnet_aea_stock_summary.report_stock_summary" 
+				file="fnet_aea_stock_summary.report_stock_summary"
+				menu="True"/>				
+						
+				
+           
+    </data>
+</openerp>

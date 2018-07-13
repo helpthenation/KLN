@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data> 
+      
+  <record model="ir.ui.view" id="view_product_template_form_purchase_discount">
+           <field name="name">view.product.template.form.purchase</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+             <field name="arch" type="xml">                                
+                 <field name="ean13" position="after">
+                     <field name="purchase_discount"/>
+                 </field>
+             </field>
+        </record>
+        
+    <record id="view_product_product_purchase_discount" model="ir.ui.view">
+            <field name="name">view.product.product.purchase</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                
+                <field name="ean13" position="before">
+                    <field name="purchase_discount"/>
+                </field>
+               
+            </field>
+    </record>
+    
+
+    
+        
+      
+  </data>          
+</openerp>
+
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+	 <record model="ir.cron" id="cron_demo_data">
+            <field name="name">Vacation Leave Cron</field>
+            <field name="interval_number">1</field>
+			<field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 12:00:00')" />
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.employee'"/>
+            <field name="function" eval="'_leave_reset'"/>
+      </record>
+	
+	</data>
+
+</openerp>

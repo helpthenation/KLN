@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+    
+     <record id="view_employee_form_inh" model="ir.ui.view">
+            <field name="name">view.employee.form.inh</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet//notebook/page[2]" position="after">
+					<page name="target" string="Sale Target" >
+						<field name="target_line">
+							<tree name="target_line" editable="bottom">
+								<field name="date_from"/>
+								<field name="date_to"/>
+								<field name="type"/>
+<!--
+								<field name="last_balance"/>
+-->
+								<field name="target_amount" sum="Total"/>
+								<field name="target_achived" sum="Total"/>
+								<field name="target_balance" sum="Total"/>
+<!--
+								<field name="outstanding" sum="Total"/>
+-->
+							</tree>
+						</field>
+					</page>
+				</xpath>
+            
+            </field>
+        </record>
+        
+     </data>       
+             
+</openerp>

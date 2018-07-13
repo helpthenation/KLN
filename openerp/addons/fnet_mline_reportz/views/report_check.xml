@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+	
+<record id="paperformat_check" model="report.paperformat">
+    <field name="name">Check Paper format</field>
+    <field name="default" eval="True" />
+    <field name="format">A4</field>
+    <field name="orientation">Portrait</field>
+    <field name="margin_top">10</field>
+    <field name="margin_bottom">5</field>
+    <field name="margin_left">13</field>
+    <field name="margin_right">13</field>
+    <field name="header_line" eval="False" />
+    <field name="header_spacing">7</field>
+    <field name="dpi">80</field>
+</record>
+
+	<record id="account_cheque" model="ir.actions.report.xml">
+        	<field name="paperformat_id" ref="fnet_mline_reportz.paperformat_check"/>
+    	</record>
+
+<template id="check_writing">
+        <t t-call="report.html_container">
+            <t t-foreach="doc_ids" t-as="o">
+                <t t-if="o.journal_id.code== 'cbd'">
+                    <t t-call="fnet_mline_reportz.check_writing1"/>
+                </t>
+                <t t-if="o.journal_id.code== 'nbf'">
+                    <t t-call="fnet_mline_reportz.check_writing2"/>
+                </t>
+            </t>
+        </t>
+    </template>
+    
+<template id="check_writing1">
+<div class="oe_structure">     
+        
+        <div class="page">
+ 		<t t-foreach="doc_ids" t-as="o">
+<!--
+			<div class="page">
+			 <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="float:left;"/>
+			</div>
+-->
+		
+			<div class="container">
+			  <br/>
+				
+				<table width="100%">
+					<tr>
+					<td width="10%"></td>
+					<td width="50%"></td>
+					<td width="30%"><p style="text-align:right"><span t-esc="docs.get_date(o)"/></p></td>
+					<td width="10%"></td>
+					</tr>
+				</table>
+				<br/>
+				<br/>
+				<table width="100%">
+					<tr>
+					<td width="15%"></td>
+					<td width="50%"><p style="text-align:left"><b><span t-esc="o.paid_to"/></b></p></td>
+					<td width="20%"></td>
+					<td width="15%"></td>
+					</tr>
+				</table>
+				<table width="100%">
+					<tr>
+					<td width="10%"></td>
+					<td width="70%"><h6 style="text-align:left"><span t-esc="docs.numToWords(o)"/></h6></td>
+					<td width="20%"></td>
+					</tr>
+				</table>
+				<table width="100%">
+					<tr>
+					<td width="10%"></td>
+					<td width="50%"></td>
+					<td width="30%"><p style="text-align:right"><span t-esc="docs.calculate_total(o)"/></p></td>
+					<td width="10%"></td>
+					</tr>
+				</table>
+			</div>
+ 		</t>
+	</div>
+	</div>
+</template>
+
+<template id="check_writing2">
+<div class="oe_structure">     
+        
+        <div class="page">
+ 		<t t-foreach="doc_ids" t-as="o">
+<!--
+			<div class="page">
+			 <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="float:left;"/>
+			</div>
+-->
+		
+			<div class="container">
+			  <br/>
+				
+				<table width="100%">
+					<tr>
+					<td width="10%"></td>
+					<td width="50%"></td>
+					<td width="20%"><p style="text-align:right"><span t-esc="docs.get_date(o)"/></p></td>
+					<td width="20%"></td>
+					</tr>
+				</table>
+				<br/>
+				<table width="100%">
+					<tr>
+					<td width="20%"></td>
+					<td width="50%"><p style="text-align:left"><b><span t-esc="o.paid_to"/></b></p></td>
+					<td width="10%"></td>
+					<td width="20%"></td>
+					</tr>
+				</table>
+				<table width="100%">
+					<tr>
+					<td width="10%"></td>
+					<td width="70%"><h6 style="text-align:left"><span t-esc="docs.numToWords(o)"/></h6></td>
+					<td width="20%"></td>
+					</tr>
+				</table>
+				<table width="100%">
+					<tr>
+					<td width="10%"></td>
+					<td width="50%"></td>
+					<td width="30%"><p style="text-align:right"><span t-esc="docs.calculate_total(o)"/></p></td>
+					<td width="10%"></td>
+					</tr>
+				</table>
+			</div>
+ 		</t>
+	</div>
+	</div>
+</template>
+</data>
+</openerp>

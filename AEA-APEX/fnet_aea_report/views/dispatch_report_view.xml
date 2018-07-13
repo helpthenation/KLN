@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="view_lorry_receipt_graph" model="ir.ui.view">
+         <field name="name">view.lorry.receipt.graph</field>
+         <field name="model">dispatch.report</field>
+         <field name="arch" type="xml">
+             <graph string="Dispatch Analysis" type="pivot" stacked="True">
+				  <field name="date" interval="month" type="col"/>
+                 <field name="partner_id" type="row"/>
+                 <field name="tpt_id" type="row"/>
+                 <field name="product_id" type="row"/>
+                 <field name="weight" type="measure"/>
+                 <field name="case" type="measure"/>
+             </graph>
+         </field>
+    </record>
+
+
+    <record id="view_lorry_receipt_search" model="ir.ui.view">
+        <field name="name">lorry.receipt.search</field>
+        <field name="model">dispatch.report</field>
+        <field name="arch" type="xml">
+            <search string="Dispatch Analysis">
+                <field name="date"/>
+                <separator/>
+                <field name="partner_id"/>
+                <group expand="0" string="Extended Filters">
+                </group>
+                <group expand="1" string="Group By">
+                    <filter string="Customer" name="Customer" context="{'group_by':'partner_id'}"/>
+                    <filter string="TPT Name" name="Customer" context="{'group_by':'tpt_id'}"/>
+                    <separator/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_dispatch_receipt" model="ir.actions.act_window">
+        <field name="name">Dispatch Analysis</field>
+        <field name="res_model">dispatch.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph</field>
+        <field name="search_view_id" ref="view_lorry_receipt_search"/>
+        <field name="view_id" ref="view_lorry_receipt_graph"/>
+        <field name="help">This report performs analysis on your quotations and sales orders. Analysis check your sales revenues and sort it by different group criteria (salesman, partner, product, etc.) Use this report to perform analysis on sales not having invoiced yet. If you want to analyse your turnover, you should use the Invoice Analysis report in the Accounting application.</field>
+    </record>
+
+    <menuitem action="action_dispatch_receipt" id="menu_report_dispatch_dashboard" parent="stock.next_id_61" sequence="3"/>
+
+</data>
+</openerp>

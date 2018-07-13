@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="view_product_analysis_report_graph" model="ir.ui.view">
+         <field name="name">product.analysis.report.graph</field>
+         <field name="model">product.analysis.report</field>
+         <field name="arch" type="xml">
+             <graph string="Invoices Analysis With Tax" type="pivot">
+                 <field name="categ_id" type="row"/>
+                 <field name="supplier_id" type="col"/>
+                 <field name="total_price" type="measure"/>
+                 <field name="margin" type="measure"/>
+                 <field name="margin_price" type="measure"/>
+                 <field name="purchase_price" type="measure"/>
+                 <field name="product_qty" type="measure"/>
+                 <field name="purchase_total" type="measure"/>
+             </graph>
+         </field>
+    </record>
+
+    <!-- Custom reports (aka filters) -->
+    <record id="filter_product_analysis_salespersons" model="ir.filters">
+        <field name="name">By Salespersons</field>
+        <field name="model_id">product.analysis.report</field>
+        <field name="domain">[]</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['date:month', 'user_id']}</field>
+    </record>
+    <record id="filter_product_analysis_product" model="ir.filters">
+        <field name="name">By Product</field>
+        <field name="model_id">product.analysis.report</field>
+        <field name="domain">[]</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['date:month', 'product_id'], 'set_visible':True, 'residual_invisible':True}</field>
+    </record>
+    <record id="filter_product_analysis_product_category" model="ir.filters">
+        <field name="name">By Product Category</field>
+        <field name="model_id">product.analysis.report</field>
+        <field name="domain">[]</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['date:month', 'categ_id'], 'residual_invisible':True}</field>
+    </record>
+    <record id="filter_product_analysis_supplier" model="ir.filters">
+        <field name="name">By Suppliers</field>
+        <field name="model_id">product.analysis.report</field>
+        <field name="supplier_id" eval="False"/>
+        <field name="context">{'group_by': ['date:month', 'supplier_id']}</field>
+    </record>
+
+    <record id="view_product_analysis_report_search" model="ir.ui.view">
+        <field name="name">product.analysis.report.search</field>
+        <field name="model">product.analysis.report</field>
+        <field name="arch" type="xml">
+            <search string="Product Analysis">
+                <field name="date"/>
+                <filter string="This Year" name="thisyear" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=', time.strftime('%%Y-12-31')),('date','&gt;=',time.strftime('%%Y-01-01'))]" help="Journal invoices with period in current year"/>
+                <filter string="Prev Year" name="prev_month"  domain="['&amp;',('date','&lt;=',(context_today()-relativedelta(years=1)).strftime('%%Y-12-01')),('date','&lt;',time.strftime('%%Y-01-01'))]"/>
+                <separator/>                			    
+			        <filter string='Part No' domain="[]" context="{'group_by' : 'part_no'}"/>
+			        <filter string='Make No' domain="[]" context="{'group_by' : 'make_no'}"/>
+			   <separator/>
+                <field name="partner_id" operator="child_of"/>
+                <field name="user_id" />
+                <field name="categ_id" filter_domain="[('categ_id', 'child_of', self)]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Customer" name="partner_id" context="{'group_by':'partner_id','residual_visible':True}"/>
+                    <filter string="Salesperson" name='user' context="{'group_by':'user_id'}"/>
+                    <filter string="Category of Product" name="category_product" context="{'group_by':'categ_id','residual_invisible':True}"/>
+                    <filter string="Suppliers" context="{'group_by':'supplier_id'}"/>
+                    <filter string="Company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                    <separator orientation="vertical" />
+                    <filter string="Planned Month" context="{'group_by':'date_planned:month'}"/>
+                    <filter string="Ordered Month" context="{'group_by':'date_order:month'}"/>
+                    <filter string="Enquiry Month" context="{'group_by':'date:month'}"/>
+<!--
+                    <filter string="Month" domain="['|','|',('months','=','4'),('months','=','5'),('months','=','6'))]" context="{'group_by':'date_invoice:month'}"/>
+-->
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_product_analysis_report_all" model="ir.actions.act_window">
+        <field name="name">Product Analysis</field>
+        <field name="res_model">product.analysis.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph</field>
+        <field name="context">{'search_default_current':1, 'search_default_customer':1, 'group_by':[], 'group_by_no_leaf':1, 'search_default_year': 1}</field>
+        <field name="search_view_id" ref="view_product_analysis_report_search"/>
+        <field name="help">From this report, you can have an overview of the amount invoiced to your customer. The tool search can also be used to personalise your Invoices reports and so, match this analysis to your needs.</field>
+
+    </record>
+    <menuitem id="product_analysis_menu_parent" name="Product Master Analysis" parent="base.menu_reporting" sequence="10"/>
+    <menuitem action="action_product_analysis_report_all" id="menu_action_productanalysis_report_all" parent="product_analysis_menu_parent" sequence="3"/>
+
+</data>
+</openerp>

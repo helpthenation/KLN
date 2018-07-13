@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="forecast_demo_01" model="forecast">
+            <field name="rule_id" ref="forecast_rule_01"/>
+            <field name="name" eval="obj(ref('forecast_rule_01')).name" model="forecasting.rule"/>
+            <field name="product_id" ref="stock_forecast.product_product_1"/>
+        </record>
+
+        <record id="forecast_demo_02" model="forecast">
+            <field name="rule_id" ref="forecast_rule_02"/>
+            <field name="name" eval="obj(ref('forecast_rule_02')).name" model="forecasting.rule"/>
+            <field name="product_id" ref="stock_forecast.product_product_3"/>
+        </record>
+
+        <record id="forecast_demo_03" model="forecast">
+            <field name="rule_id" ref="forecast_rule_03"/>
+            <field name="name" eval="obj(ref('forecast_rule_03')).name" model="forecasting.rule"/>
+            <field name="product_id" ref="stock_forecast.product_product_2"/>
+        </record>
+
+        <record id="forecast_demo_04" model="forecast">
+            <field name="rule_id" ref="forecast_rule_04"/>
+            <field name="name" eval="obj(ref('forecast_rule_04')).name" model="forecasting.rule"/>
+            <field name="product_id" ref="stock_forecast.product_product_4"/>
+        </record>
+
+        <record id="forecast_demo_05" model="forecast">
+            <field name="rule_id" ref="forecast_rule_05"/>
+            <field name="name" eval="obj(ref('forecast_rule_05')).name" model="forecasting.rule"/>
+            <field name="product_id" ref="stock_forecast.product_product_5"/>
+        </record>
+
+        <record id="forecast_demo_06" model="forecast">
+            <field name="rule_id" ref="forecast_rule_06"/>
+            <field name="name" eval="obj(ref('forecast_rule_06')).name" model="forecasting.rule"/>
+        </record>
+
+        <record id="forecast_demo_07" model="forecast">
+            <field name="rule_id" ref="forecast_rule_07"/>
+            <field name="name" eval="obj(ref('forecast_rule_07')).name" model="forecasting.rule"/>
+            <field name="product_id" ref="stock_forecast.product_product_5"/>
+        </record>
+
+        <!-- Fill forecast values -->
+
+        <function name="fill_value_ids" model="forecast" eval="[ref('forecast_demo_01')]"/>
+        <function name="fill_value_ids" model="forecast" eval="[ref('forecast_demo_02')]"/>
+        <function name="fill_value_ids" model="forecast" eval="[ref('forecast_demo_03')]"/>
+        <function name="fill_value_ids" model="forecast" eval="[ref('forecast_demo_04')]"/>
+        <function name="fill_value_ids" model="forecast" eval="[ref('forecast_demo_05')]"/>
+        <function name="fill_value_ids" model="forecast" eval="[ref('forecast_demo_06')]"/>
+        <function name="fill_value_ids" model="forecast" eval="[ref('forecast_demo_07')]"/>
+
+    </data>
+</openerp>

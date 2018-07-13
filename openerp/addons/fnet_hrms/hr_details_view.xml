@@ -1,0 +1,209 @@
+<openerp>
+    <data>
+		<record id="salary_revision_form" model="ir.ui.view">
+        <field name="name">Salary Revision</field>
+        <field name="model">salary.revision</field>
+        <field name="arch" type="xml">
+            <form string="Salary Revision">
+				<header>
+                    <button name="update_salary" string="Update" type="object" default_focus="1" class="oe_highlight"/>
+                </header>
+                    <group col='4'>
+                         <field name="basic"/>
+                         <field name="wage"/>
+                         <field name="effective_date"/>
+                         <field name="stucture_id"/>
+                         <field name="contract_id" invisible='1'/>
+                    </group>
+                    <group>
+                        <group string="Allowance">
+                            <field name="travel_allowance"/>
+                            <field name="ea_allowance"/>
+                            <field name="data_allowance"/>
+                            <field name="overtime_allowance"/>
+                            <field name="pt"/>
+                            <field name="hra"/>
+                            <field name="bonus"/>
+                            <field name="medical"/>
+                            <field name="conveyance"/>
+                            <field name="other"/>
+
+                        </group>
+                        <group string="Deduction">
+                            <field name="tds_deduction"/>
+                            <field name="mobile_deduction"/>
+                            <field name="other_deduction"/>
+                        </group>
+                    </group>
+
+            </form>
+        </field>
+    </record>
+
+	 <record id="action_salary_revision" model="ir.actions.act_window">
+            <field name="name">Salary revision</field>
+            <field name="res_model">salary.revision</field>
+            <field name="src_model">salary.revision</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+       
+       <act_window name="Salary Revision"
+                res_model="salary.revision"
+                src_model="hr.contract"
+                view_mode="form"
+                multi="True"
+                target="new"
+                key2="client_print_multi"
+                id="action_salary_revision"
+                />
+                        
+                        
+   
+        <record id="hr_details_view" model="ir.ui.view">
+            <field name="name">hr.details.form.view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+<!--
+				<xpath expr="//field[@name='image']" position="before">
+					<button name="get_update" string="Update" type="object" />
+				</xpath>
+-->
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="date_of_joining"/>
+                    <field name="pf_number"/>
+                    <field name="pf_uan_number"/>
+                    <field name="grade"/>
+                    <field name="branch_site"/>
+                    <field name="esi_number"/>
+                    <field name="ins_policy_renewal"/>
+                </xpath>
+                <xpath expr="//field[@name='address_home_id']" position="after">
+                    <field name="name_of_parent"/>
+                    <field name="name_of_spouse"/>
+                </xpath>
+                <xpath expr="//field[@name='birthday']" position="after">
+                    <field name="wedding_date"/>
+                </xpath>
+               
+                    
+                <xpath expr="//field[@name='category_ids']" position="before">
+                     <div class="oe_right" style="position:absolute; top:90px;left:800px;z-index:1;margin-right:200px; !important">
+                    
+                       <label for="employeeid" class="oe_edit_only"/>  
+                       <field name="employeeid"/>
+                    
+                     </div>
+                   
+                </xpath>
+            </field>    
+        </record>   
+        
+        <record id="hr_payslip_run_inherit" model="ir.ui.view">
+            <field name="name">hr.payslip.run.form.view</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+            <field name="arch" type="xml">  
+                <xpath expr="//form/header/button[@name='close_payslip_run']" position="after">
+                    <button name="salary_excel_eport" type="object" string="Print Excel"  class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//form/header/button[@name='draft_payslip_run']" position="before">
+                    <button name="confirm_payslip" type="object" state="draft" string="Confirm Payslip"  class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//form/sheet/group/field[@name='credit_note']" position="after">
+                    <field name="filedata" filename="filename"/>
+                    <field name="filename" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="hr_contract_view_form_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.view.form11</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+<!--
+            <field name="groups_id" eval="[(6, 0, [ref('hr.group_hr_manager') ])]"/>
+-->
+            <field name="arch" type="xml">
+<!--
+				<xpath expr="//form/header/field[@name='state']" position="after">
+					<button type="action" name="%(action_salary_revision)d" string="Salary Revision"  class="btn-primary"/>
+-->
+				  <!--  <button type="object" name="compute_arrears" string="Compute Arrears" class="btn-primary"/>-->
+<!--
+                </xpath>
+-->
+<!--
+				<xpath expr="//form/sheet/div[@class='oe_title']" position="before">
+                    <div class="oe_button_box" name="button_box" >
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                options='{"terminology": "archive"}'/>
+                        </button>
+
+                    </div>
+                </xpath>
+-->
+<!--
+                <xpath expr="//form/header/field[@name='state']" position="before">
+                    <button string="Compute Days" name="check_resignation" type="object" class="oe_highlight"/>
+                </xpath>
+-->
+				<xpath expr="//field[@name='wage']" position="before">
+<!--
+					   <field name="is_travel_added"/>
+-->
+					   <field name="effective_date"/>
+						<field name="is_arrear"/>
+						<field name="salary_arrear"/>
+<!--
+				       <field name="is_pt"/>
+				       <field name="pt" attrs="{'invisible': [('is_pt','=',False)]}"/>
+				       <field name="is_hra"/>
+				       <field name="hra" attrs="{'invisible': [('is_hra','=',False)]}"/>
+				       <field name="is_bonus"/>
+				       <field name="bonus" attrs="{'invisible': [('is_bonus','=',False)]}"/>
+				       <field name="is_medical"/>
+				       <field name="medical" attrs="{'invisible': [('is_medical','=',False)]}"/>
+				       <field name="is_convayance"/>
+				       <field name="convanyance" attrs="{'invisible': [('is_convayance','=',False)]}"/>
+				       <field name="is_other"/>
+				       <field name="other" attrs="{'invisible': [('is_other','=',False)]}"/>
+				       <field name="is_resigned" invisible="1"/>
+-->
+				</xpath>
+
+				<xpath expr="//page[1]" position="after">
+					 <page string="Salary History">
+					   <field name="history_line"  widget="one2many_list">
+							<tree editable="bottom">
+								<field name="contract_id" invisible="1"/>
+								<field name="old_basic"/>
+								<field name="old_wage"/>
+								<field name="old_stucture_id"/>
+							</tree>
+						</field>
+					</page>
+				</xpath>
+				</field>
+        </record>
+<!--
+        <record id="hr_contract_view_form11_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.view.form11.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref=" hr_contract.hr_contract_view_form "/>
+            <field name="arch" type="xml">
+                <field name="type_id" position="after">
+                    <field name="is_arrear"/>
+                    <field name="salary_arrear"/>
+                </field>
+            </field>
+        </record>
+-->
+    </data>
+</openerp>      

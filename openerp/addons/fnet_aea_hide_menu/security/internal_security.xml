@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  
+<data noupdate="0">
+	<record id="group_hide_menus" model="res.groups">
+    <field name="name">Show Report Menu </field>
+    </record>
+    <record model="ir.ui.menu" id="base.menu_reporting">
+    <field name="groups_id" eval="[(6, 0, [ref('group_hide_menus')] )]"/>
+    </record>
+    <record id="restricted_journal" model="res.groups">
+    <field name="name">Restrict Journals</field>
+    </record>
+    
+</data>
+</openerp>

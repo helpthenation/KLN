@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_forecast_user,forecast.user,model_forecast,forecasting_smoothing_techniques.forecast_group_user,1,1,0,0
+access_forecast_manager,forecast.manager,model_forecast,forecasting_smoothing_techniques.forecast_group_manager,1,1,1,1
+access_forecast_data_user,forecast.data.user,model_forecast_data,forecasting_smoothing_techniques.forecast_group_user,1,1,1,0
+access_forecast_data_manager,forecast.data.manager,model_forecast_data,forecasting_smoothing_techniques.forecast_group_manager,1,1,1,1

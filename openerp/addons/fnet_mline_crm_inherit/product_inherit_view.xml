@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+	  
+	  	<record model="ir.ui.view" id="view_product_template_form_inherit">
+           <field name="name">view.product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+             <field name="arch" type="xml">
+				 <field name="default_code" position="after">
+					 <field name="part_no"/>
+					 <field name="make_no"/>
+			     </field>
+			     <field name="default_code" position="attributes">
+					 <attribute name="required">True</attribute>
+			     </field>
+			 </field>
+	    </record>
+		<record model="ir.ui.view" id="view_product_template_form1_inherit">
+           <field name="name">view.product.template.form1.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+             <field name="arch" type="xml">
+				 <page string="Sales" position="after">
+					 <page string="Customer">
+						 <field name="cust_line">
+							 <tree string="Customer" editable="bottom">
+								 <field name="partner_id" domain="[('customer', '=', True), ('is_company', '=', True)]"/>
+								 <field name="reference"/>
+						     </tree>
+						 </field>
+					 </page>
+				 </page>
+			 </field>
+		</record>
+			 
+	  	<record model="ir.ui.view" id="view_product_template_search_inherit">
+           <field name="name">view.product.template.search.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+             <field name="arch" type="xml">
+				 <field name="name" position="after">
+					 <field name="part_no" string="Part No" filter_domain="[('part_no','ilike',self)]"/>
+					 <field name="make_no" string="Make No" filter_domain="[('make_no','ilike',self)]"/>
+					 <field name="description_sale" string="Sale Description" filter_domain="[('description_sale','ilike',self)]"/>
+			     </field>
+			     
+			     <filter string='Category' position="after">
+			        <filter string='Part No' domain="[]" context="{'group_by' : 'part_no'}"/>
+			        <filter string='Make No' domain="[]" context="{'group_by' : 'make_no'}"/>
+			     </filter>
+			     
+			 </field>
+	    </record>
+			 
+	  	<record model="ir.ui.view" id="view_product_product_form_inherit">
+           <field name="name">view.product.product.form.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+             <field name="arch" type="xml">
+				 <field name="default_code" position="after">
+					 <field name="part_no"/>
+					 <field name="make_no"/>
+					 <field name="company_id" groups="base.group_multi_company"/>
+			     </field>
+			 </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_product_product_search_inherit">
+           <field name="name">view.product.product.search.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+             <field name="arch" type="xml">
+				 <field name="name" position="after">
+					 <field name="part_no" string="Part No" filter_domain="[('part_no','ilike',self)]"/>
+					 <field name="make_no" string="Make No" filter_domain="[('make_no','ilike',self)]"/>
+			     </field>
+			     
+			 </field>
+	    </record>
+		
+			 
+	  	 
+</data>
+</openerp>

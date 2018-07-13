@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	
+<template id="report_purchasequote">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="o">
+            <t t-call="fnet_mline_reportz.header_wizard_ref"/>
+                
+                <div class="page">
+				   
+                   <style>
+					   .dealer {width:60%;height:80%;text-align:left}
+					tr {page-break-inside: avoid;}
+					.table { border: 1px solid black; }
+					.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { border: 1px solid black; }
+					</style>
+						<div align="right">
+							<h3 style="text-align:center;font-family:courier-new;"><right><strong>REQUEST FOR QUOTATION</strong></right></h3>
+                        </div>
+					<table class="table table-bordered" style="width:100%;">
+				     <thead style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;">
+						 <tr style="border: 1px solid black;">
+							<th width="50%" style="font-family:courier-new;font-size: 12px;">Vendor Name &amp; Address</th>
+							<th width="50%" style="font-family:courier-new;font-size: 12px;">RFQ# <![CDATA[&nbsp;]]> : <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span t-field="o.name"/></th>
+							
+						 </tr>
+					  </thead>
+					  <tr>
+						  <td width="50%">
+									<span style="font-family:courier-new;font-size: 12px;" t-field="o.partner_id.company_title"/> <span style="font-family:courier-new;font-size: 12px;" t-field="o.partner_id.name"/>
+										<div><span t-if="o.partner_id.street" style="font-family:courier-new;font-size: 12px;" t-esc="o.partner_id.street"/></div>
+										<div><span t-if="o.partner_id.street2" style="font-family:courier-new;font-size: 12px;" t-esc="o.partner_id.street2"/></div>
+										<div><span t-if="o.partner_id.city" style="font-family:courier-new;font-size: 12px;" t-esc="o.partner_id.city"/></div>
+                                		<div><span t-if="o.partner_id.state_id.name" style="font-family:courier-new;font-size: 12px;" t-esc="o.partner_id.state_id.name"/></div>
+										<div><span t-if="o.partner_id.country_id.name" style="font-family:courier-new;font-size: 12px;" t-esc="o.partner_id.country_id.name"/></div>
+										<div><span t-if="o.partner_id.phone" style="font-family:courier-new;font-size: 12px;" t-esc="o.partner_id.phone"/></div>               
+										<div><span t-if="o.partner_id.fax" style="font-family:courier-new;font-size: 12px;" t-esc="o.partner_id.fax"/></div>
+									<t t-if="o.partner_id.vat">VAT: <span style="font-family:courier-new;font-size: 12px;" t-field="o.partner_id.vat"/></t><br/>
+								<h5><left><span style="font-family:courier-new;font-size: 12px;"><b>Attn:</b> </span><span style="font-family:courier-new;font-size: 12px;" t-field="o.title_id.name"/><span style="font-family:courier-new;font-size: 12px;" t-field="o.contact_name"/></left></h5>
+								<h5><left><span t-field="o.function"/></left></h5>
+						  </td>
+						  <td width="50%">
+							<div style="width:100%;float:left">
+								<div style="float:left;width:100px;margin-right:5px;font-family:courier-new;font-size: 12px;"><b>Date</b></div>
+								<div style="float:left;font-family:courier-new;font-size: 12px;">:</div>
+								<div style="float:left;margin-left:5px"> <span style="font-family:courier-new;font-size: 12px;" t-field="o.date_order" t-field-options='{"format": "dd/MM/y"}'/></div>
+							</div>
+							<div style="width:100%;float:left">
+								<div style="float:left;width:100px;margin-right:5px;font-family:courier-new;font-size: 12px;"><b>Enquiry</b></div>
+								<div style="float:left">:</div>
+								<div style="float:left;margin-left:5px"><span style="font-family:courier-new;font-size: 12px;" t-field="o.lead_id.seq_no"/></div>
+							</div>
+							<div style="width:100%;float:left">
+								<div style="float:left;width:100px;margin-right:5px;font-family:courier-new;font-size: 12px;"><b>Phone</b></div>
+								<div style="float:left">:</div>
+								<div style="float:left;margin-left:5px"><span style="font-family:courier-new;font-size: 12px;" t-field="o.company_id.phone"/></div>
+							</div>
+							<div style="width:100%;float:left">
+								<div style="float:left;width:100px;margin-right:5px;font-family:courier-new;font-size: 12px;"><b>Fax</b></div>
+								<div style="float:left">:</div>
+								<div style="float:left;margin-left:5px"><span style="font-family:courier-new;font-size: 12px;" t-field="o.company_id.fax"/></div>
+							</div>
+							<div style="width:100%;float:left">
+								<div style="float:left;width:100px;margin-right:5px;font-family:courier-new;font-size: 12px;"><b>Email</b></div>
+								<div style="float:left">:</div>
+								<div style="float:left;margin-left:5px"><span style="font-family:courier-new;font-size: 12px;" t-field="o.company_id.email"/></div>
+							</div>
+							<div style="width:100%;float:left">
+								<div style="float:left;width:100px;margin-right:5px;font-family:courier-new;font-size: 12px;"><b>Closing Date</b></div>
+								<div style="float:left">:</div>
+								<div style="float:left;margin-left:5px"><span style="font-family:courier-new;font-size: 12px;" t-esc="docs.get_date(o)"/></div>
+							</div>
+						</td>
+					 </tr>
+					</table>
+
+                   <h5 style="text-align:left;font-family:courier-new;font-size: 12px;">We Multiline Technical Co, would like to request your esteem company to provide your competitive Techno-Commercial Offer for the following:</h5>
+                   <br/>
+                   
+                   
+                   <table class="table table-bordered" style="margin-left:5px;">
+					  <thead style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;">
+						 <tr style="border: 1px solid black;">
+						 
+							<th style="font-family:courier-new;font-size: 12px;text-align:center;" width="4%">S.No</th>
+							<th style="font-family:courier-new;font-size: 12px;text-align:center;" width="60%">Description</th>
+							<th style="font-family:courier-new;font-size: 12px;text-align:center;" width="5%">UOM</th>
+							<th style="font-family:courier-new;font-size: 12px;text-align:center;" width="5%">Quantity</th>
+							<th style="font-family:courier-new;font-size: 12px;text-align:center;" width="5%">Remarks</th>
+						 </tr>
+					  </thead>
+					  <tbody>
+						  <t t-set="counter" t-value="1"/>
+                          <tr t-foreach="o.order_line" t-as="l">
+                            <td style="font-family:courier-new;font-size: 12px;" class="text-center">
+								<span style="font-family:courier-new;font-size: 12px;" t-esc="counter"/>
+								<t t-set="counter" t-value="counter+1"/>
+							</td>
+                            <td style="margin-left:5px;font-family:courier-new;font-size: 12px;">
+<!--
+                               <span style="font-family:courier-new;font-size: 12px;" class="oblique" t-field="l.product_id.name"/>
+-->
+                               <span  class="oblique" style="font-family:courier-new;font-size: 12px;" t-field="l.product_id.description_purchase"></span><br/>
+                            </td>
+                            <td class="text-right" style="margin-left:5px;">
+                               <span style="font-family:courier-new;font-size: 12px;" t-field="l.product_uom"/>
+                            </td>
+                            <td class="text-right" style="margin-left:5px;">
+                               <span style="font-family:courier-new;font-size: 12px;" t-esc="int(l.product_qty)"/>
+                            </td>
+                            <td class="text-right" style="margin-left:5px;">
+                               
+                            </td>
+                           </tr>
+                       </tbody>
+				  </table>
+				 
+				  <br/>
+
+                 <table width="100%" style="border: none">
+					<tr>
+						<th width="20%"> Notes: </th>
+						<th width="30%" style="border: none"></th>
+						<th width="25%" style="border: none" ></th>
+						<th width="25%" style="border: none" ></th>
+					</tr>
+					</table>
+<br/>
+                 
+			  <div style="font-family:courier-new;font-size: 12px;">
+			  
+				  
+			 1.  The vendor is advised to mention the delivery terms such as Exworks/CIF/CFR/FOB/DDP etc.<br/>
+			 2.  Shipping Weight and Volume shall be mentioned.<br/>
+			 3.  Technical Datasheet shall be provided along with the offer.<br/>
+			 4.  In case of order,the overseas vendor shall submit all the mandatory documents for custom clearance such as 1) Commercial Invoice(with company stamp and signature) 2) Packing List(with company stamp and signature) 3) Certificate of Origin (Attested by the Chamber of Commerce) and AWB/BL as applicable in original.<br/>
+			 5.  In case of hazardous material the vendor shall provide MSDS,COA etc along with the quotation.<br/>
+
+			</div>
+				<br/>
+				<br/>
+				<br/>
+                 <span style="font-family:courier-new;font-size: 12px;" t-field="o.signature"/><br/>
+                </div>
+                 <t t-call="fnet_mline_reportz.footer_wizards"/>
+            </t>
+    </t>
+</template>
+</data>
+</openerp>

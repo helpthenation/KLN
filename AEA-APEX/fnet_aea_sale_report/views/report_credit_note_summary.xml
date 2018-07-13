@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    <template id="report_credit_note_summary">
+    <t t-call="report.html_container">
+        
+        <t t-foreach="docs" t-as="o">
+                
+                <div class="page">
+					<style type="text/css">
+						#table_chk{font-size:13px;border:1px solid silver;border-top:0px;font-family:Inconsolata}	
+						#table_chk tr td {padding:0px;margin:0px;display:inline-table}
+						#table_chk tr td table tr td {padding:5px;text-align:center}
+						#table_chk tr td table tr.header {border:1px solid silver;border-right:0px;border-left:0px}
+						#table_chk tr td table tr.header td {border-right:1px solid silver;font-weight:bold}
+						#table_chk tr td table tr.body {border:1px solid white;border-right:0px;border-left:0px}
+						#table_chk tr td table tr.body td {border-right:1px dashed silver;vertical-align:middle}
+						#table_chk tr td table tr.body td:last-child {border-right:0px;}
+						.parent-border {width:200px;border-bottom:2px dotted silver;}
+						.child-border {width:200px;border-bottom:2px dotted silver;margin-bottom:2px}	
+						.border-right {text-align:right !important;border-right:1px dashed silver !important}
+					</style>
+					<table style="width:100%;font-size:13px;font-family:Inconsolata" cellpadding="0" cellspacing="0">
+						<tr>
+							<td width="33%" style="text-align:left">
+								<div style="display:block"><span>ASSOCIATED ELECTRICAL AGENCIES</span>, <span t-esc="o.company_id.state_id.name"/></div>
+							</td>
+							<td width="33%" style="text-align:center">
+								<div style="display:block">CREDIT NOTE SUMMARY</div>
+							</td>
+							<td width="34%" style="text-align:right">
+								<span style="padding-right:20px">from:<span t-esc="get_date(data)[0]['from_date'][0]"/> to <span t-esc="get_date(data)[0]['to_date'][0]"/></span>
+							</td>
+						</tr>
+					</table><br/><br/>
+                    <table id="table_chk" style="width:100%;" cellpadding="0" cellspacing="0">
+						<tr>
+							<td> 
+								<table style="width:100%;" cellpadding="0" cellspacing="0">
+									<tr class="header">
+										<td width="5%" rowspan="2" style="text-align:center">S. No</td>
+										<td width="25%" rowspan="2" style="text-align:center">Account Description</td>
+										<td width="70%" colspan="13" style="text-align:center">MONTH WISE BREAKUP OFF NET TOTAL</td>
+									</tr>
+									<tr class="header">
+										<td width="5%" style="text-align:center">APR</td>
+										<td width="5%" style="text-align:center">MAY</td>
+										<td width="5%" style="text-align:center">JUN</td>
+										<td width="5%" style="text-align:center">JUL</td>
+										<td width="5%" style="text-align:center">AUG</td>
+										<td width="5%" style="text-align:center">SEP</td>
+										<td width="5%" style="text-align:center">OCT</td>
+										<td width="5%" style="text-align:center">NOV</td>
+										<td width="5%" style="text-align:center">DEC</td>
+										<td width="5%" style="text-align:center">JAN</td>
+										<td width="5%" style="text-align:center">FEB</td>
+										<td width="5%" style="text-align:center">MAR</td>
+										<td width="10%" style="text-align:center">TOTAL</td>
+									</tr>
+									<tr class="body">
+										<td width="5%" style="text-align:center">1</td>
+										<td width="5%" style="text-align:left">DISCOUNT</td>
+										<td width="5%" style="text-align:right"><span t-esc="get_discount_details_april(data,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_discount_details_may(data,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_discount_details_june(data,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_discount_details_july(data,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_discount_details_aug(data,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_discount_details_sep(data,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_discount_details_oct(data,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_discount_details_nov(data,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_discount_details_dec(data,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_discount_details_jan(data,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_discount_details_feb(data,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_discount_details_mar(data,get_month(data))[0]['total']"/></td>
+										<td width="10%" style="text-align:right"><span t-esc="get_discount_details_total(data)[0]['total']"/></td>
+									</tr>
+									<t t-set="counter" t-value="2"/>
+									<tr class="body" t-foreach="get_product_category(data)" t-as="category">
+										<td width="5%" style="text-align:center"><span t-esc="counter"/><t t-set="counter" t-value="counter+1"/></td>
+										<td width="5%" style="text-align:left">SUNDRY DEBTORS- <span t-esc="category"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_category_april(data,category,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_category_may(data,category,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_category_june(data,category,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_category_july(data,category,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_category_aug(data,category,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_category_sep(data,category,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_category_oct(data,category,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_category_nov(data,category,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_category_dec(data,category,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_category_jan(data,category,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_category_feb(data,category,get_month(data))[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_category_march(data,category,get_month(data))[0]['total']"/></td>
+										<td width="10%" style="text-align:right"><span t-esc="get_category_total(data,category)[0]['total']"/></td>
+									</tr>
+									
+								</table>
+							</td>
+						</tr>
+						
+					</table>
+                </div>
+        </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

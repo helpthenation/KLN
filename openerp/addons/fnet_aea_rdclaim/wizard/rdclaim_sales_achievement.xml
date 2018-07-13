@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="view_rdclaim_sales_achievement_view" model="ir.ui.view">
+            <field name="name">rdclaim.sales.achievement</field>
+            <field name="model">rdclaim.sales.achievement</field>
+            <field name="arch" type="xml">
+				<form>
+						<group>
+							<group>
+						<field name="company_id" />		
+						
+							<field name="prod_categ_id" domain="[('visible','=',True)]" widget="selection"/>
+							<field name="period_id"  widget="selection"/>
+						<field name="manager_id" domain="[('sale_manager', '=', True)]"  on_change="onchange_manager_id(manager_id,company_id)"/>
+                        <field name="sr_id" on_change="onchange_sr_ids(sr_id,manager_id,company_id)" widget="many2many_tags" domain="[('sale_manager', '=', False)]" options="{'no_create_edit': True}"/>
+                        <field name="stockiest_ids" widget="many2many_tags" domain="[('customer','=',True)]" options="{'no_create_edit': True}"/>
+
+								</group>
+					</group>
+
+
+				<footer>
+					<button icon="gtk-execute" name="check_report" string="Print" type="object" colspan="2"/> or 
+                    <button icon="gtk-execute" name="xls_export" string="Export" type="object" context="{'xls_export':1}" colspan="2"/> or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+               
+			  </form>
+            </field>
+        </record>
+        <record id="action_rdclaim_sales_achievement" model="ir.actions.act_window">
+			<field name="name">Sales Achievement Report</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">rdclaim.sales.achievement</field>
+			<field name="view_mode">form</field>
+			<field name="view_type">form</field>
+			<field name="target">new</field>
+			<field name="view_id" ref="view_rdclaim_sales_achievement_view"/>
+		</record>
+		
+	<record model="ir.values" id="action_rdclaim_sales_achievement_report">
+            <field name="model_id" ref="fnet_aea_rdclaim.model_rdclaim_sales_achievement"/>
+            <field name="name">Sales Achievement Report</field>
+            <field name="key2">client_print_multi</field>
+            <field name="value"
+                eval="'ir.actions.act_window,' +str(ref('action_rdclaim_sales_achievement'))"/>
+            <field name="key">action</field>
+            <field name="model">rdclaim.sales.achievement</field>
+        </record>
+<!--
+	<act_window name="RD CLAIM" res_model="rdclaim.wizard" src_model="rdclaim.wizard" key2="client_action_multi" multi="True" view_mode="form" view_type="form" target="new" id="action_rdclaim_wizardsss" />
+-->
+			
+	<menuitem
+            name="Sales Achievement Report"
+           parent="fnet_aea_sale_report.menu_sale_register"
+            action="action_rdclaim_sales_achievement"
+            id="menu_rd_claim_sales_achievement"
+            sequence="8"
+            icon="STOCK_PRINT"/>
+            
+	
+	</data>
+</openerp>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		  <report 
+            id="proforma_invoice_id"
+            string="Proforma Invoice"
+            model="account.invoice" 
+            report_type="qweb-pdf"
+            file="fnet_mline_reportz.proforma_invoice" 
+            name="fnet_mline_reportz.proforma_invoice" 
+            attachment_use="False"/>
+    	
+            
+	</data>
+</openerp>

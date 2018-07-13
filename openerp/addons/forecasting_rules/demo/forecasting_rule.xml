@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="forecast_rule_demo_01" model="forecasting.rule">
+            <field name="filter_id" ref="filter_demo_01"/>
+            <field name="name" eval="obj(ref('filter_demo_01')).name" model="ir.filters"/>
+            <field name="model">res.partner</field>
+        </record>
+
+        <record id="forecast_rule_demo_02" model="forecasting.rule">
+            <field name="name" eval="obj(ref('filter_demo_02')).name" model="ir.filters"/>
+            <field name="model">res.partner</field>
+            <field name="filter_id" ref="filter_demo_02"/>
+        </record>
+
+        <record id="forecast_rule_demo_03" model="forecasting.rule">
+            <field name="name" eval="obj(ref('filter_demo_03')).name" model="ir.filters"/>
+            <field name="model">res.partner</field>
+            <field name="filter_id" ref="filter_demo_03"/>
+        </record>
+
+        <record id="forecast_rule_demo_04" model="forecasting.rule">
+            <field name="name" eval="obj(ref('filter_demo_04')).name" model="ir.filters"/>
+            <field name="model">res.partner</field>
+            <field name="filter_id" ref="filter_demo_04"/>
+        </record>
+
+        <record id="forecast_rule_demo_05" model="forecasting.rule">
+            <field name="name" eval="obj(ref('filter_demo_05')).name" model="ir.filters"/>
+            <field name="model">res.partner</field>
+            <field name="filter_id" ref="filter_demo_05"/>
+        </record>
+
+        <record id="forecast_rule_demo_06" model="forecasting.rule">
+            <field name="name" eval="obj(ref('filter_demo_06')).name" model="ir.filters"/>
+            <field name="model">res.partner</field>
+            <field name="filter_id" ref="filter_demo_06"/>
+        </record>
+
+        <record id="forecast_rule_demo_07" model="forecasting.rule">
+            <field name="name" eval="obj(ref('filter_demo_07')).name" model="ir.filters"/>
+            <field name="model">res.partner</field>
+            <field name="filter_id" ref="filter_demo_07"/>
+        </record>
+
+    </data>
+</openerp>

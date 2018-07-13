@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+          
+            
+				
+            <report
+				id="consolidated_sales_apex_report_wiz"
+				model="consolidated.sales.apex"
+				string="Consolidated Sales"
+				report_type="qweb-pdf"
+				name="fnet_apex_consolidated_sale.report_consolidated_sales_apex" 
+				file="fnet_apex_consolidated_sale.report_consolidated_sales_apex"
+				menu="True"/>								
+				
+           
+    </data>
+</openerp>

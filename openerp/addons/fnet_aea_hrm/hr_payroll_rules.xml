@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="1">
+        <record id="hr_rule_employee_HRA" model="hr.salary.rule">
+            <field name="name">House Rent Allowance</field>
+            <field name="sequence" eval="7"/>
+            <field name="code">HRA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+			<field name="amount_python_compute">
+result = round(contract.hra)</field>
+        </record> 	
+        <record id="hr_rule_employee_SA" model="hr.salary.rule">
+            <field name="name">Special Allowance</field>
+            <field name="sequence" eval="8"/>
+            <field name="code">SA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+			<field name="amount_python_compute">
+result = round(contract.special_allowance)
+</field>
+        </record> 
+        <record id="hr_rule_employee_CA" model="hr.salary.rule">
+            <field name="name">Conveyance Allowance</field>
+            <field name="sequence" eval="9"/>
+            <field name="code">CA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+			<field name="amount_python_compute">
+result = round(contract.conveyance)</field>
+        </record>         
+        <record id="hr_rule_employee_LA" model="hr.salary.rule">
+            <field name="name">Leave Allowance</field>
+            <field name="sequence" eval="9"/>
+            <field name="code">LA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+			<field name="amount_python_compute">
+result = round(contract.leave_allowance)</field>
+        </record>  
+        <record id="hr_rule_employee_MA" model="hr.salary.rule">
+            <field name="name">Medical Allowance</field>
+            <field name="sequence" eval="9"/>
+            <field name="code">MA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+			<field name="amount_python_compute">
+result = round(contract.medical_allowance)</field>
+        </record>            
+               
+</data>
+</openerp>

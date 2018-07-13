@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_party_wise_sale_summary_form" model="ir.ui.view">
+            <field name="name">party.wise.sale.summary</field>
+            <field name="model">party.wise.sale.summary</field>
+            <field name="arch" type="xml">
+            <form string="Party Wise Sale Summary">
+                <p class="oe_grey">
+                        Define Party Wise Sale Summary
+                    </p>
+                <notebook>
+                    <page string="Dates">
+                        <group>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                        </group>
+                    </page>
+                    <page string="Customer">
+                        <field name="partner_ids"/>
+                    </page>                    
+                    <page string="Company">
+                        <field name="company_ids"/>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="wiz_print_report" string="Print" type="object" class="oe_highlight"/> or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_party_wise_sale_summary" model="ir.actions.act_window">
+            <field name="name">Party Wise Sale Summary</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">party.wise.sale.summary</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+            
+        <menuitem
+            name="Party Wise Sales Summary"
+            parent="menu_sale_register"
+            action="action_party_wise_sale_summary"
+            id="menu_party_wise_sale_summary"
+            sequence="1"
+            icon="STOCK_PRINT"/>
+            
+       
+
+    </data>
+</openerp>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<template id="report_costing">
+			<t t-name="fnet_mline_reportz.report_costing">
+				<div class="oe_structure"> 
+					<t t-foreach="doc_ids" t-as="o">
+						<t t-call="report.html_container">
+							<t t-call="fnet_mline_reportz.header_wizards"/>
+						<div class="page">
+                   
+								<div class="container">
+					
+									<style>
+										tr {page-break-inside: avoid;}
+										.table { border: 1px solid black; }
+										.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { border: 1px solid black; }
+									</style>
+					<div align="right">
+                   <h3 style="text-align:center;background-color:#568eff;border: 1px solid #568eff;color:#ffffff;text-align:center;border-radius:5px"><right><strong>COSTING REPORT</strong></right></h3>
+                   </div>
+                        <br/><br/>      
+						  <table class="table table-bordered">
+							<thead >
+							  <tr style="border: 1px solid black;">
+								<th style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;" colspan='2'>Supplier</th>
+								<td colspan='2'><span t-esc="o.partner_id.name"/></td>
+								<th style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;" colspan='2'>Exchange Rate</th>
+								<td colspan='2'><span t-esc="docs.exchange_rate(o)"/></td>
+							  </tr>
+							  <tr>
+								<th style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;" colspan='2'>RFQ NO:</th>
+								<td colspan='2'><span t-esc="o.name"/></td>
+								<th style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;" colspan='2'>Date</th>
+								<td colspan='2'><span t-esc="o.date_order"/></td>
+							  </tr>
+							  <tr>
+								<th style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;" colspan='2'>Currency</th>
+								<td colspan='2'><span t-esc="o.currency_cost_id.name"/></td>
+								
+							  </tr>
+							</thead>
+							</table>
+							<br/><br/>
+							<table class="table table-bordered">
+							<tbody>
+							<thead style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;">	
+							  <tr style="border: 1px solid black;">
+								<th>S.No</th>
+								<th>Qty</th>
+								<th>Unit Price</th>
+								<th>Total Price</th>
+								<th>AED Price</th>
+								<th>AED Total Price</th>
+								<th>Unit Price</th>
+								<th>Customer Price</th>
+								<th>Margin %</th>
+								<th>Margin Amount</th>
+							  </tr>
+							</thead>  
+							  <t t-set="counter" t-value="1"/>
+								<tr t-foreach="o.product_line" t-as="l">
+								<td class="text-center">
+								<span t-esc="counter"/>
+								<t t-set="counter" t-value="counter+1"/>
+								</td>
+								<td><span t-esc="l.product_qty"/></td>
+								<td><span t-esc="l.ot_unit_price"/></td>
+								<td><span t-esc="docs.double_precision(l.ot_total_price)"/></td>
+								<td><span t-esc="docs.double_precision(l.unit_price)"/></td>
+								<td><span t-esc="docs.double_precision(l.total_price)"/></td>
+								<td><span t-esc="l.margin"/></td>
+								<td><span t-esc="docs.double_precision(l.margin_price)"/></td>
+								<td><span t-esc="o.margin_id.name"/></td>
+								<td><span t-esc="docs.double_precision(l.margin_price - l.total_price)"/></td>
+							  </tr>
+							  <tr>
+								<td colspan='3' style="text-align:right;">Total</td>
+								<td colspan='1'><span t-esc="docs.get_total_price(o)"/></td>
+								<td colspan='1'></td>
+								<td colspan='1'><span t-esc="docs.get_aed_total(o)"/></td>
+								<td colspan='1'></td>
+								<td colspan='1'><span t-esc="docs.get_margin_total(o)"/></td>
+								<td colspan='1'></td>
+								<td colspan='1'><span t-esc="docs.get_margin(o)"/></td>
+							  </tr>
+							  <tr t-foreach="o.costing_line" t-as="l">
+								<td colspan='3' style="text-align:right;"><span t-esc="l.costing_id.name"/></td>
+								<td colspan='1'><span t-esc="l.amount"/></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+							  </tr>
+							  <tr>
+								<td colspan='3' style="text-align:right;">Duty <span t-esc="o.duty_id.name"/></td>
+								<td colspan='1'><span t-esc="o.duty_amount"/></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+							  </tr>
+							  <tr>
+								<td colspan='3' style="text-align:right;">CNF</td>
+								<td colspan='1'><span t-esc="docs.double_precision(o.cnf_amount)"/></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+							  </tr>
+							  <tr>
+								<td colspan='3' style="text-align:right;">COSTING</td>
+								<td colspan='1'><span t-esc="docs.four_precision(o.cost_amount)"/></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+								<td colspan='1'></td>
+							  </tr>
+							</tbody>
+						  </table>
+				
+						  <br/><br/><br/><br/>
+						<table width="100%" style="border: none">
+					<tr>
+						<th width="15%" style="background-color:#568eff;border-radius:5px;color:#ffffff "> Authorized By </th>
+						<th width="30%" style="border: none"></th>
+						<th width="25%" style="border: none" ></th>
+						<th width="15%" style="border: none" ></th>
+						<th width="15%" style="background-color:#568eff;border-radius:5px;color:#ffffff "> Prepared By</th>
+					</tr>
+					</table> 
+					</div>
+					
+                </div>
+                <t t-call="fnet_mline_reportz.footer_wizards"/>
+          </t>     
+    </t>
+     
+    </div>
+    </t>
+</template>
+</data>
+</openerp>

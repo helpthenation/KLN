@@ -1,0 +1,8 @@
+id,model,name,period,holt_period,holt_alpha,beta
+str,str,str,int,float,float,float
+fst_demo_01,forecast,(FST Test 01) All methods with 80 dummy values,5,,,
+fst_demo_02,forecast,(FST Test 02) All methods with 10 dummy values,5,,,
+fst_demo_03,forecast,(FST Test 03) HOLT(2),5,2,0.7,0.6
+fst_demo_04,forecast,(FST Test 04) SMA(5) and WMA(5),5,,,
+fst_demo_05,forecast,(FST Test 05) SMA(3),3,,,
+fst_demo_06,forecast,(FST Test 06) Forecast without minimun data,5,,,

@@ -1,0 +1,27 @@
+<openerp>
+    <data>
+
+        <record id="update_details_view" model="ir.ui.view">
+            <field name="name">update.details.form</field>
+            <field name="model">update.details</field>
+            <field name="arch" type="xml">
+                <form string="Update Details">
+                    <p>
+                        Selected Invoices Sale Representative And Sale Team Details Are Updated Based On Customer Details!!!
+                    </p>
+                    <footer>
+                        <button string="Update Details" name="invoice_confirm" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_update_details" 
+            multi="True"
+            key2="client_action_multi" name="Update Sale Team Details"
+            res_model="update.details" src_model="account.invoice"
+            view_mode="form" target="new" view_type="form" groups="base.group_sale_manager"/>
+    </data>
+</openerp>

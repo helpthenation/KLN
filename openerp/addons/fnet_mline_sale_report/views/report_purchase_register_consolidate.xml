@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    <template id="report_purchase_register_consolidate">
+    <t t-call="report.html_container">
+        
+        <t t-foreach="docs" t-as="o">
+                
+                <div class="page">
+					<style type="text/css">
+						#table_chk{font-size:13px;border:1px solid silver;border-top:0px;font-family:Inconsolata}	
+						#table_chk tr td {padding:0px;margin:0px;display:inline-table}
+						#table_chk tr td table tr td {padding:5px;text-align:center}
+						#table_chk tr td table tr.header {border:1px solid silver;border-right:0px;border-left:0px}
+						#table_chk tr td table tr.header td {border-right:1px solid silver;font-weight:bold}
+						#table_chk tr td table tr.body {border:1px solid white;border-right:0px;border-left:0px}
+						#table_chk tr td table tr.body td {border-right:1px solid white;}
+						.parent-border {width:200px;border-bottom:2px dotted silver;}
+						.child-border {width:200px;border-bottom:2px dotted silver;margin-bottom:2px}	
+						.border-right {text-align:right !important;border-right:1px dashed silver !important}
+					</style>
+					<table style="width:100%;font-size:13px;font-family:Inconsolata" cellpadding="0" cellspacing="0">
+						<tr>
+							<td width="33%" style="text-align:left">
+								<div style="display:block">MULTILINE TECHNICAL CO</div>
+							</td>							
+							<td width="33%" style="text-align:center">
+								<div style="display:block">Consolidated Purchase [NET PURCHASE] report</div>
+								<div style="display:block">[ ALL PRODUCTS ] [ LOCAL PURCHASE ]</div>
+								<div style="display:block"></div>
+							</td>
+							<td width="34%" style="text-align:right">
+								<span style="padding-right:20px">from:<span t-esc="get_date(data)[0]['from_date'][0]"/> to <span t-esc="get_date(data)[0]['to_date'][0]"/></span>
+								<span style="padding-right:20px">Run.dt:<span t-esc="get_date(data)[0]['now']"/></span>
+							</td>
+						</tr>
+					</table><br/><br/>
+                    <table id="table_chk" style="width:100%;" cellpadding="0" cellspacing="0">
+						<tr>
+							<td> 
+								<table style="width:100%;" cellpadding="0" cellspacing="0">
+									<tr class="header">
+										<td colspan="3"></td>
+										<td colspan="2" style="text-align:center">TOTAL</td>
+										<td colspan="12" style="text-align:center">MONTH WISE QUANTITY OFF TAKE</td>
+									</tr>
+									<tr class="header">
+										<td width="3%">S. No</td>
+										<td width="5%">Pr. Code</td>
+										<td width="19%">Party / Product Title</td>
+										<td width="5%">Qty</td>
+										<td width="8%">VALUE</td>
+										<td width="5%">APR</td>
+										<td width="5%">MAY</td>
+										<td width="5%">JUN</td>
+										<td width="5%">JUL</td>
+										<td width="5%">AUG</td>
+										<td width="5%">SEP</td>
+										<td width="5%">OCT</td>
+										<td width="5%">NOV</td>
+										<td width="5%">DEC</td>
+										<td width="5%">JAN</td>
+										<td width="5%">FEB</td>
+										<td width="5%">MAR</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td> 
+								<table style="width:100%;" cellpadding="0" cellspacing="0" t-foreach="get_product_category(data)" t-as="category">
+									<tr class="body">
+										<td></td>
+										<td colspan="3" style="text-align:left">
+											<div class="parent-border">
+												<div class="child-border"><span t-esc="category"/></div>
+											</div>
+										</td>
+										<td class="border-right"></td>
+										<td class="border-right"></td>
+										<td class="border-right"></td>
+										<td class="border-right"></td>
+										<td class="border-right"></td>
+										<td class="border-right"></td>
+										<td class="border-right"></td>
+										<td class="border-right"></td>
+										<td class="border-right"></td>
+										<td class="border-right"></td>
+										<td class="border-right"></td>
+										<td class="border-right"></td>
+										<td style="text-align:right"></td>
+									</tr>
+									<t t-set="counter" t-value="1"/>
+									<tr class="body" t-foreach="get_product_category(data)[category]" t-as="product">
+										<td width="3%"><span t-esc="counter"/>
+                                            <t t-set="counter" t-value="counter+1"/></td>
+										<td width="5%" style="text-align:left"><span t-esc="product[2]"/></td>
+										<td width="19%" style="text-align:left"><span t-esc="product[0]"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="product[5]"/></td>
+										<td width="8%" class="border-right"><span t-esc="product[6]"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_april(data,product[1],product[7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_may(data,product[1],product[7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_june(data,product[1],product[7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_july(data,product[1],product[7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_august(data,product[1],product[7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_september(data,product[1],product[7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_october(data,product[1],product[7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_november(data,product[1],product[7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_december(data,product[1],product[7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_jan(data,product[1],product[7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_feb(data,product[1],product[7])[0]['qty']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_product_qty_march(data,product[1],product[7])[0]['qty']"/></td>
+									</tr>
+									<tr class="body">
+										<td width="3%"></td>
+										<td width="5%"></td>
+										<td width="19%" style="text-align:left">** Total for use the Group **</td>
+										<td width="5%" style="text-align:right"><span t-esc="get_product_qty_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4])[0]['qty']"/></td>
+										<td width="8%" class="border-right"><span t-esc="get_product_qty_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4])[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_april_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_may_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_june_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_july_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_august_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_september_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_october_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_november_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_dec_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_jan_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['qty']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_feb_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['qty']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_product_qty_march_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['qty']"/></td>
+									</tr>
+									<tr class="body">
+										<td width="3%"></td>
+										<td width="5%"></td>
+										<td width="19%" style="text-align:left">** Value in Thousand for Months **</td>
+										<td width="5%" style="text-align:right"></td>
+										<td width="8%" class="border-right"></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_april_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_may_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_june_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_july_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_august_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_september_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_october_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_november_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_dec_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_jan_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_product_qty_feb_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_product_qty_march_total(data,get_product_category(data)[category][0][3],get_product_category(data)[category][0][4],get_product_category(data)[category][0][7])[0]['total']"/></td>
+									</tr>
+								</table>
+								<table style="width:100%;" cellpadding="0" cellspacing="0">
+									<tr class="body">
+										<td width="3%"></td>
+										<td width="5%"></td>
+										<td width="19%" style="text-align:left">** Grand Total(Value) **</td>
+										<td width="5%" style="text-align:right"></td>
+										<td width="8%" class="border-right"><span t-esc="get_total(data)[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_april_total_value(data)[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_may_total(data)[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_june_total(data)[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_july_total(data)[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_august_total(data)[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_september_total(data)[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_october_total(data)[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_november_total(data)[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_dec_total(data)[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_jan_total(data)[0]['total']"/></td>
+										<td width="5%" class="border-right"><span t-esc="get_feb_total(data)[0]['total']"/></td>
+										<td width="5%" style="text-align:right"><span t-esc="get_march_total(data)[0]['total']"/></td>
+									</tr>
+								</table>
+							</td>
+						</tr>	
+					</table>
+                </div>
+        </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

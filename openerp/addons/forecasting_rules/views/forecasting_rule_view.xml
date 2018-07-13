@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+    <data>
+
+        <record id="forecast_view_tree" model="ir.ui.view">
+            <field name="name">fr.forecast.tree</field>
+            <field name="model">forecast</field>
+            <field name="inherit_id" ref="forecasting_smoothing_techniques.forecasting_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="rule_id" invisible="1"/>
+                    <field name="manual_data" string="Manual"/>
+                </xpath>
+            </field>
+         </record>
+
+        <record id="forecast_search_view" model="ir.ui.view">
+            <field name="name">forecast.search.view</field>
+            <field name="model">forecast</field>
+            <field name="inherit_id" ref="forecasting_smoothing_techniques.forecasting_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <filter name="manual_data" string="Manual Data" domain="[('manual_data', '=', True)]"/>
+                    <filter name="rule_data" string="Rule Data" domain="[('rule_id', '!=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Forecast Rule" name="rule_id" domain="[('rule_id', '!=', False)]" context="{'group_by':'rule_id'}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="forecasting_rule_view_form" model="ir.ui.view">
+            <field name="name">forecasting.rule.form</field>
+            <field name="model">forecasting.rule</field>
+            <field name="arch" type="xml">
+                <form string="Forecasting Rule">
+                    <sheet string="Forecasting Rule">
+                        <h1>
+                            <field name="id"/>
+                            <field name="name" placeholder="Forecast Rule Name..."/>
+                        </h1>
+                        <group>
+                            <field name="model"/>
+                            <field name="filter_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="forecasting_rule_view_tree" model="ir.ui.view">
+            <field name="name">forecasting.rule.tree</field>
+            <field name="model">forecasting.rule</field>
+            <field name="arch" type="xml">
+                <tree string="Forecasting Rules">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="model"/>
+                    <field name="filter_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="forecasting_rule_view_search" model="ir.ui.view">
+            <field name="name">forecasting.rule.search</field>
+            <field name="model">forecasting.rule</field>
+            <field name="arch" type="xml">
+                <search string="Forecasting Rules">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="model"/>
+                    <field name="filter_id"/>
+                    <group expand="0" string="Group by...">
+                        <filter string="Model" domain="[]" context="{'group_by':'model'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_view_forecasting_rule" model="ir.actions.act_window">
+            <field name="name">Forecasting Rule</field>
+            <field name="res_model">forecasting.rule</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="menu_forecasting_rule"
+            parent="forecasting_smoothing_techniques.menu_forecasting" sequence="10"
+            name="Forecasting Rules"
+            action="action_view_forecasting_rule"
+            groups="forecasting_smoothing_techniques.forecast_group_user,forecasting_smoothing_techniques.forecast_group_manager"
+        />
+
+        <record id="forecast_forecast_rule_form" model="ir.ui.view">
+            <field name="name">forecast.forecast.rule.form</field>
+            <field name="model">forecast</field>
+            <field name="inherit_id" ref="forecasting_smoothing_techniques.forecasting_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='value_ids']" position="before">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <field name="manual_data"/>
+                            <label for="manual_data"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="rule_id" attrs="{'invisible': [('manual_data', '=', True)]}"/>
+                            <h2><field name="rule_id" attrs="{'invisible': [('manual_data', '=', True)], 'required': [('manual_data', '=', False)]}" /></h2>
+                        </div>
+                    </div>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="fill_value_ids" type="object" string="Fill Values" class="oe_inline oe_stat_button" help="This button will let you to add a data to the forecasting using the defined Forecasting Rule" icon="fa-filter" attrs="{'invisible': [('manual_data', '=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+        
+      <record model="ir.ui.view" id="hr_timesheet_diferent_upadte">
+            <field name="name">hr.timesheet.diferent.upadte</field>
+            <field name="model">hr_timesheet_sheet.sheet</field>
+            <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form"/>
+            <field name="arch" type="xml">
+				
+				<field name='state' position="before">
+					<button name="validate" states="draft" string="Validate" type="object" class="oe_highlight"/>
+				</field>
+				
+				<button name='cancel' position="replace">
+				    <button name="cancel" states="confirm" string="Refuse" type="object" groups="base.group_hr_user" />
+				</button>
+				
+				<page string="Details" position="after">
+					<page string="Timesheet Details">
+						<group>
+						   <group>
+							   <field name="total_hours"/>
+						   </group>
+						   <group>
+							   <field name="normal_hours"/>
+						   </group>
+						   <group>
+							   <field name="ot_hours"/>
+						   </group>
+						   <group>
+							   <field name="holiday_hours"/>
+						   </group>
+						</group>
+						<field name="sheet_line">
+							<tree string="Timesheet" editable="bottom">
+								<field name="date"/>
+								<field name="account_id"/>
+								<field name="total_hours"/>
+								<field name="normal_hours"/>
+								<field name="ot_hours"/>
+								<field name="holiday_hours"/>
+							</tree>
+						</field>
+					</page>
+				</page>
+				
+		    </field>
+      </record>
+      
+      <!--   Time sheet line having form view -->
+      
+      <record id="view_hr_sheet_line" model="ir.ui.view">
+            <field name="name">view.hr.sheet.line</field>
+            <field name="model">hr.sheet.line</field>
+            <field name="arch" type="xml">
+                <form string="Time Sheet Account Line">
+					<sheet>
+					    <group>
+                            <group>
+                              <field name="name"/>
+					          <field name="date"/>
+					          <field name="account_id"/>
+					          <field name="user_id"/>
+					          <field name="employee_id"/>
+					          <field name="normal_hours"/>
+					          <field name="ot_hours"/>
+					          <field name="holiday_hours"/>
+							</group>
+						 </group>
+				     </sheet>
+				 </form>
+		   </field>
+	   </record>
+	   
+		<record id="view_hr_sheet_line_tree" model="ir.ui.view">
+            <field name="name">view.hr.sheet.line.tree</field>
+            <field name="model">hr.sheet.line</field>
+            <field name="arch" type="xml">
+                <tree string="Time Sheet Account Line">
+					<field name="name"/>
+					<field name="date"/>
+					<field name="account_id"/>
+					<field name="user_id"/>
+					<field name="employee_id"/>
+					<field name="normal_hours" sum="Normal"/>
+					<field name="ot_hours" sum="Over Time"/>
+					<field name="holiday_hours" sum="Holiday"/>
+				 </tree>
+		   </field>
+	   </record>
+	   
+	   <record id="view_hr_sheet_line_tree_search" model="ir.ui.view">
+            <field name="name">view.hr.sheet.line.tree.search</field>
+            <field name="model">hr.sheet.line</field>
+            <field name="arch" type="xml">
+                <search string="Time Sheet Account Line">
+					<filter string="Project" context="{'group_by':'account_id'}" name="project"/>
+					<filter string="Employee" context="{'group_by':'employee_id'}" name="employee"/>
+                    <separator/>
+					<group expand="0" string="Group By">
+                        <filter string="Project" domain="[]" context="{'group_by':'account_id'}"/>
+                        <filter string="Employee" domain="[]" context="{'group_by':'employee_id'}"/>
+                    </group>
+				</search>
+			</field>
+	   </record>
+	   
+	   <record id="action_view_hr_sheet_line" model="ir.actions.act_window">
+            <field name="name">Time Sheet Invoice</field>
+            <field name="res_model">hr.sheet.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_project': 1, 'search_default_employee': 1}</field>
+            <field name="view_id" ref="view_hr_sheet_line_tree_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Time sheet Invoice Create.
+                </p><p>
+                    Create Invoice
+                </p>
+            </field>
+        </record>
+        
+        <menuitem action="action_view_hr_sheet_line" 
+               id="menu_view_hr_sheet_invoice"
+	           parent="hr_attendance.menu_hr_time_tracking" 
+	           name="Timesheet Invoice"
+	           sequence="2"/> 
+	           
+	  
+	  
+	           
+      <record id="view_time_sheet_account" model="ir.ui.view">
+            <field name="name">view.time.sheet.account</field>
+            <field name="model">time.sheet.account</field>
+            <field name="arch" type="xml">
+                <form string="Time Sheet Account">
+					<header>
+						<button name="job_valdate" string="Job Validate" type="object" states="draft" class="oe_highlight"/>
+						<button name="salary_validate" string="Salary Validate" type="object" states="progress" class="oe_highlight"/>
+						<button name="invoice_create" string="Create Invoice" type="object" states="validate,done" class="oe_highlight"/>
+						<button name="action_view_invoice" string="View Invoice" type="object" states="done" class="oe_highlight"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,progress,done" statusbar_colors='{"cancel":"red","progress":"blue"}'/>
+					</header>
+					<sheet>
+						<group>
+							<field name="name"/>
+						</group>
+					    <group>
+                            <group>
+					          <field name="account_id"/>
+					          <field name="date_from"/>
+					          <field name="date_to"/>
+					          </group>
+					          <group>
+					            
+							</group>
+						 </group>
+						 <notebook>
+							 <page string="Employee">
+								 <field name="sheet_employee_line">
+									 <tree string="Employee" editable="bottom">
+										 <field name="employee_id"/>
+										 <field name="job_id"/>
+										 <field name="uom_id"/>
+										 <field name="normal_hours"/>
+										 <field name="ot_hours"/>
+										 <field name="holiday_hours"/>
+										 
+								     </tree>
+								 </field>
+						     </page>
+							 <page string="Employee Cost">
+								 <field name="time_sheet_acount_line">
+									 <tree string="Job Cost" editable="bottom">
+										 <field name="employee_id"/>
+										 <field name="job_id"/>
+										 <field name="uom_id"/>
+										 <field name="normal_cost"/>
+										 <field name="ot_cost"/>
+										 <field name="holiday_cost"/>
+								     </tree>
+								 </field>
+							 </page>
+							 
+						     <page string="Salary Amount">
+								 <field name="sheet_department_line">
+									 <tree string="Job Position" editable="bottom">
+										 <field name="create_inv"/>
+										 <field name="employee_id"/>
+										 <field name="job_id"/>
+										 <field name="uom_id"/>
+										 <field name="normal_cost"/>
+										 <field name="ot_cost"/>
+										 <field name="holiday_cost"/>
+									</tree>
+								</field>
+							</page>
+										 
+						 </notebook>
+				     </sheet>
+				 </form>
+		   </field>
+	   </record>
+	   
+		<record id="view_time_sheet_account_tree" model="ir.ui.view">
+            <field name="name">view.time.sheet.account.tree</field>
+            <field name="model">time.sheet.account</field>
+            <field name="arch" type="xml">
+                <tree string="Time Sheet Account">
+					<field name="name"/>
+					<field name="account_id"/>
+					<field name="date_from"/>
+					<field name="date_to"/>
+					<field name="state" invisible="1"/>
+				 </tree>
+		   </field>
+	   </record>
+	   
+	   <record id="action_view_time_sheet_account" model="ir.actions.act_window">
+            <field name="name">Time Sheet Account</field>
+            <field name="res_model">time.sheet.account</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_time_sheet_account_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a Time sheet Account.
+                </p><p>
+                    Create Time Sheet Account
+                </p>
+            </field>
+        </record>
+        
+        <act_window
+            domain="[('timesheet_id', '=', active_id)]"
+            context="{'search_default_employee': [active_id]}"
+            id="act_timesheet_line"
+            name="Timesheet Line"
+            res_model="hr.sheet.line"
+            src_model="time.sheet.account"/>
+
+        <menuitem action="action_view_time_sheet_account" 
+               id="menu_view_hr_sheet_account"
+	           parent="hr_attendance.menu_hr_time_tracking" 
+	           name="Timesheet Account"
+	           sequence="2"/>
+	           
+        <menuitem action="account_analytic_analysis.action_account_analytic_overdue" 
+               id="menu_contarct"
+	           parent="hr_attendance.menu_hr_time_tracking" 
+	           name="Customer Contract"  groups="base.group_hr_user"
+	           sequence="3"/>
+	           
+	  
+
+  </data>          
+</openerp>
+ 

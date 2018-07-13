@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+<record id="tn_purchase_report_form" model="ir.ui.view">
+	  <field name="name">Purchase Tax Report</field>
+	  <field name="model">tn.po.report</field>
+	  <field name="arch" type="xml">
+	  <form string="Purchase Tax Report">
+  			<group string="Purchase Tax Report">
+ 			 <group col='4'>
+				  <field name="from_date"/>
+				  <field name="to_date"/>
+				  <field name="company_id" invisible="1"/>/>
+				  <field name="categ_id" domain="[('company_id', '=', company_id),('visible','=',True)]"/>
+			</group>
+			</group>
+					
+            <group col='4'>
+            	<button icon="gtk-execute" name="get_report" string="View" type="object" context="{'xls_export':1}"/>;               
+			  
+<field name="inpopup" invisible="1"/>
+            	<button string="Exit" attrs="{'invisible':[('inpopup','=',False)]}" class="oe_highlight" special="cancel"/>              </group>
+            <notebook>
+                <page string="Purchase Tax Report">		 
+                  <field name="tn_po_tax_ids">
+				  	<tree string="Purchase Tax Report">
+				  	     <field name="partner_id"/>
+				  	     <field name="seller_tin"/>
+				  	     <field name="commodity_code"/>				  	     
+				  	     <field name="invoice_id"/>
+				  	     <field name="invoice_date"/>	
+				  	     <field name="purchase_value"/>	
+				  	     <field name="tax_rate"/>	  
+				  	     <field name="vat_cst_paid"/>
+				  	     <field name="categ_id"/>	 
+				  	</tree>
+				 </field>
+             </page>	
+			</notebook>
+			
+	  </form>
+	  </field>
+	  </record>
+<record model="ir.actions.act_window" id="action_po_tax_report">
+	  <field name="name">PO TAX Report</field>
+	  <field name="res_model">tn.po.report</field>
+	  <field name="view_type">form</field>
+      <field name="target">new</field>
+      <field name="view_mode">form</field>
+  </record>
+  
+	  <record id="tn_menu" model="res.groups">
+			<field name="name">TN Tax</field>
+			<field name="category_id" ref="base.module_category_hidden"/>
+	  </record>
+	  
+
+	  
+	  <record id="ka_menu" model="res.groups">
+			<field name="name">KA Tax</field>
+			<field name="category_id" ref="base.module_category_hidden"/>
+	  </record>
+       
+       
+       <menuitem id="menu_po_tax_report" action="action_po_tax_report" parent="account.menu_finance_reports" sequence="7" name="Purchase Tax Return"/>
+  
+  
+  
+  
+  
+
+  
+</data>
+</openerp>

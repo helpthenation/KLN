@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="invoice_form_viewws" model="ir.ui.view">
+            <field name="name">invoice.form.view</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+              <xpath expr='//form/header' position="after">
+                <div class="alert alert-info" role="alert" style="margin-bottom:0px;" attrs="{'invisible': ['|',('state','in',('draft','proforma','proforma2','paid','cancel')), ('has_outstanding_credit','=',False)]}">
+                    
+                    You have outstanding credit of  <b><field name="amount_unreconcile" widget="monetary" options="{'currency_field': 'currency_id'}" /></b>for this customer. You can allocate to this customer.
+                </div>
+                <field name="has_outstanding_credit" invisible="1"/>
+              </xpath>  
+            </field>
+        </record>
+	</data>
+</openerp>

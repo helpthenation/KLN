@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_debtors_closing_form" model="ir.ui.view">
+            <field name="name">debtors.closing.balance</field>
+            <field name="model">debtors.closing.balance</field>
+            <field name="arch" type="xml">
+            <form string="Debtors Closing Balance">
+                <p class="oe_grey">
+                        Define Debtors Closing Balance
+                    </p>
+                <notebook>
+                    <page string="Dates">
+                        <group>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                        </group>
+                    </page>
+                    <page string="Company">
+                        <field name="company_ids"/>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="wiz_print_report" string="Print" type="object" class="oe_highlight"/> or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_debtors_closing_balance" model="ir.actions.act_window">
+            <field name="name">Debtors Closing Balance</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">debtors.closing.balance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+            
+        <menuitem
+            name="Debtors Closing Balance"
+            parent="account.menu_finance_reports"
+            action="action_debtors_closing_balance"
+            id="menu_debtors_closing_balance"
+            sequence="1"
+            icon="STOCK_PRINT"/>
+            
+       
+
+    </data>
+</openerp>

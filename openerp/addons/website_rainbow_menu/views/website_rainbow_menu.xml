@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Website Rainbow menu">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href='/website_rainbow_menu/static/src/css/website_rainbow_menu.css' t-ignore="true"/>
+        </xpath>
+    </template>
+
+    </data>
+</openerp>

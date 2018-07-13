@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<record id="paperformat_invoicessszz" model="report.paperformat">
+    <field name="name">Tax Invoice format</field>
+    <field name="default" eval="True" />
+    <field name="format">A4</field>
+    <field name="orientation">Portrait</field>
+    <field name="margin_top">35</field>
+    <field name="margin_bottom">12</field>
+    <field name="margin_left">12</field>
+    <field name="margin_right">12</field>
+    <field name="header_line" eval="False" />
+    <field name="header_spacing">4</field>
+    <field name="dpi">80</field>
+</record>
+
+    <record id="vat_invoices_reportsss" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="fnet_manpower_vat_invoicereport.paperformat_invoicessszz"/>
+        </record>
+        
+<template id="report_meps_invoices">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="o">
+            <style>
+                .dealer {width:60%;height:142px;text-align:left}
+                #txt1
+                {
+                 float: left
+                }
+                #txt2
+                {
+                 float: right
+                }
+                #p1
+                {
+                 float: right
+                }
+                pre{    
+                    display: flex;
+                    white-space:pre-line;
+                    word-break: break-word;
+                    border:0px;
+                    margin:0px;
+                    padding:0px;
+                    background-color:white;
+                    color:black;
+                    } 
+                </style>
+<t t-foreach="docs.invoice_line(o)" t-as="val">
+<div class="header">           
+<table width="100%" cellspacing="20"  >
+<tr>
+  <td width="62%">
+              <table width="100%" style="font-weight: bold;border-radius: 10px !important; overflow:auto;border: 1px solid black;border-collapse:separate;">
+                    <tr>
+                             <td width="50%" style="height:142px;">
+                         <div class="dealer">
+                            <div style="font-family:courier-new;font-size: 14px;padding: 7px;">To:</div>
+                            <div><span style="font-family:courier-new;font-size: 14px;padding: 7px;"><t t-esc="o.partner_id.name"/>,</span></div>
+                            <t t-if="o.partner_id.street">
+                            <div>
+                                <span style="font-family:courier-new;font-size: 14px;padding: 7px;"><t t-if="o.partner_id.street" t-esc="o.partner_id.street"/>,</span></div>
+                            </t>
+                            <t t-if="o.partner_id.street2">
+                            <div><span style="font-family:courier-new;font-size: 14px;padding: 7px;"><t t-if="o.partner_id.street2" t-esc="o.partner_id.street2"/>,</span></div></t>
+
+                            <div><span style="font-family:courier-new;font-size: 14px;padding: 7px;"><t t-esc="o.partner_id.city"/>.</span></div>
+
+                            <!-- <div><span style="font-family:courier-new;font-size: 16px;padding: 10px;" t-esc="o.partner_id.state_id.name"/></div> -->
+                            <div><span style="font-family:courier-new;font-size: 14px;padding: 7px;" t-esc="o.partner_id.country_id.name"/></div>           
+                        </div>
+                               </td>
+                    </tr>
+                </table>
+<!--
+        <br/>
+
+-->
+</td>  
+<td  width="3%"></td>                
+<td  width="35%" style="vertical-align:top;">
+     <table border="1" width="100%"  style="font-family:courier-new;font-size:16px;font-weight: bold;border-radius: 10px !important;  overflow:auto;border: 1px solid black;border-collapse:separate;" >
+                <t t-if="o.type == 'out_invoice' and (o.state == 'proforma2' or o.state == 'proforma')">
+                    <tr>
+                    <td align="center" width="100%" style="height:142px; border:none;font-family:courier-new;">
+                       <br/>                         
+                              <h3 align="center"><b>P r o f o r m a </b></h3>
+                              <h3 align="center"><b>I n v o i c e </b></h3>
+                
+                          </td>
+                           </tr>
+               </t>  
+            <t t-if="not (o.state == 'proforma2' or o.state == 'proforma')">                   
+               <tr>
+                    <td align="center" width="100%" style="height:142px; border:none;font-family:courier-new;">
+                       <br/>                        
+                          
+                              <img src="/fnet_mline_reportz/static/src/img/tax_invoice.png" style="vertical-align:top;width:80%;"/><h3 align="center">
+                                  <b>T a x</b> <br/>
+                                  <b>I n v o i c e </b></h3>
+                
+                          </td>
+                           </tr>
+                           </t>
+                </table>
+             </td>
+        </tr> 
+</table>
+<table width="100%" style="font-weight:bold;font-size:14px;margin-top:10px;">
+<tr>
+<td width="62%" >                   
+    <table border="1" width="100%" style="border-radius: 10px !important;  overflow:auto;border: 1px solid black;border-collapse:separate;">
+       <tr>
+         <td width="100%" style="font-weight:bold;font-family:courier-new;font-size: 14px;">
+             <table width="100%" style="font-weight:bold;font-size:14px;">
+                 <tr>
+                     <td style="font-family:courier-new;font-size: 14px;padding-left:5px;" width="38%"> Customer VAT No</td>
+                     <td style="font-family:courier-new;font-size: 14px;padding-left:5px;" width="2%">:</td>
+                     <td style="font-family:courier-new;font-size: 14px;padding-left:5px;" width="60%"><span style="font-family:courier-new;font-size: 14px;" t-esc="o.partner_id.vat_number"/></td>
+                 </tr>
+                 <tr>
+                     <td style="font-family:courier-new;font-size: 14px;padding-left:5px;" width="38%"> Supplier VAT No</td>
+                     <td style="font-family:courier-new;font-size: 14px;padding-left:5px;" width="2%">:</td>
+                     <td style="font-family:courier-new;font-size: 14px;padding-left:5px;" width="60%"><span style="font-family:courier-new;font-size: 14px;" t-esc="o.company_id.vat_number"/></td>
+                 </tr>
+                 <tr>
+                     <td style="font-family:courier-new;font-size: 14px;padding-left:5px;" width="38%">L.P.O</td>
+                     <td style="font-family:courier-new;font-size: 14px;padding-left:5px;" width="2%">:</td>
+                     <td style="font-family:courier-new;font-size: 14px;padding-left:5px;" width="60%"><span style="font-family:courier-new;font-size: 14px;" t-esc="o.name"/></td>
+                 </tr>
+             </table>
+          </td>
+       </tr>
+    </table>
+ </td>
+<td  width="3%"></td>
+<td width="35%" style="vertical-align:bottom;">
+    <table border="1" width="100%" style="border-radius: 10px !important;  overflow:auto;border: 1px solid black;border-collapse:separate;">
+       <tr>
+           <td width="100%" style="font-weight:bold;font-family:courier-new;font-size: 14px;">
+        <table width="100%" style="font-weight:bold;font-size:14px;">
+         <tr>
+                     <td style="font-family:courier-new;font-size: 14px;padding-left:5px;padding-right:0px;padding-top:5px;padding-bottom:5px;" width="38%"> Invoice Date</td>
+                     <td  style="font-family:courier-new;font-size: 14px;padding-left:0px;padding-right:0px;padding-top:5px;padding-bottom:5px;" width="2%">:</td>
+                     <td style="font-family:courier-new;font-size: 14px;padding-left:0px;padding-right:0px;padding-top:5px;padding-bottom:5px;" width="60%"><span style="font-family:courier-new;font-size: 14px;padding:10px;" t-esc="docs.get_date(o.date_invoice)" t-options ='{"format": "MM/dd/yyyy"}'/></td>
+        </tr>
+        <tr>
+                     <td style="font-family:courier-new;font-size: 14px;padding-left:5px;padding-right:0px;padding-top:5px;padding-bottom:5px;" width="38%"> Invoice No</td>
+                     <td  style="font-family:courier-new;font-size: 14px;padding-left:0px;padding-right:0px;padding-top:5px;padding-bottom:5px;" width="2%">:</td>
+                     <td style="font-family:courier-new;font-size: 14px;padding-left:0px;padding-right:0px;padding-top:5px;padding-bottom:5px;" width="60%"><span style="font-family:courier-new;font-size: 14px;padding:10px;" t-esc="o.number"/></td>
+        </tr>
+        </table>
+        </td>
+        </tr>
+    </table>    
+</td>
+</tr>
+</table>      
+        
+</div>
+<div class="page">                  
+  <div  style="padding:0px;width:100%;float:left;margin-top:210px;height:430px;border:0px solid black;display: table;">                   
+ <table cellpadding="0" cellspacing="0" width="100%" style="font-weight:bold;border:1px solid black;height:400px;vertical-align:top;">
+  <thead>
+    <tr>
+      <th width="5%" style="font-family:courier-new;font-size: 12px;border-bottom:1px solid black;padding:5px;"><img src="/fnet_mline_reportz/static/src/img/s_no.png" style="float:center;"/> SI.NO. </th>
+      <th width="60%" style="font-family:courier-new;font-size: 12px;border-left:1px solid black;border-bottom:1px solid black ; padding:5px;text-align:center;"><img src="/fnet_mline_reportz/static/src/img/desc.png" style="float:center;"/><br/>Description </th>
+      <th width="5%" style="font-family:courier-new;font-size: 12px;border-left:1px solid black;border-bottom:1px solid black;padding:5px;"> <img src="/fnet_mline_reportz/static/src/img/unit.png" style="float:center;"/><br/>Unit</th>
+      <th width="10%" style="font-family:courier-new;font-size: 12px;border-left:1px solid black;border-bottom:1px solid black;padding:5px;"><img src="/fnet_mline_reportz/static/src/img/quantity.png" style="float:center;"/><br/>Quantity </th>
+      <th width="10%" style="font-family:courier-new;font-size: 12px;border-left:1px solid black;border-bottom:1px solid black;padding:5px;"> <img src="/fnet_mline_reportz/static/src/img/unit_price.png" style="float:center;"/><br/>Unit Price</th>
+      <th width="10%" style="font-family:courier-new;font-size: 12px;border-left:1px solid black;border-bottom:1px solid black;padding:5px;"><img src="/fnet_mline_reportz/static/src/img/amount.png" style="float:center;"/><br/>Amount </th>
+    </tr>
+  </thead>
+  <tbody style="padding:0px;width:100%;height:100%" >
+    <tr>
+    <td style="border-left:1px solid black;" width="5%"></td>
+    <td style="border-left:1px solid black;"  width="60%">
+        <pre style="display: flex;white-space:pre-line;word-break: break-word;border:0px;margin:0px;padding:0px;background-color:white;color:black;">
+        <t t-raw="o.comment"/>
+        </pre>
+        </td>
+    <td style="border-left:1px solid black;" width="5%"></td>
+    <td style="border-left:1px solid black;" width="10%"></td>
+    <td style="border-left:1px solid black;" width="10%"></td>                    
+    <td style="border-left:1px solid black;border-right:1px solid black;" width="10%"></td>
+
+    </tr>  
+    <tr t-foreach="docs.get_invoice_line(o,val)" t-as="line" style="border-bottom:none !important">
+      <td width="5%"  style="text-align:left;border-left:1px solid black;padding-right:5px;padding-left:5px;vertical-align:bottom !important;"><span t-esc="line['sno']"/></td>
+      <td width="60%" style="text-align:left;border-left:1px solid black;padding-right:5px;padding-left:5px;vertical-align:bottom !important;">
+          <pre style="display: flex;white-space:pre-line;word-break: break-word;border:0px;margin:0px;padding:0px;background-color:white;color:black;"><t t-raw="line['desc']"/></pre></td>
+      <td width="5%"  style="text-align:right;border-left:1px solid black;padding-right:5px;padding-left:5px;vertical-align:bottom !important;"><span t-esc="line['uom']"/></td>
+      <td width="10%" style="text-align:right;border-left:1px solid black;padding-right:5px;padding-left:5px;vertical-align:bottom !important;"><span t-esc="line['qty']"/></td>
+      <td width="10%" style="text-align:right;border-right:1px solid black;border-left:1px solid black;padding-right:5px;padding-left:5px;vertical-align:bottom !important;">
+          <t t-if="line['price'] != None">
+          <t t-esc="'{0:,.2f}'.format(line['price'])"/>
+          </t>
+          <t t-if="line['price'] == None">
+          <span t-esc="line['price']"/>
+          </t>                        
+          </td>
+      <td width="10%" style="text-align:right;border-right:1px solid black;padding-right:5px;padding-left:5px;vertical-align:bottom !important;">
+          <t t-if="line['subtotal'] != None">
+          <t t-esc="'{0:,.2f}'.format(line['subtotal'])"/>
+          </t>
+          <t t-if="line['subtotal'] == None">
+          <span t-esc="line['subtotal']"/>
+          </t>                        
+    </td>
+    </tr>
+     <tr>
+    <td height="100%" style="border-left:1px solid black;" width="5%"></td>
+    <td height="100%" style="border-left:1px solid black;"  width="60%"></td>
+    <td height="100%" style="border-left:1px solid black;" width="5%"></td>
+    <td height="100%" style="border-left:1px solid black;" width="10%"></td>
+    <td height="100%" style="border-left:1px solid black;" width="10%"></td>                    
+    <td height="100%" style="border-left:1px solid black;border-right:1px solid black;" width="10%"></td>
+
+</tr>
+  </tbody>
+</table>
+                <div  style="padding:0px;width:100%;float:left;border:1px solid red;float: none;display: table-footer-group;vertical-align: bottom;">
+                    <table class="align-bottom" style="padding:10px;text-align:left;border-right:1px solid black;border-left:1px solid black;border-bottom:1px solid black;width:100%;">               
+<t t-if="docs.get_amount(o,val) != 'Continued'">
+<tr>
+<td style="text-align:right;border-top:0px;border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;padding:5px;vertical-align:top !important;">
+<b>Untaxed Amount</b></td>
+<td style="text-align:right;border-top:0px;border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;padding:5px;vertical-align:top !important;">
+<t t-if="docs.get_amount(o,val) == 'Continued'">
+<b>Continued</b>
+</t>
+<t t-if="docs.get_amount(o,val) != 'Continued'">
+<b><span t-esc="'{0:,.2f}'.format(o.amount_untaxed)"/></b>
+</t>
+</td>
+</tr>
+</t>                                        
+                        <t t-if="docs.get_amount(o,val) != 'Continued'">
+                        <tr  t-foreach="o.tax_line" t-as="c">
+                         <td style="text-align:right;border-top:0px;border-left:1px solid black;border-right:1px solid black;padding:5px;vertical-align:top !important;">
+          <b><t t-esc="c.name"/></b></td>
+      <td style="text-align:right;border-top:0px;border-left:1px solid black;border-right:1px solid black;padding:5px;vertical-align:top !important;">
+                        <t t-if="docs.get_amount(o,val) == 'Continued'">
+                            <b>Continued</b>
+                        </t>
+                        <t t-if="docs.get_amount(o,val) != 'Continued'">
+                         <b><span t-esc="'{0:,.2f}'.format(c.amount)"/></b>
+                         </t>
+          </td>
+    </tr>
+ </t>
+                        <tr>
+                        <td style="text-align:left;padding:7px;font-weight:bold;border:1px solid black;">Total <span style="padding-left:3px;" t-esc="o.currency_id.name"/>:
+                        <t t-if="docs.get_amount(o,val) == 'Continued'">
+                            Continued
+                        </t>
+                        <t t-if="docs.get_amount(o,val) != 'Continued'">
+<!--
+                         <span t-esc="docs.numtowords(o.amount_total)"/>
+-->
+                            <span t-esc="o.amount_to_text(o.amount_total, o.currency_id.name)"/> 
+                         </t>
+                         </td>
+                        <td style="text-align:right;padding:7px;font-weight:bold;border:1px solid black;"><span t-esc="docs.get_amount(o,val)"/></td>
+                        </tr>
+                        </table>
+   <table width="100%" style="float:left;font-family:courier-new;font-size: 12px;">
+    <tr>
+    <td width="100%" colspan="2"><p style="font-size:10px;font-family:courier-new;padding-top:5px;">
+<!--
+        <b>Goods once sold will not be taken back or exchanged</b>
+-->
+        </p></td>
+    </tr>
+      <tr>
+      <td width="50%">
+      <div class="row-left">
+    <strong style="margin-bottom:10px;">
+    <p style="font-size:16px;font-family:courier-new;">Bank Details:<br/>
+    <span style="font-size:16px;font-family:courier-new;" t-esc="o.res_bank_id.bank_name"/><br/>
+     A/C No: <span style="font-size:16px;font-family:courier-new;" t-esc="o.res_bank_id.acc_number"/><br/>
+    IBAN No:<span style="font-size:16px;font-family:courier-new;" t-esc="o.res_bank_id.bank_bic"/><br/>
+    SWIFT CODE:<span style="font-size:16px;font-family:courier-new;" t-esc="o.res_bank_id.swift_code"/><br/>
+    <span style="font-size:16px;font-family:courier-new;" t-esc="o.res_bank_id.street"/><br/>
+    <span style="font-size:16px;font-family:courier-new;" t-esc="o.res_bank_id.city"/><br/>
+    </p>
+    </strong>
+    </div>
+      </td>
+      <td width="50%">
+      <div class="row-left">
+    <strong style="margin-bottom:10px;">
+    <p style="font-size:12px;font-family:courier-new;"> </p>
+    <p style="font-size:12px;font-family:courier-new;"></p>
+    <br/>
+    <p style="font-size:12px;font-family:courier-new;"></p>
+    <p></p>
+    </strong>
+    </div>
+      </td>
+      </tr>
+      <tr>
+      <td width="50%"><p style="font-weight:bold;font-size:12px;font-family:courier-new;">Receiver's Sign<![CDATA[&nbsp;]]><![CDATA[&nbsp;]]> ______________________<![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><img src="/fnet_mline_reportz/static/src/img/reciver.png" style="float:center;"/></p></td>
+      <td style="text-align:left;width:50%;">
+       
+        <p style="font-size:12px;font-family:courier-new;"></p>
+        
+        <p style="text-align:right;font-size:14px;font-family:courier-new;"><strong>For Multiline Employees Provision Services</strong></p>
+    </td>
+  </tr>                   
+      </table>
+                        </div>
+                        
+</div>
+                                             
+
+</div>
+<!--
+<div class="footer">
+     Page:<span class="page"/><span>/</span><span class="topage"/>
+</div>   
+-->
+        </t>
+        
+         </t>
+    </t>
+</template>
+</data>
+</openerp>

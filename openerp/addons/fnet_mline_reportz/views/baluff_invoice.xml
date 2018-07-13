@@ -1,0 +1,102 @@
+<openerp>
+    <data>
+		<report
+            id="buluff_invoice_report"
+            model="account.invoice"
+            string="Balluff Invoice"
+            report_type="qweb-pdf"
+            name="fnet_mline_reportz.baluff_invoice" 
+            file="fnet_mline_reportz.baluff_invoice"
+            menu="True"/>
+            
+            
+        <template id="baluff_invoice">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="fnet_mline_reportz.header_wizards_buluff"/>
+				
+                <div class="page">
+				  <style type="text/css">
+                     					tr {page-break-inside: avoid;}
+					.table { border: 1px solid black; }
+					.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { border: 1px solid black; }
+					 
+                   </style>
+                   <h3 style="text-align:center;background-color:#568eff;border: 1px solid #568eff;color:#ffffff;text-align:center;border-radius:5px"><center><strong>BALLUFF INVOICE</strong></center></h3>
+                   <br/>
+                   <table class="table table-bordered">
+                        <tr>
+                            <td colspan="4">
+                                <div t-field="o.partner_id"
+                                    t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}'/>
+                            </td>
+                        </tr>
+                        <tr>
+							<!--<td><strong>L.P.O:-</strong><span t-field="o.lp_no"/></td>-->
+							<td><strong>Date:-</strong><span t-field="o.date_invoice"/></td>
+							<td><strong>Number:-</strong><span t-field="o.number"/></td>
+							<!--<td><strong>Delivery note:-</strong><span t-esc="get_dc_number()"/></td>-->
+						</tr>
+                    </table>
+                    <br/>
+                    <table class="table table-bordered">
+                        <thead style="border-bottom: 1px solid black !important;background-color:#ccc;border: 1px solid black;color:black;">
+						 <tr style="border: 1px solid black;">
+                                <th class="text-center">S.No</th>
+                                <th class="text-center">Description</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Unit Price</th>
+                                <th class="text-center">Total</th>
+                            </tr>
+                        </thead>
+                        <thead>
+							<t t-set="counter" t-value="1"/>
+                            <tr t-foreach="o.invoice_line" t-as="p">
+								<td class="text-center">
+									<span t-esc="counter"/>
+									<t t-set="counter" t-value="counter+1"/>
+								</td>
+                                <td class="text-left"><span t-field="p.name"/></td>
+                                <td class="text-right"><span t-field="p.quantity"/></td>
+                                <td class="text-right"><span t-field="p.price_unit"/></td>
+                                <td class="text-right"><span t-field="p.price_subtotal"/></td>
+                            </tr>
+                        </thead>
+                        <tfoot>
+							<th colspan="2" class="text-right">Grand Total</th>
+							<td colspan="3" class="text-right"><strong><span t-field="o.amount_total"/></strong></td>
+                        </tfoot>
+                    </table>
+                    <br/>
+                    <table class="table table-condensed table-bordered">
+                       <tr t-foreach="o.company_id.bank_ids" t-as="p">
+						   <td colspan="3">
+							    <div><strong>Bank Details:</strong></div>
+                                <div><span t-field="p.bank.name"/></div>
+                                <div><strong>A/C No:-</strong><span t-field="p.acc_number"/></div>
+                                <div><strong>Branch:-</strong><span t-field="p.city"/></div>
+                            </td>
+						</tr>
+                    </table>
+                    <br/>
+                    <table width="100%" style="border: none">
+					<tr>
+						<th width="15%" style="background-color:#568eff;border-radius:5px;color:#ffffff"> Receiver's Sign </th>
+						<th width="30%" style="border: none"></th>
+						<th width="25%" style="border: none" ></th>
+						<th width="15%" style="border: none" ></th>
+						<th width="15%" style="border: none"></th>
+					</tr>
+					</table>  
+                    
+                    <br/>
+                    <h5 class="text-right"><strong><span t-field="o.company_id.name"/></strong></h5>
+                </div>
+            <t t-call="fnet_mline_reportz.footer_wizards"/>
+        </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

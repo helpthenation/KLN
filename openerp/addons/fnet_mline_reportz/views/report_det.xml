@@ -1,0 +1,140 @@
+<openerp>
+    <data>
+		<report 
+            id="action_report_forms"
+            model="stock.picking"
+            string="Delivery Note"
+            report_type="qweb-pdf"
+            file="fnet_mline_reportz.del_note"
+            name="fnet_mline_reportz.del_note"
+        />
+        
+        <record id="action_report_forms" model="ir.actions.report.xml">
+        	<field name="paperformat_id" ref="fnet_mline_reportz.paperformat_grn"/>
+    	</record>
+    	
+			<template id ="del_note">
+					<t t-foreach="doc_ids" t-as="o"> 
+	<style type="text/css"> 
+					tr {page-break-inside: avoid;}
+					.table { border: 0px solid black; padding:10px;}
+					.table thead > tr > th, .table > tbody > tr > td { border: 0px solid black;padding:10px;}
+
+					#child {width: 100%;height: 270px;padding:0px;margin:0px;}          
+
+					#child tbody > tr > td { border-bottom: 0px solid black;border-right: 0px solid black;padding-left:10px; }
+
+					#child tbody > tr > td:last-child { border-bottom: 0px solid black;border-right: none;padding-left:10px; }
+					#parent { border: 0px solid black}
+					#line{border-bottom-style:solid; 
+					border-color:black; width:300px;margin-left:105px;}
+					 pre {
+					display: flex;
+					white-space:pre-line;
+					word-break: break-word;
+					border:0px;
+					margin:0px;
+					padding:0px;
+					background-color:white;
+					color:black;
+					}
+	 </style> 	
+	 <t t-foreach="docs.move_line(o)" t-as="val">  					
+			<div class="header">
+			<h3 style="text-align:center;"><right><strong>Delivery Note</strong></right></h3>
+			<br/>
+			<table width = "100%">
+				<tr>
+					<td width="45%">
+						<form><fieldset style="border:1px solid black; border-radius:10px; padding:10px;">
+							<table>
+								<tr>
+									<td><br><b><t t-esc="o.partner_id.name"/></b></br>
+												<br><t t-esc="o.partner_id.street"/></br>
+												<br><t t-esc="o.partner_id.city"/></br>
+												<br><t t-esc="o.partner_id.phone"/></br>
+									</td>
+								</tr>
+							</table>
+						</fieldset></form>
+					</td>
+					<td width="10%"><table border="0px" ><tr> </tr></table></td>
+						<td width="45%">
+							<form><fieldset style="border:1px solid black; border-radius:10px; padding:10px;">
+								<table>
+									<tr>
+										<td><span style="left-padding:10px;"><b>No:</b><![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]><b><t t-esc="o.name"/></b></span><br/>
+											<span style="left-padding:10px;"><b>Date: <![CDATA[&nbsp;]]></b><span t-field="o.date" t-field-options='{"format": "d-MM-y"}'/></span><br/>
+											<span style="left-padding:10px;"><b>L.P.O:<![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]></b><span t-esc="o.lpo_no"/></span><br/>
+											<span style="left-padding:10px;"></span><br/>
+										</td> 
+								   </tr>
+								</table>
+							</fieldset></form>
+						</td>
+					</tr>
+				</table>
+         </div>						
+		<div class="page">					
+					<div  style="padding:0px;width:100%;float:left;margin-top:200px;height:400px;border:0px solid black;display: table;">
+                    <table cellpadding="0" cellspacing="0" width="100%" style="border:1px solid black;height:380px;vertical-align:top;">
+						<thead>
+							<tr>
+							   <th style="text-align:left;border:1px solid black;padding:5px;" width= "5%"><b>S.No</b></th>							   
+							   <th style="text-align:center;border:1px solid black;padding:5px;" width= "80%"><b>Description</b></th>
+							   <th style="text-align:right;border:1px solid black;padding:5px;" width= "7%"><b>Quantity</b></th>
+							   <th style="text-align:right;border:1px solid black;padding:5px;" width= "8%"><b>UOM</b></th>
+							</tr>
+						</thead>
+							<tbody style="padding:0px;width:100%;height:100%" >
+							<t t-set="counter" t-value="1"/>
+							<tr t-foreach="docs.get_move_line(o,val)" t-as="line">
+								<td width= "5%" style="text-align:left;border-left:1px solid black;padding:5px;vertical-align:top !important;">
+                                <t t-raw="line['sno']"/>
+								</td>
+								<td  width= "80%" style="text-align:left;border-left:1px solid black;padding:5px;vertical-align:top !important;"> 
+								<pre><t t-raw="line['desc']"/></pre>
+								</td>
+								<td width= "7%" style = "text-align:right;border-left:1px solid black;padding:5px;vertical-align:top !important;"> <t t-raw="line['qty']"/></td>
+								<td width= "8%" style = "text-align:right;border-left:1px solid black;border-right:1px solid black;padding:5px;vertical-align:top !important;"> <t t-raw="line['uom']"/></td>
+							</tr>
+							<tr>
+                                                <td height="100%" style="border-left:1px solid black;" width="5%"></td>
+                                                <td height="100%" style="border-left:1px solid black;"  width="80%"></td>
+                                                <td height="100%" style="border-left:1px solid black;;" width="7%"></td>
+                                                <td height="100%" style="border-left:1px solid black;border-right:1px solid black;" width="8%"></td>
+                            </tr>                
+							</tbody>							
+						</table>
+						</div>
+	   </div>
+	   <div class="footer">
+		   		<table style="width:100%;">
+			<tr>
+				<td style="width:50%; text-align:left;">The above goods recieved in good condition</td>
+				<td style="width:50%;  text-align:right;"><b>For Multiline Technical Company W.L.</b></td>
+			</tr>
+			<tr>
+				<td><br/><br/><br/><br/><br/></td>
+			</tr>
+			</table>
+			<table>
+				<tr>
+				<td style="width:100px;"><b>Recieved by</b></td>
+				<td style="border-bottom:1px solid black;width:180px;margin-left:105px;text-align:left;"></td>
+				<td style="width:300px;text-align;right;"><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+					<![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+					<![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+					<![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+					<![CDATA[&nbsp;]]><b>Issued by</b></td>
+				<td style="border-bottom:1px solid black; width:180px;margin-left:105px;text-align:left;"></td>				
+				</tr>
+				</table>
+			
+	   </div>
+				</t></t>
+		</template>
+	</data>
+</openerp>
+			
+			

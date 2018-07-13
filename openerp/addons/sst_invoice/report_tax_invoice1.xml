@@ -1,0 +1,212 @@
+<openerp>
+    <data>
+		<report 
+            id="action_sale_order"
+            model="sale.order"
+            string="Rate Quotation"
+            report_type="qweb-pdf"
+            file="sst_invoice.rate_quotationsss"
+            name="sst_invoice.rate_quotationsss"/>
+            
+       <record id="paperformat_margin1" model="report.paperformat">
+			<field name="name">European A4 low margin</field>
+			<field name="default" eval="True" />
+			<field name="format">A4</field>
+			<field name="page_height">0</field>
+			<field name="page_width">0</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">20</field>
+			<field name="margin_bottom">20</field>
+			<field name="margin_left">15</field>
+			<field name="margin_right">15</field>
+			<field name="header_line" eval="False" />
+			<field name="header_spacing">20</field>
+			<field name="dpi">90</field>
+		</record>
+
+<record id="sst_invoice.action_sale_order" model="ir.actions.report.xml">
+    <field name="orientation">Portrait</field>
+    <field name="paperformat_id" ref="sst_invoice.paperformat_margin1" />
+</record>
+			<template id="rate_quotationsss">
+				<t t-call="report.html_container">
+				<t t-foreach="docs" t-as="doc_id"> 
+				<t t-call="sst_invoice.header_company"/>
+					<div class="page">
+								<style>
+									tr {page-break-inside: avoid;}
+									.table { border: 1px solid black; padding:1px;}
+									.table thead > tr > th, .table > tbody > tr > td { border: 1px solid black;padding:0px;}
+									#child {width: 100%;height: 200px;padding:0px;margin:0px;}          
+									#child tbody > tr > td { border-bottom: 1px solid black;border-right: 1px solid black;padding-left:10px; }
+									#child tbody > tr > td:last-child { border-bottom: 1px solid black;border-right: none;padding-left:10px; }
+									.table thead > tr > th {border-bottom: 0px solid black;}
+									.tabs {line-height: 180%;}
+.horizontal_dotted_line{
+  border-bottom: 1px dotted [color];
+  width: 100px;
+}
+
+
+								</style>
+									
+										<table width="100%">
+												<tr>
+											
+													<th width="25%" style="border: none" ></th>
+													
+													<th width="50%" style="text-align:center">
+														<form>
+											<fieldset style="border-radius:6px;border: 2px solid black">
+														 <h2><b>QUOTATION </b></h2>
+													</fieldset>
+										</form>
+									</th>
+													<th width="25%" style="border: none"></th>		
+												</tr>
+												</table>
+											
+									<br/><br/>
+									<table width="100%" class="text-align:center"> 
+										<tr class="text-align:center">
+											<td width="60%" class="text-align:center">
+												<h4><b><t t-esc="doc_id.company_id.name"/></b></h4>
+											</td>
+											<td width="10%"></td>
+										    <td class="tabs" height="10px" width="10%" style="border-top:1px solid black;border-left:1px solid black;border-right:1px solid black;padding-left:8px;">
+															<b>No:</b><span style="padding:3px"  t-esc="doc_id.name"/><br/><br/></td>
+											</tr>
+											
+											
+													<tr>
+														<td width="60%">
+									<span  t-field="doc_id.company_id.name"/>
+										<div><span t-if="doc_id.company_id.street"  t-esc="doc_id.company_id.street"/></div>
+										<div><span t-if="doc_id.company_id.street2"  t-esc="doc_id.company_id.street2"/></div>
+										<div><span t-if="doc_id.company_id.city"  t-esc="doc_id.company_id.city"/></div>
+                                		<div><span t-if="doc_id.company_id.state_id.name" t-esc="doc_id.company_id.state_id.name"/></div>
+										<div><span t-if="doc_id.company_id.country_id.name"  t-esc="doc_id.company_id.country_id.name"/></div>
+										<div><span t-if="doc_id.company_id.phone"  t-esc="doc_id.company_id.phone"/></div>               
+										<div><span t-if="doc_id.company_id.fax" t-esc="doc_id.company_id.fax"/></div>
+															</td>
+															<td class="tabs" width="1%"></td>
+														<td width="20%" height="10px" style="border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;padding-left:8px;">
+														<b>Date:</b><span style="padding:3px" t-field="doc_id.date_order" t-field-options='{"format": "dd-MM-y"}'/><br/>
+														</td>
+													</tr>
+													<tr><td><br/></td></tr>
+													
+													<tr>
+														<td colspan='3' style="border-bottom: 2px dotted black">
+															<b>To.M/s:</b>
+																<b><t t-esc="doc_id.partner_id.name"/></b><br/>
+															</td>
+														</tr>
+													<tr>
+														<td colspan='3' style="border-bottom: 2px dotted black">
+															
+																<b><t t-esc="doc_id.partner_id.city"/></b><br/>
+															</td>
+													</tr>
+													<tr><td><br/></td></tr>
+																
+																<table style="border:1px solid black;page-break-before:avoid;height:450px" width="100%">
+																	<thead>
+																		<tr>
+																		   <th  width="3%" style="text-align:center;border-right:1px solid black;border-bottom:1px solid black;"><b>S.No</b></th>
+																		   <th  width="60%" style="text-align:center;border-right:1px solid black;border-bottom:1px solid black;"><b>Particulars</b></th>
+																		   <th width="12%" style="text-align:center;border-right:1px solid black;border-bottom:1px solid black;"><b>Quantity</b></th>
+																		   <th width="13%" style="text-align:center;border-right:1px solid black;border-bottom:1px solid black;"><b> Rate</b></th>
+																		   <th width="17%" style="text-align:center;border-right:1px solid black;border-bottom:1px solid black;"><b>Amount</b></th>    
+																		</tr>
+																	</thead><br/>
+																	<tbody>
+																	<t t-set="counter" t-value="1"/>
+																	<t t-foreach="doc_id.order_line" t-as="doc">
+																		<tr>
+																			<td style="text-align:center;width:1% !important;border-bottom:0px;border-right:1px solid black;border-left:1px solid black;">
+																				<t t-esc="counter"/><t t-set="counter" t-value="counter+1"/> </td>
+																									<td style="border-bottom:0px;border-right:1px solid black">
+																																	<br/>
+																											
+															<span style="padding:10px" t-field="doc.product_id.image_medium" t-field-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;img-rounded&quot;}"/>
+															<div style="padding:10px" ><t t-esc="doc.name"/></div>
+
+																						</td>
+																					<td style = "text-align:center;width:5% !important;border-bottom:0px;border-right:1px solid black"> <br t-esc="int(doc.product_uom_qty)"/></td>
+																					<td style = "text-align:right;width:5% !important;border-right:1px solid black"> <br t-esc="'{0:,.4f}'.format(doc.price_unit)"/> </td>
+																					<td style = "text-align:right;width:7% !important;border-bottom:0px;border-right:1px solid black"> <br t-esc="'{0:,.2f}'.format(doc.price_subtotal)"/> </td>
+																		</tr>
+																	</t>
+																	<tr>
+																		<td colspan='1' style="border-top:1px solid black"></td>
+																		<td style="border-top:1px solid black"> <b>TAX AMOUNT</b></td>
+																		<td style="border-top:1px solid black"></td>
+																		<td style="border-top:1px solid black"></td>
+																		<td style = "text-align:right;border-top:1px solid black;border-right:1px solid black"> <t t-esc="'{0:,.2f}'.format(doc_id.amount_tax)"/></td>
+																	</tr>
+																	<tr>
+																		<td colspan='1' style="border-top:1px solid black"></td>
+																		<td style="border-top:1px solid black"> <b>TOTAL AMOUNT</b></td>
+																		<td style="border-top:1px solid black"></td>
+																		<td style="border-top:1px solid black"></td>
+																		<td style = "text-align:right;border-top:1px solid black;border-right:1px solid black"> <t t-esc="'{0:,.2f}'.format(doc_id.amount_total)"/></td>
+																	</tr>		
+																	</tbody>
+																	<tfoot>
+																		<tr><td colspan='6' style="border-top:0px solid black"></td></tr>
+																		</tfoot>
+												</table>
+												
+													<tr><td><br/></td></tr>
+													<tr style="page-break-inside:avoid;">	
+										<td>
+								<table class="tab" width="100%" style="page-break-inside:avoid;">
+								   <tr>
+									  <td class="tab" width="15%">
+										<b>Payment Terms </b>
+									  </td>
+									  <td width="1%" class="tab">: <![CDATA[&nbsp;]]></td> 
+										<td class="tab"  style="padding:3px" width="30%"> <t t-esc="doc_id.payment_term.name"/> </td>
+								  </tr>
+								
+								  <tr>
+									  <td class="tab" width="25%">
+										<b>Delivery Schedule </b>   
+									  </td>
+									  <td class="tab" width="1%">: <![CDATA[&nbsp;]]></td> 
+							          <td class="tab" width="23%" style="padding:3px">
+								<t t-esc="doc_id.delivery_terms"/> 
+								
+									  </td>
+									  
+									  
+							<td colspan='2' width="45%" style="text-align:right">For <![CDATA[&nbsp;]]><span style="font-size:20px;font-weight:bold;" t-esc="doc_id.company_id.name"/></td>
+
+								  </tr>
+								<tr colspan='3' width="100%"><td><br/><br/></td></tr>
+								<tr>
+								<td colspan='3' width="100%">
+									Custromer Signature
+									</td>
+								</tr>
+								 </table>
+								 </td> </tr>
+					
+							
+								 
+									 
+								
+									</table>
+									
+							
+						</div>  
+				<t t-call="sst_invoice.footer_company"/>
+					</t>
+				</t>
+			</template>
+	</data>
+</openerp>
+
+
+

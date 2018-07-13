@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	
+<template id="report_technical_quote">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            
+                <div class="page">
+				  <style type="text/css">
+                     .table_sale, th, td {
+                       border: 1px solid black;
+                     }
+                     .table_sale {
+                       width: 100%;
+                     }
+                     .oblique {
+                       font-style: oblique;
+                       }
+
+                   </style>
+                   <div align="right">
+                   <h3><right><strong>TECHNICAL QUOTATION</strong></right></h3>
+                   <h5><right>Quotation Ref: <span t-field="o.name"/></right></h5>
+                   </div>
+                   <br/>
+                   <h5><left>Date: <span t-field="o.date_order" t-field-options='{"format": "dd.M.Y"}'/></left></h5>
+                   <h5><left>Customer Ref: <span t-field="o.origin"/></left></h5>
+                   
+                   <br/>
+                   <div t-if="o.partner_id">
+                       <div t-field="o.partner_id" 
+                            t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}'/>
+                       <p t-if="o.partner_id.vat">VAT: <span t-field="o.partner_id.vat"/></p>
+                   </div>
+                   <br/> 
+                   <h5><left>Attn: <span t-field="o.title_id.name"></span>.<span t-field="o.contact_name"></span></left></h5>  
+                   <h5><left><span t-field="o.function"></span></left></h5>
+                   <br/> 
+                   <span t-field="o.subject"/>
+                   <br/>
+                   <h5><left>Dear Sir/Madam</left></h5>
+                   
+                   <p>We thank you very much for your Enquiry and take pleasure in submitting our most competitive offer for supply of manpower as details below :-</p>                  
+                   
+                   <table border="1" class="table table_sale">
+					  <thead>
+						 <tr>
+							<th width="4%">S.No</th>
+							<th width="20%">Resource</th>
+							<th width="61%">Discription</th>
+							<th width="5%">Quantity</th>
+						 </tr>
+					  </thead>
+					  <tbody>
+						  <t t-set="counter" t-value="1"/>
+                          <tr t-foreach="o.sale_enq_line" t-as="l">
+                            <td class="text-center">
+								<span t-esc="counter"/>
+								<t t-set="counter" t-value="counter+1"/>
+							</td>
+                            <td>
+                               <span t-field="l.product_id.name"/>
+                            </td>
+                            <td class="text-left">
+                               <span t-field="l.description"/>
+                            </td>
+                            <td class="text-right">
+                               <span t-field="l.quantity"/>
+                            </td>
+                           </tr>
+                       </tbody>
+				  </table>
+				  <span t-field="o.remark"/>
+				  <h5><left>Thanking You</left></h5>
+				  <h4><left>For,</left><strong>Multiline Employees Provision Services.</strong></h4>
+				  <br/>
+				  <br/>
+				  <h4><left>Authorized Signatory</left></h4>
+				  
+				  
+				  
+                </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

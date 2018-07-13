@@ -1,0 +1,17 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_hr_loan_employee","hr_loan.employee","model_hr_loan","base.group_user",1,1,1,0
+"access_hr_loan_officer","hr_loan.officer","model_hr_loan","base.group_hr_user",1,1,1,0
+"access_hr_loan_manager","hr_loan.manager","model_hr_loan","base.group_hr_manager",1,1,1,0
+"access_hr_loan_account_manager","hr_loan.account_manager","model_hr_loan","account.group_account_manager",1,1,1,1
+"access_hr_loan_line_employee","hr_loan_line.employee","model_hr_loan_line","base.group_user",1,0,0,0
+"access_hr_loan_line_officer","hr_loan_line.officer","model_hr_loan_line","base.group_hr_user",1,1,1,0
+"access_hr_loan_line_manager","hr_loan_line.manager","model_hr_loan_line","base.group_hr_manager",1,1,1,0
+"access_hr_loan_line_account_manager","hr_loan_line.account_manager","model_hr_loan_line","account.group_account_manager",1,1,1,1
+"access_loans_payments_employee","loans_payments.employee","model_loan_payments","base.group_user",1,0,0,0
+"access_loans_payments_officer","loans_payments.officer","model_loan_payments","base.group_hr_user",1,0,0,0
+"access_loans_payments_manager","loans_payments.manager","model_loan_payments","base.group_hr_manager",1,0,0,0
+"access_loans_payments_account_manager","loans_payments.account_manager","model_loan_payments","account.group_account_manager",1,1,1,1
+"access_hr_contract_employee","hr_contract.employee","model_hr_contract","base.group_user",1,1,1,0
+"access_hr_contract_acc_manager","hr_contract.account.manager","model_hr_contract","account.group_account_manager",1,1,1,0
+"access_hr_employee_acc_manager","hr_employee.account.manager","model_hr_employee","account.group_account_manager",1,1,1,1
+"access_hr_employee_hr_manager","hr_employee.hr.manager","model_hr_employee","base.group_hr_manager",1,1,1,1

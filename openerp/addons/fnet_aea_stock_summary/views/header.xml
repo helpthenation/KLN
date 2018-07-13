@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+     <!--Paper Format -->
+    
+<record id="paperformat_wizard" model="report.paperformat">
+    <field name="name">Indian A4 low margin</field>
+    <field name="default" eval="True" />
+    <field name="format">custom</field>
+    <field name="page_height">305</field>
+    <field name="page_width">255</field>
+    <field name="orientation">Portrait</field>
+    <field name="margin_top">10</field>
+    <field name="margin_bottom">5</field>
+    <field name="margin_left">13</field>
+    <field name="margin_right">13</field>
+    <field name="header_line" eval="False" />
+    <field name="header_spacing">5</field>
+    <field name="dpi">80</field>
+</record>
+
+    <template id="header_wizards">
+		<div class="header">
+        <t t-if ="o and 'company_id' in o" >
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+         <table style="width:100%;font-size:13px;" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="33%" style="text-align:center">ASSOCIATED ELECTRICAL AGENGIES - <span t-field='company.state_id.name'/></td>
+            </tr>
+         </table>
+         </div>
+    </template>
+
+
+</data>
+</openerp>

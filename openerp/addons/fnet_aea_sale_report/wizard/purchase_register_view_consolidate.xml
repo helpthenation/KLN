@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_purchase_register_consolidate_form" model="ir.ui.view">
+            <field name="name">view.purchase.register.consolidate.form</field>
+            <field name="model">purchase.register.consolidate</field>
+            <field name="arch" type="xml">
+            <form string="Purchase Register Consolidate">
+                <p class="oe_grey">
+                        Define Purchase Register Consolidate
+                    </p>
+                <notebook>
+                    <page string="Dates">
+                        <group>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                        </group>
+                    </page>
+                    <page string="Customer">
+                        <field name="partner_ids" domain="[('customer', '=', True)]"/>
+                    </page>
+                    <page string="Company">
+                        <field name="company_ids"/>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="wiz_print_report" string="Print" type="object" class="oe_highlight"/> or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_purchase_register_consolidate" model="ir.actions.act_window">
+            <field name="name">Purchase Register Consolidate</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.register.consolidate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+            
+        <menuitem
+            name="Purchase Register Consolidate"
+            parent="menu_purchase_register"
+            action="action_purchase_register_consolidate"
+            id="menu_purchase_register_consolidate"
+            sequence="1"
+            icon="STOCK_PRINT"/>
+            
+       
+
+    </data>
+</openerp>

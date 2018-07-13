@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+				
+			 <report
+				id="stock_summary_wiz"
+				model="stock.summary.apex"
+				string="Consolidated Stock Summary"
+				report_type="qweb-pdf"
+				name="fnet_apex_stock_summary.report_stock_ledger2" 
+				file="fnet_apex_stock_summary.report_stock_ledger2"
+				menu="True"/>				
+						
+				
+           
+    </data>
+</openerp>

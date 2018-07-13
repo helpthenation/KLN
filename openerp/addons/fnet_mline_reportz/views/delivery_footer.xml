@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <template id="delivery_footer">
+		 <div class="footer">
+		<t t-if ="o and 'company_id' in o" >
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+			<style type="text/css"> 
+					tr {page-break-inside: avoid;}
+					.table { border: 0px solid black; padding:10px;}
+					.table thead > tr > th, .table > tbody > tr > td { border: 0px solid black;padding:10px;}
+
+					#child {width: 100%;height: 270px;padding:0px;margin:0px;}          
+
+					#child tbody > tr > td { border-bottom: 0px solid black;border-right: 0px solid black;padding-left:10px; }
+
+					#child tbody > tr > td:last-child { border-bottom: 0px solid black;border-right: none;padding-left:10px; }
+					#parent { border: 0px solid black}
+					#line{border-bottom-style:solid; 
+					border-color:black; width:300px;margin-left:105px;}
+			</style> 
+			<table width = "100%" >
+					<tr>
+						<td width="40%">
+							<table>
+								<tr>
+									<td><span> The above goods recieved in good condition</span><br/>
+										<br/>	<br/> <br/> <br/>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td  width="10%"><table border="0px" ><tr> </tr></table></td>
+						<td width="50%" >
+							<table width="100%">
+								<tr>
+									<td style="text-align:right;"><h5><b>For Muliline Technical Company W.L.I</b></h5>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<br/>
+				<table width = "100%">
+					<tr>
+						<td  width="60%">
+							<table width = "100%" >
+							<tr>
+							<td width = "23%">
+								Received By:
+							</td>
+							<td width = "35%" id="line">
+							</td>
+							<td width="42%"></td>
+						</tr>
+				</table>
+			</td>
+					
+			<td width="40%">
+				<table width = "100%">
+					<tr>
+						<td width="25%">Issued By:</td>
+							<td width = "35%" id="line">
+							</td>
+							<td width="40%"></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+			
+    </div>  
+    </template>
+    
+    
+
+
+</data>
+</openerp>

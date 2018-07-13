@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--   Rule Category -->
+        <record id="DETUCTIONS" model="hr.salary.rule.category">
+            <field name="name">Detuctions</field>
+            <field name="code">DETUCTIONS</field>
+        </record>           
+        <!-- Contribution Register -->
+
+        <record id="hr_employee_provident_register" model="hr.contribution.register">
+            <field name="name">Employee Provident Fund</field>
+        </record>
+        <record id="hr_employeers_provident_register" model="hr.contribution.register">
+            <field name="name">Employer Provident Fund</field>
+        </record>
+        <record id="hr_employeers_family_pension_register" model="hr.contribution.register">
+            <field name="name">Employer Family Pension Fund</field>
+        </record>
+        
+        <!-- Hr Salary Rules for allowance-->
+        <record id="hr_rule_ho_basics" model="hr.salary.rule">
+            <field name="name">HO BASIC</field>
+            <field name="sequence" eval="10"/>
+            <field name="code">BASICS</field>
+            <field name="category_id" ref="hr_payroll.BASIC"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result=round((contract.wage*0.6)-(((contract.wage*0.6)/payslip.no_of_days)*payslip.lop))</field>
+        </record>       
+        <record id="hr_rule_basics" model="hr.salary.rule">
+            <field name="name">BASIC</field>
+            <field name="sequence" eval="10"/>
+            <field name="code">BASICS</field>
+            <field name="category_id" ref="hr_payroll.BASIC"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result=round((contract.wage*0.5)-(((contract.wage*0.5)/payslip.no_of_days)*payslip.lop))</field>
+        </record>
+        <record id="hr_salary_rule_houserentallowance_nonmetro" model="hr.salary.rule">
+            <field name="code">HRA</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = round(BASICS *0.4)</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="name">House Rent Allowance For Non Metro Cities</field>
+            <field name="sequence" eval="20"/>
+            <field name="note">HRA is an allowance given by the employer to the employee for taking care of his rental or accommodation expenses.</field>
+        </record>        
+        
+        <record id="hr_salary_rule_houserentallowance_metro" model="hr.salary.rule">
+            <field name="code">HRA</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = round(BASICS *0.5)</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="name">House Rent Allowance For Metro Cities</field>
+            <field name="sequence" eval="20"/>
+            <field name="note">HRA is an allowance given by the employer to the employee for taking care of his rental or accommodation expenses.</field>
+        </record>
+        <record id="hr_rule_spl_allowance" model="hr.salary.rule">
+            <field name="name">Special Allowance</field>
+            <field name="sequence" eval="30"/>
+            <field name="code">SPA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result=(BASICS - HRA)</field>
+        </record>        
+        <record id="hr_rule_employee_CA" model="hr.salary.rule">
+            <field name="name">Conveyance Allowance</field>
+            <field name="sequence" eval="40"/>
+            <field name="code">CA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = round(contract.conveyance)
+</field>
+        </record>         
+        <record id="hr_rule_employee_LA" model="hr.salary.rule">
+            <field name="name">Leave Allowance</field>
+            <field name="sequence" eval="42"/>
+            <field name="code">LA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = round(contract.leave_allowance)
+</field>
+        </record>  
+        <record id="hr_rule_employee_MA" model="hr.salary.rule">
+            <field name="name">Medical Allowance</field>
+            <field name="sequence" eval="44"/>
+            <field name="code">MA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = round(contract.medical_allowance)</field>
+        </record>         
+        <record id="hr_rule_employee_esi" model="hr.salary.rule">
+            <field name="name">Employee ESI</field>
+            <field name="sequence" eval="185"/>
+            <field name="code">EESI</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if contract.is_esi:
+    result=-round((BASICS+categories.ALW-((contract.wage/payslip.no_of_days)*payslip.lop))*0.0175)
+else:
+    result=-0.0
+            </field>
+        </record>         
+        <record id="hr_rule_employeer_eresi" model="hr.salary.rule">
+            <field name="name">Employer's ESI</field>
+            <field name="sequence" eval="185"/>
+            <field name="code">ERESI</field>
+            <field name="category_id" ref="fnet_aea_hrm.DETUCTIONS"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if contract.is_esi:
+    result=-round((BASICS+categories.ALW-((contract.wage/payslip.no_of_days)*payslip.lop))*0.0475)
+else:
+    result=-0.0
+            </field>
+        </record>         
+        <record id="hr_rule_employee_pf" model="hr.salary.rule">
+            <field name="name">Employee PF</field>
+            <field name="sequence" eval="180"/>
+            <field name="code">EPF</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="register_id" ref="hr_employee_provident_register"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if (BASICS+SPA) >= 15000:
+    result=round(-(BASICS)*0.12)
+elif (BASICS+SPA) &lt; 15000:
+	result=-1800
+else:
+    if (BASICS*0.12) > 1800:
+        result=-1800
+    else:
+        result= round(-(BASICS)*0.12)
+            </field>
+        </record>         
+        <record id="hr_rule_833_employer_PF" model="hr.salary.rule">
+            <field name="name">Employer's 8.33% PF Contrib</field>
+            <field name="sequence" eval="182"/>
+            <field name="code">ERPF8</field>
+            <field name="category_id" ref="fnet_aea_hrm.DETUCTIONS"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="register_id" ref="hr_employeers_family_pension_register"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if (BASICS+SPA) >= 15000: 
+	if (BASICS*0.0833) >= 1250:             
+		result=-1250
+	elif (BASICS*0.0833) &lt; 1250:
+		result=-round(BASICS*0.0833)
+	else:
+		result=-0.0
+elif (BASICS+SPA) &lt; 15000:
+	result= -1250
+            </field>
+        </record>       
+        <record id="hr_rule_367_employer_PF" model="hr.salary.rule">
+            <field name="name">Employer's 3.67% PF Contrib</field>
+            <field name="sequence" eval="184"/>
+            <field name="code">ERPF3</field>
+            <field name="category_id" ref="fnet_aea_hrm.DETUCTIONS"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="register_id" ref="hr_employeers_provident_register"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if (BASICS+SPA) >= 15000:
+	if (BASICS*0.0833) >= 1250:  
+		result = -(round(((BASICS*0.0833) - 1250.00) + (BASICS*0.0367)))
+	else:
+		result = round(-(BASICS*0.0367))
+elif (BASICS+SPA) &lt; 15000:
+	result=-550
+            </field>
+        </record>     
+        <record id="hr_rule_employee_pt" model="hr.salary.rule">
+         <field name="name">Employee Professional Tax</field>
+         <field name="sequence" eval="702"/>
+         <field name="code">PT</field>
+         <field name="category_id" ref="hr_payroll.DED"/>
+         <field name="company_id" ref="base.main_company"/>
+         <field name="condition_select">none</field>
+         <field name="amount_select">code</field>
+         <field name="amount_python_compute">
+if payslip.company_id.location_code == 'TN':
+    if (categories.GROSS) &lt; 3500:
+        result=-0
+    elif((categories.GROSS)&gt; 3501 and ( categories.GROSS) &lt; 5000):
+        result=-17
+    elif((categories.GROSS)&gt; 5001 and ( categories.GROSS) &lt; 7500):
+        result=-39
+    elif((categories.GROSS)&gt; 7501 and ( categories.GROSS) &lt; 10000):
+        result=-85
+    elif((categories.GROSS)&gt; 10001 and ( categories.GROSS) &lt; 12500):
+        result=-127
+    else:
+        result=-183
+elif payslip.company_id.location_code == 'KL':
+    if (categories.GROSS) &lt; 2000:
+        result=-0
+    elif((categories.GROSS)&gt;= 2000 and ( categories.GROSS) &lt;= 2999):
+        result=-20
+    elif((categories.GROSS)&gt;= 3000 and ( categories.GROSS) &lt;= 4999):
+        result=-30
+    elif((categories.GROSS)&gt;= 5000 and ( categories.GROSS) &lt;= 7499):
+        result=-50
+    elif((categories.GROSS)&gt;= 7500 and ( categories.GROSS) &lt;= 9999):
+        result=-75
+    elif((categories.GROSS)&gt;= 10000 and ( categories.GROSS) &lt;= 12499):
+        result=-100
+    elif((categories.GROSS)&gt;= 12500 and ( categories.GROSS) &lt;= 16667):
+        result=-125
+    elif((categories.GROSS)&gt;= 16668 and ( categories.GROSS) &lt;= 20833):
+        result=-167
+    else:
+        result=-209
+elif payslip.company_id.location_code == 'KA':
+    if (categories.GROSS) &lt;= 15000:
+        result=-0
+    else:
+        result=-200
+elif ((payslip.company_id.location_code == 'AP') or (payslip.company_id.location_code == 'TL')):
+    if (categories.GROSS) &lt;= 15000:
+        result=-0
+    elif((categories.GROSS)&gt;15000 and ( categories.GROSS) &lt;= 20000):
+        result=-150 
+    else:
+        result=-200
+elif ((payslip.company_id.location_code == 'OB') or (payslip.company_id.location_code == 'OS')):
+    if (categories.GROSS) &lt;= 1500:
+        result=-0
+    elif((categories.GROSS)&gt; 1500 and ( categories.GROSS) &lt;= 2000):
+        result=-16
+    elif((categories.GROSS)&gt; 2000 and ( categories.GROSS) &lt;= 3000):
+        result=-25
+    elif((categories.GROSS)&gt; 3000 and ( categories.GROSS) &lt;= 4000):
+        result=-35
+    elif((categories.GROSS)&gt; 4000 and ( categories.GROSS) &lt;= 5000):
+        result=-45
+    elif((categories.GROSS)&gt; 5000 and ( categories.GROSS) &lt;= 6000):
+        result=-60
+    elif((categories.GROSS)&gt; 6000 and ( categories.GROSS) &lt;= 10000):
+        result=-80
+    elif((categories.GROSS)&gt; 10000 and ( categories.GROSS) &lt;= 15000):
+        result=-100
+    elif((categories.GROSS)&gt; 15000 and ( categories.GROSS) &lt;= 20000):
+        result=-150
+    else:
+        result=-200
+else:
+    result=-0.0
+                </field>
+         </record>  
+        <record id="hr_rule_lop" model="hr.salary.rule">
+            <field name="name">Loss Of Pay</field>
+            <field name="sequence" eval="188"/>
+            <field name="code">LOP</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result=-(contract.wage/payslip.no_of_days)*payslip.lop
+            </field>
+        </record>          
+        <record id="hr_rule_meals" model="hr.salary.rule">
+            <field name="name">Meals Deduction</field>
+            <field name="sequence" eval="200"/>
+            <field name="code">MD</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result=-250
+            </field>
+        </record>          
+        <record id="hr_rule_tax_deduction" model="hr.salary.rule">
+            <field name="name">INCOME TAX Deduction</field>
+            <field name="sequence" eval="202"/>
+            <field name="code">ITD</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result=-contract.tax_deuduction
+            </field>
+        </record>          
+        <record id="hr_rule_other_deduction1" model="hr.salary.rule">
+            <field name="name">Other Deduction-1</field>
+            <field name="sequence" eval="204"/>
+            <field name="code">OTRD1</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result=-contract.other_deduction_1
+            </field>
+        </record>          
+        <record id="hr_rule_other_deduction2" model="hr.salary.rule">
+            <field name="name">Other Deduction-2</field>
+            <field name="sequence" eval="206"/>
+            <field name="code">OTRD2</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result=-contract.other_deduction_2
+            </field>
+        </record>          
+        <record id="hr_rule_advance_deduction" model="hr.salary.rule">
+            <field name="name">Salary Advance Deduction</field>
+            <field name="sequence" eval="200"/>
+            <field name="code">ADV</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result=-contract.monthly_deduction
+            </field>
+        </record>  
+   </data>
+</openerp>        

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    <template id="report_enquiry_register">
+    <t t-call="report.html_container">
+        
+        <t t-foreach="docs" t-as="o">
+                
+                <div class="page">
+					<style type="text/css">
+						#table_chk{font-size:13px;border:1px solid silver;border-top:0px;font-family:Inconsolata}	
+						#table_chk tr td {padding:0px;margin:0px;display:inline-table}
+						#table_chk tr td table tr td {padding:5px;text-align:center}
+						#table_chk tr td table tr.header {border:1px solid silver;border-right:0px;border-left:0px}
+						#table_chk tr td table tr.header td {border-right:1px solid silver;font-weight:bold}
+						#table_chk tr td table tr.body {border:1px solid white;border-right:0px;border-left:0px}
+						#table_chk tr td table tr.body td {border-right:1px solid white;}
+					</style>
+					<table style="width:100%;font-size:13px;font-family:Inconsolata" cellpadding="0" cellspacing="0">
+						<tr>
+							<td width="66%" style="text-align:right">MULTILINE TECHNICAL CO</td>
+							<td width="66%" style="text-align:right">ENQUIRY REGISTER</td>
+							<td width="34%" style="text-align:right"><span style="padding-right:20px">from: <span t-esc="get_date(data)[0]['from_date'][0]"/>  to <span t-esc="get_date(data)[0]['to_date'][0]"/> </span> <span style="padding-right:20px">Run.dt:<span t-esc="get_date(data)[0]['now']"/> </span></td>
+						</tr>
+					</table><br/><br/>
+                    <table id="table_chk" style="width:100%;" cellpadding="0" cellspacing="0">
+						<tr>
+							<td> 
+								<table style="width:100%;" cellpadding="0" cellspacing="0">
+									<tr class="header">
+										<td width="4%">S.No</td>
+										<td width="9%">Enquiry Date</td>
+										<td width="12%">ENQ.No</td>
+										<td width="20%" colspan='3'>Subject</td>
+										<td width="20%" colspan='2' style="text-align:left">Customer</td>
+										<td width="20%">Customer Ref</td>
+										<td width="15%">Salesperson</td>
+										<td width="5%" >Closing Date</td>
+										<td width="5%">State</td>
+									</tr>
+									<tr class="header">
+										<td width="5%" colspan="2" style="text-align:right;padding-right:40px">S.No</td>
+										<td width="5%"  style="text-align:center">Advanced</td>
+										<td width="5%" style="text-align:center">Product Name</td>
+										<td width="65%" colspan="4">Description</td>
+										<td width="5%">Part No.</td>
+										<td width="5%">Make No.</td>
+										<td width="5%">Unit of Measure</td>
+										<td width="5%">Quantity</td>
+									</tr>
+								</table>
+							</td>
+						</tr>		
+						<tr>
+							<td>
+								<t t-set="counter2" t-value="1"/>
+								<table style="width:100%;" cellpadding="0" cellspacing="0" t-foreach="get_enquiry_details(data)" t-as="enquiry">
+									<tr class="body">
+										<td width="4%" style="text-align:center"><span t-esc="counter2"/>
+                                            <t t-set="counter2" t-value="counter2+1"/></td>
+										<td width="9%"><span t-esc="enquiry['date']"/></td>
+										<td width="12%"><span t-esc="enquiry['seq_no']"/></td>
+										<td width="20%" colspan='3'><span t-esc="enquiry['subject']"/></td>
+										<td width="20%" colspan='2' style="text-align:left"><span t-esc="enquiry['partner']"/></td>
+										<td width="20%"><span t-esc="enquiry['client_order_ref']"/></td>
+										<td width="15%"><span style="float:right;padding-right:5px"><span t-esc="enquiry['user']"/></span></td>
+										<td width="5%" ><span style="float:right;padding-right:5px"><span t-esc="enquiry['submission_date']"/></span></td>
+										<td width="5%" ><span style="float:right;padding-right:5px"><span t-esc="enquiry['state']"/></span></td>
+									</tr>
+									<t t-set="counter1" t-value="1"/>
+									<tr class="body" t-foreach="get_enquiry_details_line(data,enquiry['id'])" t-as="line">
+										<td width="5%" colspan="2" style="text-align:right;padding-right:40px"><span t-esc="counter1"/>
+                                            <t t-set="counter1" t-value="counter1+1"/></td>
+										<td width="5%" style="text-align:left"><span t-esc="line['advanced']"/></td>
+										<td width="5%" style="text-align:center"><span t-esc="line['product']"/></td>
+										<td width="65%" colspan="4"><span style="text-align:center;"><span t-esc="line['description']"/></span></td>
+										<td width="5%"><span style="float:right;padding-right:5px"><span t-esc="line['part_no']"/></span></td>
+										<td width="5%"><span style="float:right;padding-right:5px"><span t-esc="line['make_no']"/></span></td>
+										<td width="5%"><span style="float:right;padding-right:5px"><span t-esc="line['uom']"/></span></td>
+										<td width="5%"><span style="float:right;padding-right:5px"><span t-esc="line['quantity']"/></span></td>
+									</tr>
+								</table>
+							</td>			
+						</tr>
+                  </table>
+                </div>
+        </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

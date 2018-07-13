@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  
+<data noupdate="0">
+    <!-- Multi - Company Rules -->
+
+    
+    <record model="ir.rule" id="lorry_rd_scheme">
+        <field name="name">RD Scheme multi-company</field>
+        <field name="model_id" ref="model_rd_scheme"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+    
+    <record model="ir.rule" id="lorry_rd_scheme_line">
+        <field name="name">RD Scheme Line multi-company</field>
+        <field name="model_id" ref="model_rd_scheme_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+    
+<!--
+    <record model="ir.rule" id="sale_target">
+        <field name="name">Sale Target multi-company</field>
+        <field name="model_id" ref="model_sale_target"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+    <record model="ir.rule" id="sale_target_generate">
+        <field name="name">Sale Target Genarate multi-company</field>
+        <field name="model_id" ref="model_sale_target_generate"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record model="ir.rule" id="sale_target_line">
+        <field name="name">Sale Target Line multi-company</field>
+        <field name="model_id" ref="model_sale_target_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+-->
+<!--
+    <record model="ir.rule" id="sale_generate_line">
+        <field name="name">Sale Generate Line multi-company</field>
+        <field name="model_id" ref="model_sale_generate_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>    
+-->
+    <record model="ir.rule" id="sale_entry">
+        <field name="name">Sale Entry multi-company</field>
+        <field name="model_id" ref="model_sale_entry"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record model="ir.rule" id="sale_entry_line">
+        <field name="name">Sale Entry Line multi-company</field>
+        <field name="model_id" ref="model_sale_entry_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record model="ir.rule" id="sale_open_rule">
+        <field name="name">Sale Open multi-company</field>
+        <field name="model_id" ref="model_sale_open"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record model="ir.rule" id="sale_open_line_rule">
+        <field name="name">Sale Open Line multi-company</field>
+        <field name="model_id" ref="model_sale_open_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+<!--
+   <record model="ir.rule" id="daily_sale_rule">
+        <field name="name">Daily Sale multi-company</field>
+        <field name="model_id" ref="model_daily_flash"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+    
+   <record model="ir.rule" id="daily_sale_line_rule">
+        <field name="name">Daily Sale Line multi-company</field>
+        <field name="model_id" ref="model_daily_flash_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+    
+   <record model="ir.rule" id="target_details_rule">
+        <field name="name">Target Details multi-company</field>
+        <field name="model_id" ref="model_target_details"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+    
+   <record model="ir.rule" id="batterie_user_line_rule">
+        <field name="name">Batterie User Line multi-company</field>
+        <field name="model_id" ref="model_batterie_user_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+   <record model="ir.rule" id="total_flash_daily_rule">
+        <field name="name">Total Flash Daily multi-company</field>
+        <field name="model_id" ref="model_total_flash_daily"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+   <record model="ir.rule" id="total_flash_daily_line_rule">
+        <field name="name">Total Flash Daily Line multi-company</field>
+        <field name="model_id" ref="model_total_flash_daily_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+  
+    
+   <record model="ir.rule" id="daily_productivity_rule">
+        <field name="name">Daily Productivity multi-company</field>
+        <field name="model_id" ref="model_daily_productivity"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+   <record model="ir.rule" id="daily_productivity_line_rule">
+        <field name="name">Daily Prodctivity Line multi-company</field>
+        <field name="model_id" ref="model_daily_productivity_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+-->    
+   <record model="ir.rule" id="scheme_entry_rule">
+        <field name="name">Scheme Entry multi-company</field>
+        <field name="model_id" ref="model_scheme_entry"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+    
+   <record model="ir.rule" id="scheme_entry_line_rule">
+        <field name="name">Scheme Entry Line multi-company</field>
+        <field name="model_id" ref="model_scheme_entry_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+   <record model="ir.rule" id="scheme_entry_total_rule">
+        <field name="name">Scheme Entry Total multi-company</field>
+        <field name="model_id" ref="model_scheme_entry_total"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+   <record model="ir.rule" id="pjc_target_rule">
+        <field name="name">PJC Target multi-company</field>
+        <field name="model_id" ref="model_pjc_target"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+   <record model="ir.rule" id="pjc_items_rule">
+        <field name="name">PJC Items multi-company</field>
+        <field name="model_id" ref="model_pjc_items"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+   <record model="ir.rule" id="pjc_target_line_rule">
+        <field name="name">PJC Target Line multi-company</field>
+        <field name="model_id" ref="model_pjc_target_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+    
+  
+   <record model="ir.rule" id="pjc_entry_rule">
+        <field name="name">PJC Entry multi-company</field>
+        <field name="model_id" ref="model_pjc_entry"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+
+   <record model="ir.rule" id="pjc_product_line_rule">
+        <field name="name">PJC Product Line multi-company</field>
+        <field name="model_id" ref="model_pjc_product_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+ <!--   
+   <record model="ir.rule" id="pjc_today_line_rule">
+        <field name="name">PJC Today multi-company</field>
+        <field name="model_id" ref="model_pjc_today_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+-->
+
+    
+    <record model="ir.rule" id="scheme_credit_rule">
+        <field name="name">Scheme Credit multi-company</field>
+        <field name="model_id" ref="model_scheme_credit"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+    
+    <record model="ir.rule" id="scheme_credit_line_rule">
+        <field name="name">Scheme Credit Line multi-company</field>
+        <field name="model_id" ref="model_scheme_credit_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+   
+
+</data>
+</openerp>

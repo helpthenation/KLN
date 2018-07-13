@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+          
+            <report
+				id="sale_register_report_wiz"
+				model="sale.register.summary"
+				string="Sale Register"
+				report_type="qweb-pdf"
+				name="fnet_mline_sale_report.report_sale_register" 
+				file="fnet_mline_sale_report.report_sale_register"
+				menu="True"/>
+				
+            <report
+				id="sale_return_report_wiz"
+				model="sale.return.summary"
+				string="Sale Return"
+				report_type="qweb-pdf"
+				name="fnet_mline_sale_report.report_sale_return" 
+				file="fnet_mline_sale_report.report_sale_return"
+				menu="True"/>
+				
+            <report
+				id="purchase_register_report_wiz"
+				model="purchase.register.summary"
+				string="Purchase Register"
+				report_type="qweb-pdf"
+				name="fnet_mline_sale_report.report_purchase_register" 
+				file="fnet_mline_sale_report.report_purchase_register"
+				menu="True"/>
+				
+            <report
+				id="purchase_register_pending_report_wiz"
+				model="pending.purchase.register.summary"
+				string="Pending Purchase Register"
+				report_type="qweb-pdf"
+				name="fnet_mline_sale_report.report_purchase_register_pending" 
+				file="fnet_mline_sale_report.report_purchase_register_pending"
+				menu="True"/>				
+				
+			 <report
+				id="stock_ledger_summary_wiz"
+				model="stock.ledger.summary"
+				string="Stock Ledger"
+				report_type="qweb-pdf"
+				name="fnet_mline_sale_report.report_stock_ledger" 
+				file="fnet_mline_sale_report.report_stock_ledger"
+				menu="True"/>
+				
+			<report
+				id="purchase_register_consolidate_report_wiz"
+				model="purchase.register.consolidate"
+				string="Purchase Register Summary"
+				report_type="qweb-pdf"
+				name="fnet_mline_sale_report.report_purchase_register_consolidate" 
+				file="fnet_mline_sale_report.report_purchase_register_consolidate"
+				menu="True"/>
+				
+			<report
+				id="sale_register_consolidate_report_wiz"
+				model="sale.register.consolidate"
+				string="Sale Register Summary"
+				report_type="qweb-pdf"
+				name="fnet_mline_sale_report.report_sale_register_consolidate" 
+				file="fnet_mline_sale_report.report_sale_register_consolidate"
+				menu="True"/>
+				
+			<report
+				id="party_wise_sale_summary_report_wiz"
+				model="party.wise.sale.summary"
+				string="Party Wise Sale Summary"
+				report_type="qweb-pdf"
+				name="fnet_mline_sale_report.report_party_wise_sale_summary" 
+				file="fnet_mline_sale_report.report_party_wise_sale_summary"
+				menu="True"/>
+				
+			<report
+				id="sale_summary_report_wiz"
+				model="sale.summary"
+				string="Sale Summary"
+				report_type="qweb-pdf"
+				name="fnet_mline_sale_report.report_sale_summary" 
+				file="fnet_mline_sale_report.report_sale_summary"
+				menu="True"/>		
+				
+			<report
+				id="sale_summary_month_wise_report_wiz"
+				model="sale.summary.month.wise"
+				string="Sale Summary Month Wise"
+				report_type="qweb-pdf"
+				name="fnet_mline_sale_report.report_sale_summary_month_wise" 
+				file="fnet_mline_sale_report.report_sale_summary_month_wise"
+				menu="True"/>	
+				
+<!--
+			<report
+				id="salary_summary_report_wiz"
+				model="salary.summary.report"
+				string="Salary Summary"
+				report_type="qweb-pdf"
+				name="fnet_aea_sale_report.report_salary_summary" 
+				file="fnet_aea_sale_report.report_salary_summary"
+				menu="True"/>	
+-->
+			
+<!--
+			<report
+				id="sale_register_product1"
+				model="sale.register.product1"
+				string="Sale Return Product"
+				report_type="qweb-pdf"
+				name="fnet_aea_sale_report.report_sale_product1" 
+				file="fnet_aea_sale_report.report_sale_product1"
+				menu="True"/>
+-->
+				
+<!--
+		   <report
+				id="sale_register_product"
+				model="sale.register.product"
+				string="Sale Register Product"
+				report_type="qweb-pdf"
+				name="fnet_aea_sale_report.report_sale_product" 
+				file="fnet_aea_sale_report.report_sale_product"
+				menu="True"/>				
+-->
+				
+		   <report
+				id="enquiry_register_view"
+				model="enquiry.register"
+				string="Enquiry Register"
+				report_type="qweb-pdf"
+				name="fnet_mline_sale_report.report_enquiry_register" 
+				file="fnet_mline_sale_report.report_enquiry_register"
+				menu="True"/>	
+<!--
+		<report
+				id="job_costing_menu"
+				model="job.costing"
+				string="Job Costing"
+				report_type="qweb-pdf"
+				name="fnet_mline_sale_report.report_job_costing" 
+				file="fnet_mline_sale_report.report_job_costing"
+				menu="True"/>
+-->
+
+            <report
+				id="sale_register_pending_wiz"
+				model="sale.register.pending"
+				string="Pending Sale Register"
+				report_type="qweb-pdf"
+				name="fnet_mline_sale_report.report_sale_register_pending" 
+				file="fnet_mline_sale_report.report_sale_register_pending"
+				menu="True"/>	
+				
+			<report
+				id="purchase_return_report_wiz"
+				model="purchase.return.summary"
+				string="Purchase Return"
+				report_type="qweb-pdf"
+				name="fnet_mline_sale_report.report_po_return" 
+				file="fnet_mline_sale_report.report_po_return"
+				menu="True"/>							
+								
+           
+    </data>
+</openerp>

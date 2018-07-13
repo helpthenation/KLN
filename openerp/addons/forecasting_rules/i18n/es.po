@@ -1,0 +1,279 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* forecasting_rules
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-21 21:33+0000\n"
+"PO-Revision-Date: 2015-12-21 21:33+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: forecasting_rules
+#: code:addons/forecasting_rules/models/ir_filters.py:311
+#, python-format
+msgid " - The {context_key} key must exist in the filter record to be use as forcasting rule.\n"
+""
+msgstr " - La llave {context_key} debe existir el el filtero para ser usada en la regla de pronóstico.\n"
+""
+
+#. module: forecasting_rules
+#: code:addons/forecasting_rules/models/forecast.py:42
+#, python-format
+msgid " Fill the forecast values manually or uncheck Use Manual Data."
+msgstr " Rellene la data del pronóstico manualmente o deseleccione el campo Usar Data Manual."
+
+#. module: forecasting_rules
+#: code:addons/forecasting_rules/models/forecast.py:61
+#, python-format
+msgid " Missing Rule Filter: The current forecast rule have not filter defined so can not generate the forecast values."
+msgstr " No hay filtro de regla de pronóstico: La regla de pronóstico no posee un filtro de busqueda defindo para generar la data del pronóstico."
+
+#. module: forecasting_rules
+#: code:addons/forecasting_rules/models/forecast.py:47
+#, python-format
+msgid " There is not forecast rule to fill the values."
+msgstr " No hay regla de pronóstico para llenar los datos."
+
+#. module: forecasting_rules
+#: code:addons/forecasting_rules/models/ir_filters.py:75
+#, python-format
+msgid " You can use this options as forecast step"
+msgstr " Puedes utilizar estas opciones como paso de pronostico"
+
+#. module: forecasting_rules
+#: code:addons/forecasting_rules/models/ir_filters.py:61
+#, python-format
+msgid " is not a valid field in"
+msgstr " no es un campo valido en "
+
+#. module: forecasting_rules
+#: model:ir.filters,name:forecasting_rules.filter_demo_01
+msgid "(FRD01) 2015 Partners Credit Limit Forecast order by id (integer) until 2015-09-29"
+msgstr "(FRD01) 2015 Partners Credit Limit Forecast order by id (integer) until 2015-09-29"
+
+#. module: forecasting_rules
+#: model:ir.filters,name:forecasting_rules.filter_demo_02
+msgid "(FRD02) 2015 Partners Credit Limit Forecast order by message_last_post (datetime) until 2015-09-29"
+msgstr "(FRD02) 2015 Partners Credit Limit Forecast order by message_last_post (datetime) until 2015-09-29"
+
+#. module: forecasting_rules
+#: model:ir.filters,name:forecasting_rules.filter_demo_03
+msgid "(FRD03) 2015 Partners Credit Limit Forecast order by date until 2015-09-29"
+msgstr "(FRD03) 2015 Partners Credit Limit Forecast order by date until 2015-09-29"
+
+#. module: forecasting_rules
+#: model:ir.filters,name:forecasting_rules.filter_demo_04
+msgid "(FRD04) 2015 Partners Credit Limit Forecast order by date (group by day) until 2015-09-29"
+msgstr "(FRD04) 2015 Partners Credit Limit Forecast order by date (group by day) until 2015-09-29"
+
+#. module: forecasting_rules
+#: model:ir.filters,name:forecasting_rules.filter_demo_05
+msgid "(FRD05) 2015 Partners Credit Limit Forecast order by date (group by day - all days) until 2015-09-29"
+msgstr "(FRD05) 2015 Partners Credit Limit Forecast order by date (group by day - all days) until 2015-09-29"
+
+#. module: forecasting_rules
+#: model:ir.filters,name:forecasting_rules.filter_demo_06
+msgid "(FRD06) 2015 Partners Credit Limit Forecast order by date (group by month) until 2015-09-29"
+msgstr "(FRD06) 2015 Partners Credit Limit Forecast order by date (group by month) until 2015-09-29"
+
+#. module: forecasting_rules
+#: model:ir.filters,name:forecasting_rules.filter_demo_07
+msgid "(FRD07) Last 6 years Partners Credit Limit Forecast order by date (group by year)"
+msgstr "(FRD07) Last 6 years Partners Credit Limit Forecast order by date (group by year)"
+
+#. module: forecasting_rules
+#: code:addons/forecasting_rules/models/ir_filters.py:299
+#, python-format
+msgid "Context is not a valid python expression"
+msgstr "El contexto no e suna expresión python valida"
+
+#. module: forecasting_rules
+#: code:addons/forecasting_rules/models/ir_filters.py:304
+#, python-format
+msgid "Context must be a dictionary"
+msgstr "El contexto debe ser un diccionario"
+
+#. module: forecasting_rules
+#: field:forecasting.rule,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: forecasting_rules
+#: field:forecasting.rule,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: forecasting_rules
+#: code:addons/forecasting_rules/models/ir_filters.py:345
+#, python-format
+msgid "Domain is not a valid python expression"
+msgstr "El dominio no es una expresión python valida"
+
+#. module: forecasting_rules
+#: code:addons/forecasting_rules/models/ir_filters.py:350
+#, python-format
+msgid "Domain must be a list"
+msgstr "El dominio debe ser una lista"
+
+#. module: forecasting_rules
+#: code:addons/forecasting_rules/models/ir_filters.py:355
+#, python-format
+msgid "Domain must be a list of tuples"
+msgstr "El dominio debe ser una lista de tuplas"
+
+#. module: forecasting_rules
+#: view:forecast:forecasting_rules.forecast_forecast_rule_form
+msgid "Fill Values"
+msgstr "Llenar Valores"
+
+#. module: forecasting_rules
+#: field:forecasting.rule,filter_id:0
+msgid "Filter"
+msgstr "Filtro"
+
+#. module: forecasting_rules
+#: help:forecasting.rule,filter_id:0
+msgid "Filter that indicate what values are going to be extract for the forecast"
+msgstr "Filtro que indica que valores seran extraidos para el pronóstico"
+
+#. module: forecasting_rules
+#: model:ir.model,name:forecasting_rules.model_ir_filters
+msgid "Filters"
+msgstr "Filtros"
+
+#. module: forecasting_rules
+#: model:ir.model,name:forecasting_rules.model_forecast
+msgid "Forecast"
+msgstr "Pronóstico"
+
+#. module: forecasting_rules
+#: view:forecast:forecasting_rules.forecast_search_view
+#: field:forecast,rule_id:0
+msgid "Forecast Rule"
+msgstr "Regla de Pronóstico"
+
+#. module: forecasting_rules
+#: view:forecasting.rule:forecasting_rules.forecasting_rule_view_form
+msgid "Forecast Rule Name..."
+msgstr "Nombre de la Regla de Pronóstico"
+
+#. module: forecasting_rules
+#: help:forecast,rule_id:0
+msgid "Forecast Rule used to fill the forecast data values. You add a model and a ir.filter and used to extract the data to be used as forecast data"
+msgstr "Regla de Pronóstico utilizada para llenar la data del pronóstico. Necesitas un modelo y un filtro de busqueda para extraer los a utilizar como data pronóstico"
+
+#. module: forecasting_rules
+#: view:forecasting.rule:forecasting_rules.forecasting_rule_view_form
+#: model:ir.actions.act_window,name:forecasting_rules.action_view_forecasting_rule
+#: model:ir.model,name:forecasting_rules.model_forecasting_rule
+msgid "Forecasting Rule"
+msgstr "Regla de Pronóstico"
+
+#. module: forecasting_rules
+#: view:forecasting.rule:forecasting_rules.forecasting_rule_view_search
+#: view:forecasting.rule:forecasting_rules.forecasting_rule_view_tree
+#: model:ir.ui.menu,name:forecasting_rules.menu_forecasting_rule
+msgid "Forecasting Rules"
+msgstr "Reglas de Pronóstico"
+
+#. module: forecasting_rules
+#: view:forecast:forecasting_rules.forecast_search_view
+msgid "Group By"
+msgstr "Agrupar Por"
+
+#. module: forecasting_rules
+#: view:forecasting.rule:forecasting_rules.forecasting_rule_view_search
+msgid "Group by..."
+msgstr "Agrupar por..."
+
+#. module: forecasting_rules
+#: field:forecasting.rule,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: forecasting_rules
+#: help:forecast,manual_data:0
+msgid "Indicate if the forecast data used is external data introduce manually by the user"
+msgstr "Indica si los datos del pronóstico usados son datos externos introducidos manualmente por el usuario"
+
+#. module: forecasting_rules
+#: field:forecasting.rule,write_uid:0
+msgid "Last Updated by"
+msgstr "Ultima actualización por"
+
+#. module: forecasting_rules
+#: field:forecasting.rule,write_date:0
+msgid "Last Updated on"
+msgstr "Ultima actualización en"
+
+#. module: forecasting_rules
+#: view:forecast:forecasting_rules.forecast_view_tree
+msgid "Manual"
+msgstr "Manual"
+
+#. module: forecasting_rules
+#: view:forecast:forecasting_rules.forecast_search_view
+msgid "Manual Data"
+msgstr "Data Manual"
+
+#. module: forecasting_rules
+#: view:forecasting.rule:forecasting_rules.forecasting_rule_view_search
+msgid "Model"
+msgstr "Modelo"
+
+#. module: forecasting_rules
+#: field:forecasting.rule,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: forecasting_rules
+#: help:forecasting.rule,name:0
+msgid "Name to identify the Forecasting Rule"
+msgstr "Nombre para identificar la Regla de Pronóstico"
+
+#. module: forecasting_rules
+#: code:addons/forecasting_rules/models/ir_filters.py:74
+#, python-format
+msgid "Not valid context forecast_step value."
+msgstr "Valor paso de pronostico no valido"
+
+#. module: forecasting_rules
+#: code:addons/forecasting_rules/models/ir_filters.py:60
+#, python-format
+msgid "Not valid context value."
+msgstr "Valor en context no valido."
+
+#. module: forecasting_rules
+#: view:forecast:forecasting_rules.forecast_search_view
+msgid "Rule Data"
+msgstr "Regla"
+
+#. module: forecasting_rules
+#: code:addons/forecasting_rules/models/ir_filters.py:291
+#, python-format
+msgid "The context value you introduce is not a valid context"
+msgstr "El contexto introducido no es un context valido"
+
+#. module: forecasting_rules
+#: code:addons/forecasting_rules/models/ir_filters.py:337
+#, python-format
+msgid "The domain value you introduce is not a valid domain"
+msgstr "El dominio introducido no es un dominio valido"
+
+#. module: forecasting_rules
+#: view:forecast:forecasting_rules.forecast_forecast_rule_form
+msgid "This button will let you to add a data to the forecasting using the defined Forecasting Rule"
+msgstr "Este botón te permitira agregar data al pronóstico usando la regla de pronóstico definida"
+
+#. module: forecasting_rules
+#: field:forecast,manual_data:0
+msgid "Use Manual Data"
+msgstr "Usar Data Manual"
+

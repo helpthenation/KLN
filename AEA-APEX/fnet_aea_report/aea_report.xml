@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+            <report
+                id="invoice_report"
+                model="account.invoice"
+                string="AEA Invoice"
+                report_type="qweb-pdf"
+                name="fnet_aea_report.report_invoice" 
+                file="fnet_aea_report.report_invoice"
+                menu="True"/>
+                
+            <report
+                id="invoice_report_print"
+                model="account.invoice"
+                string="Printing"
+                report_type="qweb-pdf"
+                name="fnet_aea_report.report_invoice_print" 
+                file="fnet_aea_report.report_invoice_print"
+                menu="True"/>
+                
+            <report
+                id="bank_details_report"
+                model="check.details.rep"
+                string="Cheque Details Bank"
+                report_type="qweb-pdf"
+                name="fnet_aea_report.report_bank_details" 
+                file="fnet_aea_report.report_bank_details"
+                menu="True"/>
+                
+            <report
+                id="bank_bounce_details_report"
+                model="check.bounce.rep"
+                string="Cheque Bounce"
+                report_type="qweb-pdf"
+                name="fnet_aea_report.report_cheque_bounce" 
+                file="fnet_aea_report.report_cheque_bounce"
+                menu="True"/>
+                
+            <report
+                id="dd_bounce_details_report"
+                model="dd.bounce.rep"
+                string="Demand Draft"
+                report_type="qweb-pdf"
+                name="fnet_aea_report.report_dd_bounce" 
+                file="fnet_aea_report.report_dd_bounce"
+                menu="True"/>
+                
+            <report
+                id="chh_dd_report"
+                model="cheque.details"
+                string="Cheque/dd"
+                report_type="qweb-pdf"
+                name="fnet_aea_report.report_cheque" 
+                file="fnet_aea_report.report_cheque"
+                menu="True"/>
+    </data>
+</openerp>

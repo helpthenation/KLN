@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data> 
+            <record id="view_rd_update_tree" model="ir.ui.view">
+            <field name="name">view.rd.update.tree</field>
+            <field name="model">rd.update</field>
+            <field name="arch" type="xml">
+                <tree string="RD UPDATE">
+                    <field name="prod_categ_id"/>
+                    <field name="company_id" invisible="1"/>
+                 </tree>
+           </field>
+       </record>
+       <record id="view_rd_update_form" model="ir.ui.view">
+            <field name="name">view.rd.update.form</field>
+            <field name="model">rd.update</field>
+            <field name="arch" type="xml">
+                <form string="RD UPDATE">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="prod_categ_id" options="{'no_create_edit': True}"/>                                
+                            </group>
+                            <group>
+                               <field name="company_id" groups="base.group_multi_company"/> 
+                            </group>
+                        </group>
+                        <button groups="base.group_sale_manager" type="object" name="update_product_lines" string="Update" icon="terp-stock_format-scientific" colspan="2"/>            
+                    </sheet>   
+                </form>
+        </field>
+        </record>
+       <record id="action_view_rd_update" model="ir.actions.act_window">
+            <field name="name">RD Update</field>
+            <field name="res_model">rd.update</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_rd_update_form"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a RD Update.
+                </p><p>
+                    Create RD Update
+                </p>
+            </field>
+        </record> 
+     
+                
+     <menuitem action="action_view_rd_update"
+               id="menu_rd_update" 
+               name="RD Update"
+               groups="fnet_aea_rd_update.group_rd_update"
+               parent="fnet_aea_sale.menu_rd" 
+               sequence="300"/>   
+
+    <record id="view_rd_generate_tree" model="ir.ui.view">
+            <field name="name">view.rd.generate.tree</field>
+            <field name="model">rd.generate</field>
+            <field name="arch" type="xml">
+                <tree string="RD UPDATE">
+                    <field name="prod_categ_id"/>
+                    <field name="company_id" invisible="1"/>
+                 </tree>
+           </field>
+       </record>
+       <record id="view_rd_generate_form" model="ir.ui.view">
+            <field name="name">view.rd.generate.form</field>
+            <field name="model">rd.generate</field>
+            <field name="arch" type="xml">
+                <form string="RD UPDATE">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="prod_categ_id" options="{'no_create_edit': True}"/>                                
+                            </group>
+                            <group>
+                               <field name="company_id" groups="base.group_multi_company"/> 
+                               <field name="date_from"/> 
+                            </group>
+                        </group>
+                        <button groups="base.group_sale_manager" type="object" name="generate_stock_lines" string="Generate Opening Stock Entries" icon="terp-stock_format-scientific"/>            
+                    </sheet>   
+                </form>
+        </field>
+        </record>
+       <record id="action_view_rd_generate" model="ir.actions.act_window">
+            <field name="name">Generate Stock Opening</field>
+            <field name="res_model">rd.generate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_rd_generate_form"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to define a RD Update.
+                </p><p>
+                    Create RD Update
+                </p>
+            </field>
+        </record> 
+     
+                
+     <menuitem action="action_view_rd_generate"
+               id="menu_rd_generate" 
+               name="RD Generate Stock Opening"
+               groups="fnet_aea_rd_update.group_rd_update"
+               parent="fnet_aea_sale.menu_rd" 
+               sequence="500"/>   
+
+  </data>          
+</openerp>

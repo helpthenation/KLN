@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <function model="sale.entry" name="_updating_opening_sale"/>
+
+    </data>
+</openerp>

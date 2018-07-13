@@ -1,0 +1,723 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* forecasting_smoothing_techniques
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-14 19:28+0000\n"
+"PO-Revision-Date: 2015-10-14 19:28+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid ". Although there are numerical indicators for assessing the accuracy of the forecasting technique, the most widely approach is in using visual comparison of several forecasts to assess their accuracy and choose among the various forecasting methods. In this approach, one must plot (using, e.g., Excel) on the same graph the original values of a time series variable and the predicted values from several different forecasting methods, thus facilitating a visual comparison."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "A time series is a sequence of observations which are ordered in time. Inherent in the collection of data taken over time is some form of random variation. There exist methods for reducing of canceling the effect due to random variation. Widely used techniques are \"smoothing\". These techniques, when properly applied, reveals more clearly the underlying trends."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast,shelp:0
+msgid "Allows you to show the help in the form view"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast,mhelp:0
+msgid "Allows you to show the mathematic base help in the form view"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,exp_alpha:0
+#: field:forecast,holt_alpha:0
+msgid "Alpha"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: code:addons/forecasting_smoothing_techniques/models/forecast.py:227
+#: code:addons/forecasting_smoothing_techniques/models/forecast.py:237
+#, python-format
+msgid "Alpha should be between 0 and 1."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "An exponentially weighted moving average with a smoothing constant a, corresponds roughly to a simple moving average of length (i.e., period) n, where a and n are related by:"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,beta:0
+msgid "Beta"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: code:addons/forecasting_smoothing_techniques/models/forecast.py:247
+#, python-format
+msgid "Beta should be between 0 and 1."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_tree
+#: field:forecast.data,cma:0
+msgid "CMA"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast.data,cma_error:0
+msgid "CMA MA Error"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,cma_warning:0
+msgid "CMA WARNING"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Clear"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Clear the forecast values data to run the forecasting"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,create_uid:0
+#: field:forecast.data,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,create_date:0
+#: field:forecast.data,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Cumulative Moving Average"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,cma:0
+msgid "Cumulative Moving Average Forcasting (CMA)"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast.data:forecasting_smoothing_techniques.forecasting_data_view_form
+msgid "Data information"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Double Exponential Smoothing"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,es2:0
+msgid "Double Exponential Smoothing (ES2)"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_tree
+#: field:forecast.data,es1:0
+msgid "ES1"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast.data,es1_error:0
+msgid "ES1 MA Error"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_tree
+#: field:forecast.data,es2:0
+msgid "ES2"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast.data,es2_error:0
+msgid "ES2 MA Error"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_tree
+#: field:forecast.data,es3:0
+msgid "ES3"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast.data,es3_error:0
+msgid "ES3 MA Error"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,exp_warning:0
+msgid "EXP WARNING"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast,exp_alpha:0
+msgid "Exponential Alpha. A small alpha provides a detectable and visible smoothing. While a large alpha provides a fast response to the recent changes in the time series but provides a smaller amount of smoothing"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Exponential Smoothing"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: code:addons/forecasting_smoothing_techniques/tests/test_forecasting.py:82
+#, python-format
+msgid "Fall forecast calculation "
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Fill forecast values. Click over the List of Values button at the right-upper corner of this form and add the data to calcula the forecast. This data must be consecutive values, you can associate a label to identificate what the value means. You can add as many values as you want. When updating the values data the forecast will be re-compute automactly."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,message_follower_ids:0
+msgid "Followers"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "For deep mathematical explanation of the method you can check in"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "For most business data an Alpha parameter smaller than 0.40 is often effective. However, one may perform a grid search of the parameter space, with = 0.1 to = 0.9, with increments of 0.1. Then the best alpha has the smallest Mean Absolute Error (MA Error)."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_search
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_tree
+#: model:ir.actions.act_window,name:forecasting_smoothing_techniques.action_view_forecasting
+#: model:ir.model,name:forecasting_smoothing_techniques.model_forecast
+msgid "Forecast"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast.data:forecasting_smoothing_techniques.forecasting_data_view_form
+#: view:forecast.data:forecasting_smoothing_techniques.forecasting_data_view_graph
+#: view:forecast.data:forecasting_smoothing_techniques.forecasting_data_view_search
+#: view:forecast.data:forecasting_smoothing_techniques.forecasting_data_view_tree
+#: model:ir.actions.act_window,name:forecasting_smoothing_techniques.action_view_forecasting_data
+#: model:ir.model,name:forecasting_smoothing_techniques.model_forecast_data
+msgid "Forecast Data"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast.data,forecast_id:0
+msgid "Forecast id"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,forecast_id:0
+msgid "Forecast which this data is related to"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: model:ir.module.category,name:forecasting_smoothing_techniques.module_forecast
+#: model:ir.ui.menu,name:forecasting_smoothing_techniques.menu_forecasting
+msgid "Forecasting"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Forecasting Data"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast,holt_period:0
+msgid "Forecasting K periods into the future to calculate Holt's Linear Smoothing"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast.data:forecasting_smoothing_techniques.forecasting_data_view_form
+msgid "Forecasting Results"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: model:ir.ui.menu,name:forecasting_smoothing_techniques.menu_forecasting_technique
+msgid "Forecasts"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_tree
+#: field:forecast.data,holt:0
+msgid "HOLT"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast.data,holt_level:0
+msgid "HOLT LEVEL"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast.data,holt_error:0
+msgid "HOLT MA Error"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast.data,holt_trend:0
+msgid "HOLT TREND"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,holt_warning:0
+msgid "HOLT WARNING"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast,holt_alpha:0
+msgid "Holt's Alpha Parameter"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast,beta:0
+msgid "Holt's Beta Parameter"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Holt's Linear Smoothing"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,holt:0
+msgid "Holt's Linear Smoothing (HOLT)"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,holt_level:0
+msgid "Holt's Linear Smoothing Level function"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,holt_trend:0
+msgid "Holt's Linear Smoothing Trend function"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Holt's Linear Smotting"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,holt_period:0
+msgid "Holt's Period"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "How to compare several smoothing methods"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,id:0
+#: field:forecast.data,id:0
+msgid "ID"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,message_is_follower:0
+msgid "Is a Follower"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast.data,label:0
+msgid "Label"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,message_last_post:0
+msgid "Last Message Date"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,write_uid:0
+#: field:forecast.data,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,write_date:0
+#: field:forecast.data,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "List of Values"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "List of values"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast,value_ids:0
+msgid "List of values to be used to compute this forecast"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "MA Error"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: model:res.groups,name:forecasting_smoothing_techniques.forecast_group_manager
+msgid "Manager"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,cma_error:0
+msgid "Mean Absolute Error for CMA"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,es1_error:0
+msgid "Mean Absolute Error for ES1"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,es2_error:0
+msgid "Mean Absolute Error for ES2"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,es3_error:0
+msgid "Mean Absolute Error for ES3"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,holt_error:0
+msgid "Mean Absolute Error for HOLT"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,sma_error:0
+msgid "Mean Absolute Error for SMA"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,wma_error:0
+msgid "Mean Absolute Error for WMA"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,message_ids:0
+msgid "Messages"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast,message_ids:0
+msgid "Messages and communication history"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast,period:0
+msgid "Moving Average Period"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Moving Averages"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Moving averages rank among the most popular techniques for the pre processing of time series. They are used to filter random \"white noise\" from the data, to make the time series smoother or even to emphasize certain informational components contained in the time series."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,name:0
+msgid "Name"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast,name:0
+msgid "Name given by the user to quick reference the forecasting"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Name..."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: code:addons/forecasting_smoothing_techniques/models/forecast.py:357
+#, python-format
+msgid "Not not enough data to calculate forecast method"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Notice that the simple moving average is special case of the exponential smoothing by setting the period of the moving average to the integer part of (2-Alpha)/Alpha."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+#: field:forecast,period:0
+msgid "Period"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: code:addons/forecasting_smoothing_techniques/models/forecast.py:217
+#, python-format
+msgid "Period must be an integer greater than 1."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,sequence:0
+msgid "Position in the list regarding this list and this forecast"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Reset Defaults"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Reset the forecasting methods default parameter values"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_tree
+#: field:forecast.data,sma:0
+msgid "SMA"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast.data,sma_error:0
+msgid "SMA MA Error"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,sma_warning:0
+msgid "SMA WARNING"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast.data,sequence:0
+msgid "Sequence"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Set Holt's parameters to calculate the forecasting."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Set the Alpha to use to calculate the exponential smoothing forecasts."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Set the Period parameter to calculate the moving average forecasting. This period must be greater than one."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: sql_constraint:forecast.data:0
+msgid "Several sequences with the same value do not make sense yet!"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,shelp:0
+msgid "Show Help"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,mhelp:0
+msgid "Show Mathematic Base Help"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Simple Moving Average"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,sma:0
+msgid "Simple Moving Average Forcasting (SMA)"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Single Exponential Smoothing"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,es1:0
+msgid "Single Exponential Smoothing (ES1)"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Step 1:"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Step 2:"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Step 3:"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Step 4:"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,message_summary:0
+msgid "Summary"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Suppose that the time series is non-seasonal but does display trend. Holt’s method estimates both the current level and the current trend."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "The single exponential smoothing emphasizes the short-range perspective; it sets the level to the last observation and is based on the condition that there is no trend. The linear regression, which fits a least squares line to the historical data (or transformed historical data), represents the long range, which is conditioned on the basic trend. Holt’s linear exponential smoothing captures information about recent trend. The parameters in Holt’s model is levels-parameter which should be decreased when the amount of data variation is large, and trends-parameter should be increased if the recent trend direction is supported by the causal some factors."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: code:addons/forecasting_smoothing_techniques/tests/test_forecasting.py:383
+#, python-format
+msgid "There is not output for the enter count of periods"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "This is a very popular scheme to produce a smoothed Time Series. Whereas in Moving Averages the past observations are weighted equally, Exponential Smoothing assigns exponentially decreasing weights as the observation get older. In other words, recent observations are given relatively more weight in forecasting than the older observations."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Thus, for example, an exponentially weighted moving average with a smoothing constant equal to 0.1 would correspond roughly to a 19 day moving average. And a 40-day simple moving average would correspond roughly to an exponentially weighted moving average with a smoothing constant equal to 0.04878."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Title of this forcast"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Triple Exponential Smoothing"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,es3:0
+msgid "Triple Exponential Smoothing (ES3)"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,message_unread:0
+msgid "Unread Messages"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: model:res.groups,name:forecasting_smoothing_techniques.forecast_group_user
+msgid "User"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast.data,value:0
+msgid "Value"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,value_ids:0
+msgid "Values"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_tree
+#: field:forecast.data,wma:0
+msgid "WMA"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast.data,wma_error:0
+msgid "WMA MA Error"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: field:forecast,wma_warning:0
+msgid "WMA WARNING"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "Weighted Moving Average"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: help:forecast.data,wma:0
+msgid "Weighted Moving Average Forecasting (WMA)"
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "With ID..."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "a = 2/(n+1)    OR    n = (2 - a)/a."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "is better at handling parabola trends."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "is better at handling trends."
+msgstr ""
+
+#. module: forecasting_smoothing_techniques
+#: view:forecast:forecasting_smoothing_techniques.forecasting_view_form
+msgid "this link"
+msgstr ""
+
